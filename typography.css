@@ -1,1 +1,388 @@
-/* typography.css — type scale, font-face (Google Sans), utility classes .t-h1…t-c4 */
+/* typography.css
+   Font loading · Base styles · Type-scale utility classes
+   Classes mirror Figma token names: .t-h1…t-h6, .t-p1…t-p3, .t-c1…t-c4
+   plus component text styles for buttons and inputs.
+   All sizes and line-heights via var(--text-size-*) / var(--text-lh-*) from tokens.css. */
+
+/* ─────────────────────────────────────────────────────────────────
+   FONT LOADING
+   @import is used here for prototype convenience so the font resolves
+   from a single stylesheet load. In production, prefer the equivalent
+   <link> tag in each page's <head> for better performance:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+   ──────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+
+/* ─────────────────────────────────────────────────────────────────
+   BASE RESET & BODY
+   ──────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--text-size-p2);
+  line-height: var(--text-lh-p2);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+  background-color: var(--surface-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Images and media */
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove default list styling — restore with .list-styled where needed */
+ul, ol {
+  list-style: none;
+}
+
+/* Remove default anchor styling */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Buttons inherit font */
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; background: none; border: none; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   DEFAULT HEADING STYLES
+   Element selectors provide sensible defaults so markup renders
+   without requiring a .t-* class on every heading.
+   Override with .t-* utility classes when you need a different scale.
+   ──────────────────────────────────────────────────────────────── */
+
+h1 {
+  font-size:   var(--text-size-h1);
+  line-height: var(--text-lh-h1);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+h2 {
+  font-size:   var(--text-size-h2);
+  line-height: var(--text-lh-h2);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size:   var(--text-size-h3);
+  line-height: var(--text-lh-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+h4 {
+  font-size:   var(--text-size-h4);
+  line-height: var(--text-lh-h4);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+h5 {
+  font-size:   var(--text-size-h5);
+  line-height: var(--text-lh-h5);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+h6 {
+  font-size:   var(--text-size-h6);
+  line-height: var(--text-lh-h6);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+p {
+  font-size:   var(--text-size-p2);
+  line-height: var(--text-lh-p2);
+  color: var(--text-secondary);
+}
+
+/* Inline emphasis */
+strong, b { font-weight: var(--font-weight-bold);   color: var(--text-primary); }
+em, i      { font-style: italic; }
+small      { font-size: var(--text-size-p3); line-height: var(--text-lh-p3); }
+
+/* Code */
+code, pre, kbd {
+  font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+  font-size: var(--text-size-c1);
+  background: var(--surface-elevated);
+  border-radius: var(--radius-xxs);
+}
+code { padding: 1px 6px; }
+pre  { padding: var(--space-m); overflow-x: auto; }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   TYPE SCALE UTILITY CLASSES — .t-{level}
+   Mirror Figma token names. Override any heading element or apply
+   to non-heading elements that need a heading scale.
+   ──────────────────────────────────────────────────────────────── */
+
+.t-h1 {
+  font-size:   var(--text-size-h1);
+  line-height: var(--text-lh-h1);
+  font-weight: var(--font-weight-bold);
+}
+
+.t-h2 {
+  font-size:   var(--text-size-h2);
+  line-height: var(--text-lh-h2);
+  font-weight: var(--font-weight-bold);
+}
+
+.t-h3 {
+  font-size:   var(--text-size-h3);
+  line-height: var(--text-lh-h3);
+  font-weight: var(--font-weight-bold);
+}
+
+.t-h4 {
+  font-size:   var(--text-size-h4);
+  line-height: var(--text-lh-h4);
+  font-weight: var(--font-weight-medium);
+}
+
+.t-h5 {
+  font-size:   var(--text-size-h5);
+  line-height: var(--text-lh-h5);
+  font-weight: var(--font-weight-medium);
+}
+
+.t-h6 {
+  font-size:   var(--text-size-h6);
+  line-height: var(--text-lh-h6);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Body text */
+.t-p1 {
+  font-size:   var(--text-size-p1);
+  line-height: var(--text-lh-p1);
+  font-weight: var(--font-weight-regular);
+}
+
+.t-p2 {
+  font-size:   var(--text-size-p2);
+  line-height: var(--text-lh-p2);
+  font-weight: var(--font-weight-regular);
+}
+
+.t-p3 {
+  font-size:   var(--text-size-p3);
+  line-height: var(--text-lh-p3);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Captions and UI labels */
+.t-c1 {
+  font-size:   var(--text-size-c1);
+  line-height: var(--text-lh-c1);
+  font-weight: var(--font-weight-regular);
+}
+
+.t-c2 {
+  font-size:   var(--text-size-c2);
+  line-height: var(--text-lh-c2);
+  font-weight: var(--font-weight-regular);
+}
+
+.t-c3 {
+  font-size:   var(--text-size-c3);
+  line-height: var(--text-lh-c3);
+  font-weight: var(--font-weight-medium);  /* c3 is typically a medium-weight label */
+}
+
+.t-c4 {
+  font-size:   var(--text-size-c4);
+  line-height: var(--text-lh-c4);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;  /* micro labels need optical tracking */
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   BUTTON TEXT STYLES
+   Applied inside button components in components.css.
+   ──────────────────────────────────────────────────────────────── */
+
+.t-btn-huge {
+  font-size:   var(--text-size-btn-huge);
+  line-height: var(--text-lh-btn-huge);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.01em;
+}
+
+.t-btn-large {
+  font-size:   var(--text-size-btn-large);
+  line-height: var(--text-lh-btn-large);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.01em;
+}
+
+.t-btn-medium {
+  font-size:   var(--text-size-btn-medium);
+  line-height: var(--text-lh-btn-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+.t-btn-small {
+  font-size:   var(--text-size-btn-small);
+  line-height: var(--text-lh-btn-small);
+  font-weight: var(--font-weight-medium);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   INPUT TEXT STYLES
+   Applied inside input components in components.css.
+   ──────────────────────────────────────────────────────────────── */
+
+.t-input-label {
+  font-size:   var(--text-size-input-label);
+  line-height: var(--text-lh-input-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-muted);
+}
+
+.t-input-text {
+  font-size:   var(--text-size-input-text);
+  line-height: var(--text-lh-input-text);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+}
+
+.t-input-helper {
+  font-size:   var(--text-size-input-helper);
+  line-height: var(--text-lh-input-helper);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-secondary);
+}
+
+.t-input-error {
+  font-size:   var(--text-size-input-helper);
+  line-height: var(--text-lh-input-helper);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-error);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTION LABEL
+   The small uppercase category marker used above headings (HES pattern).
+   e.g. "OUR SERVICES", "HOW WE WORK"
+   ──────────────────────────────────────────────────────────────── */
+
+.section-label {
+  display: block;
+  font-size:      var(--text-size-c3);
+  line-height:    var(--text-lh-c3);
+  font-weight:    var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+}
+
+/* Muted variant — for less prominent labelling */
+.section-label--muted {
+  color: var(--text-muted);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   FONT WEIGHT UTILITIES
+   ──────────────────────────────────────────────────────────────── */
+
+.fw-regular { font-weight: var(--font-weight-regular); }
+.fw-medium  { font-weight: var(--font-weight-medium);  }
+.fw-bold    { font-weight: var(--font-weight-bold);    }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   TEXT COLOR UTILITIES
+   ──────────────────────────────────────────────────────────────── */
+
+.tc-primary       { color: var(--text-primary);      }
+.tc-secondary     { color: var(--text-secondary);    }
+.tc-tertiary      { color: var(--text-tertiary);     }
+.tc-muted         { color: var(--text-muted);        }
+.tc-accent        { color: var(--text-accent);       }
+.tc-accent-light  { color: var(--text-accent-light); }
+.tc-error         { color: var(--text-error);        }
+.tc-inverse       { color: var(--text-inverse);      }
+
+
+/* ─────────────────────────────────────────────────────────────────
+   MISC TEXT UTILITIES
+   ──────────────────────────────────────────────────────────────── */
+
+/* Single-line truncation */
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Multi-line clamp (most common: 2 and 3 line) */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Uppercase tracking */
+.uppercase    { text-transform: uppercase; }
+.tracked-wide { letter-spacing: 0.08em; }
+.tracked-xl   { letter-spacing: 0.12em; }
+
+/* No wrap */
+.nowrap { white-space: nowrap; }
+
+/* Balanced headline wrapping (Chrome 114+, progressive enhancement) */
+.text-balance { text-wrap: balance; }
+
+/* Styled list — re-enables default list appearance where needed */
+.list-styled {
+  list-style: disc;
+  padding-left: var(--space-m);
+}
+.list-styled li + li { margin-top: var(--space-3xs); }
+
+/* Ordered variant */
+.list-styled--ordered { list-style: decimal; }

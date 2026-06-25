@@ -1,1 +1,183 @@
-/* tokens.css — design tokens (one flat :root, Desktop-mode resolved values; Figma file emDaz5ZTNMna0jK1al4G9z) */
+/* tokens.css
+   Single flat :root — Desktop-mode resolved values only.
+   No two-tier aliasing, no modes, no media queries, no [data-theme].
+   The full Figma production system (two tiers, 3 responsive modes, 98+69 vars)
+   lives in figma-tokens-reference.md for the eventual production build.
+   Source file: emDaz5ZTNMna0jK1al4G9z ("VECTO universal style — TEST"). */
+
+:root {
+
+  /* ─────────────────────────────────────────────────────────────────
+     TYPOGRAPHY
+     ──────────────────────────────────────────────────────────────── */
+
+  --font-family: "Google Sans", system-ui, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-bold:    700;
+
+  /* Type sizes — Desktop column (px).
+     h3 is inferred (40px) — value truncated in figma-tokens-reference.md;
+     re-enumerate via Figma Plugin API at production build time. */
+  --text-size-h1:           56px;
+  --text-size-h2:           48px;
+  --text-size-h3:           40px;
+  --text-size-h4:           28px;
+  --text-size-h5:           22px;
+  --text-size-h6:           16px;
+  --text-size-p1:           20px;
+  --text-size-p2:           16px;
+  --text-size-p3:           14px;
+  --text-size-c1:           13px;
+  --text-size-c2:           12px;
+  --text-size-c3:           12px;
+  --text-size-c4:           10px;
+  --text-size-btn-huge:     24px;
+  --text-size-btn-large:    18px;
+  --text-size-btn-medium:   16px;
+  --text-size-btn-small:    13px;
+  --text-size-input-label:  14px;
+  --text-size-input-text:   20px;
+  --text-size-input-helper: 14px;
+
+  /* Line heights — Desktop column (px) */
+  --text-lh-h1:           64px;
+  --text-lh-h2:           56px;
+  --text-lh-h3:           48px;
+  --text-lh-h4:           32px;
+  --text-lh-h5:           28px;
+  --text-lh-h6:           20px;
+  --text-lh-p1:           32px;
+  --text-lh-p2:           24px;
+  --text-lh-p3:           20px;
+  --text-lh-c1:           16px;
+  --text-lh-c2:           16px;
+  --text-lh-c3:           16px;
+  --text-lh-c4:           12px;
+  --text-lh-btn-huge:     32px;
+  --text-lh-btn-large:    24px;
+  --text-lh-btn-medium:   24px;
+  --text-lh-btn-small:    16px;
+  --text-lh-input-label:  16px;
+  --text-lh-input-text:   24px;
+  --text-lh-input-helper: 16px;
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     COLORS — SURFACES
+     dark 1=#111214  dark 2=#222429  dark 3=#2B2C33  dark 4=#35363D
+     ──────────────────────────────────────────────────────────────── */
+
+  --surface-dark:     #222429;   /* primary page background    (dark 2) */
+  --surface-elevated: #2B2C33;   /* cards, panels              (dark 3) */
+  --surface-deep:     #111214;   /* deepest bg, hero sections  (dark 1) */
+  --surface-popout:   #35363D;   /* dropdowns, tooltips        (dark 4) */
+  --surface-accent:   #CA1D00;   /* accent-coloured surfaces   (brand/primary-2) */
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     COLORS — BRAND / ACCENT
+     ──────────────────────────────────────────────────────────────── */
+
+  --accent:       #CA1D00;   /* core brand red   (brand/primary-2) */
+  --accent-hover: #9E1300;   /* hover / darker   (brand/primary-1) */
+  --accent-light: #EB3213;   /* bright accent    (brand/primary-3) */
+  --focus:        #2BBAD6;   /* focus ring cyan  (brand/secondary-2) */
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     COLORS — TEXT
+     ──────────────────────────────────────────────────────────────── */
+
+  --text-primary:           #ffffff;                 /* full-white body text */
+  --text-secondary:         rgba(255,255,255,.48);   /* de-emphasised text   */
+  --text-tertiary:          rgba(255,255,255,.24);   /* placeholder, disabled */
+  --text-accent:            #CA1D00;                 /* accented inline text  */
+  --text-accent-light:      #EB3213;                 /* lighter accented text */
+  --text-muted:             #999BA3;                 /* captions, labels (dark 7) */
+  --text-inverse:           #222429;                 /* text on light surfaces */
+  --text-inverse-secondary: rgba(0,0,0,.48);
+  --text-error:             #E06531;
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     COLORS — BORDERS
+     ──────────────────────────────────────────────────────────────── */
+
+  --border-default:          #58595C;                /* standard border (dark 5) */
+  --border-light:            #DCDDE0;                /* light surface border (light 2) */
+  --border-accent:           #CA1D00;                /* brand / error border */
+  --border-focus:            #2BBAD6;                /* focus ring */
+  --border-focus-muted:      rgba(43,186,214,.56);   /* soft focus ring */
+  --border-semi-transparent: rgba(224,222,223,.16);  /* subtle dividers */
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     COLORS — OVERLAYS
+     ──────────────────────────────────────────────────────────────── */
+
+  --overlay-dark-1:   rgba(0,0,0,.48);       /* modal scrim */
+  --overlay-dark-2:   rgba(0,0,0,.24);       /* image tint */
+  --overlay-dark-3:   rgba(0,0,0,.12);       /* hover state */
+  --overlay-neutral:  rgba(48,49,56,.68);    /* nav dropdown backdrop */
+  --overlay-light-1:  rgba(255,255,255,.48);
+  --overlay-light-2:  rgba(255,255,255,.24);
+  --overlay-light-3:  rgba(255,255,255,.12);
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     COLORS — STATE
+     ──────────────────────────────────────────────────────────────── */
+
+  --error: #E06531;
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     SPACING — base scale (Desktop px values)
+     none · min · 4xs · 3xs · xxs · xs · s · m · l · xl · xxl · 3xl · 4xl
+     ──────────────────────────────────────────────────────────────── */
+
+  --space-none:    0px;
+  --space-min:     4px;
+  --space-4xs:     8px;
+  --space-3xs:     12px;
+  --space-xxs:     16px;
+  --space-xs:      20px;
+  --space-s:       24px;
+  --space-m:       32px;
+  --space-l:       40px;
+  --space-xl:      48px;
+  --space-xxl:     64px;
+  --space-3xl:     72px;
+  --space-4xl:     96px;
+  --space-neg-3xs: -12px;   /* special/negative-3xs */
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     LAYOUT (Desktop px values)
+     navbar-height, section-padding-v, grid-gap, grid-margins are
+     inferred from the spacing scale — exact Figma values were
+     truncated in figma-tokens-reference.md; re-confirm at production build.
+     ──────────────────────────────────────────────────────────────── */
+
+  --content-max-width: 1200px;   /* content-max-width Desktop */
+  --navbar-height:       72px;   /* = --space-3xl */
+  --section-padding-v:   96px;   /* = --space-4xl */
+  --grid-gap:            32px;   /* = --space-m   */
+  --grid-margins:        40px;   /* = --space-l   */
+
+
+  /* ─────────────────────────────────────────────────────────────────
+     CORNER RADIUS (px; consistent across modes)
+     ──────────────────────────────────────────────────────────────── */
+
+  --radius-none: 0px;
+  --radius-xxs:  4px;
+  --radius-xs:   8px;
+  --radius-s:    12px;
+  --radius-m:    24px;
+  --radius-l:    32px;
+  --radius-xl:   48px;
+  --radius-pill: 256px;   /* buttons and all pill-shaped elements */
+
+}
