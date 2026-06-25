@@ -1,1 +1,521 @@
-/* layout.css — .container, .section, editorial primitives (.split, .band, .rail, .feature-lead, .stat-band, .index-list), spacing utilities */
+/* layout.css
+   Containers · Editorial layout primitives · Grid helpers · Flex + spacing utilities
+   Desktop-only: single fixed values, no media queries.
+   All sizing via var(--…) — values resolved in tokens.css.
+   Core editorial primitives (.split, .band, .rail, .feature-lead, .stat-band,
+   .index-list) are the default building blocks. .grid-2/.grid-3 are for
+   deliberate, rare use only — not the default. */
+
+/* ─────────────────────────────────────────────────────────────────
+   LOCAL LAYOUT VARS
+   Supplements Figma layout tokens for wireframe-specific needs.
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  /* Narrow container — blog body, legal, glossary entries, article text */
+  --content-narrow-width: 760px;
+  /* Medium container — forms, focused content */
+  --content-medium-width: 960px;
+  /* Sidebar width for anchored long-form layouts */
+  --sidebar-width: 240px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CONTAINERS
+   ──────────────────────────────────────────────────────────────── */
+
+/* Primary centered container — max 1200px, side gutters = --grid-margins */
+.container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-margins);
+}
+
+/* Narrow container — editorial long-form, article bodies, legal */
+.container-narrow {
+  width: 100%;
+  max-width: var(--content-narrow-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-margins);
+}
+
+/* Medium container — forms, focused conversion pages */
+.container-medium {
+  width: 100%;
+  max-width: var(--content-medium-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-margins);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SECTIONS
+   Vertical breathing room between page blocks.
+   ──────────────────────────────────────────────────────────────── */
+
+.section {
+  padding-block: var(--section-padding-v);
+}
+
+/* Reduced padding — dense utility blocks, nested sections */
+.section--tight {
+  padding-block: var(--spacing-xxl);
+}
+
+/* Extra generous — hero-scale full-bleed moments */
+.section--generous {
+  padding-block: var(--spacing-4xl);
+}
+
+/* No vertical padding — padding handled by child or band */
+.section--flush {
+  padding-block: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   EDITORIAL PRIMITIVES
+   These are the structural vocabulary of the wireframe.
+   Use these before reaching for a card grid.
+   ──────────────────────────────────────────────────────────────── */
+
+/* ── SPLIT: image↔text alternating rows ── */
+
+/* 50/50 default — text left, visual right */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+  align-items: center;
+}
+
+/* Flip to visual left, text right */
+.split--reverse > :first-child { order: 2; }
+.split--reverse > :last-child  { order: 1; }
+
+/* 60/40 — text gets more weight */
+.split--60 {
+  grid-template-columns: 3fr 2fr;
+}
+
+/* 60/40 reversed — visual gets more weight */
+.split--60.split--reverse {
+  grid-template-columns: 2fr 3fr;
+}
+
+/* Align to top — for tall mixed-height content */
+.split--top {
+  align-items: start;
+}
+
+/* ── BAND: full-bleed section ── */
+
+/* A .band stretches edge-to-edge; put a .container inside for content */
+.band {
+  width: 100%;
+}
+
+/* Surface variants — applied alongside .band on the section element */
+.band--dark-deep  { background: var(--surface-dark-deep); }
+.band--dark       { background: var(--surface-dark); }
+.band--elevated   { background: var(--surface-dark-elevated); }
+.band--accent     { background: var(--surface-accent); }
+.band--popout     { background: var(--surface-popout); }
+
+/* ── RAIL: horizontal scroller for collections ── */
+
+/* A .rail holds cards/tiles that scroll horizontally beyond the container.
+   Use on the inner wrapper, not on .container (which clips overflow). */
+.rail {
+  display: flex;
+  gap: var(--grid-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  /* Breathing room so focus rings aren't clipped */
+  padding-block: var(--spacing-xs);
+  /* Hide scrollbar — decorative affordance only */
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar { display: none; }
+
+.rail > * {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* Fixed-width rail items — override per context as needed */
+.rail > .rail-item       { width: 320px; }
+.rail > .rail-item--wide { width: 480px; }
+.rail > .rail-item--sm   { width: 240px; }
+
+/* ── FEATURE LEAD: asymmetric lead item + smaller supporting items ── */
+
+/* Default: large lead (left, 3fr) + 2-item supporting column (right, 2fr).
+   Mark the primary item with .feature-lead__primary so it spans both rows. */
+.feature-lead {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--grid-gap);
+  align-items: start;
+}
+
+/* The lead item spans the full row height of the supporting column */
+.feature-lead__primary {
+  grid-row: span 2;
+}
+
+/* Reversed — supporting column left, lead right */
+.feature-lead--reverse {
+  grid-template-columns: 2fr 3fr;
+}
+.feature-lead--reverse .feature-lead__primary {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+/* 3-up variant: 1 large lead + 3 smaller tiles on the right */
+.feature-lead--3up {
+  grid-template-columns: 3fr 2fr;
+}
+.feature-lead--3up .feature-lead__primary {
+  grid-row: span 3;
+}
+
+/* ── STAT BAND: figures + labels inline across the full width ── */
+
+/* A horizontal strip of key metrics — [figure / label] pairs spaced evenly.
+   Not stat cards — one continuous band, figures and labels aligned. */
+.stat-band {
+  display: flex;
+  gap: var(--spacing-xxl);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.stat-band__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-min);
+  flex: 1;
+}
+
+.stat-band__figure {
+  /* Styled via .t-h2 or .t-h1 in typography.css */
+  line-height: 1;
+}
+
+.stat-band__label {
+  /* Styled via .t-p3 or .t-c1 in typography.css */
+}
+
+/* Divided variant — vertical rule between stats */
+.stat-band--divided .stat-band__item + .stat-band__item {
+  padding-left: var(--spacing-xxl);
+  border-left: 1px solid var(--border-default);
+}
+.stat-band--divided {
+  justify-content: flex-start;
+}
+
+/* ── INDEX LIST: categorized link index ── */
+
+/* Used for Technologies/Methodologies/Tools hubs, glossary, etc.
+   Categories as column headings, items as link lists below each. */
+.index-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-l) var(--grid-gap);
+  align-items: start;
+}
+
+/* 2-column variant */
+.index-list--2col { grid-template-columns: repeat(2, 1fr); }
+
+/* 4-column variant — for larger indexes */
+.index-list--4col { grid-template-columns: repeat(4, 1fr); }
+
+.index-list__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* Category heading — styled via .t-c1 / section-label in typography.css */
+.index-list__heading {
+  padding-bottom: var(--spacing-3xs);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.index-list__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3xs);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   ANCHORED LONG-FORM LAYOUT
+   For reference/template pages: sticky sidebar TOC + scrolling body.
+   Used on: blog posts, glossary entries, technology/methodology/tool pages.
+   ──────────────────────────────────────────────────────────────── */
+
+.doc-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  gap: var(--spacing-xxl);
+  align-items: start;
+}
+
+.doc-layout__sidebar {
+  position: sticky;
+  top: calc(var(--navbar-height) + var(--spacing-m));
+  max-height: calc(100vh - var(--navbar-height) - var(--spacing-4xl));
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.doc-layout__sidebar::-webkit-scrollbar { display: none; }
+
+.doc-layout__body {
+  min-width: 0; /* prevents grid blowout */
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   GRID HELPERS
+   For deliberate, rare use — not the default building block.
+   Prefer the editorial primitives above.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Two columns — deliberate asymmetric override recommended via style attr */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+}
+
+/* Three columns — suitable for Tier 3 utility indexes only */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+}
+
+/* Asymmetric two-column variants */
+.grid-2--40-60 { grid-template-columns: 2fr 3fr; }
+.grid-2--60-40 { grid-template-columns: 3fr 2fr; }
+.grid-2--30-70 { grid-template-columns: 3fr 7fr; }
+
+/* Align helpers for grids */
+.grid-top    { align-items: start; }
+.grid-center { align-items: center; }
+
+/* ─────────────────────────────────────────────────────────────────
+   FLEX UTILITIES
+   ──────────────────────────────────────────────────────────────── */
+
+.flex         { display: flex; }
+.flex-col     { display: flex; flex-direction: column; }
+.flex-wrap    { flex-wrap: wrap; }
+.flex-nowrap  { flex-wrap: nowrap; }
+
+.flex-center  { align-items: center; justify-content: center; }
+.flex-vcenter { align-items: center; }
+.flex-between { align-items: center; justify-content: space-between; }
+.flex-end     { justify-content: flex-end; }
+.flex-start   { justify-content: flex-start; }
+.flex-stretch { align-items: stretch; }
+.flex-top     { align-items: flex-start; }
+.flex-bottom  { align-items: flex-end; }
+
+.flex-1       { flex: 1; }
+.flex-shrink-0 { flex-shrink: 0; }
+.min-w-0      { min-width: 0; } /* prevents flex/grid blowout */
+
+/* ─────────────────────────────────────────────────────────────────
+   SPACING UTILITIES
+   Keyed to the spacing/base scale from tokens.css.
+   Names match Figma token suffixes: min · 4xs · 3xs · xxs · xs
+                                      s · m · l · xl · xxl · 3xl · 4xl
+   ──────────────────────────────────────────────────────────────── */
+
+/* gap — for flex and grid contexts */
+.gap-min  { gap: var(--spacing-min);  }
+.gap-4xs  { gap: var(--spacing-4xs);  }
+.gap-3xs  { gap: var(--spacing-3xs);  }
+.gap-xxs  { gap: var(--spacing-xxs);  }
+.gap-xs   { gap: var(--spacing-xs);   }
+.gap-s    { gap: var(--spacing-s);    }
+.gap-m    { gap: var(--spacing-m);    }
+.gap-l    { gap: var(--spacing-l);    }
+.gap-xl   { gap: var(--spacing-xl);   }
+.gap-xxl  { gap: var(--spacing-xxl);  }
+.gap-3xl  { gap: var(--spacing-3xl);  }
+.gap-4xl  { gap: var(--spacing-4xl);  }
+
+/* row-gap / column-gap overrides */
+.row-gap-s   { row-gap: var(--spacing-s);  }
+.row-gap-m   { row-gap: var(--spacing-m);  }
+.row-gap-l   { row-gap: var(--spacing-l);  }
+.row-gap-xl  { row-gap: var(--spacing-xl); }
+.col-gap-s   { column-gap: var(--spacing-s);  }
+.col-gap-m   { column-gap: var(--spacing-m);  }
+.col-gap-l   { column-gap: var(--spacing-l);  }
+
+/* margin-top */
+.mt-min  { margin-top: var(--spacing-min);  }
+.mt-4xs  { margin-top: var(--spacing-4xs);  }
+.mt-3xs  { margin-top: var(--spacing-3xs);  }
+.mt-xxs  { margin-top: var(--spacing-xxs);  }
+.mt-xs   { margin-top: var(--spacing-xs);   }
+.mt-s    { margin-top: var(--spacing-s);    }
+.mt-m    { margin-top: var(--spacing-m);    }
+.mt-l    { margin-top: var(--spacing-l);    }
+.mt-xl   { margin-top: var(--spacing-xl);   }
+.mt-xxl  { margin-top: var(--spacing-xxl);  }
+.mt-3xl  { margin-top: var(--spacing-3xl);  }
+.mt-4xl  { margin-top: var(--spacing-4xl);  }
+
+/* margin-bottom */
+.mb-min  { margin-bottom: var(--spacing-min);  }
+.mb-4xs  { margin-bottom: var(--spacing-4xs);  }
+.mb-3xs  { margin-bottom: var(--spacing-3xs);  }
+.mb-xxs  { margin-bottom: var(--spacing-xxs);  }
+.mb-xs   { margin-bottom: var(--spacing-xs);   }
+.mb-s    { margin-bottom: var(--spacing-s);    }
+.mb-m    { margin-bottom: var(--spacing-m);    }
+.mb-l    { margin-bottom: var(--spacing-l);    }
+.mb-xl   { margin-bottom: var(--spacing-xl);   }
+.mb-xxl  { margin-bottom: var(--spacing-xxl);  }
+.mb-3xl  { margin-bottom: var(--spacing-3xl);  }
+.mb-4xl  { margin-bottom: var(--spacing-4xl);  }
+
+/* padding-top */
+.pt-min  { padding-top: var(--spacing-min);  }
+.pt-4xs  { padding-top: var(--spacing-4xs);  }
+.pt-3xs  { padding-top: var(--spacing-3xs);  }
+.pt-xxs  { padding-top: var(--spacing-xxs);  }
+.pt-xs   { padding-top: var(--spacing-xs);   }
+.pt-s    { padding-top: var(--spacing-s);    }
+.pt-m    { padding-top: var(--spacing-m);    }
+.pt-l    { padding-top: var(--spacing-l);    }
+.pt-xl   { padding-top: var(--spacing-xl);   }
+.pt-xxl  { padding-top: var(--spacing-xxl);  }
+.pt-3xl  { padding-top: var(--spacing-3xl);  }
+.pt-4xl  { padding-top: var(--spacing-4xl);  }
+
+/* padding-bottom */
+.pb-min  { padding-bottom: var(--spacing-min);  }
+.pb-4xs  { padding-bottom: var(--spacing-4xs);  }
+.pb-3xs  { padding-bottom: var(--spacing-3xs);  }
+.pb-xxs  { padding-bottom: var(--spacing-xxs);  }
+.pb-xs   { padding-bottom: var(--spacing-xs);   }
+.pb-s    { padding-bottom: var(--spacing-s);    }
+.pb-m    { padding-bottom: var(--spacing-m);    }
+.pb-l    { padding-bottom: var(--spacing-l);    }
+.pb-xl   { padding-bottom: var(--spacing-xl);   }
+.pb-xxl  { padding-bottom: var(--spacing-xxl);  }
+.pb-3xl  { padding-bottom: var(--spacing-3xl);  }
+.pb-4xl  { padding-bottom: var(--spacing-4xl);  }
+
+/* padding-block shorthand (top + bottom) */
+.py-xs   { padding-block: var(--spacing-xs);   }
+.py-s    { padding-block: var(--spacing-s);    }
+.py-m    { padding-block: var(--spacing-m);    }
+.py-l    { padding-block: var(--spacing-l);    }
+.py-xl   { padding-block: var(--spacing-xl);   }
+.py-xxl  { padding-block: var(--spacing-xxl);  }
+.py-3xl  { padding-block: var(--spacing-3xl);  }
+.py-4xl  { padding-block: var(--spacing-4xl);  }
+
+/* padding-inline shorthand (left + right) */
+.px-xs   { padding-inline: var(--spacing-xs);   }
+.px-s    { padding-inline: var(--spacing-s);    }
+.px-m    { padding-inline: var(--spacing-m);    }
+.px-l    { padding-inline: var(--spacing-l);    }
+.px-xl   { padding-inline: var(--spacing-xl);   }
+.px-xxl  { padding-inline: var(--spacing-xxl);  }
+
+/* margin-inline: auto — centering shorthand */
+.mx-auto { margin-inline: auto; }
+
+/* ─────────────────────────────────────────────────────────────────
+   MISCELLANEOUS LAYOUT HELPERS
+   ──────────────────────────────────────────────────────────────── */
+
+/* Escape the container to stretch full viewport width */
+.full-bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* Sticky positioning relative to navbar bottom */
+.sticky-below-nav {
+  position: sticky;
+  top: var(--navbar-height);
+  z-index: 10;
+}
+
+/* For sticky in-page anchor strips and filter bars */
+.sticky-bar {
+  position: sticky;
+  top: var(--navbar-height);
+  z-index: 20;
+  background: var(--surface-dark);
+}
+
+/* Overflow helpers */
+.overflow-hidden { overflow: hidden; }
+.overflow-x-auto { overflow-x: auto; }
+
+/* Width helpers */
+.w-full  { width: 100%; }
+.h-full  { height: 100%; }
+.max-w-full { max-width: 100%; }
+
+/* Aspect ratios — for image placeholder blocks */
+.ratio-16-9  { aspect-ratio: 16 / 9; }
+.ratio-4-3   { aspect-ratio: 4 / 3; }
+.ratio-3-2   { aspect-ratio: 3 / 2; }
+.ratio-1-1   { aspect-ratio: 1; }
+.ratio-21-9  { aspect-ratio: 21 / 9; }
+
+/* Image/media placeholder block */
+.img-block {
+  width: 100%;
+  background: var(--surface-dark-elevated);
+  border-radius: var(--radius-s);
+  overflow: hidden;
+  display: block;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin-block: var(--spacing-m);
+}
+
+.divider--subtle {
+  border-top-color: var(--border-semi-transparent);
+}
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Text alignment */
+.text-center { text-align: center; }
+.text-right  { text-align: right; }
+.text-left   { text-align: left; }
+
+/* Relative positioning — for absolute children (badges, overlays) */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.inset-0  { inset: 0; }
