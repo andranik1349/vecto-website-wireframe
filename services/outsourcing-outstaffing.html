@@ -1,1 +1,903 @@
-<!-- Outsourcing & Outstaffing — IA §branch-services › Outsourcing & Outstaffing (11 blocks) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Outsourcing &amp; Outstaffing — VECTO</title>
+  <meta name="description" content="Plug expert engineers into your team — fast. Outsource a whole team we run, or augment yours with engineers you manage directly. Same vetted talent, you choose the model.">
+
+  <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <link rel="stylesheet" href="../components.css">
+  <link rel="stylesheet" href="../layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .section-head { margin-bottom: var(--space-l); }
+    .section-head .section-label { margin-bottom: var(--space-3xs); }
+    .hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
+
+    /* ── 2 · What's included — two sub-service cards + comparison table ── */
+    .sub2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
+    .sub2 .card { display: flex; flex-direction: column; gap: var(--space-3xs); }
+    .sub2__tag { display: inline-flex; align-items: center; gap: var(--space-4xs); color: var(--text-accent); }
+    .sub2__tag i { width: 16px; height: 16px; }
+    .cmp-scroll { overflow-x: auto; margin-top: var(--space-xl); }
+    .cmp-table th:not(:first-child),
+    .cmp-table td:not(:first-child) { width: 38%; }
+
+    /* ── 3 · Benefits — stat band (quantified proof points) ── */
+    .benefits-stats .stat-band__figure { color: var(--text-accent); }
+
+    /* ── 5 · Tech stack — same 33 as Software Development ── */
+    .tech-stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
+    .tech-stack__group { display: flex; flex-direction: column; gap: var(--space-3xs); }
+    .tech-stack__count { color: var(--text-tertiary); font-weight: var(--font-weight-regular); }
+    .tech-stack__tags { display: flex; flex-wrap: wrap; gap: var(--space-4xs); }
+
+    /* ── 6 · Cases — team-extension, retention-led ── */
+    .case3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+    .case3 .card { display: flex; flex-direction: column; gap: var(--space-4xs); }
+    .case3__figure {
+      font-size: var(--text-size-h2); line-height: 1;
+      font-weight: var(--font-weight-bold); color: var(--text-accent);
+    }
+
+    /* ── 7 · Engagement — two models, mapped to the sub-services ── */
+    .eng2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap); align-items: start; }
+    .eng-card__map { color: var(--text-accent); font-weight: var(--font-weight-medium); }
+
+    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-l); }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║  _nav.html — pasted at DEPTH 1 (../ prefixes)                           ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+
+    <!-- Logo lockup → homepage -->
+    <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+      <i data-lucide="hexagon" aria-hidden="true"></i>
+      VECTO
+    </a>
+
+    <!-- Primary navigation -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Primary">
+
+      <!-- Services ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../services/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
+          Services <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Who We Serve ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../who-we-serve/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
+          Who We Serve <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Our Work (direct link, no dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../our-work/index.html">Our Work</a>
+      </div>
+
+      <!-- How We Work ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../how-we-work/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
+          How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Resources ▾ (dropdown) -->
+      <div class="nav__item">
+        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-resources">
+          Resources <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </button>
+
+        <div class="dropdown dropdown--resources" id="mm-resources" role="region" aria-label="Resources" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Blog</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../blog/index.html">Latest posts</a></li>
+                <li><a class="dropdown__link" href="../blog/index.html">By topic</a></li>
+                <li><a class="dropdown__link" href="../blog/authors/jane-doe.html">Authors</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Glossary</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../glossary/index.html">Tech terms, explained</a></li>
+                <li><a class="dropdown__link" href="../glossary/index.html">Browse A–Z</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Tools</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../get-an-estimate.html">Project Estimator</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About ▾ (dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../about/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
+          About <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+
+        <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The company</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">History</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Partners</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The team</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">Leadership</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Team &amp; specialists</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Careers</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Trust &amp; contact</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/security-compliance.html">Security &amp; Compliance</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../schedule-a-call.html">Schedule a Call</a></li>
+                <li><a class="dropdown__link" href="../contact.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- Right cluster: persistent CTA (desktop-only — no hamburger) -->
+    <div class="topbar__actions">
+      <a class="btn btn--main btn--medium nav__cta" href="../get-an-estimate.html">
+        Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       MEGAMENU PANELS (full-width; children of <header> so left/right:0 span
+       the bar). Opened by the matching nav__link via aria-controls.
+       ───────────────────────────────────────────────────────────────────── -->
+
+  <!-- Services megamenu — six sequential stages + cross-cutting AI band -->
+  <div class="megamenu megamenu--services" id="mm-services" role="region" aria-label="Services" hidden>
+    <div class="megamenu__inner">
+      <p class="section-label">From idea to live product — every stage covered</p>
+
+      <!-- AI Transformation — distinct cross-cutting band -->
+      <div class="megamenu__ai-band">
+        <div>
+          <span class="megamenu__heading">AI Transformation — our cross-cutting competency</span>
+          <p class="megamenu__link-desc">Not a stage, but expertise that runs through discovery, design, build and support: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering.</p>
+        </div>
+        <a class="btn btn--secondary-light btn--small" href="../services/ai-transformation.html">
+          Explore AI Transformation <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="megamenu__cols">
+        <!-- Discover & Validate -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Discover &amp; Validate</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/it-consulting.html"><strong>IT Consulting</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Market Analysis</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Transformation Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Startup Ideation &amp; Feasibility</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Conceptualization</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Financial Modelling</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Specification</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Cost &amp; Time Estimation</a></li>
+          </ul>
+        </div>
+
+        <!-- Design -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Design</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/product-design.html"><strong>Product Design</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UI Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UX Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Prototyping &amp; Wireframing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">User Testing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Customer Journey Mapping</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Redesign</a></li>
+          </ul>
+        </div>
+
+        <!-- Build (primary stage) -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Build</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/software-development.html"><strong>Software Development</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Web Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Mobile App Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">E-commerce Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">CRM / ERP Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Bot &amp; Game Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SPA / PWA Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">3rd Party Integrations</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Platform Migration</a></li>
+          </ul>
+        </div>
+
+        <!-- Grow -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Grow</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/marketing.html"><strong>Marketing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Marketing Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Full Digital Marketing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SEO · GEO · ASO</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Lead Generation</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">PPC · SMM</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Branding</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Copywriting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <!-- Scale -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Scale</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/outsourcing-outstaffing.html"><strong>Outsourcing &amp; Outstaffing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Team Outsourcing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Staff Augmentation</a></li>
+          </ul>
+        </div>
+
+        <!-- Maintain -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Maintain</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/support-maintenance.html"><strong>Support &amp; Maintenance</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Support</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Audit &amp; Troubleshooting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Security &amp; Performance</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Hosting &amp; Infrastructure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../services/index.html">
+          Need it all? See our end-to-end Digital Transformation service <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Who We Serve megamenu — two-axis panel (company stage × industry) -->
+  <div class="megamenu megamenu--who-we-serve" id="mm-who" role="region" aria-label="Who We Serve" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">By company stage</span>
+          <p class="megamenu__link-desc">Where you are right now</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a><span class="megamenu__link-desc">pre-revenue, building MVP</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Scale-up</a><span class="megamenu__link-desc">product-market fit, growing fast</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Small Business</a><span class="megamenu__link-desc">established, modernising</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a><span class="megamenu__link-desc">multi-team, accelerating</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Enterprise</a><span class="megamenu__link-desc">complex stack, regulated</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col megamenu__col--industries">
+          <span class="megamenu__heading">By industry</span>
+          <p class="megamenu__link-desc">What you sell, who you serve</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Tech</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Finance</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Healthcare</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Travel &amp; Hospitality</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Retail · E-commerce</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Education</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Manufacturing</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Media &amp; Entertainment</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Sport</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Professional Services</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Non-Profit</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Beauty &amp; Wellness</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../our-work/index.html">
+          Browse all case studies <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <span class="megamenu__link-desc">With stage and industry filter chips pre-populated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- How We Work megamenu — three columns (Process · Engagement · Reference) -->
+  <div class="megamenu megamenu--how-we-work" id="mm-howwework" role="region" aria-label="How We Work" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Our Process</span>
+          <p class="megamenu__link-desc">5-step engagement journey</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/process.html#kickoff">1 · Kickoff</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#scoping">2 · Scoping</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#execute">3 · Execute</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#launch">4 · Launch</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#iterate">5 · Iterate</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Engagement Models</span>
+          <p class="megamenu__link-desc">How we charge &amp; staff</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Fixed Price</a><span class="megamenu__link-desc">defined scope, fixed cost</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Time &amp; Material</a><span class="megamenu__link-desc">flexible scope, hourly</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Dedicated Team</a><span class="megamenu__link-desc">your team, our payroll</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Outstaffing</a><span class="megamenu__link-desc">engineers into your team</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Reference</span>
+          <p class="megamenu__link-desc">What we build with</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/technologies/index.html">Technologies — full stack index <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/methodologies/index.html">Methodologies — how we run delivery <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/tools/index.html">Tools — what we work in day-to-day <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../get-an-estimate.html">
+          Not sure where to start? Get a ballpark in 90 seconds <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<main role="main">
+
+  <!-- ═══ 1 · HERO ═══════════════════════════════════════════════════════ -->
+  <section class="band band--dark-deep section">
+    <div class="container">
+      <nav class="breadcrumb mb-s" aria-label="Breadcrumb">
+        <a class="breadcrumb__item" href="../index.html">Home</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <a class="breadcrumb__item" href="index.html">Services</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <span class="breadcrumb__item" aria-current="page">Outsourcing &amp; Outstaffing</span>
+      </nav>
+      <p class="section-label">Outsourcing &amp; Outstaffing</p>
+      <h1 class="t-h1 text-balance" style="max-width: 16ch">Plug expert engineers into your team — fast.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 62ch">Two ways to add senior engineers without the hiring grind: <strong class="tc-primary">outsource</strong> a whole team we run for you, or <strong class="tc-primary">outstaff</strong> — augment yours with people you manage directly. Same vetted talent; you choose how much of the wheel you hold.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2 · WHAT'S INCLUDED — two sub-services + comparison table ══════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">What's included</p>
+        <h2 class="t-h2">Two models. The only real question is who runs the team.</h2>
+        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 60ch">Most buyers don't know the difference until someone draws the line — so here it is, plainly.</p>
+      </div>
+
+      <div class="sub2">
+        <a class="card" href="../services/web-development.html">
+          <span class="sub2__tag section-label"><i data-lucide="users" aria-hidden="true"></i> We run it</span>
+          <h3 class="t-h4">Team Outsourcing</h3>
+          <p class="t-p2 tc-secondary">A full squad — engineers, QA, a delivery lead — that we staff and manage against your goals. You point at the outcome; we own the how.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Explore Team Outsourcing <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+        <a class="card" href="../services/web-development.html">
+          <span class="sub2__tag section-label"><i data-lucide="user-plus" aria-hidden="true"></i> You run it</span>
+          <h3 class="t-h4">Staff Augmentation</h3>
+          <p class="t-p2 tc-secondary">Individual senior engineers who join your team and take direction from your managers — extra capacity in your process, not a separate one.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Explore Staff Augmentation <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+      </div>
+
+      <div class="cmp-scroll">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th scope="col">How they differ</th>
+              <th scope="col">Team Outsourcing</th>
+              <th scope="col">Staff Augmentation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Who manages day-to-day</th>
+              <td>We do — our delivery lead</td>
+              <td>You do — your managers</td>
+            </tr>
+            <tr>
+              <th scope="row">Best for</th>
+              <td>A whole function or product you want owned end-to-end</td>
+              <td>Filling specific skill gaps in a team you already run</td>
+            </tr>
+            <tr>
+              <th scope="row">What you provide</th>
+              <td>The goals and priorities</td>
+              <td>The management, process, and direction</td>
+            </tr>
+            <tr>
+              <th scope="row">What we provide</th>
+              <td>The team, the process, and the delivery</td>
+              <td>The engineers</td>
+            </tr>
+            <tr>
+              <th scope="row">Typical shape</th>
+              <td>A full squad (PM, devs, QA)</td>
+              <td>One to several individual engineers</td>
+            </tr>
+            <tr>
+              <th scope="row">Maps to engagement model</th>
+              <td>Dedicated Team</td>
+              <td>Outstaffing</td>
+            </tr>
+            <tr>
+              <th scope="row">Typical ramp-up</th>
+              <td>~2–3 weeks</td>
+              <td>~1–2 weeks</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · BENEFITS — stat band ═══════════════════════════════════════ -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Why teams choose this</p>
+        <h2 class="t-h2">A team, without the year it takes to hire one.</h2>
+      </div>
+      <div class="benefits-stats">
+        <div class="stat-band stat-band--divided">
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h2">~2 wks</span>
+            <span class="stat-band__label t-p3 tc-secondary">Speed-to-team — from brief to first commit</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h2">1–20+</span>
+            <span class="stat-band__label t-p3 tc-secondary">Flexible capacity — scale up or down on demand</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h2">Zero</span>
+            <span class="stat-band__label t-p3 tc-secondary">Recruitment, screening, or HR overhead on you</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h2">4–6 hrs</span>
+            <span class="stat-band__label t-p3 tc-secondary">Daily overlap with your working day (EU / CIS)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · MINI-PROCESS — scale-specific 5 steps ═════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">How a team engagement runs</p>
+          <h2 class="t-h2">From brief to a team that's delivering.</h2>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="../how-we-work/process.html">See the full process <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="process-strip">
+        <div class="process-step">
+          <span class="process-step__num">1</span>
+          <span class="process-step__title">Brief</span>
+          <span class="process-step__desc">Tell us the skills, the stack, and the timeline.</span>
+        </div>
+        <div class="process-step">
+          <span class="process-step__num">2</span>
+          <span class="process-step__title">Match</span>
+          <span class="process-step__desc">We propose vetted engineers; you interview and approve.</span>
+        </div>
+        <div class="process-step">
+          <span class="process-step__num">3</span>
+          <span class="process-step__title">Onboard</span>
+          <span class="process-step__desc">Access, context, and into your tools and rituals.</span>
+        </div>
+        <div class="process-step process-step--active">
+          <span class="process-step__num">4</span>
+          <span class="process-step__title">Run</span>
+          <span class="process-step__desc">The team delivers — in your process, or ours.</span>
+        </div>
+        <div class="process-step">
+          <span class="process-step__num">5</span>
+          <span class="process-step__title">Adjust</span>
+          <span class="process-step__desc">Scale the team up or down as the work changes.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · TECH STACK — same 33 as Software Development ═══════════════ -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">The depth of talent on tap</p>
+          <h2 class="t-h2">The same 33-technology stack — and the people who know it.</h2>
+          <p class="t-p1 tc-secondary mt-3xs" style="max-width: 62ch">Whatever you're staffing for, the bench runs deep across frontend, backend, and infrastructure.</p>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="../how-we-work/technologies/index.html">Explore all technologies <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="tech-stack">
+        <div class="tech-stack__group">
+          <span class="megamenu__heading">Frontend <span class="tech-stack__count">· 10</span></span>
+          <div class="tech-stack__tags">
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">React.js</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">React Native</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Vue.js</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Next.js</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">JavaScript</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">TypeScript</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Tailwind CSS</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Ant Design</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Elementor</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">WordPress</a>
+          </div>
+        </div>
+        <div class="tech-stack__group">
+          <span class="megamenu__heading">Backend <span class="tech-stack__count">· 13</span></span>
+          <div class="tech-stack__tags">
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Node.js</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">C#</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">.NET</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">PHP</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Laravel</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">WooCommerce</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">PostgreSQL</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Redis</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Elastic Search</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Kafka</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Microservices</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Cloud Transcoding</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">AI</a>
+          </div>
+        </div>
+        <div class="tech-stack__group">
+          <span class="megamenu__heading">Infrastructure &amp; DevOps <span class="tech-stack__count">· 10</span></span>
+          <div class="tech-stack__tags">
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">AWS</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Docker</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Kubernetes</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Terraform</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Cloud</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Grafana</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Sentry</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Mapbox</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">GitHub Actions</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Nginx</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6 · CASE STUDIES — team-extension, retention-led ═══════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">Proof</p>
+          <h2 class="t-h2">Teams that stuck around.</h2>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="../our-work/index.html">All team work <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="case3">
+        <a class="card" href="../our-work/fintech-platform.html">
+          <span class="case3__figure">0</span>
+          <p class="t-p3 tc-secondary">turnover in three years</p>
+          <h3 class="t-h5 mt-3xs">A five-engineer squad since Series A</h3>
+          <p class="t-p3 tc-secondary mt-4xs">Scale-up SaaS · Team Outsourcing — same faces, compounding context, no rehiring.</p>
+        </a>
+        <a class="card" href="../our-work/fintech-platform.html">
+          <span class="case3__figure">2→12</span>
+          <p class="t-p3 tc-secondary">engineers in one quarter</p>
+          <h3 class="t-h5 mt-3xs">A team scaled for a product push</h3>
+          <p class="t-p3 tc-secondary mt-4xs">FinTech · Staff Augmentation — ramped up fast, then tapered. No hiring, no layoffs.</p>
+        </a>
+        <a class="card" href="../our-work/fintech-platform.html">
+          <span class="case3__figure">94%</span>
+          <p class="t-p3 tc-secondary">retention across placements</p>
+          <h3 class="t-h5 mt-3xs">Engineers who tend to stay</h3>
+          <p class="t-p3 tc-secondary mt-4xs">Across the board — the whole point of a team you can actually rely on.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7 · ENGAGEMENT MODELS — maps to the two sub-services ═══════════ -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">How we'd staff it</p>
+        <h2 class="t-h2">The model decision is the buying decision.</h2>
+        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 60ch">Each sub-service maps to exactly one engagement model — pick the way of working, and the rest follows.</p>
+      </div>
+      <div class="eng2">
+        <div class="card">
+          <p class="t-p3 eng-card__map mt-4xs">For Team Outsourcing</p>
+          <h3 class="t-h4">Dedicated Team</h3>
+          <p class="t-p2 tc-secondary mt-4xs">A full squad we staff, run, and deliver with — on our payroll, focused on your roadmap. You set the goals; we own the how.</p>
+          <a class="btn btn--text btn--small mt-3xs" style="padding-left:0" href="../how-we-work/engagement-models.html">How it works <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="card">
+          <p class="t-p3 eng-card__map mt-4xs">For Staff Augmentation</p>
+          <h3 class="t-h4">Outstaffing</h3>
+          <p class="t-p2 tc-secondary mt-4xs">Individual engineers embedded in your team and managed by you, day to day — we handle employment, you handle direction.</p>
+          <a class="btn btn--text btn--small mt-3xs" style="padding-left:0" href="../how-we-work/engagement-models.html">How it works <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8 · FAQ — 4 questions verbatim from IA ════════════════════════ -->
+  <section class="section">
+    <div class="container container-medium">
+      <div class="section-head text-center">
+        <p class="section-label">Straight answers</p>
+        <h2 class="t-h2">Before you add to the team.</h2>
+      </div>
+      <div class="accordion" data-accordion="single">
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-1">
+            How fast can you spin up a team? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="oo-faq-1" hidden>
+            <p class="t-p2 tc-secondary">Usually two to three weeks for a dedicated team, and faster for a single augmentation. We propose matched, pre-vetted engineers; you interview and approve everyone before they start.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-2">
+            Who manages day-to-day? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="oo-faq-2" hidden>
+            <p class="t-p2 tc-secondary">It depends on the model. With Team Outsourcing, our delivery lead manages the team day-to-day against your goals. With Staff Augmentation, your managers run the engineers directly — we just handle employment and HR.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-3">
+            How do you handle people leaving? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="oo-faq-3" hidden>
+            <p class="t-p2 tc-secondary">We plan for it. Knowledge is documented rather than siloed in one person's head, and we backfill a departing engineer with continuity — onboarding their replacement on our time, not yours.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-4">
+            What about IP and contracts? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="oo-faq-4" hidden>
+            <p class="t-p2 tc-secondary">All IP is yours, assigned in the contract from day one. NDAs and standard EU-compliant agreements are in place before any work begins — you own everything the team produces, full stop.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 9 · TALK TO A SPECIALIST ═══════════════════════════════════════ -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Talk to a specialist</p>
+        <h2 class="t-h2">Ask the person who'd actually build your team.</h2>
+      </div>
+      <div class="specialist">
+        <span class="specialist__photo" aria-hidden="true"></span>
+        <div class="specialist__info">
+          <span class="specialist__name">Tigran Avagyan</span>
+          <span class="specialist__role">Delivery Lead</span>
+          <div class="specialist__ctas">
+            <a class="btn btn--ghost btn--small" href="mailto:tigran@vecto.digital">Email me</a>
+            <a class="btn btn--main btn--small" href="../schedule-a-call.html">Book 15 min <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 10 · RELATED SERVICES ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Related services</p>
+        <h2 class="t-h2">What the team works on.</h2>
+      </div>
+      <div class="related-grid">
+        <a class="card" href="../services/software-development.html">
+          <h3 class="t-h5">Software Development</h3>
+          <p class="t-p3 tc-secondary">The work the team does — the same engineering, staffed as a team instead of a project.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Explore <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+        <a class="card" href="../services/support-maintenance.html">
+          <h3 class="t-h5">Support &amp; Maintenance</h3>
+          <p class="t-p3 tc-secondary">When the team's role is ongoing — keep the product running once it's live.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Explore <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ 11 · Sticky Estimator CTA — shown on scroll by prototype.js ═════ -->
+<aside class="sticky-estimator" aria-label="Get an estimate">
+  <span class="sticky-estimator__copy">Need a team? Get a ballpark.</span>
+  <a class="btn btn--main btn--small" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+</aside>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__cols">
+
+      <!-- 1 · Services (7 categories + All services) -->
+      <nav class="footer-col" aria-label="Services">
+        <span class="footer-col__heading">Services</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../services/ai-transformation.html">AI Transformation</a>
+          <a class="footer-link" href="../services/software-development.html">Software Development</a>
+          <a class="footer-link" href="../services/product-design.html">Product Design</a>
+          <a class="footer-link" href="../services/marketing.html">Marketing</a>
+          <a class="footer-link" href="../services/it-consulting.html">IT Consulting</a>
+          <a class="footer-link" href="../services/support-maintenance.html">Support &amp; Maintenance</a>
+          <a class="footer-link" href="../services/outsourcing-outstaffing.html">Outsourcing &amp; Outstaffing</a>
+          <a class="footer-link" href="../services/index.html">All services →</a>
+        </div>
+      </nav>
+
+      <!-- 2 · Industries & Stage (industries + company stages, full list) -->
+      <nav class="footer-col" aria-label="Industries and company stage">
+        <span class="footer-col__heading">Industries &amp; Stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../industries/healthcare.html">Tech</a>
+          <a class="footer-link" href="../industries/healthcare.html">Finance</a>
+          <a class="footer-link" href="../industries/healthcare.html">Healthcare</a>
+          <a class="footer-link" href="../industries/healthcare.html">Travel &amp; Hospitality</a>
+          <a class="footer-link" href="../industries/healthcare.html">Retail · E-commerce</a>
+          <a class="footer-link" href="../industries/healthcare.html">Education</a>
+          <a class="footer-link" href="../industries/healthcare.html">Manufacturing</a>
+          <a class="footer-link" href="../industries/healthcare.html">Media &amp; Entertainment</a>
+          <a class="footer-link" href="../industries/healthcare.html">Sport</a>
+          <a class="footer-link" href="../industries/healthcare.html">Professional Services</a>
+          <a class="footer-link" href="../industries/healthcare.html">Non-Profit</a>
+          <a class="footer-link" href="../industries/healthcare.html">Beauty &amp; Wellness</a>
+        </div>
+        <span class="footer-col__subheading">By stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Scale-up</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Small Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Enterprise</a>
+        </div>
+      </nav>
+
+      <!-- 3 · Service Areas (country pages — SEO surface, not built this session) -->
+      <nav class="footer-col" aria-label="Service areas">
+        <span class="footer-col__heading">Service Areas</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="#">United States</a>
+          <a class="footer-link" href="#">United Kingdom</a>
+          <a class="footer-link" href="#">Germany</a>
+          <a class="footer-link" href="#">United Arab Emirates</a>
+          <a class="footer-link" href="#">Canada</a>
+          <a class="footer-link" href="#">Australia</a>
+          <a class="footer-link" href="#">Armenia</a>
+        </div>
+      </nav>
+
+      <!-- 4 · Resources -->
+      <nav class="footer-col" aria-label="Resources">
+        <span class="footer-col__heading">Resources</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../blog/index.html">Blog</a>
+          <a class="footer-link" href="../glossary/index.html">Glossary</a>
+          <a class="footer-link" href="../get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="../how-we-work/engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="../how-we-work/process.html">Process</a>
+          <a class="footer-link" href="../how-we-work/technologies/index.html">Technologies</a>
+          <a class="footer-link" href="../how-we-work/methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="../how-we-work/tools/index.html">Tools</a>
+          <a class="footer-link" href="#">2025 in review</a>
+        </div>
+      </nav>
+
+      <!-- 5 · Company -->
+      <nav class="footer-col" aria-label="Company">
+        <span class="footer-col__heading">Company</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../about/index.html">About</a>
+          <a class="footer-link" href="../about/index.html">Team</a>
+          <a class="footer-link" href="../about/index.html">Careers</a>
+          <a class="footer-link" href="../about/security-compliance.html">Security &amp; Compliance</a>
+          <a class="footer-link" href="../about/index.html">Partners</a>
+          <a class="footer-link" href="../about/index.html">Press</a>
+          <a class="footer-link" href="../contact.html">Contact</a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Utility row — logo · legal · social · copyright -->
+    <div class="site-footer__utility">
+      <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+        <i data-lucide="hexagon" aria-hidden="true"></i>
+        VECTO
+      </a>
+
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="../legal/privacy.html">Privacy</a>
+        <a href="../legal/terms.html">Terms</a>
+        <a href="../legal/cookies.html">Cookies</a>
+        <a href="../legal/sitemap.html">Sitemap</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="VECTO on LinkedIn"><i data-lucide="share-2" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on X"><i data-lucide="at-sign" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on GitHub"><i data-lucide="code" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on Instagram"><i data-lucide="camera" aria-hidden="true"></i></a>
+      </div>
+
+      <p class="site-footer__copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../prototype.js"></script>
+</body>
+</html>
