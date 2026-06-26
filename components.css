@@ -618,6 +618,10 @@ a.card:hover,
 .nav__item.is-open > .nav__link svg,
 .nav__link[aria-expanded="true"] svg { transform: rotate(180deg); }
 
+/* Active section (set by prototype.js initActiveNav) */
+.nav__link--current,
+.nav__link[aria-current="page"] { color: var(--text-primary); }
+
 /* Right cluster — hamburger affordance + persistent CTA */
 .topbar__actions {
   display: flex;
