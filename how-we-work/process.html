@@ -1,1 +1,952 @@
-<!-- Process — IA §branch-howwework › Process (12 blocks) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Process — How We Work — VECTO</title>
+  <meta name="description" content="From first conversation to live product — every step, no surprises. Our five-step engagement journey: Kickoff, Scoping, Execute, Launch, Iterate — with durations, deliverables, and who's involved at each.">
+
+  <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <link rel="stylesheet" href="../components.css">
+  <link rel="stylesheet" href="../layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .section-head { margin-bottom: var(--space-l); }
+    .section-head .section-label { margin-bottom: var(--space-3xs); }
+    .hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
+
+    /* ── 2 · Process visualisation — interactive expandable strip ── */
+    .viz-hint { color: var(--text-tertiary); font-size: var(--text-size-c1); margin-top: var(--space-3xs); display: inline-flex; align-items: center; gap: var(--space-4xs); }
+    .viz-hint svg { width: 14px; height: 14px; }
+    .process-step__toggle {
+      display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4xs);
+      width: 100%; padding: 0; text-align: left;
+      background: none; border: 0; color: inherit; font: inherit; cursor: pointer;
+    }
+    .process-step__more {
+      display: inline-flex; align-items: center; gap: var(--space-min);
+      color: var(--text-accent); font-size: var(--text-size-c1); font-weight: var(--font-weight-medium);
+      margin-top: var(--space-min);
+    }
+    .process-step__more svg { width: 14px; height: 14px; transition: transform .18s ease; }
+    .process-step.is-expanded .process-step__more svg { transform: rotate(180deg); }
+    .process-step__detail {
+      margin-top: var(--space-3xs); padding-top: var(--space-3xs);
+      border-top: 1px solid var(--border-semi-transparent);
+    }
+
+    /* ── 4–8 · Stage anatomy ── */
+    .stage-num { font-size: var(--text-size-h1); line-height: 1; color: var(--text-accent); font-weight: var(--font-weight-bold); }
+    .stage-dur {
+      display: inline-flex; align-items: center; gap: var(--space-min);
+      margin-top: var(--space-3xs); padding: var(--space-min) var(--space-3xs);
+      border: 1px solid var(--border-default); border-radius: var(--radius-pill);
+      color: var(--text-secondary); font-size: var(--text-size-c1);
+    }
+    .stage-dur svg { width: 14px; height: 14px; }
+    .anatomy { display: flex; flex-direction: column; }
+    .anatomy__row {
+      display: grid; grid-template-columns: 160px 1fr; gap: var(--space-s);
+      padding-block: var(--space-3xs); align-items: start;
+      border-top: 1px solid var(--border-semi-transparent);
+    }
+    .anatomy__row:first-child { border-top: 0; }
+    .anatomy__label { color: var(--text-muted); font-size: var(--text-size-c1); text-transform: uppercase; letter-spacing: 0.08em; }
+    .anatomy__val { color: var(--text-secondary); }
+
+    /* ── 9 · Sample first 30 days ── */
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
+    .tl-week {
+      display: flex; flex-direction: column; gap: var(--space-4xs);
+      padding-top: var(--space-3xs); border-top: 2px solid var(--accent);
+    }
+    .tl-week__tag { color: var(--text-accent); font-size: var(--text-size-c1); text-transform: uppercase; letter-spacing: 0.08em; font-weight: var(--font-weight-medium); }
+    .ph-figure { display: flex; flex-direction: column; gap: var(--space-3xs); }
+    .ph-figure .media-ph { width: 100%; }
+    .ph-figure__cap { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-tertiary); font-size: var(--text-size-c1); }
+    .ph-figure__cap i { width: 14px; height: 14px; flex: 0 0 auto; }
+
+    /* ── 10 · Communication cadence ── */
+    .cadence { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap); }
+    .cadence__icon {
+      width: var(--space-xl); height: var(--space-xl); flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-m); background: var(--surface-accent); color: var(--text-primary);
+      margin-bottom: var(--space-4xs);
+    }
+
+    /* ── 11 · Tools ── */
+    .tools-tags { display: flex; flex-wrap: wrap; gap: var(--space-4xs); }
+
+    /* ── 12 · Closing dual CTA ── */
+    .cta-band { text-align: center; }
+    .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
+  </style>
+</head>
+<body>
+
+<!-- Placeholder links (build-plan §4.4): tool links → tools/jira.html (the built
+     tool template) — in production each resolves to its own /tools/[tool] page.
+     Industry/sub-service/stage links in the shared nav are placeholders too. -->
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║  _nav.html — pasted at DEPTH 1 (../ prefixes)                           ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+
+    <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+      <i data-lucide="hexagon" aria-hidden="true"></i>
+      VECTO
+    </a>
+
+    <nav class="nav" id="nav" role="navigation" aria-label="Primary">
+
+      <div class="nav__item">
+        <a class="nav__link" href="../services/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
+          Services <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="../who-we-serve/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
+          Who We Serve <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="../our-work/index.html">Our Work</a>
+      </div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
+          How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="nav__item">
+        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-resources">
+          Resources <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </button>
+
+        <div class="dropdown dropdown--resources" id="mm-resources" role="region" aria-label="Resources" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Blog</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../blog/index.html">Latest posts</a></li>
+                <li><a class="dropdown__link" href="../blog/index.html">By topic</a></li>
+                <li><a class="dropdown__link" href="../blog/authors/jane-doe.html">Authors</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Glossary</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../glossary/index.html">Tech terms, explained</a></li>
+                <li><a class="dropdown__link" href="../glossary/index.html">Browse A–Z</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Tools</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../get-an-estimate.html">Project Estimator</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav__item">
+        <a class="nav__link" href="../about/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
+          About <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+
+        <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The company</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">History</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Partners</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The team</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">Leadership</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Team &amp; specialists</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Careers</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Trust &amp; contact</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/security-compliance.html">Security &amp; Compliance</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../schedule-a-call.html">Schedule a Call</a></li>
+                <li><a class="dropdown__link" href="../contact.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <div class="topbar__actions">
+      <a class="btn btn--main btn--medium nav__cta" href="../get-an-estimate.html">
+        Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- MEGAMENU PANELS -->
+
+  <div class="megamenu megamenu--services" id="mm-services" role="region" aria-label="Services" hidden>
+    <div class="megamenu__inner">
+      <p class="section-label">From idea to live product — every stage covered</p>
+
+      <div class="megamenu__ai-band">
+        <div>
+          <span class="megamenu__heading">AI Transformation — our cross-cutting competency</span>
+          <p class="megamenu__link-desc">Not a stage, but expertise that runs through discovery, design, build and support: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering.</p>
+        </div>
+        <a class="btn btn--secondary-light btn--small" href="../services/ai-transformation.html">
+          Explore AI Transformation <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="megamenu__cols">
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Discover &amp; Validate</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/it-consulting.html"><strong>IT Consulting</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Market Analysis</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Transformation Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Startup Ideation &amp; Feasibility</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Conceptualization</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Financial Modelling</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Specification</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Cost &amp; Time Estimation</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Design</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/product-design.html"><strong>Product Design</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UI Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UX Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Prototyping &amp; Wireframing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">User Testing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Customer Journey Mapping</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Redesign</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Build</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/software-development.html"><strong>Software Development</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Web Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Mobile App Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">E-commerce Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">CRM / ERP Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Bot &amp; Game Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SPA / PWA Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">3rd Party Integrations</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Platform Migration</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Grow</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/marketing.html"><strong>Marketing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Marketing Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Full Digital Marketing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SEO · GEO · ASO</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Lead Generation</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">PPC · SMM</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Branding</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Copywriting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Scale</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/outsourcing-outstaffing.html"><strong>Outsourcing &amp; Outstaffing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Team Outsourcing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Staff Augmentation</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Maintain</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/support-maintenance.html"><strong>Support &amp; Maintenance</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Support</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Audit &amp; Troubleshooting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Security &amp; Performance</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Hosting &amp; Infrastructure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../services/index.html">
+          Need it all? See our end-to-end Digital Transformation service <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="megamenu megamenu--who-we-serve" id="mm-who" role="region" aria-label="Who We Serve" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">By company stage</span>
+          <p class="megamenu__link-desc">Where you are right now</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a><span class="megamenu__link-desc">pre-revenue, building MVP</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Scale-up</a><span class="megamenu__link-desc">product-market fit, growing fast</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Small Business</a><span class="megamenu__link-desc">established, modernising</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a><span class="megamenu__link-desc">multi-team, accelerating</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Enterprise</a><span class="megamenu__link-desc">complex stack, regulated</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col megamenu__col--industries">
+          <span class="megamenu__heading">By industry</span>
+          <p class="megamenu__link-desc">What you sell, who you serve</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Tech</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Finance</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Healthcare</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Travel &amp; Hospitality</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Retail · E-commerce</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Education</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Manufacturing</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Media &amp; Entertainment</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Sport</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Professional Services</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Non-Profit</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Beauty &amp; Wellness</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../our-work/index.html">
+          Browse all case studies <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <span class="megamenu__link-desc">With stage and industry filter chips pre-populated</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="megamenu megamenu--how-we-work" id="mm-howwework" role="region" aria-label="How We Work" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Our Process</span>
+          <p class="megamenu__link-desc">5-step engagement journey</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="process.html#kickoff">1 · Kickoff</a></li>
+            <li><a class="megamenu__link" href="process.html#scoping">2 · Scoping</a></li>
+            <li><a class="megamenu__link" href="process.html#execute">3 · Execute</a></li>
+            <li><a class="megamenu__link" href="process.html#launch">4 · Launch</a></li>
+            <li><a class="megamenu__link" href="process.html#iterate">5 · Iterate</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Engagement Models</span>
+          <p class="megamenu__link-desc">How we charge &amp; staff</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="engagement-models.html#fixed">Fixed Price</a><span class="megamenu__link-desc">defined scope, fixed cost</span></li>
+            <li><a class="megamenu__link" href="engagement-models.html#tm">Time &amp; Material</a><span class="megamenu__link-desc">flexible scope, hourly</span></li>
+            <li><a class="megamenu__link" href="engagement-models.html#dedicated">Dedicated Team</a><span class="megamenu__link-desc">your team, our payroll</span></li>
+            <li><a class="megamenu__link" href="engagement-models.html#outstaffing">Outstaffing</a><span class="megamenu__link-desc">engineers into your team</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Reference</span>
+          <p class="megamenu__link-desc">What we build with</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="technologies/index.html">Technologies — full stack index <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="methodologies/index.html">Methodologies — how we run delivery <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="tools/index.html">Tools — what we work in day-to-day <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../get-an-estimate.html">
+          Not sure where to start? Get a ballpark in 90 seconds <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<main role="main">
+
+  <!-- ═══ 1 · HERO ═══════════════════════════════════════════════════════ -->
+  <section class="band band--dark-deep section">
+    <div class="container">
+      <nav class="breadcrumb mb-s" aria-label="Breadcrumb">
+        <a class="breadcrumb__item" href="../index.html">Home</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <a class="breadcrumb__item" href="index.html">How We Work</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <span class="breadcrumb__item" aria-current="page">Process</span>
+      </nav>
+      <p class="section-label">Our Process</p>
+      <h1 class="t-h1 text-balance" style="max-width: 22ch">From first conversation to live product — every step, no surprises.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 62ch">This is how a single engagement runs, whichever service you're buying. Five steps, each with a clear duration, a defined output, and a named person on both sides. The #1 question we hear — "what's it actually like to work with you?" — answered up front.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky in-page anchor nav (jumps to the five stage blocks) -->
+  <div class="anchor-bar sticky-below-nav">
+    <div class="container">
+      <nav class="anchor-nav anchor-nav--plain" aria-label="Process stages">
+        <a class="anchor-nav__link anchor-nav__link--active" href="#kickoff">1 · Kickoff</a>
+        <a class="anchor-nav__link" href="#scoping">2 · Scoping</a>
+        <a class="anchor-nav__link" href="#execute">3 · Execute</a>
+        <a class="anchor-nav__link" href="#launch">4 · Launch</a>
+        <a class="anchor-nav__link" href="#iterate">5 · Iterate</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ═══ 2 · PROCESS VISUALISATION (interactive, expandable) ═════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">The journey at a glance</p>
+        <h2 class="t-h2">Five steps, one connected journey.</h2>
+        <p class="viz-hint"><i data-lucide="mouse-pointer-click" aria-hidden="true"></i> Click any step to see what it involves.</p>
+      </div>
+
+      <div class="process-strip">
+        <div class="process-step">
+          <button class="process-step__toggle" type="button">
+            <span class="process-step__num">1</span>
+            <span class="process-step__title">Kickoff</span>
+            <span class="process-step__desc">Align on goals, users, and what success looks like.</span>
+            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </button>
+          <div class="process-step__detail">
+            <p class="t-p3 tc-secondary">~1 week. We leave with a shared definition of done and a one-page charter.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <button class="process-step__toggle" type="button">
+            <span class="process-step__num">2</span>
+            <span class="process-step__title">Scoping</span>
+            <span class="process-step__desc">Turn the idea into a costed, sequenced plan.</span>
+            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </button>
+          <div class="process-step__detail">
+            <p class="t-p3 tc-secondary">~1–2 weeks. You get a scoped backlog, an estimate, and a recommended model.</p>
+          </div>
+        </div>
+        <div class="process-step process-step--active">
+          <button class="process-step__toggle" type="button">
+            <span class="process-step__num">3</span>
+            <span class="process-step__title">Execute</span>
+            <span class="process-step__desc">Design and build in tight iterations you can see.</span>
+            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </button>
+          <div class="process-step__detail">
+            <p class="t-p3 tc-secondary">The bulk of the work. A working demo every two weeks — never a black box.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <button class="process-step__toggle" type="button">
+            <span class="process-step__num">4</span>
+            <span class="process-step__title">Launch</span>
+            <span class="process-step__desc">Ship to production with the safeguards in place.</span>
+            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </button>
+          <div class="process-step__detail">
+            <p class="t-p3 tc-secondary">~1 week. Monitoring, rollback, and a go/no-go you sign off on.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <button class="process-step__toggle" type="button">
+            <span class="process-step__num">5</span>
+            <span class="process-step__title">Iterate</span>
+            <span class="process-step__desc">Measure, improve, and keep the product evolving.</span>
+            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
+          </button>
+          <div class="process-step__detail">
+            <p class="t-p3 tc-secondary">Ongoing. Rolls into Support &amp; Maintenance for a longer-term partner.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · STAGE 1 — KICKOFF ══════════════════════════════════════════ -->
+  <section class="band band--dark section" id="kickoff">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <span class="stage-num">01</span>
+          <h2 class="t-h2 mt-3xs">Kickoff</h2>
+          <span class="stage-dur"><i data-lucide="clock" aria-hidden="true"></i> Typically ~1 week</span>
+          <p class="t-p2 tc-secondary mt-s">Before anyone designs or builds, we align on the goal. The whole point is to leave with a shared understanding of who this is for and what "done" actually means — so nothing downstream is built on a guess.</p>
+        </div>
+        <div class="anatomy">
+          <div class="anatomy__row">
+            <span class="anatomy__label">Deliverables</span>
+            <span class="anatomy__val t-p2">Goals &amp; success metrics, a user/persona snapshot, and a one-page project charter.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Who's involved</span>
+            <span class="anatomy__val t-p2"><strong class="tc-primary">You:</strong> founder + any key stakeholders. <strong class="tc-primary">Us:</strong> delivery lead, product designer.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">What you prepare</span>
+            <span class="anatomy__val t-p2">Whatever you already have — a deck, sketches, a competitor list. No formal prep required.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Sample artefact</span>
+            <span class="anatomy__val t-p2">A one-page project charter you sign off before scoping begins.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · STAGE 2 — SCOPING ══════════════════════════════════════════ -->
+  <section class="section" id="scoping">
+    <div class="container">
+      <div class="split split--reverse split--top">
+        <div>
+          <span class="stage-num">02</span>
+          <h2 class="t-h2 mt-3xs">Scoping</h2>
+          <span class="stage-dur"><i data-lucide="clock" aria-hidden="true"></i> Typically ~1–2 weeks</span>
+          <p class="t-p2 tc-secondary mt-s">We turn the idea into a costed, sequenced plan you can actually decide on — what goes in the first release and what waits. You leave scoping knowing the price, the shape, and the trade-offs, not just a vague "it depends."</p>
+        </div>
+        <div class="anatomy">
+          <div class="anatomy__row">
+            <span class="anatomy__label">Deliverables</span>
+            <span class="anatomy__val t-p2">A scoped backlog, an estimate (cost + timeline), a recommended engagement model, and an architecture sketch.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Who's involved</span>
+            <span class="anatomy__val t-p2"><strong class="tc-primary">You:</strong> founder. <strong class="tc-primary">Us:</strong> delivery lead, designer, tech lead.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">What you prepare</span>
+            <span class="anatomy__val t-p2">Your priorities and any hard constraints — budget, launch date, compliance.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Sample artefact</span>
+            <span class="anatomy__val t-p2">A costed scope document with an estimate range and a recommended model.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · STAGE 3 — EXECUTE (most detail — founder anxiety highest) ═══ -->
+  <section class="band band--elevated section" id="execute">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <span class="stage-num">03</span>
+          <h2 class="t-h2 mt-3xs">Execute</h2>
+          <span class="stage-dur"><i data-lucide="clock" aria-hidden="true"></i> The bulk of the engagement</span>
+          <p class="t-p2 tc-secondary mt-s">Design and build happen in two-week iterations. Every fortnight you see working software — not a status report — running on a staging environment you can click through yourself.</p>
+          <p class="t-p2 tc-secondary mt-3xs">This is where founder anxiety is highest, so this is where visibility is highest too: a demo you attend, a decision log you can read, and a delivery lead who flags a slip the moment it appears, not at launch.</p>
+        </div>
+        <div class="anatomy">
+          <div class="anatomy__row">
+            <span class="anatomy__label">Deliverables</span>
+            <span class="anatomy__val t-p2">A working increment each sprint, a demo every two weeks, a live staging environment, and a running decision log.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Who's involved</span>
+            <span class="anatomy__val t-p2"><strong class="tc-primary">You:</strong> at demos + async decisions. <strong class="tc-primary">Us:</strong> the full squad — delivery lead, designer, engineers, QA.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">What you prepare</span>
+            <span class="anatomy__val t-p2">Roughly 2–3 hours a week for demos and the decisions only you can make.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Sample artefact</span>
+            <span class="anatomy__val t-p2">A fortnightly demo recording + an updated, re-prioritised backlog.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6 · STAGE 4 — LAUNCH ═══════════════════════════════════════════ -->
+  <section class="section" id="launch">
+    <div class="container">
+      <div class="split split--reverse split--top">
+        <div>
+          <span class="stage-num">04</span>
+          <h2 class="t-h2 mt-3xs">Launch</h2>
+          <span class="stage-dur"><i data-lucide="clock" aria-hidden="true"></i> Typically ~1 week</span>
+          <p class="t-p2 tc-secondary mt-s">We ship to production with the safeguards in place — monitoring, alerting, and a tested rollback — and a go/no-go decision you make with the full picture in front of you. Launch day should be calm, because the risky parts were handled before it.</p>
+        </div>
+        <div class="anatomy">
+          <div class="anatomy__row">
+            <span class="anatomy__label">Deliverables</span>
+            <span class="anatomy__val t-p2">Production deployment, monitoring &amp; alerting, a runbook, and a signed-off launch checklist.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Who's involved</span>
+            <span class="anatomy__val t-p2"><strong class="tc-primary">You:</strong> the go/no-go call. <strong class="tc-primary">Us:</strong> engineers, QA, DevOps.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">What you prepare</span>
+            <span class="anatomy__val t-p2">The launch date, and any marketing or comms you want timed to it.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Sample artefact</span>
+            <span class="anatomy__val t-p2">A launch checklist + an operational runbook handed to you.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7 · STAGE 5 — ITERATE ══════════════════════════════════════════ -->
+  <section class="band band--dark section" id="iterate">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <span class="stage-num">05</span>
+          <h2 class="t-h2 mt-3xs">Iterate</h2>
+          <span class="stage-dur"><i data-lucide="clock" aria-hidden="true"></i> Ongoing</span>
+          <p class="t-p2 tc-secondary mt-s">Launch is the start, not the finish. We measure how the product is actually used, prioritise what to improve, and keep shipping on a steady cadence. If you want a long-term operating partner rather than a project team, this rolls into <a class="card-link" href="../services/support-maintenance.html">Support &amp; Maintenance</a>.</p>
+        </div>
+        <div class="anatomy">
+          <div class="anatomy__row">
+            <span class="anatomy__label">Deliverables</span>
+            <span class="anatomy__val t-p2">A usage-analytics review, a prioritised improvement backlog, and a regular release cadence.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Who's involved</span>
+            <span class="anatomy__val t-p2"><strong class="tc-primary">You:</strong> founder. <strong class="tc-primary">Us:</strong> delivery lead + a squad scaled to what you need next.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">What you prepare</span>
+            <span class="anatomy__val t-p2">Your goals for the next phase and any real-world feedback you're hearing.</span>
+          </div>
+          <div class="anatomy__row">
+            <span class="anatomy__label">Sample artefact</span>
+            <span class="anatomy__val t-p2">A post-launch review + a next-quarter plan.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8 · SAMPLE FIRST 30 DAYS ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Made concrete</p>
+        <h2 class="t-h2">What your first 30 days look like.</h2>
+        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 58ch">The abstract becomes real fast. Here's a typical opening month from the day you say go.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-week">
+          <span class="tl-week__tag">Week 1</span>
+          <h3 class="t-h5">Kickoff &amp; alignment</h3>
+          <p class="t-p3 tc-secondary">Goals workshop, charter signed, team introduced. You meet the people who'll build it.</p>
+        </div>
+        <div class="tl-week">
+          <span class="tl-week__tag">Week 2</span>
+          <h3 class="t-h5">Scope &amp; setup</h3>
+          <p class="t-p3 tc-secondary">Backlog scoped and estimated; repos, environments, and tooling stood up.</p>
+        </div>
+        <div class="tl-week">
+          <span class="tl-week__tag">Week 3</span>
+          <h3 class="t-h5">First build increment</h3>
+          <p class="t-p3 tc-secondary">Design and the first working slice underway; staging environment live.</p>
+        </div>
+        <div class="tl-week">
+          <span class="tl-week__tag">Week 4</span>
+          <h3 class="t-h5">First demo</h3>
+          <p class="t-p3 tc-secondary">You click through real, working software — and re-prioritise from what you see.</p>
+        </div>
+      </div>
+
+      <div class="ph-figure mt-xl">
+        <span class="media-ph ratio-21-9" aria-hidden="true"><i data-lucide="gantt-chart"></i></span>
+        <span class="ph-figure__cap"><i data-lucide="calendar-range" aria-hidden="true"></i> First-30-days timeline graphic — week-by-week swimlane across kickoff, scope, build, and the first demo.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 9 · COMMUNICATION CADENCE ══════════════════════════════════════ -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">How we stay in sync</p>
+        <h2 class="t-h2">The rhythm you can count on.</h2>
+      </div>
+      <div class="cadence">
+        <div class="card">
+          <span class="cadence__icon"><i data-lucide="message-circle" aria-hidden="true"></i></span>
+          <h3 class="t-h5">Daily async updates</h3>
+          <p class="t-p2 tc-secondary mt-4xs">A short written update in a shared Slack channel — progress, blockers, anything that needs you. No daily meeting unless you want one.</p>
+        </div>
+        <div class="card">
+          <span class="cadence__icon"><i data-lucide="monitor-play" aria-hidden="true"></i></span>
+          <h3 class="t-h5">Fortnightly demo</h3>
+          <p class="t-p2 tc-secondary mt-4xs">Every two weeks you see working software and re-prioritise. The single most important ritual — it's how you stay in control.</p>
+        </div>
+        <div class="card">
+          <span class="cadence__icon"><i data-lucide="repeat" aria-hidden="true"></i></span>
+          <h3 class="t-h5">Monthly retro</h3>
+          <p class="t-p2 tc-secondary mt-4xs">A look back at what worked and what didn't — for both sides. How the partnership keeps improving, not just the product.</p>
+        </div>
+        <div class="card">
+          <span class="cadence__icon"><i data-lucide="alert-triangle" aria-hidden="true"></i></span>
+          <h3 class="t-h5">A clear escalation path</h3>
+          <p class="t-p2 tc-secondary mt-4xs">If something's urgent, your delivery lead responds within one business day — and you always know who to call.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 10 · TOOLS WE USE ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="split split--60 split--top">
+        <div>
+          <p class="section-label">Practical transparency</p>
+          <h2 class="t-h2">The tools we work in.</h2>
+          <p class="t-p2 tc-secondary mt-s">Nothing exotic — the standard, battle-tested kit your future team will already know. You get access to the ones that matter, so you can see the work as it happens, not just hear about it.</p>
+          <a class="btn btn--ghost btn--medium mt-s" href="tools/index.html" style="align-self:flex-start">See all our tools <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="tools-tags">
+          <a class="tag tag--secondary" href="tools/jira.html">Slack</a>
+          <a class="tag tag--secondary" href="tools/jira.html">Jira</a>
+          <a class="tag tag--secondary" href="tools/jira.html">Figma</a>
+          <a class="tag tag--secondary" href="tools/jira.html">GitHub</a>
+          <a class="tag tag--secondary" href="tools/jira.html">Notion</a>
+          <a class="tag tag--secondary" href="tools/jira.html">Linear</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 11 · PROCESS FAQ ═══════════════════════════════════════════════ -->
+  <section class="band band--elevated section">
+    <div class="container container-medium">
+      <div class="section-head text-center">
+        <p class="section-label">Going deeper</p>
+        <h2 class="t-h2">Process questions, answered.</h2>
+      </div>
+      <div class="accordion" data-accordion="single">
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="proc-faq-1">
+            What if we need to change direction mid-build? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="proc-faq-1" hidden>
+            <p class="t-p2 tc-secondary">That's expected, not a problem — the fortnightly demo exists precisely so you can change course while it's cheap. We re-prioritise the backlog with you; on a Time &amp; Material or Dedicated Team model that's frictionless, and even on Fixed Price we have a clear change process rather than a flat "no".</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="proc-faq-2">
+            How do you keep a project from slipping? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="proc-faq-2" hidden>
+            <p class="t-p2 tc-secondary">Small, visible increments make slippage obvious early — there's no 80%-done illusion when you see working software every two weeks. When something does slip, you hear it at the next check-in with options, not a surprise at the end.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="proc-faq-3">
+            What exactly do you need from me each week? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="proc-faq-3" hidden>
+            <p class="t-p2 tc-secondary">Roughly 2–3 hours: the fortnightly demo, a short weekly check-in, and quick answers to the decisions only you can make. We deliberately bring you the high-leverage calls and handle the rest, so your time goes to the choices that actually shape the product.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__trigger" aria-expanded="false" aria-controls="proc-faq-4">
+            What happens at the end of an engagement? <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="accordion__panel" id="proc-faq-4" hidden>
+            <p class="t-p2 tc-secondary">You own everything — code, accounts, infrastructure, and a runbook — in your name. From there you can take it in-house, keep us on for Support &amp; Maintenance, or pause and come back. There's no lock-in and no hostage-taking of your product.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 12 · ESTIMATOR + SCHEDULE DUAL CTA ═════════════════════════════ -->
+  <section class="band band--popout section">
+    <div class="container cta-band">
+      <p class="section-label">Now you know the shape of it</p>
+      <h2 class="t-h2">Let's put your project into it.</h2>
+      <p class="t-p1 tc-secondary mt-3xs" style="max-width: 52ch; margin-inline: auto;">Get a ballpark in 90 seconds, or book a call and we'll walk your idea through these five steps together.</p>
+      <div class="cta-band__ctas">
+        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sticky Estimator CTA -->
+<aside class="sticky-estimator" aria-label="Get an estimate">
+  <span class="sticky-estimator__copy">Ready to scope your project?</span>
+  <a class="btn btn--main btn--small" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+</aside>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__cols">
+
+      <nav class="footer-col" aria-label="Services">
+        <span class="footer-col__heading">Services</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../services/ai-transformation.html">AI Transformation</a>
+          <a class="footer-link" href="../services/software-development.html">Software Development</a>
+          <a class="footer-link" href="../services/product-design.html">Product Design</a>
+          <a class="footer-link" href="../services/marketing.html">Marketing</a>
+          <a class="footer-link" href="../services/it-consulting.html">IT Consulting</a>
+          <a class="footer-link" href="../services/support-maintenance.html">Support &amp; Maintenance</a>
+          <a class="footer-link" href="../services/outsourcing-outstaffing.html">Outsourcing &amp; Outstaffing</a>
+          <a class="footer-link" href="../services/index.html">All services →</a>
+        </div>
+      </nav>
+
+      <nav class="footer-col" aria-label="Industries and company stage">
+        <span class="footer-col__heading">Industries &amp; Stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../industries/healthcare.html">Tech</a>
+          <a class="footer-link" href="../industries/healthcare.html">Finance</a>
+          <a class="footer-link" href="../industries/healthcare.html">Healthcare</a>
+          <a class="footer-link" href="../industries/healthcare.html">Travel &amp; Hospitality</a>
+          <a class="footer-link" href="../industries/healthcare.html">Retail · E-commerce</a>
+          <a class="footer-link" href="../industries/healthcare.html">Education</a>
+          <a class="footer-link" href="../industries/healthcare.html">Manufacturing</a>
+          <a class="footer-link" href="../industries/healthcare.html">Media &amp; Entertainment</a>
+          <a class="footer-link" href="../industries/healthcare.html">Sport</a>
+          <a class="footer-link" href="../industries/healthcare.html">Professional Services</a>
+          <a class="footer-link" href="../industries/healthcare.html">Non-Profit</a>
+          <a class="footer-link" href="../industries/healthcare.html">Beauty &amp; Wellness</a>
+        </div>
+        <span class="footer-col__subheading">By stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Scale-up</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Small Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Enterprise</a>
+        </div>
+      </nav>
+
+      <nav class="footer-col" aria-label="Service areas">
+        <span class="footer-col__heading">Service Areas</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="#">United States</a>
+          <a class="footer-link" href="#">United Kingdom</a>
+          <a class="footer-link" href="#">Germany</a>
+          <a class="footer-link" href="#">United Arab Emirates</a>
+          <a class="footer-link" href="#">Canada</a>
+          <a class="footer-link" href="#">Australia</a>
+          <a class="footer-link" href="#">Armenia</a>
+        </div>
+      </nav>
+
+      <nav class="footer-col" aria-label="Resources">
+        <span class="footer-col__heading">Resources</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../blog/index.html">Blog</a>
+          <a class="footer-link" href="../glossary/index.html">Glossary</a>
+          <a class="footer-link" href="../get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="process.html">Process</a>
+          <a class="footer-link" href="technologies/index.html">Technologies</a>
+          <a class="footer-link" href="methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="tools/index.html">Tools</a>
+          <a class="footer-link" href="#">2025 in review</a>
+        </div>
+      </nav>
+
+      <nav class="footer-col" aria-label="Company">
+        <span class="footer-col__heading">Company</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../about/index.html">About</a>
+          <a class="footer-link" href="../about/index.html">Team</a>
+          <a class="footer-link" href="../about/index.html">Careers</a>
+          <a class="footer-link" href="../about/security-compliance.html">Security &amp; Compliance</a>
+          <a class="footer-link" href="../about/index.html">Partners</a>
+          <a class="footer-link" href="../about/index.html">Press</a>
+          <a class="footer-link" href="../contact.html">Contact</a>
+        </div>
+      </nav>
+
+    </div>
+
+    <div class="site-footer__utility">
+      <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+        <i data-lucide="hexagon" aria-hidden="true"></i>
+        VECTO
+      </a>
+
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="../legal/privacy.html">Privacy</a>
+        <a href="../legal/terms.html">Terms</a>
+        <a href="../legal/cookies.html">Cookies</a>
+        <a href="../legal/sitemap.html">Sitemap</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="VECTO on LinkedIn"><i data-lucide="share-2" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on X"><i data-lucide="at-sign" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on GitHub"><i data-lucide="code" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on Instagram"><i data-lucide="camera" aria-hidden="true"></i></a>
+      </div>
+
+      <p class="site-footer__copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../prototype.js"></script>
+</body>
+</html>
