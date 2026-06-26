@@ -1,1 +1,1017 @@
-<!-- Fintech Platform — TEMPLATE example for case study pages; IA §branch-ourwork case-study template (11 blocks) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Tessera — Case Study — VECTO</title>
+  <meta name="description" content="How a non-technical founder pair took Tessera from a napkin sketch to a regulated SMB payments platform — seed-funded, audited, and onboarding 1,800 businesses in 90 days. The case-study template.">
+
+  <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <link rel="stylesheet" href="../components.css">
+  <link rel="stylesheet" href="../layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .section-head { margin-bottom: var(--space-l); }
+    .section-head .section-label { margin-bottom: var(--space-3xs); }
+    .hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
+    .hero__meta { display: flex; flex-wrap: wrap; gap: var(--space-4xs); margin-top: var(--space-s); }
+
+    /* ── Image / graphic placeholder figure — the wireframe stand-in for the
+         UI screenshots, diagrams, charts, and photos a real case study carries.
+         Each caption names what asset populates the slot in production. ── */
+    .ph-figure { display: flex; flex-direction: column; gap: var(--space-3xs); }
+    .ph-figure .media-ph { width: 100%; }
+    .ph-figure__cap {
+      display: flex; align-items: center; gap: var(--space-4xs);
+      color: var(--text-tertiary); font-size: var(--text-size-c1);
+    }
+    .ph-figure__cap i { width: 14px; height: 14px; flex: 0 0 auto; }
+
+    /* ── 2 · Client snapshot — narrative + a definition panel of facts ── */
+    .snapshot {
+      display: flex; flex-direction: column;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-semi-transparent);
+      border-radius: var(--radius-m);
+      padding: var(--space-s) var(--space-l);
+    }
+    .snap-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-s);
+      align-items: baseline;
+      padding-block: var(--space-3xs);
+      border-top: 1px solid var(--border-semi-transparent);
+    }
+    .snap-row:first-child { border-top: 0; }
+    .snap-row__key { color: var(--text-muted); font-size: var(--text-size-c1); text-transform: uppercase; letter-spacing: 0.08em; }
+    .snap-row__val { color: var(--text-primary); }
+
+    /* ── 4 · Approach — key decisions list + UI-screen gallery ── */
+    .decisions { display: flex; flex-direction: column; }
+    .decision {
+      display: grid; grid-template-columns: auto 1fr; gap: var(--space-s);
+      align-items: start;
+      padding-block: var(--space-s);
+      border-top: 1px solid var(--border-semi-transparent);
+    }
+    .decision:first-child { border-top: 0; padding-top: 0; }
+    .decision__icon {
+      width: var(--space-xl); height: var(--space-xl); flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-m);
+      background: var(--surface-accent); color: var(--text-primary);
+    }
+    .decision__ruled { color: var(--text-muted); font-size: var(--text-size-p3); margin-top: var(--space-min); }
+    .ui-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+
+    /* ── 5 · Tech stack ── */
+    .tech-stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
+    .tech-stack__group { display: flex; flex-direction: column; gap: var(--space-3xs); }
+    .tech-stack__tags { display: flex; flex-wrap: wrap; gap: var(--space-4xs); }
+
+    /* ── 6 · Timeline & team — facts + roles + timeline graphic ── */
+    .te-facts { display: flex; flex-direction: column; gap: var(--space-s); }
+    .te-fact__label { color: var(--text-muted); font-size: var(--text-size-c1); text-transform: uppercase; letter-spacing: 0.08em; }
+    .te-fact__value { color: var(--text-primary); }
+    .roles { display: flex; flex-wrap: wrap; gap: var(--space-4xs); margin-top: var(--space-3xs); }
+
+    /* ── 7 · Outcomes ── */
+    .outcomes-stats .stat-band__figure { color: var(--text-accent); }
+
+    /* ── 8 · Testimonial — editorial pull-quote + portrait ── */
+    .quote { display: grid; grid-template-columns: auto 1fr; gap: var(--space-xl); align-items: center; }
+    .quote__portrait { width: var(--space-4xl); height: var(--space-4xl); flex: 0 0 auto; }
+    .quote__mark svg { width: var(--space-l); height: var(--space-l); color: var(--text-accent); }
+    .quote__who { display: flex; align-items: center; gap: var(--space-3xs); margin-top: var(--space-s); }
+
+    /* ── 10 · Related case studies ── */
+    .case3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+
+    /* ── 11 · Closing dual CTA ── */
+    .cta-band { text-align: center; }
+    .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ⚑ CASE STUDY TEMPLATE — representative example
+     This page (Tessera) is the ONE built instance of the IA's shared
+     case-study template (IA §branch-ourwork case-study template, 11 blocks).
+     Every project card across the wireframe (Our Work hub, home portfolio
+     module, industry/service related-work strips) links here as a placeholder.
+     In PRODUCTION each must resolve to its own /our-work/[client-slug] page
+     (e.g. Lumen Health → /our-work/lumen-health, Cadence → /our-work/cadence).
+     Also placeholder on this page:
+       · tech badges → ../how-we-work/technologies/react.html (prod: each tech's page)
+       · related case studies → fintech-platform.html itself (prod: each /our-work/[slug])
+     To ship a real case study: copy this file and swap hero, snapshot, challenge,
+     approach, stack, timeline, outcomes, testimonial, and related cases.
+     NOTE: the IA defines copy/blocks only — the greyed .media-ph / .ph-figure
+     slots mark where real UI screenshots, diagrams, charts, and photos go.
+     ════════════════════════════════════════════════════════════════════════ -->
+
+<!-- Visible counterpart to the banner comment above — shown in-page so anyone
+     browsing the prototype understands this page's role, not just devs in source. -->
+<div class="tmpl-banner" role="note" aria-label="Template page notice">
+  <div class="container tmpl-banner__inner">
+    <i data-lucide="flag" aria-hidden="true"></i>
+    <p class="t-p3 tmpl-banner__text">
+      <strong>Case-study template.</strong> This is the one built example of the layout shared by every case study. Throughout the wireframe, project cards point here as a placeholder — in production each resolves to its own <code>/our-work/[client-slug]</code> page. Greyed image blocks mark where real screenshots, diagrams, and photos go.
+    </p>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║  _nav.html — pasted at DEPTH 1 (../ prefixes)                           ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+
+    <!-- Logo lockup → homepage -->
+    <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+      <i data-lucide="hexagon" aria-hidden="true"></i>
+      VECTO
+    </a>
+
+    <!-- Primary navigation -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Primary">
+
+      <!-- Services ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../services/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
+          Services <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Who We Serve ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../who-we-serve/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
+          Who We Serve <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Our Work (direct link, no dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../our-work/index.html">Our Work</a>
+      </div>
+
+      <!-- How We Work ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../how-we-work/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
+          How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Resources ▾ (dropdown) -->
+      <div class="nav__item">
+        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-resources">
+          Resources <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </button>
+
+        <div class="dropdown dropdown--resources" id="mm-resources" role="region" aria-label="Resources" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Blog</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../blog/index.html">Latest posts</a></li>
+                <li><a class="dropdown__link" href="../blog/index.html">By topic</a></li>
+                <li><a class="dropdown__link" href="../blog/authors/jane-doe.html">Authors</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Glossary</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../glossary/index.html">Tech terms, explained</a></li>
+                <li><a class="dropdown__link" href="../glossary/index.html">Browse A–Z</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Tools</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../get-an-estimate.html">Project Estimator</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About ▾ (dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../about/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
+          About <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+
+        <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The company</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">History</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Partners</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The team</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">Leadership</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Team &amp; specialists</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Careers</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Trust &amp; contact</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/security-compliance.html">Security &amp; Compliance</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../schedule-a-call.html">Schedule a Call</a></li>
+                <li><a class="dropdown__link" href="../contact.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- Right cluster: persistent CTA (desktop-only — no hamburger) -->
+    <div class="topbar__actions">
+      <a class="btn btn--main btn--medium nav__cta" href="../get-an-estimate.html">
+        Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       MEGAMENU PANELS (full-width; children of <header> so left/right:0 span
+       the bar). Opened by the matching nav__link via aria-controls.
+       ───────────────────────────────────────────────────────────────────── -->
+
+  <!-- Services megamenu — six sequential stages + cross-cutting AI band -->
+  <div class="megamenu megamenu--services" id="mm-services" role="region" aria-label="Services" hidden>
+    <div class="megamenu__inner">
+      <p class="section-label">From idea to live product — every stage covered</p>
+
+      <!-- AI Transformation — distinct cross-cutting band -->
+      <div class="megamenu__ai-band">
+        <div>
+          <span class="megamenu__heading">AI Transformation — our cross-cutting competency</span>
+          <p class="megamenu__link-desc">Not a stage, but expertise that runs through discovery, design, build and support: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering.</p>
+        </div>
+        <a class="btn btn--secondary-light btn--small" href="../services/ai-transformation.html">
+          Explore AI Transformation <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="megamenu__cols">
+        <!-- Discover & Validate -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Discover &amp; Validate</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/it-consulting.html"><strong>IT Consulting</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Market Analysis</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Transformation Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Startup Ideation &amp; Feasibility</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Conceptualization</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Financial Modelling</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Specification</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Cost &amp; Time Estimation</a></li>
+          </ul>
+        </div>
+
+        <!-- Design -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Design</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/product-design.html"><strong>Product Design</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UI Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UX Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Prototyping &amp; Wireframing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">User Testing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Customer Journey Mapping</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Redesign</a></li>
+          </ul>
+        </div>
+
+        <!-- Build (primary stage) -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Build</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/software-development.html"><strong>Software Development</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Web Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Mobile App Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">E-commerce Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">CRM / ERP Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Bot &amp; Game Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SPA / PWA Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">3rd Party Integrations</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Platform Migration</a></li>
+          </ul>
+        </div>
+
+        <!-- Grow -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Grow</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/marketing.html"><strong>Marketing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Marketing Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Full Digital Marketing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SEO · GEO · ASO</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Lead Generation</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">PPC · SMM</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Branding</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Copywriting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <!-- Scale -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Scale</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/outsourcing-outstaffing.html"><strong>Outsourcing &amp; Outstaffing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Team Outsourcing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Staff Augmentation</a></li>
+          </ul>
+        </div>
+
+        <!-- Maintain -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Maintain</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/support-maintenance.html"><strong>Support &amp; Maintenance</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Support</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Audit &amp; Troubleshooting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Security &amp; Performance</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Hosting &amp; Infrastructure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../services/index.html">
+          Need it all? See our end-to-end Digital Transformation service <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Who We Serve megamenu — two-axis panel (company stage × industry) -->
+  <div class="megamenu megamenu--who-we-serve" id="mm-who" role="region" aria-label="Who We Serve" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">By company stage</span>
+          <p class="megamenu__link-desc">Where you are right now</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a><span class="megamenu__link-desc">pre-revenue, building MVP</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Scale-up</a><span class="megamenu__link-desc">product-market fit, growing fast</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Small Business</a><span class="megamenu__link-desc">established, modernising</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a><span class="megamenu__link-desc">multi-team, accelerating</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Enterprise</a><span class="megamenu__link-desc">complex stack, regulated</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col megamenu__col--industries">
+          <span class="megamenu__heading">By industry</span>
+          <p class="megamenu__link-desc">What you sell, who you serve</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Tech</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Finance</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Healthcare</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Travel &amp; Hospitality</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Retail · E-commerce</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Education</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Manufacturing</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Media &amp; Entertainment</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Sport</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Professional Services</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Non-Profit</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Beauty &amp; Wellness</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../our-work/index.html">
+          Browse all case studies <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <span class="megamenu__link-desc">With stage and industry filter chips pre-populated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- How We Work megamenu — three columns (Process · Engagement · Reference) -->
+  <div class="megamenu megamenu--how-we-work" id="mm-howwework" role="region" aria-label="How We Work" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Our Process</span>
+          <p class="megamenu__link-desc">5-step engagement journey</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/process.html#kickoff">1 · Kickoff</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#scoping">2 · Scoping</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#execute">3 · Execute</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#launch">4 · Launch</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#iterate">5 · Iterate</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Engagement Models</span>
+          <p class="megamenu__link-desc">How we charge &amp; staff</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Fixed Price</a><span class="megamenu__link-desc">defined scope, fixed cost</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Time &amp; Material</a><span class="megamenu__link-desc">flexible scope, hourly</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Dedicated Team</a><span class="megamenu__link-desc">your team, our payroll</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Outstaffing</a><span class="megamenu__link-desc">engineers into your team</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Reference</span>
+          <p class="megamenu__link-desc">What we build with</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/technologies/index.html">Technologies — full stack index <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/methodologies/index.html">Methodologies — how we run delivery <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/tools/index.html">Tools — what we work in day-to-day <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../get-an-estimate.html">
+          Not sure where to start? Get a ballpark in 90 seconds <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<main role="main">
+
+  <!-- ═══ 1 · HERO ═══════════════════════════════════════════════════════
+       Client name, industry/services tags, hero product visual. Headline
+       outcome metric kept OUT of the hero (IA: retired for now) — the
+       numbers live in Outcomes (block 7), where the visitor clicked in. -->
+  <section class="band band--dark-deep section">
+    <div class="container">
+      <nav class="breadcrumb mb-s" aria-label="Breadcrumb">
+        <a class="breadcrumb__item" href="../index.html">Home</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <a class="breadcrumb__item" href="index.html">Our Work</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <span class="breadcrumb__item" aria-current="page">Tessera</span>
+      </nav>
+      <p class="section-label">Case Study</p>
+      <h1 class="t-h1 text-balance" style="max-width: 20ch">Tessera: a payments platform two non-engineers got to market.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 62ch">A founder pair with a finance background and no technical team came to us with an idea on a napkin: give small businesses one place to see and move their money. Eleven months later it was live, audited, and onboarding real customers.</p>
+      <div class="hero__meta">
+        <span class="tag tag--secondary">FinTech</span>
+        <span class="tag tag--secondary">SMB payments</span>
+        <span class="tag tag--secondary">Software Development</span>
+        <span class="tag tag--secondary">Product Design</span>
+      </div>
+      <div class="hero__ctas">
+        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Run your numbers <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Talk to the team that built this <i data-lucide="calendar" aria-hidden="true"></i></a>
+      </div>
+
+      <!-- Hero product visual -->
+      <div class="ph-figure mt-xl">
+        <span class="media-ph ratio-21-9" aria-hidden="true"><i data-lucide="image"></i></span>
+        <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> Hero product visual — the live Tessera dashboard on desktop + mobile (device mockup or full-bleed key screen).</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2 · CLIENT SNAPSHOT ═════════════════════════════════════════════
+       Who they were at engagement start — stage, size, industry, technical
+       maturity. Critical for the founder-persona reader. -->
+  <section class="section">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <p class="section-label">Where they started</p>
+          <h2 class="t-h2">Two founders, zero engineers, one spreadsheet.</h2>
+          <p class="t-p2 tc-secondary mt-s">Maya and Daniel had spent a decade inside SMB lending and knew the problem cold: the businesses they served juggled four banking portals, a spreadsheet, and a lot of guesswork. They had the domain expertise and the relationships — what they didn't have was a single line of code, an engineering hire, or a sense of what building this would cost.</p>
+          <p class="t-p2 tc-secondary mt-3xs">They needed a partner who could carry the whole build, translate the regulatory reality into plain decisions, and not disappear once it shipped.</p>
+
+          <!-- Founding-team context image -->
+          <div class="ph-figure mt-l">
+            <span class="media-ph ratio-16-9" aria-hidden="true"><i data-lucide="users"></i></span>
+            <span class="ph-figure__cap"><i data-lucide="camera" aria-hidden="true"></i> Founding-team photo — Maya &amp; Daniel, or a company/brand context shot.</span>
+          </div>
+        </div>
+
+        <div class="snapshot">
+          <div class="snap-row">
+            <span class="snap-row__key">Stage</span>
+            <span class="snap-row__val t-p2">Pre-seed → Seed</span>
+          </div>
+          <div class="snap-row">
+            <span class="snap-row__key">Team size</span>
+            <span class="snap-row__val t-p2">2 founders, no in-house engineers</span>
+          </div>
+          <div class="snap-row">
+            <span class="snap-row__key">Industry</span>
+            <span class="snap-row__val t-p2">FinTech — SMB payments &amp; cashflow</span>
+          </div>
+          <div class="snap-row">
+            <span class="snap-row__key">Technical maturity</span>
+            <span class="snap-row__val t-p2">Non-technical founders; no existing codebase</span>
+          </div>
+          <div class="snap-row">
+            <span class="snap-row__key">Engagement</span>
+            <span class="snap-row__val t-p2">Dedicated Team</span>
+          </div>
+          <div class="snap-row">
+            <span class="snap-row__key">When</span>
+            <span class="snap-row__val t-p2">2024 — ongoing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · CHALLENGE ═══════════════════════════════════════════════════
+       What they were trying to solve, in their own language. The fear, not
+       just the brief. -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="split split--reverse split--top">
+        <div>
+          <p class="section-label">The challenge</p>
+          <h2 class="t-h2">"We know the problem. We have no idea how to build the thing."</h2>
+          <p class="t-p2 tc-secondary mt-s">The fear wasn't the product — it was everything around it. Could two finance people trust an agency with their entire idea? Would a payments platform that touches real money clear the compliance bar a bank's partnership team would scrutinise? And the quiet one underneath: would they spend their first cheque on something that never shipped?</p>
+          <p class="t-p2 tc-secondary mt-3xs">Concretely, they needed to connect to business bank accounts securely, reconcile transactions across institutions, move money with an audit trail regulators would accept, and do it all in an interface a busy shop owner would actually use — without a CTO to tell them whether any of it was realistic.</p>
+        </div>
+
+        <!-- Before-state screenshot -->
+        <div class="ph-figure">
+          <span class="media-ph ratio-4-3" aria-hidden="true"><i data-lucide="table-2"></i></span>
+          <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> Before: the spreadsheet-and-four-bank-portals workflow Tessera set out to replace.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · APPROACH ════════════════════════════════════════════════════
+       How VECTO framed the work — what was ruled in/out, key decisions and
+       their rationale. -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Our approach</p>
+        <h2 class="t-h2">Frame the risk first, then build the smallest thing that proves it.</h2>
+        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 64ch">Before a line of code, we mapped the engagement around the two things that could kill it: regulatory exposure and burn rate. Every scope decision after that traced back to one of those.</p>
+      </div>
+
+      <!-- Solution / architecture diagram -->
+      <div class="ph-figure mb-xl">
+        <span class="media-ph ratio-21-9" aria-hidden="true"><i data-lucide="git-fork"></i></span>
+        <span class="ph-figure__cap"><i data-lucide="workflow" aria-hidden="true"></i> Solution architecture diagram — bank aggregation, ledger/reconciliation service, payments rail, and the founder-facing app.</span>
+      </div>
+
+      <div class="decisions">
+        <div class="decision">
+          <span class="decision__icon"><i data-lucide="layers" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="t-h5">Buy the regulated parts, build the differentiated parts</h3>
+            <p class="t-p2 tc-secondary mt-4xs">We routed money movement and KYC through a licensed Banking-as-a-Service provider rather than chasing licences ourselves. Tessera's edge was the reconciliation and the experience — so that's where we spent the build.</p>
+            <p class="decision__ruled"><strong>Ruled out:</strong> becoming a regulated entity at MVP stage — months and legal cost the seed round couldn't absorb.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <span class="decision__icon"><i data-lucide="target" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="t-h5">One killer workflow, not a banking suite</h3>
+            <p class="t-p2 tc-secondary mt-4xs">The MVP did exactly one thing brilliantly: see every account in one place and pay a bill from it. Cards, invoicing, and forecasting were named, scoped, and deliberately deferred to post-raise.</p>
+            <p class="decision__ruled"><strong>Ruled out:</strong> a broad v1 that would have doubled the timeline and diluted the demo.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <span class="decision__icon"><i data-lucide="shield-check" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="t-h5">Audit-readiness designed in, not bolted on</h3>
+            <p class="t-p2 tc-secondary mt-4xs">Immutable transaction logging, least-privilege access, and encryption were part of the first architecture decision — so the partner bank's due-diligence questionnaire was a confirmation, not a scramble.</p>
+            <p class="decision__ruled"><strong>Ruled in early:</strong> a SOC 2-aligned control set, because financial partners ask for it before they integrate.</p>
+          </div>
+        </div>
+        <div class="decision">
+          <span class="decision__icon"><i data-lucide="message-square" aria-hidden="true"></i></span>
+          <div>
+            <h3 class="t-h5">Translate, don't just deliver</h3>
+            <p class="t-p2 tc-secondary mt-4xs">Every fortnight the founders got a demo and a plain-English decision log — no Jira archaeology required. They made the trade-off calls; we made sure they understood them.</p>
+            <p class="decision__ruled"><strong>Cross-link:</strong> this is our standard <a class="card-link" href="../how-we-work/process.html">engagement process</a> — Kickoff → Scoping → Execute → Launch → Iterate.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI-screen gallery — the screenshots a real case carries -->
+      <div class="mt-xl">
+        <p class="section-label mb-s">The product we shipped</p>
+        <div class="ui-gallery">
+          <div class="ph-figure">
+            <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="smartphone"></i></span>
+            <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> UI screen — account onboarding &amp; bank-link flow.</span>
+          </div>
+          <div class="ph-figure">
+            <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span>
+            <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> UI screen — unified cashflow dashboard.</span>
+          </div>
+          <div class="ph-figure">
+            <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="send"></i></span>
+            <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> UI screen — pay-a-bill / payment-run confirmation.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · TECH STACK USED ═════════════════════════════════════════════
+       Surfaces the Technologies taxonomy; badges link to technology pages.
+       (Placeholder: all → react.html, the built technology template.) -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">What we built it with</p>
+          <h2 class="t-h2">A stack chosen for trust and speed-to-market.</h2>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="../how-we-work/technologies/index.html">All technologies <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="tech-stack">
+        <div class="tech-stack__group">
+          <span class="megamenu__heading">Frontend</span>
+          <div class="tech-stack__tags">
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">React.js</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Next.js</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">TypeScript</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">React Native</a>
+          </div>
+        </div>
+        <div class="tech-stack__group">
+          <span class="megamenu__heading">Backend</span>
+          <div class="tech-stack__tags">
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Node.js</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">PostgreSQL</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Redis</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Kafka</a>
+          </div>
+        </div>
+        <div class="tech-stack__group">
+          <span class="megamenu__heading">Infrastructure</span>
+          <div class="tech-stack__tags">
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">AWS</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Docker</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Kubernetes</a>
+            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Terraform</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6 · TIMELINE & TEAM COMPOSITION ═════════════════════════════════
+       Engagement model, duration, FTE count, roles. -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Timeline &amp; team</p>
+        <h2 class="t-h2">A dedicated team of five, across eleven months.</h2>
+      </div>
+      <div class="split split--top">
+        <div class="te-facts">
+          <div>
+            <span class="te-fact__label">Engagement model</span>
+            <p class="te-fact__value t-p1 mt-min">Dedicated Team</p>
+            <p class="t-p3 tc-secondary">A ring-fenced squad on our payroll, working only on Tessera.</p>
+          </div>
+          <div>
+            <span class="te-fact__label">Duration</span>
+            <p class="te-fact__value t-p1 mt-min">11 months to public launch · ongoing since</p>
+          </div>
+          <div>
+            <span class="te-fact__label">Team composition</span>
+            <p class="te-fact__value t-p1 mt-min">5 FTE</p>
+            <div class="roles">
+              <span class="tag tag--secondary">Delivery Lead</span>
+              <span class="tag tag--secondary">Product Designer</span>
+              <span class="tag tag--secondary">2 × Full-stack Engineers</span>
+              <span class="tag tag--secondary">QA Engineer</span>
+              <span class="tag tag--secondary">Fractional DevOps</span>
+            </div>
+          </div>
+          <a class="btn btn--ghost btn--medium mt-s" href="../how-we-work/engagement-models.html" style="align-self:flex-start">How engagement models work <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        <!-- Delivery timeline graphic -->
+        <div class="ph-figure">
+          <span class="media-ph ratio-4-3" aria-hidden="true"><i data-lucide="gantt-chart"></i></span>
+          <span class="ph-figure__cap"><i data-lucide="calendar-range" aria-hidden="true"></i> Delivery timeline — Discovery → Design → MVP build → Compliance review → Launch, plotted across 11 months.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7 · OUTCOMES ════════════════════════════════════════════════════
+       Quantified, with before/after framing. Multiple metrics. -->
+  <section class="band band--elevated section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Outcomes</p>
+        <h2 class="t-h2">What changed for Tessera.</h2>
+        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 60ch">The MVP didn't just demo well — it cleared the partner bank's review, raised a round, and put real businesses on the platform inside a quarter.</p>
+      </div>
+
+      <div class="outcomes-stats">
+        <div class="stat-band stat-band--divided">
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h1">11 mo</span>
+            <span class="stat-band__label t-p3 tc-secondary">From napkin to public launch</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h1">$2.4M</span>
+            <span class="stat-band__label t-p3 tc-secondary">Seed round raised on the live product</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h1">1,800</span>
+            <span class="stat-band__label t-p3 tc-secondary">SMBs onboarded in the first 90 days</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h1">NPS 72</span>
+            <span class="stat-band__label t-p3 tc-secondary">Among activated businesses</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outcome chart -->
+      <div class="ph-figure mt-xl">
+        <span class="media-ph ratio-21-9" aria-hidden="true"><i data-lucide="line-chart"></i></span>
+        <span class="ph-figure__cap"><i data-lucide="trending-up" aria-hidden="true"></i> Outcome chart — onboarded businesses and payment volume across the first 90 days post-launch (before/after framing).</span>
+      </div>
+
+      <p class="t-p2 tc-secondary mt-l" style="max-width: 70ch"><strong class="tc-primary">Before:</strong> a pitch deck and a prototype no investor could touch. <strong class="tc-primary">After:</strong> a live, audited platform with paying users — the difference between "trust me" and "try it."</p>
+    </div>
+  </section>
+
+  <!-- ═══ 8 · TESTIMONIAL ═════════════════════════════════════════════════
+       Named, with role and company. Specific to one outcome. -->
+  <section class="section">
+    <div class="container">
+      <div class="quote">
+        <!-- Client portrait -->
+        <span class="media-ph media-ph--circle quote__portrait" aria-hidden="true"><i data-lucide="user"></i></span>
+        <div>
+          <span class="quote__mark"><i data-lucide="quote" aria-hidden="true"></i></span>
+          <p class="t-h4 mt-3xs" style="max-width: 40ch">"We walked in with a spreadsheet and a hunch. VECTO turned it into something a bank's partnership team signed off on — and they explained every call along the way, so we always knew where our money was going."</p>
+          <div class="quote__who">
+            <div>
+              <p class="t-p1 tc-primary">Maya Okonkwo</p>
+              <p class="t-p3 tc-muted">Co-founder &amp; CEO, Tessera</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 9 · WHAT'S NEXT FOR THIS CLIENT ═════════════════════════════════
+       Ongoing relationship; what they're building now. Signals partnership. -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <p class="section-label">What's next</p>
+          <h2 class="t-h2">From MVP to the roadmap the raise unlocked.</h2>
+          <p class="t-p2 tc-secondary mt-s">The same dedicated team is still with Tessera, now building the features deliberately deferred at MVP: business cards, automated invoicing, and a cashflow forecast that turns their reconciliation data into a forward view. We're also supporting the move toward their own regulatory footprint as volume grows.</p>
+          <p class="t-p2 tc-secondary mt-3xs">It's the relationship we aim for — not a handoff, but an operating partner that scales with the company.</p>
+          <a class="btn btn--ghost btn--medium mt-s" href="../services/support-maintenance.html" style="align-self:flex-start">How we support products post-launch <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        <!-- Roadmap visual -->
+        <div class="ph-figure">
+          <span class="media-ph ratio-16-9" aria-hidden="true"><i data-lucide="map"></i></span>
+          <span class="ph-figure__cap"><i data-lucide="route" aria-hidden="true"></i> Roadmap visual — shipped vs. in-progress vs. next (cards, invoicing, forecasting).</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 10 · RELATED CASE STUDIES ═══════════════════════════════════════
+       Pulled from same industry / service / technology / stage tags.
+       (Placeholder: all → fintech-platform.html, the built case template.) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">More like this</p>
+          <h2 class="t-h2">Related work.</h2>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="../our-work/index.html">All case studies <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="case3">
+        <a class="card card--with-image" href="fintech-platform.html">
+          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <p class="section-label">Cadence</p>
+            <h3 class="t-h5">A budgeting app that reached the App Store in 14 weeks</h3>
+            <p class="t-p3 tc-secondary">Same 0-to-1 playbook, consumer mobile instead of B2B.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">FinTech</span>
+              <span class="tag tag--secondary">Mobile App</span>
+            </div>
+          </div>
+        </a>
+        <a class="card card--with-image" href="fintech-platform.html">
+          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <p class="section-label">Northwind Markets</p>
+            <h3 class="t-h5">Re-platformed checkout for a retailer scaling fast</h3>
+            <p class="t-p3 tc-secondary">Built ahead of the growth curve, not behind it.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Retail</span>
+              <span class="tag tag--secondary">E-commerce</span>
+            </div>
+          </div>
+        </a>
+        <a class="card card--with-image" href="fintech-platform.html">
+          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <p class="section-label">Lumen Health</p>
+            <h3 class="t-h5">A HIPAA-ready MVP that raised a seed round</h3>
+            <p class="t-p3 tc-secondary">Regulated build, non-technical founder, same audit-first approach.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Healthcare</span>
+              <span class="tag tag--secondary">Web Development</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 11 · CLOSING DUAL CTA ═══════════════════════════════════════════
+       "Run your numbers" (Estimator) + "Talk to the team that built this"
+       (Schedule, with the delivery lead pre-selected). -->
+  <section class="band band--popout section">
+    <div class="container cta-band">
+      <p class="section-label">Want a project like this one?</p>
+      <h2 class="t-h2">Start where Tessera did.</h2>
+      <p class="t-p1 tc-secondary mt-3xs" style="max-width: 54ch; margin-inline: auto;">Get a ballpark for your idea in 90 seconds, or talk it through with the people who actually built this.</p>
+      <div class="cta-band__ctas">
+        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Run your numbers <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Talk to the team that built this <i data-lucide="calendar" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sticky Estimator CTA — case-study pages get it (build-plan §5) -->
+<aside class="sticky-estimator" aria-label="Get an estimate">
+  <span class="sticky-estimator__copy">Have a project like this? Get a ballpark.</span>
+  <a class="btn btn--main btn--small" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+</aside>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__cols">
+
+      <!-- 1 · Services (7 categories + All services) -->
+      <nav class="footer-col" aria-label="Services">
+        <span class="footer-col__heading">Services</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../services/ai-transformation.html">AI Transformation</a>
+          <a class="footer-link" href="../services/software-development.html">Software Development</a>
+          <a class="footer-link" href="../services/product-design.html">Product Design</a>
+          <a class="footer-link" href="../services/marketing.html">Marketing</a>
+          <a class="footer-link" href="../services/it-consulting.html">IT Consulting</a>
+          <a class="footer-link" href="../services/support-maintenance.html">Support &amp; Maintenance</a>
+          <a class="footer-link" href="../services/outsourcing-outstaffing.html">Outsourcing &amp; Outstaffing</a>
+          <a class="footer-link" href="../services/index.html">All services →</a>
+        </div>
+      </nav>
+
+      <!-- 2 · Industries & Stage (industries + company stages, full list) -->
+      <nav class="footer-col" aria-label="Industries and company stage">
+        <span class="footer-col__heading">Industries &amp; Stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../industries/healthcare.html">Tech</a>
+          <a class="footer-link" href="../industries/healthcare.html">Finance</a>
+          <a class="footer-link" href="../industries/healthcare.html">Healthcare</a>
+          <a class="footer-link" href="../industries/healthcare.html">Travel &amp; Hospitality</a>
+          <a class="footer-link" href="../industries/healthcare.html">Retail · E-commerce</a>
+          <a class="footer-link" href="../industries/healthcare.html">Education</a>
+          <a class="footer-link" href="../industries/healthcare.html">Manufacturing</a>
+          <a class="footer-link" href="../industries/healthcare.html">Media &amp; Entertainment</a>
+          <a class="footer-link" href="../industries/healthcare.html">Sport</a>
+          <a class="footer-link" href="../industries/healthcare.html">Professional Services</a>
+          <a class="footer-link" href="../industries/healthcare.html">Non-Profit</a>
+          <a class="footer-link" href="../industries/healthcare.html">Beauty &amp; Wellness</a>
+        </div>
+        <span class="footer-col__subheading">By stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Scale-up</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Small Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Enterprise</a>
+        </div>
+      </nav>
+
+      <!-- 3 · Service Areas (country pages — SEO surface, not built this session) -->
+      <nav class="footer-col" aria-label="Service areas">
+        <span class="footer-col__heading">Service Areas</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="#">United States</a>
+          <a class="footer-link" href="#">United Kingdom</a>
+          <a class="footer-link" href="#">Germany</a>
+          <a class="footer-link" href="#">United Arab Emirates</a>
+          <a class="footer-link" href="#">Canada</a>
+          <a class="footer-link" href="#">Australia</a>
+          <a class="footer-link" href="#">Armenia</a>
+        </div>
+      </nav>
+
+      <!-- 4 · Resources -->
+      <nav class="footer-col" aria-label="Resources">
+        <span class="footer-col__heading">Resources</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../blog/index.html">Blog</a>
+          <a class="footer-link" href="../glossary/index.html">Glossary</a>
+          <a class="footer-link" href="../get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="../how-we-work/engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="../how-we-work/process.html">Process</a>
+          <a class="footer-link" href="../how-we-work/technologies/index.html">Technologies</a>
+          <a class="footer-link" href="../how-we-work/methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="../how-we-work/tools/index.html">Tools</a>
+          <a class="footer-link" href="#">2025 in review</a>
+        </div>
+      </nav>
+
+      <!-- 5 · Company -->
+      <nav class="footer-col" aria-label="Company">
+        <span class="footer-col__heading">Company</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../about/index.html">About</a>
+          <a class="footer-link" href="../about/index.html">Team</a>
+          <a class="footer-link" href="../about/index.html">Careers</a>
+          <a class="footer-link" href="../about/security-compliance.html">Security &amp; Compliance</a>
+          <a class="footer-link" href="../about/index.html">Partners</a>
+          <a class="footer-link" href="../about/index.html">Press</a>
+          <a class="footer-link" href="../contact.html">Contact</a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Utility row — logo · legal · social · copyright -->
+    <div class="site-footer__utility">
+      <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+        <i data-lucide="hexagon" aria-hidden="true"></i>
+        VECTO
+      </a>
+
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="../legal/privacy.html">Privacy</a>
+        <a href="../legal/terms.html">Terms</a>
+        <a href="../legal/cookies.html">Cookies</a>
+        <a href="../legal/sitemap.html">Sitemap</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="VECTO on LinkedIn"><i data-lucide="share-2" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on X"><i data-lucide="at-sign" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on GitHub"><i data-lucide="code" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on Instagram"><i data-lucide="camera" aria-hidden="true"></i></a>
+      </div>
+
+      <p class="site-footer__copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../prototype.js"></script>
+</body>
+</html>
