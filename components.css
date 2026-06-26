@@ -1,1 +1,999 @@
-/* components.css — buttons, cards, badges, nav, megamenu, footer, forms, accordion, chips, tables, all reusable UI */
+/* components.css
+   Reusable UI — third in the load order (tokens → typography → components → layout).
+   (A) ATOMIC components match the Figma library (file emDaz5ZTNMna0jK1al4G9z:
+       buttons 2009:146, input 2028:417) — bound to the flattened SEMANTIC tokens
+       in tokens.css (there are no component-level button/*, input/* tokens here).
+   (B) MOLECULES are built from spec (build-plan §5), composed from the atoms +
+       layout.css editorial primitives, styled with the sample-page visual language
+       (node 8018:3317): dark elevated surfaces, small red icons, pill CTA + circular
+       arrow, generous padding. NOT card-grid layouts (§4a).
+   Hook classes (.is-open / .is-visible / --active) are toggled later by prototype.js.
+   Everything is var(--…) — no hardcoded colors, sizes, or radii. Icons: Lucide only. */
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 1. BUTTONS
+   Pill radius, 4 sizes × 6 variants × default/hover/disabled.
+   Pair .btn--main with .icon-btn--main (arrow-right) for the signature CTA.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4xs);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, opacity .18s ease;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* ── Sizes (font from --text-size-btn-*, padding from spacing scale) ── */
+.btn--huge {
+  font-size:   var(--text-size-btn-huge);
+  line-height: var(--text-lh-btn-huge);
+  letter-spacing: 0.01em;
+  padding: var(--space-s) var(--space-xl);
+}
+.btn--large {
+  font-size:   var(--text-size-btn-large);
+  line-height: var(--text-lh-btn-large);
+  letter-spacing: 0.01em;
+  padding: var(--space-3xs) var(--space-l);
+}
+.btn--medium {
+  font-size:   var(--text-size-btn-medium);
+  line-height: var(--text-lh-btn-medium);
+  padding: var(--space-3xs) var(--space-m);
+}
+.btn--small {
+  font-size:   var(--text-size-btn-small);
+  line-height: var(--text-lh-btn-small);
+  padding: var(--space-4xs) var(--space-s);
+}
+
+/* ── Variants ── */
+.btn--main {
+  background-color: var(--accent);
+  color: var(--text-primary);
+}
+.btn--main:hover { background-color: var(--accent-hover); }
+
+.btn--accent {
+  background-color: var(--accent-light);
+  color: var(--text-primary);
+}
+.btn--accent:hover { background-color: var(--accent); }
+
+.btn--secondary-light {
+  background-color: var(--text-primary);
+  color: var(--text-inverse);
+}
+.btn--secondary-light:hover { background-color: var(--border-light); }
+
+.btn--secondary-dark {
+  background-color: var(--surface-deep);
+  color: var(--text-primary);
+}
+.btn--secondary-dark:hover { background-color: var(--surface-popout); }
+
+.btn--ghost {
+  background-color: transparent;
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+.btn--ghost:hover {
+  border-color: var(--text-primary);
+  background-color: var(--overlay-light-3);
+}
+
+.btn--text {
+  background-color: transparent;
+  color: var(--text-accent);
+  padding-inline: var(--space-4xs);
+}
+.btn--text:hover { color: var(--accent-light); }
+
+/* ── Disabled (works as :disabled on <button> or .is-disabled on <a>) ── */
+.btn:disabled,
+.btn.is-disabled {
+  opacity: .4;
+  pointer-events: none;
+  cursor: default;
+}
+
+
+/* ── Circular icon-button companion (arrow-in-circle motif) ── */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, opacity .18s ease;
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* Sizes match the paired pill height */
+.icon-btn--huge   { width: var(--space-4xl); }   /* 96 */
+.icon-btn--large  { width: var(--space-3xl); }   /* 72 */
+.icon-btn--medium { width: var(--space-xxl); }   /* 64 */
+.icon-btn--small  { width: var(--space-xl);  }   /* 48 */
+
+.icon-btn--huge   svg { width: var(--space-m); height: var(--space-m); }
+.icon-btn--large  svg { width: var(--space-s); height: var(--space-s); }
+.icon-btn--medium svg { width: var(--space-s); height: var(--space-s); }
+.icon-btn--small  svg { width: var(--space-xs); height: var(--space-xs); }
+
+/* Variants mirror the pill variants */
+.icon-btn--main             { background-color: var(--accent); color: var(--text-primary); }
+.icon-btn--main:hover       { background-color: var(--accent-hover); }
+.icon-btn--accent           { background-color: var(--accent-light); color: var(--text-primary); }
+.icon-btn--accent:hover     { background-color: var(--accent); }
+.icon-btn--secondary-light  { background-color: var(--text-primary); color: var(--text-inverse); }
+.icon-btn--secondary-light:hover { background-color: var(--border-light); }
+.icon-btn--secondary-dark   { background-color: var(--surface-deep); color: var(--text-primary); }
+.icon-btn--secondary-dark:hover  { background-color: var(--surface-popout); }
+.icon-btn--ghost            { background-color: transparent; border-color: var(--border-default); color: var(--text-primary); }
+.icon-btn--ghost:hover      { border-color: var(--text-primary); background-color: var(--overlay-light-3); }
+
+.icon-btn:disabled,
+.icon-btn.is-disabled { opacity: .4; pointer-events: none; cursor: default; }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 2. INPUTS
+   Label above, optional left Lucide icon, accent border on focus/active,
+   readonly + error states, dropdown popout, switch.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xs);
+}
+
+.field__label {
+  font-size:   var(--text-size-input-label);
+  line-height: var(--text-lh-input-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-muted);
+}
+
+/* Wrapper when an icon sits inside the control */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-wrap .input__icon {
+  position: absolute;
+  left: var(--space-3xs);
+  display: inline-flex;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.input-wrap .input__icon svg { width: var(--space-xs); height: var(--space-xs); }
+.input-wrap .input { padding-left: var(--space-l); }
+
+.input {
+  width: 100%;
+  font-size:   var(--text-size-input-text);
+  line-height: var(--text-lh-input-text);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-s);
+  padding: var(--space-3xs) var(--space-xxs);
+  transition: border-color .18s ease, background-color .18s ease;
+}
+.input::placeholder { color: var(--text-tertiary); }
+
+.input:focus,
+.input--active {
+  outline: none;
+  border-color: var(--border-accent);
+  background-color: var(--surface-popout);
+}
+
+.input--readonly,
+.input:read-only {
+  color: var(--text-secondary);
+  background-color: var(--surface-dark);
+  border-color: var(--border-semi-transparent);
+  cursor: default;
+}
+
+.input--error { border-color: var(--error); }
+
+.field__helper {
+  font-size:   var(--text-size-input-helper);
+  line-height: var(--text-lh-input-helper);
+  color: var(--text-secondary);
+}
+.field__error {
+  font-size:   var(--text-size-input-helper);
+  line-height: var(--text-lh-input-helper);
+  color: var(--text-error);
+}
+
+/* ── Select / dropdown ── */
+.select {
+  position: relative;
+  display: inline-flex;
+}
+.select__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4xs);
+  width: 100%;
+  font-size:   var(--text-size-input-text);
+  line-height: var(--text-lh-input-text);
+  color: var(--text-primary);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-s);
+  padding: var(--space-3xs) var(--space-xxs);
+  cursor: pointer;
+}
+.select__trigger svg { width: var(--space-xs); height: var(--space-xs); color: var(--text-muted); }
+.select[aria-expanded="true"] .select__trigger,
+.select.is-open .select__trigger { border-color: var(--border-accent); }
+
+.select__menu {
+  position: absolute;
+  top: calc(100% + var(--space-min));
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background-color: var(--surface-popout);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-s);
+  padding: var(--space-min);
+  box-shadow: 0 8px 24px var(--overlay-dark-1);
+}
+.select:not(.is-open) .select__menu,
+.select[aria-expanded="false"] .select__menu { display: none; }
+
+.select__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4xs);
+  padding: var(--space-4xs) var(--space-3xs);
+  border-radius: var(--radius-xs);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.select__item:hover,
+.select__item.is-active { background-color: var(--overlay-light-3); }
+
+/* ── Switch toggle ── */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: var(--space-l);
+  height: var(--space-s);
+  flex-shrink: 0;
+}
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.switch__track {
+  position: absolute;
+  inset: 0;
+  background-color: var(--border-default);
+  border-radius: var(--radius-pill);
+  transition: background-color .18s ease;
+}
+.switch__track::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--space-min);
+  transform: translateY(-50%);
+  width: var(--space-xxs);
+  height: var(--space-xxs);
+  background-color: var(--text-primary);
+  border-radius: var(--radius-pill);
+  transition: transform .18s ease;
+}
+.switch input:checked + .switch__track { background-color: var(--accent); }
+.switch input:checked + .switch__track::before { transform: translate(var(--space-xxs), -50%); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 3. TAG / CHIP
+   ═══════════════════════════════════════════════════════════════════ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-min);
+  font-size:   var(--text-size-c1);
+  line-height: var(--text-lh-c1);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-min) var(--space-3xs);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: default;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.tag svg { width: var(--space-xxs); height: var(--space-xxs); }
+
+.tag--primary {
+  background-color: var(--accent);
+  color: var(--text-primary);
+}
+.tag--primary:hover { background-color: var(--accent-hover); }
+
+.tag--secondary {
+  background-color: transparent;
+  border-color: var(--border-default);
+  color: var(--text-secondary);
+}
+.tag--secondary:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+/* Interactive (filter) tags get pointer + active state */
+.tag--button { cursor: pointer; }
+.tag--button.is-active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 4. BREADCRUMB
+   Home › Services › Parent › This. Default dark-bg; --lightbg variant.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4xs);
+  font-size:   var(--text-size-c1);
+  line-height: var(--text-lh-c1);
+}
+.breadcrumb__item { color: var(--text-secondary); }
+.breadcrumb__item:hover { color: var(--text-primary); }
+.breadcrumb__item[aria-current="page"] {
+  color: var(--text-primary);
+  pointer-events: none;
+}
+.breadcrumb__sep {
+  display: inline-flex;
+  color: var(--text-tertiary);
+}
+.breadcrumb__sep svg { width: var(--space-xxs); height: var(--space-xxs); }
+
+.breadcrumb--lightbg .breadcrumb__item { color: var(--text-inverse-secondary); }
+.breadcrumb--lightbg .breadcrumb__item:hover,
+.breadcrumb--lightbg .breadcrumb__item[aria-current="page"] { color: var(--text-inverse); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 5. CARD
+   Atom only. Pages compose collections via layout.css primitives
+   (.feature-lead / .rail / .split / .index-list) — NOT uniform grids (§4a).
+   ═══════════════════════════════════════════════════════════════════ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-m);
+  padding: var(--space-l);
+  transition: border-color .18s ease, transform .18s ease;
+}
+a.card:hover,
+.card--link:hover {
+  border-color: var(--border-default);
+  transform: translateY(-2px);
+}
+
+.card__media {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--surface-dark);
+  border-radius: var(--radius-s);
+  overflow: hidden;
+}
+.card__body  { display: flex; flex-direction: column; gap: var(--space-4xs); }
+.card__title { font-size: var(--text-size-h5); line-height: var(--text-lh-h5); color: var(--text-primary); }
+.card__meta  { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-muted); font-size: var(--text-size-c1); }
+
+/* Small/dense */
+.card--small { padding: var(--space-s); border-radius: var(--radius-s); gap: var(--space-4xs); }
+
+/* List rows (horizontal) */
+.card--list-v1,
+.card--list-v2 {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-s);
+}
+.card--list-v2 { background-color: transparent; border-color: var(--border-semi-transparent); }
+
+/* Image-led: media first, then body */
+.card--with-image { padding: 0; overflow: hidden; }
+.card--with-image .card__media { border-radius: 0; }
+.card--with-image .card__body  { padding: var(--space-l); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 6. TABS (horizontal in-page section nav)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.tabs {
+  display: flex;
+  gap: var(--space-l);
+  border-bottom: 1px solid var(--border-semi-transparent);
+}
+.tab {
+  position: relative;
+  padding: var(--space-3xs) 0;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color .15s ease;
+}
+.tab:hover { color: var(--text-primary); }
+.tab--active { color: var(--text-primary); }
+.tab--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background-color: var(--accent);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 7. COMPARISON TABLE
+   Side-by-side model comparison (engagement-models, outsourcing).
+   ═══════════════════════════════════════════════════════════════════ */
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-size-p2);
+}
+.cmp-table th,
+.cmp-table td {
+  text-align: left;
+  padding: var(--space-3xs) var(--space-s);
+  border-bottom: 1px solid var(--border-semi-transparent);
+  vertical-align: top;
+}
+.cmp-table thead th {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-default);
+}
+/* First column = row criteria label */
+.cmp-table tbody th {
+  color: var(--text-muted);
+  font-weight: var(--font-weight-regular);
+}
+.cmp-table td { color: var(--text-secondary); }
+/* Highlighted / recommended column */
+.cmp-table .cmp-table__highlight {
+  background-color: var(--overlay-light-3);
+  color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 8. CALENDAR (static month grid — Schedule page)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.calendar {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+  max-width: var(--content-narrow-width);
+}
+.calendar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3xs);
+}
+.calendar__title { font-weight: var(--font-weight-medium); color: var(--text-primary); }
+.calendar__nav { display: flex; gap: var(--space-4xs); }
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-min);
+}
+.calendar__dow {
+  text-align: center;
+  font-size: var(--text-size-c2);
+  color: var(--text-muted);
+  padding: var(--space-min) 0;
+}
+.calendar__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-xs);
+  color: var(--text-primary);
+  font-size: var(--text-size-p3);
+  cursor: pointer;
+}
+.calendar__day:hover { background-color: var(--overlay-light-3); }
+.calendar__day--muted { color: var(--text-tertiary); cursor: default; }
+.calendar__day--today { border: 1px solid var(--border-accent); }
+.calendar__day--selected { background-color: var(--accent); color: var(--text-primary); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 9. TOPBAR / NAV SHELL
+   Fixed-height bar, logo, primary nav, persistent accent CTA.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--navbar-height);
+  background-color: var(--surface-deep);
+  border-bottom: 1px solid var(--border-semi-transparent);
+}
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-l);
+  height: 100%;
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-margins);
+}
+.topbar__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4xs);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-size-h5);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  height: 100%;
+}
+.nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-min);
+  height: 100%;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color .15s ease;
+}
+.nav__link svg { width: var(--space-xxs); height: var(--space-xxs); transition: transform .18s ease; }
+.nav__link:hover { color: var(--text-primary); }
+.nav__item.is-open > .nav__link,
+.nav__link[aria-expanded="true"] { color: var(--text-primary); }
+.nav__item.is-open > .nav__link svg,
+.nav__link[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.nav__cta { margin-left: var(--space-4xs); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 10. MEGAMENUS
+   Full-width popouts opened from the topbar. Hidden until .is-open.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.megamenu {
+  position: absolute;
+  top: var(--navbar-height);
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background-color: var(--surface-popout);
+  border-bottom: 1px solid var(--border-semi-transparent);
+  box-shadow: 0 16px 40px var(--overlay-dark-1);
+  padding-block: var(--space-xl);
+}
+.megamenu[hidden] { display: none; }
+
+.megamenu__inner {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--grid-margins);
+}
+.megamenu__cols {
+  display: grid;
+  gap: var(--space-l);
+}
+.megamenu__col { display: flex; flex-direction: column; gap: var(--space-3xs); }
+.megamenu__heading {
+  font-size: var(--text-size-c3);
+  line-height: var(--text-lh-c3);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.megamenu__heading--accent { color: var(--text-accent); }
+.megamenu__links { display: flex; flex-direction: column; gap: var(--space-min); }
+.megamenu__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4xs);
+  color: var(--text-secondary);
+  padding: var(--space-min) 0;
+  transition: color .15s ease;
+}
+.megamenu__link svg { width: var(--space-xxs); height: var(--space-xxs); color: var(--text-accent); }
+.megamenu__link:hover { color: var(--text-primary); }
+.megamenu__link-desc { color: var(--text-tertiary); font-size: var(--text-size-c1); }
+
+/* Bottom strip — full-service link + Estimator CTA */
+.megamenu__strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-top: var(--space-l);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--border-semi-transparent);
+}
+
+/* Services: 6 stage columns + distinct cross-cutting AI band */
+.megamenu--services .megamenu__cols { grid-template-columns: repeat(6, 1fr); }
+.megamenu__ai-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-bottom: var(--space-l);
+  padding: var(--space-s) var(--space-l);
+  border-radius: var(--radius-m);
+  background-color: var(--surface-accent);
+  color: var(--text-primary);
+}
+.megamenu__ai-band .megamenu__heading { color: var(--text-primary); }
+.megamenu__ai-band .megamenu__link { color: var(--overlay-light-1); }
+.megamenu__ai-band .megamenu__link:hover { color: var(--text-primary); }
+
+/* Who We Serve: 2 axes (company stage / industry) */
+.megamenu--who-we-serve .megamenu__cols { grid-template-columns: 1fr 2fr; }
+.megamenu--who-we-serve .megamenu__col--industries .megamenu__links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-min) var(--space-s);
+}
+
+/* How We Work: 3 columns (Process / Engagement / Reference) */
+.megamenu--how-we-work .megamenu__cols { grid-template-columns: repeat(3, 1fr); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 11. DROPDOWNS (Resources / About — lighter than megamenu)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.dropdown {
+  position: absolute;
+  top: var(--navbar-height);
+  left: 0;
+  z-index: 90;
+  min-width: var(--content-medium-width);
+  background-color: var(--surface-popout);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-m);
+  box-shadow: 0 16px 40px var(--overlay-dark-1);
+  padding: var(--space-l);
+}
+.dropdown[hidden] { display: none; }
+.dropdown__cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-l);
+}
+.dropdown__col { display: flex; flex-direction: column; gap: var(--space-3xs); }
+.dropdown__heading {
+  font-size: var(--text-size-c3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.dropdown__links { display: flex; flex-direction: column; gap: var(--space-min); }
+.dropdown__link { color: var(--text-secondary); padding: var(--space-min) 0; }
+.dropdown__link:hover { color: var(--text-primary); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 12. STICKY ESTIMATOR CTA
+   Floating affixed; .is-visible toggled on scroll by prototype.js.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.sticky-estimator {
+  position: fixed;
+  right: var(--space-l);
+  bottom: var(--space-l);
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-3xs) var(--space-3xs) var(--space-3xs) var(--space-s);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 12px 32px var(--overlay-dark-1);
+  opacity: 0;
+  transform: translateY(var(--space-xxs));
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.sticky-estimator.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.sticky-estimator__copy { color: var(--text-secondary); font-size: var(--text-size-p3); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 13. PROCESS STEP STRIP (horizontal timeline, NOT cards)
+   Kickoff → Scoping → Execute → Launch → Iterate.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.process-strip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-s);
+}
+.process-step {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xs);
+}
+.process-step__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-l);
+  height: var(--space-l);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+}
+/* Connecting line between steps */
+.process-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--space-l) / 2);
+  left: var(--space-l);
+  right: calc(var(--space-s) * -1);
+  height: 1px;
+  background-color: var(--border-default);
+}
+.process-step__title { color: var(--text-primary); font-weight: var(--font-weight-medium); }
+.process-step__desc  { color: var(--text-secondary); font-size: var(--text-size-p3); }
+
+/* Active / highlighted step (Build, or current step on Process page) */
+.process-step--active .process-step__num {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Interactive diagram (Process page) — detail revealed by prototype.js */
+.process-step__detail { display: none; }
+.process-step.is-expanded .process-step__detail { display: block; }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 14. ENGAGEMENT DECISION TREE (JS-driven Q&A)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.decision-tree {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-m);
+  padding: var(--space-xl);
+}
+.decision-question { display: flex; flex-direction: column; gap: var(--space-s); }
+.decision-question[hidden] { display: none; }
+.decision-question__prompt { font-size: var(--text-size-h4); line-height: var(--text-lh-h4); color: var(--text-primary); }
+.decision-answers { display: flex; flex-wrap: wrap; gap: var(--space-3xs); }
+
+.decision-result {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  padding: var(--space-l);
+  border-radius: var(--radius-m);
+  background-color: var(--surface-accent);
+  color: var(--text-primary);
+}
+.decision-result.is-visible { display: flex; }
+.decision-result__label { font-size: var(--text-size-c3); letter-spacing: 0.1em; text-transform: uppercase; color: var(--overlay-light-1); }
+.decision-result__model { font-size: var(--text-size-h3); line-height: var(--text-lh-h3); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 15. ESTIMATOR WIDGET (stub — looks interactive)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.estimator {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+.estimator__input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+.estimator__output {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  padding: var(--space-xl);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-l);
+}
+.estimator__metric { display: flex; flex-direction: column; gap: var(--space-min); }
+.estimator__metric-label { font-size: var(--text-size-c1); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.estimator__metric-value { font-size: var(--text-size-h3); line-height: var(--text-lh-h3); color: var(--text-primary); }
+.estimator__metric-value--accent { color: var(--text-accent); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 16. BOOKING WIDGET (placeholder — Schedule page)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.booking {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+.booking__team { display: flex; flex-direction: column; gap: var(--space-s); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 17. SPECIALIST ROW/CARD
+   Photo placeholder + name + role + "Email me" / "Book 15 min".
+   ═══════════════════════════════════════════════════════════════════ */
+
+.specialist {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+}
+.specialist__photo {
+  flex-shrink: 0;
+  width: var(--space-4xl);
+  height: var(--space-4xl);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface-dark);
+  overflow: hidden;
+}
+.specialist__info { display: flex; flex-direction: column; gap: var(--space-min); }
+.specialist__name { color: var(--text-primary); font-weight: var(--font-weight-medium); font-size: var(--text-size-h5); }
+.specialist__role { color: var(--text-muted); font-size: var(--text-size-p3); }
+.specialist__ctas { display: flex; gap: var(--space-4xs); margin-top: var(--space-4xs); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 18. ANCHOR NAV STRIP (in-page section nav)
+   Use with .sticky-below-nav from layout.css for sticky behaviour.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.anchor-nav {
+  display: flex;
+  gap: var(--space-l);
+  padding-block: var(--space-3xs);
+  background-color: var(--surface-deep);
+  border-bottom: 1px solid var(--border-semi-transparent);
+  overflow-x: auto;
+}
+.anchor-nav__link {
+  position: relative;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  padding-block: var(--space-4xs);
+  transition: color .15s ease;
+}
+.anchor-nav__link:hover { color: var(--text-primary); }
+.anchor-nav__link--active { color: var(--text-primary); }
+.anchor-nav__link--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: var(--accent);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 19. STAT BAND
+   No rules here — structure lives in layout.css (.stat-band / __item /
+   __figure / __label) and presentation comes from typography utilities
+   applied in markup: figure → .t-h1/.t-h2 (+ .tc-accent for the red
+   variant), label → .t-p3/.tc-muted. Kept as a numbered placeholder so
+   the inventory stays complete; nothing to skin without colliding with
+   layout.css's intentional line-height:1 on the figure.
+   ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 20. SHARED PLACEHOLDER BLOCK
+   Greyed stand-in for images / logos / photos across cards, hero,
+   specialists, logo strips. (layout.css has .img-block for media frames.)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.media-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-s);
+  color: var(--text-tertiary);
+  overflow: hidden;
+}
+.media-ph svg { width: var(--space-xl); height: var(--space-xl); }
+.media-ph--logo {
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-xs);
+  background-color: var(--surface-dark);
+}
+.media-ph--circle { border-radius: var(--radius-pill); aspect-ratio: 1 / 1; }
