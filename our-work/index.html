@@ -1,1 +1,965 @@
-<!-- Our Work / Portfolio — IA §branch-ourwork (7 blocks) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Our Work — VECTO</title>
+  <meta name="description" content="The outcomes that mattered. Browse our work by outcome story, service, industry, or stage — projects built from zero to one, scaled to enterprise, modernised, and rescued.">
+
+  <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <link rel="stylesheet" href="../components.css">
+  <link rel="stylesheet" href="../layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .section-head { margin-bottom: var(--space-l); }
+    .section-head .section-label { margin-bottom: var(--space-3xs); }
+
+    /* ── 1 · Counter hero ── */
+    .hero-stats { margin-top: var(--space-xl); }
+    .hero-stats .stat-band__figure { color: var(--text-accent); }
+
+    /* ── 2 · Sticky filter strip — a row of multi-select dropdown facets ── */
+    .filter-strip { padding-block: var(--space-3xs); border-bottom: 1px solid var(--border-semi-transparent); }
+    .filter-strip__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-s); flex-wrap: wrap; }
+    .facets { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4xs); }
+    .filter-count { color: var(--text-tertiary); white-space: nowrap; }
+
+    .facet { position: relative; }
+    .facet__toggle {
+      display: inline-flex; align-items: center; gap: var(--space-4xs);
+      padding: var(--space-4xs) var(--space-xs);
+      border: 1px solid var(--border-default); border-radius: var(--radius-pill);
+      background: var(--surface-elevated); color: var(--text-primary);
+      font-family: inherit; font-size: var(--text-size-c1); cursor: pointer;
+      transition: border-color .15s ease;
+    }
+    .facet__toggle:hover { border-color: var(--text-primary); }
+    .facet__toggle i { width: 15px; height: 15px; color: var(--text-muted); transition: transform .15s ease; }
+    .facet.is-open .facet__toggle { border-color: var(--accent); }
+    .facet.is-open .facet__toggle i { transform: rotate(180deg); }
+    .facet__toggle.has-selection { border-color: var(--accent); }
+    .facet__badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 1.25em; height: 1.25em; padding: 0 0.35em;
+      border-radius: var(--radius-pill); background: var(--accent); color: var(--text-primary);
+      font-size: var(--text-size-c2); line-height: 1;
+    }
+    .facet__badge[hidden] { display: none; }  /* display:inline-flex would override [hidden] */
+    .facet__menu {
+      position: absolute; top: calc(100% + var(--space-min)); left: 0; z-index: 40;
+      min-width: 230px; max-height: 320px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 1px;
+      background: var(--surface-popout); border: 1px solid var(--border-default);
+      border-radius: var(--radius-m); padding: var(--space-3xs);
+      box-shadow: 0 8px 24px var(--overlay-dark-1);
+    }
+    /* .facet__menu sets display:flex, which would override the [hidden] attr —
+       restore hiding for the closed state (same gotcha as .og-item[hidden]). */
+    .facet__menu[hidden] { display: none; }
+    .facet__opt {
+      display: flex; align-items: center; gap: var(--space-3xs);
+      padding: var(--space-4xs) var(--space-3xs); border-radius: var(--radius-xs);
+      color: var(--text-primary); font-size: var(--text-size-p3); cursor: pointer; white-space: nowrap;
+    }
+    .facet__opt:hover { background: var(--overlay-light-3); }
+    .facet__opt input { accent-color: var(--accent); }
+    .facet__opt[hidden] { display: none; }
+    .facet-clear {
+      background: none; border: 0; color: var(--text-tertiary);
+      font-family: inherit; font-size: var(--text-size-c1); cursor: pointer; text-decoration: underline;
+    }
+    .facet-clear:hover { color: var(--text-primary); }
+
+    /* ── 3 · Outcome groups — feature-lead / varied-size (not a flat grid) ── */
+    .og { padding-block: var(--space-xl); border-top: 1px solid var(--border-semi-transparent); }
+    .og:first-of-type { border-top: 0; padding-top: var(--space-l); }
+    .og__head { margin-bottom: var(--space-l); }
+    .og-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap);
+      align-items: start;
+    }
+    /* Featured case leads each group as a full-width horizontal banner —
+       image BESIDE the text at a contained height, never a giant 16/9 void.
+       Supporting cases sit in a 2-up row beneath it. */
+    .og-item.is-featured { grid-column: 1 / -1; flex-direction: row; align-items: stretch; }
+    .og-item.is-featured .card__media {
+      width: auto; flex: 0 0 42%; aspect-ratio: auto; min-height: 300px;
+    }
+    .og-item.is-featured .card__body { flex: 1; justify-content: center; }
+    /* Guarantee filtered items hide — .card sets display, so [hidden] alone won't */
+    .og-item[hidden] { display: none; }
+
+    /* ── 7 · Closing CTA ── */
+    .cta-band { text-align: center; }
+    .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ⚑ PLACEHOLDER LINKS — case-study template convention (build-plan §4.4)
+     Every project on this page links to our-work/fintech-platform.html — the
+     single built case-study template — so the wireframe stays clickable from
+     one example. In PRODUCTION each must resolve to its own
+     /our-work/[client-slug] page (e.g. /our-work/northwind-markets).
+     ════════════════════════════════════════════════════════════════════════ -->
+
+<!-- ╔══════════════════════════════════════════════════════════════════════╗
+     ║  _nav.html — pasted at DEPTH 1 (../ prefixes)                           ║
+     ╚══════════════════════════════════════════════════════════════════════╝ -->
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+
+    <!-- Logo lockup → homepage -->
+    <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+      <i data-lucide="hexagon" aria-hidden="true"></i>
+      VECTO
+    </a>
+
+    <!-- Primary navigation -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Primary">
+
+      <!-- Services ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../services/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
+          Services <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Who We Serve ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../who-we-serve/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
+          Who We Serve <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Our Work (direct link, no dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../our-work/index.html">Our Work</a>
+      </div>
+
+      <!-- How We Work ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../how-we-work/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
+          How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Resources ▾ (dropdown) -->
+      <div class="nav__item">
+        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-resources">
+          Resources <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </button>
+
+        <div class="dropdown dropdown--resources" id="mm-resources" role="region" aria-label="Resources" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Blog</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../blog/index.html">Latest posts</a></li>
+                <li><a class="dropdown__link" href="../blog/index.html">By topic</a></li>
+                <li><a class="dropdown__link" href="../blog/authors/jane-doe.html">Authors</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Glossary</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../glossary/index.html">Tech terms, explained</a></li>
+                <li><a class="dropdown__link" href="../glossary/index.html">Browse A–Z</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Tools</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../get-an-estimate.html">Project Estimator</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About ▾ (dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../about/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
+          About <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+
+        <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The company</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">History</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Partners</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">The team</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">Leadership</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Team &amp; specialists</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Careers</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <span class="dropdown__heading">Trust &amp; contact</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/security-compliance.html">Security &amp; Compliance</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../schedule-a-call.html">Schedule a Call</a></li>
+                <li><a class="dropdown__link" href="../contact.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- Right cluster: persistent CTA (desktop-only — no hamburger) -->
+    <div class="topbar__actions">
+      <a class="btn btn--main btn--medium nav__cta" href="../get-an-estimate.html">
+        Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       MEGAMENU PANELS (full-width; children of <header> so left/right:0 span
+       the bar). Opened by the matching nav__link via aria-controls.
+       ───────────────────────────────────────────────────────────────────── -->
+
+  <!-- Services megamenu — six sequential stages + cross-cutting AI band -->
+  <div class="megamenu megamenu--services" id="mm-services" role="region" aria-label="Services" hidden>
+    <div class="megamenu__inner">
+      <p class="section-label">From idea to live product — every stage covered</p>
+
+      <!-- AI Transformation — distinct cross-cutting band -->
+      <div class="megamenu__ai-band">
+        <div>
+          <span class="megamenu__heading">AI Transformation — our cross-cutting competency</span>
+          <p class="megamenu__link-desc">Not a stage, but expertise that runs through discovery, design, build and support: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering.</p>
+        </div>
+        <a class="btn btn--secondary-light btn--small" href="../services/ai-transformation.html">
+          Explore AI Transformation <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="megamenu__cols">
+        <!-- Discover & Validate -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Discover &amp; Validate</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/it-consulting.html"><strong>IT Consulting</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Market Analysis</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Transformation Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Startup Ideation &amp; Feasibility</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Conceptualization</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Financial Modelling</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Specification</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Cost &amp; Time Estimation</a></li>
+          </ul>
+        </div>
+
+        <!-- Design -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Design</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/product-design.html"><strong>Product Design</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UI Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UX Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Prototyping &amp; Wireframing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">User Testing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Customer Journey Mapping</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Redesign</a></li>
+          </ul>
+        </div>
+
+        <!-- Build (primary stage) -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Build</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/software-development.html"><strong>Software Development</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Web Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Mobile App Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">E-commerce Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">CRM / ERP Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Bot &amp; Game Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SPA / PWA Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">3rd Party Integrations</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Platform Migration</a></li>
+          </ul>
+        </div>
+
+        <!-- Grow -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Grow</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/marketing.html"><strong>Marketing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Marketing Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Full Digital Marketing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SEO · GEO · ASO</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Lead Generation</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">PPC · SMM</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Branding</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Copywriting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <!-- Scale -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Scale</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/outsourcing-outstaffing.html"><strong>Outsourcing &amp; Outstaffing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Team Outsourcing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Staff Augmentation</a></li>
+          </ul>
+        </div>
+
+        <!-- Maintain -->
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Maintain</span>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/support-maintenance.html"><strong>Support &amp; Maintenance</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Support</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Audit &amp; Troubleshooting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Security &amp; Performance</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Hosting &amp; Infrastructure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../services/index.html">
+          Need it all? See our end-to-end Digital Transformation service <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Who We Serve megamenu — two-axis panel (company stage × industry) -->
+  <div class="megamenu megamenu--who-we-serve" id="mm-who" role="region" aria-label="Who We Serve" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">By company stage</span>
+          <p class="megamenu__link-desc">Where you are right now</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a><span class="megamenu__link-desc">pre-revenue, building MVP</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Scale-up</a><span class="megamenu__link-desc">product-market fit, growing fast</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Small Business</a><span class="megamenu__link-desc">established, modernising</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a><span class="megamenu__link-desc">multi-team, accelerating</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Enterprise</a><span class="megamenu__link-desc">complex stack, regulated</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col megamenu__col--industries">
+          <span class="megamenu__heading">By industry</span>
+          <p class="megamenu__link-desc">What you sell, who you serve</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Tech</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Finance</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Healthcare</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Travel &amp; Hospitality</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Retail · E-commerce</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Education</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Manufacturing</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Media &amp; Entertainment</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Sport</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Professional Services</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Non-Profit</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Beauty &amp; Wellness</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../our-work/index.html">
+          Browse all case studies <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <span class="megamenu__link-desc">With stage and industry filter chips pre-populated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- How We Work megamenu — three columns (Process · Engagement · Reference) -->
+  <div class="megamenu megamenu--how-we-work" id="mm-howwework" role="region" aria-label="How We Work" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Our Process</span>
+          <p class="megamenu__link-desc">5-step engagement journey</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/process.html#kickoff">1 · Kickoff</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#scoping">2 · Scoping</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#execute">3 · Execute</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#launch">4 · Launch</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#iterate">5 · Iterate</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Engagement Models</span>
+          <p class="megamenu__link-desc">How we charge &amp; staff</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Fixed Price</a><span class="megamenu__link-desc">defined scope, fixed cost</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Time &amp; Material</a><span class="megamenu__link-desc">flexible scope, hourly</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Dedicated Team</a><span class="megamenu__link-desc">your team, our payroll</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Outstaffing</a><span class="megamenu__link-desc">engineers into your team</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <span class="megamenu__heading">Reference</span>
+          <p class="megamenu__link-desc">What we build with</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/technologies/index.html">Technologies — full stack index <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/methodologies/index.html">Methodologies — how we run delivery <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/tools/index.html">Tools — what we work in day-to-day <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../get-an-estimate.html">
+          Not sure where to start? Get a ballpark in 90 seconds <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<main role="main">
+
+  <!-- ═══ 1 · COUNTER HERO ═══════════════════════════════════════════════ -->
+  <section class="band band--dark-deep section">
+    <div class="container">
+      <nav class="breadcrumb mb-s" aria-label="Breadcrumb">
+        <a class="breadcrumb__item" href="../index.html">Home</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <span class="breadcrumb__item" aria-current="page">Our Work</span>
+      </nav>
+      <p class="section-label">Our Work</p>
+      <h1 class="t-h1 text-balance" style="max-width: 16ch">The outcomes that mattered.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 58ch">Browse the work by the story it tells — built from nothing, scaled under load, dragged out of legacy, or pulled back from the brink. Filter to find yours.</p>
+      <div class="hero-stats">
+        <div class="stat-band stat-band--divided">
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h1">120+</span>
+            <span class="stat-band__label t-p3 tc-secondary">Projects shipped</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h1">13</span>
+            <span class="stat-band__label t-p3 tc-secondary">Industries served</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__figure t-h1">40+</span>
+            <span class="stat-band__label t-p3 tc-secondary">Products taken to launch</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2 · STICKY FILTER STRIP — faceted dropdowns (prototype.js initFacetFilter) ═
+       Facets: Industry · Technology · Service · Sub-services (revealed once a
+       Service is picked) · Platform · Country · Company size. Multi-select within
+       a facet, AND across facets, live count. Country list would be CMS-populated
+       from each project's "country" field in production. -->
+  <div class="sticky-bar filter-strip">
+    <div class="container filter-strip__inner">
+      <div class="facets" data-facet-bar role="group" aria-label="Filter projects">
+
+        <!-- Industry (13, from the Industries hub) -->
+        <div class="facet" data-facet="industry">
+          <button type="button" class="facet__toggle" aria-haspopup="true" aria-expanded="false">
+            <span class="facet__label">Industry</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="facet__menu" role="group" aria-label="Filter by industry" hidden>
+            <label class="facet__opt"><input type="checkbox" value="tech"> Tech</label>
+            <label class="facet__opt"><input type="checkbox" value="finance"> Finance</label>
+            <label class="facet__opt"><input type="checkbox" value="healthcare"> Healthcare</label>
+            <label class="facet__opt"><input type="checkbox" value="travel"> Travel</label>
+            <label class="facet__opt"><input type="checkbox" value="hospitality"> Hospitality</label>
+            <label class="facet__opt"><input type="checkbox" value="manufacturing"> Manufacturing</label>
+            <label class="facet__opt"><input type="checkbox" value="retail"> Retail</label>
+            <label class="facet__opt"><input type="checkbox" value="education"> Education</label>
+            <label class="facet__opt"><input type="checkbox" value="sport"> Sport</label>
+            <label class="facet__opt"><input type="checkbox" value="media"> Media &amp; Entertainment</label>
+            <label class="facet__opt"><input type="checkbox" value="professional-services"> Professional Services</label>
+            <label class="facet__opt"><input type="checkbox" value="non-profit"> Non-Profit</label>
+            <label class="facet__opt"><input type="checkbox" value="beauty-wellness"> Beauty &amp; Wellness</label>
+          </div>
+        </div>
+
+        <!-- Technology (from the Technologies hub) -->
+        <div class="facet" data-facet="technology">
+          <button type="button" class="facet__toggle" aria-haspopup="true" aria-expanded="false">
+            <span class="facet__label">Technology</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="facet__menu" role="group" aria-label="Filter by technology" hidden>
+            <label class="facet__opt"><input type="checkbox" value="react"> React.js</label>
+            <label class="facet__opt"><input type="checkbox" value="react-native"> React Native</label>
+            <label class="facet__opt"><input type="checkbox" value="vue"> Vue.js</label>
+            <label class="facet__opt"><input type="checkbox" value="nextjs"> Next.js</label>
+            <label class="facet__opt"><input type="checkbox" value="typescript"> TypeScript</label>
+            <label class="facet__opt"><input type="checkbox" value="node"> Node.js</label>
+            <label class="facet__opt"><input type="checkbox" value="dotnet"> .NET</label>
+            <label class="facet__opt"><input type="checkbox" value="php"> PHP</label>
+            <label class="facet__opt"><input type="checkbox" value="laravel"> Laravel</label>
+            <label class="facet__opt"><input type="checkbox" value="postgresql"> PostgreSQL</label>
+            <label class="facet__opt"><input type="checkbox" value="kafka"> Kafka</label>
+            <label class="facet__opt"><input type="checkbox" value="aws"> AWS</label>
+            <label class="facet__opt"><input type="checkbox" value="python"> Python</label>
+            <label class="facet__opt"><input type="checkbox" value="openai"> OpenAI</label>
+            <label class="facet__opt"><input type="checkbox" value="pytorch"> PyTorch</label>
+          </div>
+        </div>
+
+        <!-- Service (7 categories) -->
+        <div class="facet" data-facet="service">
+          <button type="button" class="facet__toggle" aria-haspopup="true" aria-expanded="false">
+            <span class="facet__label">Service</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="facet__menu" role="group" aria-label="Filter by service" hidden>
+            <label class="facet__opt"><input type="checkbox" value="ai-transformation"> AI Transformation</label>
+            <label class="facet__opt"><input type="checkbox" value="software-development"> Software Development</label>
+            <label class="facet__opt"><input type="checkbox" value="product-design"> Product Design</label>
+            <label class="facet__opt"><input type="checkbox" value="marketing"> Marketing</label>
+            <label class="facet__opt"><input type="checkbox" value="it-consulting"> IT Consulting</label>
+            <label class="facet__opt"><input type="checkbox" value="support-maintenance"> Support &amp; Maintenance</label>
+            <label class="facet__opt"><input type="checkbox" value="outsourcing-outstaffing"> Outsourcing &amp; Outstaffing</label>
+          </div>
+        </div>
+
+        <!-- Sub-services — revealed once a Service is selected; options scoped to it -->
+        <div class="facet" data-facet="subservice" hidden>
+          <button type="button" class="facet__toggle" aria-haspopup="true" aria-expanded="false">
+            <span class="facet__label">Sub-services</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="facet__menu" role="group" aria-label="Filter by sub-service" hidden>
+            <!-- Software Development -->
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="web-development"> Web Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="mobile-app-development"> Mobile App Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="bot-development"> Bot Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="game-development"> Game Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="e-commerce-development"> E-commerce Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="crm-development"> CRM Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="erp-development"> ERP Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="pwa-development"> PWA Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="spa-development"> SPA Development</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="third-party-integrations"> 3rd Party Integrations</label>
+            <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="platform-migration"> Platform Migration Services</label>
+            <!-- Product Design -->
+            <label class="facet__opt" data-parent="product-design"><input type="checkbox" value="ui-design"> UI Design</label>
+            <label class="facet__opt" data-parent="product-design"><input type="checkbox" value="ux-design"> UX Design</label>
+            <label class="facet__opt" data-parent="product-design"><input type="checkbox" value="product-redesign"> Product Redesign</label>
+            <label class="facet__opt" data-parent="product-design"><input type="checkbox" value="user-testing"> User Testing</label>
+            <label class="facet__opt" data-parent="product-design"><input type="checkbox" value="prototyping-wireframing"> Prototyping &amp; Wireframing</label>
+            <label class="facet__opt" data-parent="product-design"><input type="checkbox" value="customer-journey"> Customer Journey Development</label>
+            <!-- AI Transformation -->
+            <label class="facet__opt" data-parent="ai-transformation"><input type="checkbox" value="ai-integration"> AI Integration</label>
+            <label class="facet__opt" data-parent="ai-transformation"><input type="checkbox" value="generative-ai"> Generative AI Development</label>
+            <label class="facet__opt" data-parent="ai-transformation"><input type="checkbox" value="ml-engineering"> ML Engineering</label>
+            <label class="facet__opt" data-parent="ai-transformation"><input type="checkbox" value="data-analytics"> Data Analytics</label>
+            <label class="facet__opt" data-parent="ai-transformation"><input type="checkbox" value="prompt-engineering"> AI Prompt Engineering</label>
+            <!-- Marketing -->
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="marketing-strategy"> Marketing Strategy Development</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="full-digital-marketing"> Full Digital Marketing</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="seo"> SEO</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="geo"> GEO</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="aso"> ASO</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="lead-generation"> Lead Generation</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="smm"> SMM</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="graphic-design"> Graphic Design</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="ppc"> PPC</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="copywriting"> Copywriting</label>
+            <label class="facet__opt" data-parent="marketing"><input type="checkbox" value="digital-branding"> Digital Branding</label>
+            <!-- IT Consulting -->
+            <label class="facet__opt" data-parent="it-consulting"><input type="checkbox" value="market-analysis"> Market Analysis</label>
+            <label class="facet__opt" data-parent="it-consulting"><input type="checkbox" value="digital-transformation-strategy"> Digital Transformation Strategy</label>
+            <label class="facet__opt" data-parent="it-consulting"><input type="checkbox" value="startup-ideation"> Startup Ideation &amp; Feasibility</label>
+            <label class="facet__opt" data-parent="it-consulting"><input type="checkbox" value="product-conceptualization"> Product Conceptualization</label>
+            <label class="facet__opt" data-parent="it-consulting"><input type="checkbox" value="financial-model"> Financial Model Development</label>
+            <label class="facet__opt" data-parent="it-consulting"><input type="checkbox" value="technical-specification"> Technical Specification Development</label>
+            <label class="facet__opt" data-parent="it-consulting"><input type="checkbox" value="cost-time-estimation"> Cost &amp; Time Estimation</label>
+            <!-- Support & Maintenance -->
+            <label class="facet__opt" data-parent="support-maintenance"><input type="checkbox" value="technical-support"> Technical Support &amp; Maintenance</label>
+            <label class="facet__opt" data-parent="support-maintenance"><input type="checkbox" value="audit-troubleshooting"> Audit &amp; Troubleshooting</label>
+            <label class="facet__opt" data-parent="support-maintenance"><input type="checkbox" value="security-performance"> Security, Performance &amp; Updates</label>
+            <label class="facet__opt" data-parent="support-maintenance"><input type="checkbox" value="hosting-infrastructure"> Hosting &amp; Infrastructure Support</label>
+            <!-- Outsourcing & Outstaffing -->
+            <label class="facet__opt" data-parent="outsourcing-outstaffing"><input type="checkbox" value="team-outsourcing"> Team Outsourcing</label>
+            <label class="facet__opt" data-parent="outsourcing-outstaffing"><input type="checkbox" value="staff-augmentation"> Staff Augmentation</label>
+          </div>
+        </div>
+
+        <!-- Platform -->
+        <div class="facet" data-facet="platform">
+          <button type="button" class="facet__toggle" aria-haspopup="true" aria-expanded="false">
+            <span class="facet__label">Platform</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="facet__menu" role="group" aria-label="Filter by platform" hidden>
+            <label class="facet__opt"><input type="checkbox" value="web"> Web</label>
+            <label class="facet__opt"><input type="checkbox" value="mobile"> Mobile / Native App</label>
+            <label class="facet__opt"><input type="checkbox" value="desktop"> Desktop</label>
+            <label class="facet__opt"><input type="checkbox" value="pwa"> PWA</label>
+            <label class="facet__opt"><input type="checkbox" value="ecommerce"> E-commerce</label>
+          </div>
+        </div>
+
+        <!-- Country (CMS-populated from each project's country field) -->
+        <div class="facet" data-facet="country">
+          <button type="button" class="facet__toggle" aria-haspopup="true" aria-expanded="false">
+            <span class="facet__label">Country</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="facet__menu" role="group" aria-label="Filter by country" hidden>
+            <label class="facet__opt"><input type="checkbox" value="us"> United States</label>
+            <label class="facet__opt"><input type="checkbox" value="uk"> United Kingdom</label>
+            <label class="facet__opt"><input type="checkbox" value="de"> Germany</label>
+            <label class="facet__opt"><input type="checkbox" value="ae"> United Arab Emirates</label>
+            <label class="facet__opt"><input type="checkbox" value="ca"> Canada</label>
+            <label class="facet__opt"><input type="checkbox" value="au"> Australia</label>
+            <label class="facet__opt"><input type="checkbox" value="am"> Armenia</label>
+          </div>
+        </div>
+
+        <!-- Company size (from Who We Serve stages) -->
+        <div class="facet" data-facet="size">
+          <button type="button" class="facet__toggle" aria-haspopup="true" aria-expanded="false">
+            <span class="facet__label">Company size</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="facet__menu" role="group" aria-label="Filter by company size" hidden>
+            <label class="facet__opt"><input type="checkbox" value="early-stage"> Early-stage Startup</label>
+            <label class="facet__opt"><input type="checkbox" value="scale-up"> Scale-up</label>
+            <label class="facet__opt"><input type="checkbox" value="small-business"> Small Business</label>
+            <label class="facet__opt"><input type="checkbox" value="midsize"> Midsize Business</label>
+            <label class="facet__opt"><input type="checkbox" value="enterprise"> Enterprise</label>
+          </div>
+        </div>
+
+        <button type="button" class="facet-clear" data-facet-clear hidden>Clear all</button>
+      </div>
+      <span class="filter-count t-p3" data-filter-count>12 projects</span>
+    </div>
+  </div>
+
+  <!-- ═══ 3 + 4 · OUTCOME GROUPS — each a feature-lead; all projects live here ═══ -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Built from 0 to 1 -->
+      <div class="og" data-filter-section>
+        <div class="og__head">
+          <p class="section-label">Built from 0 to 1</p>
+          <h2 class="t-h3">Idea on a napkin → product in the world.</h2>
+        </div>
+        <div class="og-grid">
+          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="healthcare" data-service="software-development" data-subservice="web-development" data-technology="react,typescript,node" data-platform="web" data-country="us" data-size="early-stage" href="fintech-platform.html">
+            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+            <div class="card__body">
+              <h3 class="t-h4">Lumen Health</h3>
+              <p class="t-p3 tc-secondary">From napkin to a HIPAA-ready MVP in five months — and a seed round on the strength of it.</p>
+              <div class="card__meta mt-4xs">
+                <span class="tag tag--secondary">Healthcare</span>
+                <span class="tag tag--secondary">Web Development</span>
+              </div>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="mobile-app-development" data-technology="react-native,node" data-platform="mobile" data-country="uk" data-size="early-stage" href="fintech-platform.html">
+            <h3 class="t-h5">Cadence</h3>
+            <p class="t-p3 tc-secondary">A budgeting app that went from prototype to App Store.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">FinTech</span>
+              <span class="tag tag--secondary">Mobile App</span>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="media" data-service="software-development" data-subservice="web-development" data-technology="nextjs,typescript" data-platform="web" data-country="us" data-size="early-stage" href="fintech-platform.html">
+            <h3 class="t-h5">Plotline</h3>
+            <p class="t-p3 tc-secondary">A storytelling platform launched in fourteen weeks.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Media</span>
+              <span class="tag tag--secondary">Web Development</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Scaled to enterprise -->
+      <div class="og" data-filter-section>
+        <div class="og__head">
+          <p class="section-label">Scaled to enterprise</p>
+          <h2 class="t-h3">Built ahead of the growth curve, not behind it.</h2>
+        </div>
+        <div class="og-grid">
+          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="retail" data-service="software-development" data-subservice="e-commerce-development" data-technology="nextjs,node,postgresql" data-platform="ecommerce" data-country="de" data-size="scale-up" href="fintech-platform.html">
+            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+            <div class="card__body">
+              <h3 class="t-h4">Northwind Markets</h3>
+              <p class="t-p3 tc-secondary">A storefront re-architected to take 10× the traffic — Black Friday came and went quietly.</p>
+              <div class="card__meta mt-4xs">
+                <span class="tag tag--secondary">Retail</span>
+                <span class="tag tag--secondary">Web Development</span>
+              </div>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="web-development" data-technology="react,node,kafka" data-platform="web" data-country="uk" data-size="enterprise" href="fintech-platform.html">
+            <h3 class="t-h5">Vault</h3>
+            <p class="t-p3 tc-secondary">A trading platform that grew without a minute of downtime.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">FinTech</span>
+              <span class="tag tag--secondary">Software Development</span>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="education" data-service="software-development" data-subservice="mobile-app-development" data-technology="react-native" data-platform="mobile" data-country="ca" data-size="scale-up" href="fintech-platform.html">
+            <h3 class="t-h5">Mentor</h3>
+            <p class="t-p3 tc-secondary">A learning app that went from 10k to a million users.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Education</span>
+              <span class="tag tag--secondary">Mobile App</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Modernised legacy -->
+      <div class="og" data-filter-section>
+        <div class="og__head">
+          <p class="section-label">Modernised legacy</p>
+          <h2 class="t-h3">Off the old stack, without the big-bang risk.</h2>
+        </div>
+        <div class="og-grid">
+          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="manufacturing" data-service="software-development" data-subservice="platform-migration" data-technology="dotnet,postgresql" data-platform="web" data-country="de" data-size="midsize" href="fintech-platform.html">
+            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+            <div class="card__body">
+              <h3 class="t-h4">Atlas Manufacturing</h3>
+              <p class="t-p3 tc-secondary">An ERP that finally replaced six spreadsheets and a decade of workarounds.</p>
+              <div class="card__meta mt-4xs">
+                <span class="tag tag--secondary">Manufacturing</span>
+                <span class="tag tag--secondary">Software Development</span>
+              </div>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="platform-migration" data-technology="node,aws" data-platform="web" data-country="us" data-size="enterprise" href="fintech-platform.html">
+            <h3 class="t-h5">Beacon</h3>
+            <p class="t-p3 tc-secondary">Migrated off a 15-year-old stack with zero downtime.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Finance</span>
+              <span class="tag tag--secondary">Web Development</span>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="hospitality" data-service="software-development" data-subservice="web-development" data-technology="php,laravel" data-platform="web" data-country="au" data-size="small-business" href="fintech-platform.html">
+            <h3 class="t-h5">Harbor</h3>
+            <p class="t-p3 tc-secondary">A booking system dragged into this decade.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Hospitality</span>
+              <span class="tag tag--secondary">Web Development</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Saved a struggling product -->
+      <div class="og" data-filter-section>
+        <div class="og__head">
+          <p class="section-label">Saved a struggling product</p>
+          <h2 class="t-h3">Pulled back from the brink, then shipped.</h2>
+        </div>
+        <div class="og-grid">
+          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="healthcare" data-service="ai-transformation" data-subservice="ai-integration" data-technology="python,openai" data-platform="web" data-country="us" data-size="scale-up" href="fintech-platform.html">
+            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+            <div class="card__body">
+              <h3 class="t-h4">Reform</h3>
+              <p class="t-p3 tc-secondary">A stalled product re-architected, de-risked, and finally shipped to production.</p>
+              <div class="card__meta mt-4xs">
+                <span class="tag tag--secondary">Healthcare</span>
+                <span class="tag tag--secondary">AI Transformation</span>
+              </div>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="retail" data-service="product-design" data-subservice="product-redesign" data-technology="react,typescript" data-platform="web" data-country="uk" data-size="small-business" href="fintech-platform.html">
+            <h3 class="t-h5">Tally</h3>
+            <p class="t-p3 tc-secondary">A checkout rescued from a 38% drop-off rate.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Retail</span>
+              <span class="tag tag--secondary">Web Development</span>
+            </div>
+          </a>
+          <a class="card og-item" data-portfolio-item data-industry="tech" data-service="ai-transformation" data-subservice="ml-engineering" data-technology="python,pytorch" data-platform="web" data-country="am" data-size="midsize" href="fintech-platform.html">
+            <h3 class="t-h5">Signal</h3>
+            <p class="t-p3 tc-secondary">An AI feature that finally made it out of the demo and into production.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Tech</span>
+              <span class="tag tag--secondary">AI Transformation</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <p class="t-p2 tc-tertiary" data-filter-empty hidden style="padding-block: var(--space-l);">No projects match that filter yet — but we've probably done something close. <a href="../contact.html" style="color: var(--text-accent); font-weight: var(--font-weight-medium);">Ask us →</a></p>
+    </div>
+  </section>
+
+  <!-- ═══ 7 · CLOSING CTA ════════════════════════════════════════════════ -->
+  <section class="band band--popout section">
+    <div class="container cta-band">
+      <p class="section-label">Seen one like yours?</p>
+      <h2 class="t-h2">Want a project like one of these?</h2>
+      <p class="t-p1 tc-secondary mt-3xs" style="max-width: 50ch; margin-inline: auto;">Get a ballpark in 90 seconds, or talk it through with the team that shipped them.</p>
+      <div class="cta-band__ctas">
+        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Sticky Estimator CTA — shown on scroll by prototype.js (IA block 6) -->
+<aside class="sticky-estimator" aria-label="Get an estimate">
+  <span class="sticky-estimator__copy">Want one like these? Get a ballpark.</span>
+  <a class="btn btn--main btn--small" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+</aside>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__cols">
+
+      <!-- 1 · Services (7 categories + All services) -->
+      <nav class="footer-col" aria-label="Services">
+        <span class="footer-col__heading">Services</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../services/ai-transformation.html">AI Transformation</a>
+          <a class="footer-link" href="../services/software-development.html">Software Development</a>
+          <a class="footer-link" href="../services/product-design.html">Product Design</a>
+          <a class="footer-link" href="../services/marketing.html">Marketing</a>
+          <a class="footer-link" href="../services/it-consulting.html">IT Consulting</a>
+          <a class="footer-link" href="../services/support-maintenance.html">Support &amp; Maintenance</a>
+          <a class="footer-link" href="../services/outsourcing-outstaffing.html">Outsourcing &amp; Outstaffing</a>
+          <a class="footer-link" href="../services/index.html">All services →</a>
+        </div>
+      </nav>
+
+      <!-- 2 · Industries & Stage (industries + company stages, full list) -->
+      <nav class="footer-col" aria-label="Industries and company stage">
+        <span class="footer-col__heading">Industries &amp; Stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../industries/healthcare.html">Tech</a>
+          <a class="footer-link" href="../industries/healthcare.html">Finance</a>
+          <a class="footer-link" href="../industries/healthcare.html">Healthcare</a>
+          <a class="footer-link" href="../industries/healthcare.html">Travel &amp; Hospitality</a>
+          <a class="footer-link" href="../industries/healthcare.html">Retail · E-commerce</a>
+          <a class="footer-link" href="../industries/healthcare.html">Education</a>
+          <a class="footer-link" href="../industries/healthcare.html">Manufacturing</a>
+          <a class="footer-link" href="../industries/healthcare.html">Media &amp; Entertainment</a>
+          <a class="footer-link" href="../industries/healthcare.html">Sport</a>
+          <a class="footer-link" href="../industries/healthcare.html">Professional Services</a>
+          <a class="footer-link" href="../industries/healthcare.html">Non-Profit</a>
+          <a class="footer-link" href="../industries/healthcare.html">Beauty &amp; Wellness</a>
+        </div>
+        <span class="footer-col__subheading">By stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Scale-up</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Small Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Enterprise</a>
+        </div>
+      </nav>
+
+      <!-- 3 · Service Areas (country pages — SEO surface, not built this session) -->
+      <nav class="footer-col" aria-label="Service areas">
+        <span class="footer-col__heading">Service Areas</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="#">United States</a>
+          <a class="footer-link" href="#">United Kingdom</a>
+          <a class="footer-link" href="#">Germany</a>
+          <a class="footer-link" href="#">United Arab Emirates</a>
+          <a class="footer-link" href="#">Canada</a>
+          <a class="footer-link" href="#">Australia</a>
+          <a class="footer-link" href="#">Armenia</a>
+        </div>
+      </nav>
+
+      <!-- 4 · Resources -->
+      <nav class="footer-col" aria-label="Resources">
+        <span class="footer-col__heading">Resources</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../blog/index.html">Blog</a>
+          <a class="footer-link" href="../glossary/index.html">Glossary</a>
+          <a class="footer-link" href="../get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="../how-we-work/engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="../how-we-work/process.html">Process</a>
+          <a class="footer-link" href="../how-we-work/technologies/index.html">Technologies</a>
+          <a class="footer-link" href="../how-we-work/methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="../how-we-work/tools/index.html">Tools</a>
+          <a class="footer-link" href="#">2025 in review</a>
+        </div>
+      </nav>
+
+      <!-- 5 · Company -->
+      <nav class="footer-col" aria-label="Company">
+        <span class="footer-col__heading">Company</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../about/index.html">About</a>
+          <a class="footer-link" href="../about/index.html">Team</a>
+          <a class="footer-link" href="../about/index.html">Careers</a>
+          <a class="footer-link" href="../about/security-compliance.html">Security &amp; Compliance</a>
+          <a class="footer-link" href="../about/index.html">Partners</a>
+          <a class="footer-link" href="../about/index.html">Press</a>
+          <a class="footer-link" href="../contact.html">Contact</a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Utility row — logo · legal · social · copyright -->
+    <div class="site-footer__utility">
+      <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+        <i data-lucide="hexagon" aria-hidden="true"></i>
+        VECTO
+      </a>
+
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="../legal/privacy.html">Privacy</a>
+        <a href="../legal/terms.html">Terms</a>
+        <a href="../legal/cookies.html">Cookies</a>
+        <a href="../legal/sitemap.html">Sitemap</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="VECTO on LinkedIn"><i data-lucide="share-2" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on X"><i data-lucide="at-sign" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on GitHub"><i data-lucide="code" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on Instagram"><i data-lucide="camera" aria-hidden="true"></i></a>
+      </div>
+
+      <p class="site-footer__copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../prototype.js"></script>
+</body>
+</html>

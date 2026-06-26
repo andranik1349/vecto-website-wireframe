@@ -260,6 +260,7 @@
 
     const buttons = $$('.tag--button', group);
     const countEl = $('[data-filter-count]');
+    const emptyEl = $('[data-filter-empty]');
 
     function apply(filter) {
       let shown = 0;
@@ -269,9 +270,17 @@
         item.hidden = !match;
         if (match) shown++;
       });
+      // Hide any outcome-group section that filtered to empty, so a group
+      // heading never strands above zero results. No-op when there are no
+      // [data-filter-section] wrappers (e.g. the homepage portfolio module).
+      $$('[data-filter-section]').forEach((sec) => {
+        sec.hidden = !$$('[data-portfolio-item]', sec).some((it) => !it.hidden);
+      });
       if (countEl) {
         countEl.textContent = shown + (shown === 1 ? ' project' : ' projects');
       }
+      // Show the empty-state message only when nothing matches.
+      if (emptyEl) emptyEl.hidden = shown !== 0;
     }
 
     buttons.forEach((btn) => {
@@ -285,6 +294,143 @@
     // Initialise from whichever chip is pre-marked active, else "all".
     const initial = $('.tag--button.is-active', group);
     apply(initial ? (initial.dataset.filter || 'all') : 'all');
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════════
+     5b. FACETED PORTFOLIO FILTER (our-work) — a row of multi-select
+        dropdown facets (Industry / Technology / Service / Sub-services /
+        Platform / Country / Company size). AND across facets, OR within a
+        facet. Sub-services facet is revealed once a Service is chosen and
+        shows only that service's sub-services. Live count + group hiding.
+     Markup contract:
+       <div data-facet-bar>
+         <div class="facet" data-facet="industry">
+           <button class="facet__toggle" aria-expanded="false">…</button>
+           <div class="facet__menu" hidden>
+             <label class="facet__opt"><input type="checkbox" value="healthcare"> …</label> …
+           </div>
+         </div> …
+         <div class="facet" data-facet="subservice" hidden> … options carry data-parent="<service>" … </div>
+         <button data-facet-clear hidden>Clear</button>
+       </div>
+       <span data-filter-count></span> · <p data-filter-empty hidden> … </p>
+       <article data-portfolio-item data-industry="…" data-service="…" data-subservice="…"
+                data-technology="a,b" data-platform="…" data-country="…" data-size="…"> … </article>
+     ════════════════════════════════════════════════════════════════════ */
+  function initFacetFilter() {
+    const bar = $('[data-facet-bar]');
+    if (!bar) return;
+    const items = $$('[data-portfolio-item]');
+    const facets = $$('.facet', bar);
+    const countEl = $('[data-filter-count]');
+    const emptyEl = $('[data-filter-empty]');
+    const clearBtn = $('[data-facet-clear]', bar);
+    const serviceFacet = $('.facet[data-facet="service"]', bar);
+    const subFacet = $('.facet[data-facet="subservice"]', bar);
+
+    const selectedIn = (facetEl) =>
+      $$('input[type="checkbox"]:checked', facetEl).map((i) => i.value);
+
+    function closeAll(except) {
+      facets.forEach((f) => {
+        if (f === except) return;
+        f.classList.remove('is-open');
+        $('.facet__toggle', f).setAttribute('aria-expanded', 'false');
+        $('.facet__menu', f).hidden = true;
+      });
+    }
+
+    // Sub-services depend on the chosen Service(s): reveal the facet and show
+    // only options whose data-parent matches a selected service.
+    function syncSubservice() {
+      if (!subFacet || !serviceFacet) return;
+      const services = selectedIn(serviceFacet);
+      let visible = 0;
+      $$('.facet__opt', subFacet).forEach((opt) => {
+        const show = services.includes(opt.dataset.parent);
+        opt.hidden = !show;
+        if (show) visible++;
+        if (!show) { const cb = $('input', opt); if (cb) cb.checked = false; }
+      });
+      subFacet.hidden = visible === 0;
+      if (subFacet.hidden) subFacet.classList.remove('is-open');
+    }
+
+    function apply() {
+      const sel = {};
+      facets.forEach((f) => {
+        if (f.hidden) return;
+        const vals = selectedIn(f);
+        if (vals.length) sel[f.dataset.facet] = vals;
+      });
+      const keys = Object.keys(sel);
+
+      let shown = 0;
+      items.forEach((item) => {
+        const match = keys.every((key) => {
+          const itemVals = (item.dataset[key] || '').split(',').map((s) => s.trim());
+          return sel[key].some((v) => itemVals.includes(v));
+        });
+        item.hidden = !match;
+        if (match) shown++;
+      });
+
+      $$('[data-filter-section]').forEach((sec) => {
+        sec.hidden = !$$('[data-portfolio-item]', sec).some((it) => !it.hidden);
+      });
+      if (countEl) countEl.textContent = shown + (shown === 1 ? ' project' : ' projects');
+      if (emptyEl) emptyEl.hidden = shown !== 0;
+
+      // Per-facet selected-count badge + active styling.
+      facets.forEach((f) => {
+        const n = selectedIn(f).length;
+        const tog = $('.facet__toggle', f);
+        tog.classList.toggle('has-selection', n > 0);
+        const badge = $('.facet__badge', tog);
+        if (badge) { badge.textContent = n ? String(n) : ''; badge.hidden = n === 0; }
+      });
+      if (clearBtn) clearBtn.hidden = keys.length === 0;
+    }
+
+    // Open/close the facet menus.
+    facets.forEach((f) => {
+      const tog = $('.facet__toggle', f);
+      const menu = $('.facet__menu', f);
+      tog.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const willOpen = !f.classList.contains('is-open');
+        closeAll();
+        if (willOpen) {
+          f.classList.add('is-open');
+          tog.setAttribute('aria-expanded', 'true');
+          menu.hidden = false;
+        }
+      });
+    });
+
+    bar.addEventListener('change', (e) => {
+      if (!e.target.matches('input[type="checkbox"]')) return;
+      if (serviceFacet && serviceFacet.contains(e.target)) syncSubservice();
+      apply();
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        $$('input[type="checkbox"]', bar).forEach((cb) => { cb.checked = false; });
+        syncSubservice();
+        apply();
+        closeAll();
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('[data-facet-bar]')) closeAll();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+    syncSubservice();
+    apply();
   }
 
 
@@ -530,6 +676,7 @@
     initAccordions();
     initStickyEstimator();
     initPortfolioFilter();
+    initFacetFilter();
     initDecisionTree();
     initEstimator();
     initProcessSteps();
