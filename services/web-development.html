@@ -18,18 +18,7 @@
     .section-head { margin-bottom: var(--space-l); }
     .section-head .section-label { margin-bottom: var(--space-3xs); }
     .hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
-
-    /* Visible template notice — so colleagues browsing the prototype see this
-       page's role, not just devs reading the source. Sits above the sticky nav. */
-    .tmpl-banner { background: var(--surface-accent); border-bottom: 1px solid var(--accent); }
-    .tmpl-banner__inner { display: flex; align-items: center; gap: var(--space-3xs); padding-block: var(--space-3xs); }
-    .tmpl-banner i { width: 18px; height: 18px; color: var(--text-accent); flex: 0 0 auto; }
-    .tmpl-banner__text { color: var(--text-secondary); }
-    .tmpl-banner strong { color: var(--text-primary); }
-    .tmpl-banner code {
-      font-family: var(--font-mono, monospace); color: var(--text-primary);
-      background: var(--overlay-light-3); padding: 0 var(--space-min); border-radius: var(--radius-s);
-    }
+    /* .tmpl-banner now lives in components.css (promoted per build-plan §4.4). */
 
     /* ── 3 · What you get — concrete deliverables checklist ── */
     .deliverables { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l) var(--grid-gap); }

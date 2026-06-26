@@ -1179,3 +1179,27 @@ a.card:hover,
 .footer-social a:hover { color: var(--text-primary); }
 .footer-social svg { width: var(--space-xs); height: var(--space-xs); }
 .site-footer__copyright { color: var(--text-tertiary); font-size: var(--text-size-c1); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — TEMPLATE NOTICE BANNER
+   Visible counterpart to the ⚑ placeholder/template HTML comment. Used on
+   the single built example of a template family (sub-service, company
+   stage, industry, case, …) so anyone browsing the prototype sees the
+   page's representative role. Place at the very top of <body>, ABOVE the
+   sticky .topbar so it scrolls away while the nav sticks. (build-plan §4.4)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.tmpl-banner { background-color: var(--surface-accent); border-bottom: 1px solid var(--accent); }
+.tmpl-banner__inner {
+  display: flex; align-items: center; gap: var(--space-3xs);
+  padding-block: var(--space-3xs);
+}
+.tmpl-banner i { width: 18px; height: 18px; color: var(--text-accent); flex: 0 0 auto; }
+.tmpl-banner__text { color: var(--text-secondary); }
+.tmpl-banner strong { color: var(--text-primary); }
+.tmpl-banner code {
+  font-family: var(--font-mono, monospace); color: var(--text-primary);
+  background-color: var(--overlay-light-3);
+  padding: 0 var(--space-min); border-radius: var(--radius-s);
+}
