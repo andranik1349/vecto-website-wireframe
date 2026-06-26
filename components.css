@@ -717,6 +717,13 @@ a.card:hover,
   color: var(--text-muted);
 }
 .megamenu__heading--accent { color: var(--text-accent); }
+/* Heading-as-link — section headers that navigate to their hub/landing page.
+   Keeps the muted label look; adds an interactive hover affordance. */
+a.megamenu__heading,
+a.dropdown__heading { text-decoration: none; cursor: pointer; transition: color .15s ease; }
+a.megamenu__heading:hover,
+a.dropdown__heading:hover { color: var(--text-primary); }
+.megamenu__ai-band a.megamenu__heading { text-decoration: underline; text-underline-offset: 3px; }
 .megamenu__links { display: flex; flex-direction: column; gap: var(--space-min); }
 .megamenu__link {
   display: flex;
