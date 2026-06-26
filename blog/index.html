@@ -1,1 +1,736 @@
-<!-- Resources / Blog hub — IA §branch-resources (8 blocks) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Blog — VECTO</title>
+  <meta name="description" content="What we've learned, written up. Plain-English thinking for non-technical founders — on building, design, AI, engineering, and running a product company.">
+
+  <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../typography.css">
+  <link rel="stylesheet" href="../components.css">
+  <link rel="stylesheet" href="../layout.css">
+
+  <!-- Lucide icons via CDN; prototype.js calls lucide.createIcons() on load. -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Page-scoped layout for the Blog hub (build-plan allows a per-page
+       <style> block). Everything token-driven — no hardcoded colour/size. -->
+  <style>
+    .section-head { margin-bottom: var(--space-l); }
+    .section-head .section-label { margin-bottom: var(--space-3xs); }
+
+    /* 1 · Hero */
+    .blog-hero__title { max-width: 18ch; }
+    .blog-hero__sub   { max-width: 54ch; margin-top: var(--space-s); }
+
+    /* 2 · Featured — lead post fills its column; image grows to balance the 2 stacked posts */
+    .blog-lead { align-self: stretch; }
+    .blog-lead .card__media { flex: 1; aspect-ratio: auto; min-height: var(--space-4xl); }
+
+    /* 3 · Filter bar + recent grid */
+    .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4xs); }
+    .filter-count { margin-left: auto; color: var(--text-muted); font-size: var(--text-size-p3); }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-l); margin-top: var(--space-l); }
+    .blog-grid .card__media { min-height: var(--space-3xl); }
+    /* CRITICAL: .card is display:flex, so the native [hidden] attribute is
+       ignored unless we re-assert display:none (memory hidden-attr-needs-display-reset). */
+    [data-portfolio-item][hidden] { display: none; }
+    .filter-empty { color: var(--text-secondary); padding: var(--space-l) 0; }
+
+    /* 5 · Author spotlight */
+    .spotlight__photo { width: var(--space-4xl); height: var(--space-4xl); }
+    .spotlight-posts { display: flex; flex-direction: column; gap: var(--space-4xs); margin-top: var(--space-s); }
+    .spotlight-posts a { color: var(--text-secondary-strong); }
+    .spotlight-posts a:hover { color: var(--text-primary); }
+
+    /* 6+7 · Entry cards (glossary + tools) */
+    .entry-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-l); }
+    .entry-card__icon { display: inline-flex; color: var(--text-accent); }
+    .entry-card__icon svg { width: var(--space-m); height: var(--space-m); }
+
+    /* 8 · Newsletter */
+    .newsletter { display: flex; gap: var(--space-4xs); max-width: 32ch; margin-top: var(--space-s); }
+    .newsletter .input { flex: 1; }
+  </style>
+</head>
+<body>
+<!-- ════════════════════════════════════════════════════════════════════════
+     ⚑ PLACEHOLDER LINKS — blog cluster template convention (build-plan §4.4)
+     This hub links to the single built examples of each repeating page class:
+       · every post card / "read more" → blog/building-ai-that-ships.html
+       · every author byline / spotlight → blog/authors/jane-doe.html
+       · the Glossary entry point → glossary/index.html (which in turn points
+         every term at the one built entry, glossary/mvp.html)
+     In PRODUCTION each resolves to its own /blog/[post-slug],
+     /blog/authors/[author-slug], and /glossary/[term].
+     ════════════════════════════════════════════════════════════════════════ -->
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+
+    <!-- Logo lockup → homepage -->
+    <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+      <i data-lucide="hexagon" aria-hidden="true"></i>
+      VECTO
+    </a>
+
+    <!-- Primary navigation -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Primary">
+
+      <!-- Services ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../services/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
+          Services <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Who We Serve ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../who-we-serve/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
+          Who We Serve <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Our Work (direct link, no dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../our-work/index.html">Our Work</a>
+      </div>
+
+      <!-- How We Work ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../how-we-work/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
+          How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Resources ▾ (dropdown) -->
+      <div class="nav__item">
+        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-resources">
+          Resources <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </button>
+
+        <div class="dropdown dropdown--resources" id="mm-resources" role="region" aria-label="Resources" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <a class="dropdown__heading" href="../blog/index.html">Blog</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../blog/index.html">Latest posts</a></li>
+                <li><a class="dropdown__link" href="../blog/index.html">By topic</a></li>
+                <li><a class="dropdown__link" href="../blog/authors/jane-doe.html">Authors</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <a class="dropdown__heading" href="../glossary/index.html">Glossary</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../glossary/index.html">Tech terms, explained</a></li>
+                <li><a class="dropdown__link" href="../glossary/index.html">Browse A–Z</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <a class="dropdown__heading" href="../get-an-estimate.html">Tools</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../get-an-estimate.html">Project Estimator</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About ▾ (dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../about/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
+          About <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+
+        <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <a class="dropdown__heading" href="../about/index.html">The company</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">History</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Partners</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <a class="dropdown__heading" href="../about/index.html">The team</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/index.html">Leadership</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Team &amp; specialists</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Careers</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <a class="dropdown__heading" href="../about/security-compliance.html">Trust &amp; contact</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../about/security-compliance.html">Security &amp; Compliance</a></li>
+                <li><a class="dropdown__link" href="../about/index.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../schedule-a-call.html">Schedule a Call</a></li>
+                <li><a class="dropdown__link" href="../contact.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- Right cluster: persistent CTA (desktop-only — no hamburger) -->
+    <div class="topbar__actions">
+      <a class="btn btn--main btn--medium nav__cta" href="../get-an-estimate.html">
+        Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       MEGAMENU PANELS (full-width; children of <header> so left/right:0 span
+       the bar). Opened by the matching nav__link via aria-controls.
+       ───────────────────────────────────────────────────────────────────── -->
+
+  <!-- Services megamenu — six sequential stages + cross-cutting AI band -->
+  <div class="megamenu megamenu--services" id="mm-services" role="region" aria-label="Services" hidden>
+    <div class="megamenu__inner">
+      <p class="section-label">From idea to live product — every stage covered</p>
+
+      <!-- AI Transformation — distinct cross-cutting band -->
+      <div class="megamenu__ai-band">
+        <div>
+          <a class="megamenu__heading" href="../services/ai-transformation.html">AI Transformation — our cross-cutting competency</a>
+          <p class="megamenu__link-desc">Not a stage, but expertise that runs through discovery, design, build and support: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering.</p>
+        </div>
+        <a class="btn btn--secondary-light btn--small" href="../services/ai-transformation.html">
+          Explore AI Transformation <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="megamenu__cols">
+        <!-- Discover & Validate -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../services/it-consulting.html">Discover &amp; Validate</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/it-consulting.html"><strong>IT Consulting</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Market Analysis</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Transformation Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Startup Ideation &amp; Feasibility</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Conceptualization</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Financial Modelling</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Specification</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Cost &amp; Time Estimation</a></li>
+          </ul>
+        </div>
+
+        <!-- Design -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../services/product-design.html">Design</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/product-design.html"><strong>Product Design</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UI Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">UX Design</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Prototyping &amp; Wireframing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">User Testing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Customer Journey Mapping</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Product Redesign</a></li>
+          </ul>
+        </div>
+
+        <!-- Build (primary stage) -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../services/software-development.html">Build</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/software-development.html"><strong>Software Development</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Web Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Mobile App Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">E-commerce Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">CRM / ERP Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Bot &amp; Game Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SPA / PWA Development</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">3rd Party Integrations</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Platform Migration</a></li>
+          </ul>
+        </div>
+
+        <!-- Grow -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../services/marketing.html">Grow</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/marketing.html"><strong>Marketing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Marketing Strategy</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Full Digital Marketing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">SEO · GEO · ASO</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Lead Generation</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">PPC · SMM</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Digital Branding</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Copywriting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <!-- Scale -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../services/outsourcing-outstaffing.html">Scale</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/outsourcing-outstaffing.html"><strong>Outsourcing &amp; Outstaffing</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Team Outsourcing</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Staff Augmentation</a></li>
+          </ul>
+        </div>
+
+        <!-- Maintain -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../services/support-maintenance.html">Maintain</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../services/support-maintenance.html"><strong>Support &amp; Maintenance</strong></a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Technical Support</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Audit &amp; Troubleshooting</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Security &amp; Performance</a></li>
+            <li><a class="megamenu__link" href="../services/web-development.html">Hosting &amp; Infrastructure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../services/index.html">
+          Need it all? See our end-to-end Digital Transformation service <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Who We Serve megamenu — two-axis panel (company stage × industry) -->
+  <div class="megamenu megamenu--who-we-serve" id="mm-who" role="region" aria-label="Who We Serve" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../who-we-serve/index.html">By company stage</a>
+          <p class="megamenu__link-desc">Where you are right now</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a><span class="megamenu__link-desc">pre-revenue, building MVP</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Scale-up</a><span class="megamenu__link-desc">product-market fit, growing fast</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Small Business</a><span class="megamenu__link-desc">established, modernising</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a><span class="megamenu__link-desc">multi-team, accelerating</span></li>
+            <li><a class="megamenu__link" href="../who-we-serve/early-stage-startup.html">Enterprise</a><span class="megamenu__link-desc">complex stack, regulated</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col megamenu__col--industries">
+          <a class="megamenu__heading" href="../industries/index.html">By industry</a>
+          <p class="megamenu__link-desc">What you sell, who you serve</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Tech</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Finance</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Healthcare</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Travel &amp; Hospitality</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Retail · E-commerce</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Education</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Manufacturing</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Media &amp; Entertainment</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Sport</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Professional Services</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Non-Profit</a></li>
+            <li><a class="megamenu__link" href="../industries/healthcare.html">Beauty &amp; Wellness</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../our-work/index.html">
+          Browse all case studies <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <span class="megamenu__link-desc">With stage and industry filter chips pre-populated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- How We Work megamenu — three columns (Process · Engagement · Reference) -->
+  <div class="megamenu megamenu--how-we-work" id="mm-howwework" role="region" aria-label="How We Work" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../how-we-work/process.html">Our Process</a>
+          <p class="megamenu__link-desc">5-step engagement journey</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/process.html#kickoff">1 · Kickoff</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#scoping">2 · Scoping</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#execute">3 · Execute</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#launch">4 · Launch</a></li>
+            <li><a class="megamenu__link" href="../how-we-work/process.html#iterate">5 · Iterate</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../how-we-work/engagement-models.html">Engagement Models</a>
+          <p class="megamenu__link-desc">How we charge &amp; staff</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Fixed Price</a><span class="megamenu__link-desc">defined scope, fixed cost</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Time &amp; Material</a><span class="megamenu__link-desc">flexible scope, hourly</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Dedicated Team</a><span class="megamenu__link-desc">your team, our payroll</span></li>
+            <li><a class="megamenu__link" href="../how-we-work/engagement-models.html">Outstaffing</a><span class="megamenu__link-desc">engineers into your team</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <a class="megamenu__heading" href="../how-we-work/index.html">Reference</a>
+          <p class="megamenu__link-desc">What we build with</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../how-we-work/technologies/index.html">Technologies — full stack index <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/methodologies/index.html">Methodologies — how we run delivery <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../how-we-work/tools/index.html">Tools — what we work in day-to-day <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../get-an-estimate.html">
+          Not sure where to start? Get a ballpark in 90 seconds <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+
+<main role="main">
+
+  <!-- ═══ 1 · HERO ══════════════════════════════════════════════════════ -->
+  <section class="band band--dark-deep section">
+    <div class="container">
+      <p class="section-label">Blog</p>
+      <h1 class="t-h1 blog-hero__title">What we've learned, written up.</h1>
+      <p class="t-p1 tc-secondary blog-hero__sub">Plain-English thinking for founders — on building products, spending an AI budget well, choosing how to work, and the decisions that decide whether software ships. No jargon, no fluff.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 2 · FEATURED POSTS (1 lead + 2 supporting) ════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Editor's picks</p>
+        <h2 class="t-h2">Featured reading.</h2>
+      </div>
+
+      <div class="feature-lead">
+        <div class="card card--with-image feature-lead__primary blog-lead">
+          <a class="card__media media-ph" href="building-ai-that-ships.html" aria-label="Building AI that ships"><i data-lucide="image" aria-hidden="true"></i></a>
+          <div class="card__body">
+            <span class="tag tag--secondary">AI</span>
+            <h3 class="t-h4 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Building AI that ships: where it earns its place, and where it doesn't</a></h3>
+            <p class="t-p3 tc-secondary">A field guide to spending your AI budget on the parts that actually move the product — and recognising the parts that don't.</p>
+            <div class="card__meta mt-4xs">
+              <span class="media-ph media-ph--circle" style="width: var(--space-s)" aria-hidden="true"></span>
+              <a href="authors/jane-doe.html">Jane Doe</a> · <span>12 Jun 2026</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <span class="tag tag--secondary">Build</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">What an MVP should actually include</a></h3>
+          <p class="t-p3 tc-secondary">The smallest thing you can ship that still proves the idea.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>28 May 2026</span></div>
+        </div>
+        <div class="card">
+          <span class="tag tag--secondary">Founder advice</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Fixed price vs. time &amp; material, honestly</a></h3>
+          <p class="t-p3 tc-secondary">Which model fits which kind of project — and why.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Marcus Lindqvist</a> · <span>09 May 2026</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · CATEGORIES (filter) + 4 · RECENT POSTS GRID ═══════════════
+       Single-select category filter (initPortfolioFilter): one [data-filter-group],
+       posts tagged data-tags="<category>,<author-slug>". Author discovery happens
+       via the spotlight + bylines, so the visible axis is category only. ═══ -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Latest</p>
+        <h2 class="t-h2">Recent posts.</h2>
+      </div>
+
+      <div class="filter-bar" data-filter-group>
+        <button class="tag tag--button is-active" data-filter="all">All</button>
+        <button class="tag tag--button" data-filter="build">Build</button>
+        <button class="tag tag--button" data-filter="design">Design</button>
+        <button class="tag tag--button" data-filter="ai">AI</button>
+        <button class="tag tag--button" data-filter="founder">Founder advice</button>
+        <button class="tag tag--button" data-filter="engineering">Engineering</button>
+        <button class="tag tag--button" data-filter="industry">Industry insights</button>
+        <span class="filter-count" data-filter-count data-noun="post">—</span>
+      </div>
+
+      <div class="blog-grid">
+        <article class="card" data-portfolio-item data-tags="ai,jane-doe">
+          <span class="tag tag--secondary">AI</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">When not to use an LLM</a></h3>
+          <p class="t-p3 tc-secondary">The unglamorous cases where a rule and a database beat a model — and your users never notice.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>05 Jun 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="build,marcus-lindqvist">
+          <span class="tag tag--secondary">Build</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Shipping weekly without breaking things</a></h3>
+          <p class="t-p3 tc-secondary">The handful of habits that let a small team release every week and still sleep at night.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Marcus Lindqvist</a> · <span>02 Jun 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="design,sofia-almeida">
+          <span class="tag tag--secondary">Design</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Designing for trust in fintech</a></h3>
+          <p class="t-p3 tc-secondary">Why the smallest interface details decide whether people hand you their money.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Sofia Almeida</a> · <span>29 May 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="engineering,marcus-lindqvist">
+          <span class="tag tag--secondary">Engineering</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Choosing a stack you won't regret in a year</a></h3>
+          <p class="t-p3 tc-secondary">Boring, proven, and well-documented beats new and exciting more often than founders expect.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Marcus Lindqvist</a> · <span>22 May 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="founder,sofia-almeida">
+          <span class="tag tag--secondary">Founder advice</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">How to brief an agency so you get what you want</a></h3>
+          <p class="t-p3 tc-secondary">What to write down before the first call so the estimate you get back is one you can trust.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Sofia Almeida</a> · <span>18 May 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="industry,jane-doe">
+          <span class="tag tag--secondary">Industry insights</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">What healthcare software actually has to prove</a></h3>
+          <p class="t-p3 tc-secondary">Compliance isn't a feature you bolt on at the end — it shapes the build from day one.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>14 May 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="build,jane-doe">
+          <span class="tag tag--secondary">Build</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">The feature you can cut (and won't miss)</a></h3>
+          <p class="t-p3 tc-secondary">A practical way to tell the must-haves from the nice-to-haves before they eat your budget.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>08 May 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="design,sofia-almeida">
+          <span class="tag tag--secondary">Design</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Wireframes earn their keep</a></h3>
+          <p class="t-p3 tc-secondary">Why a clickable wireframe saves more money than any other hour you'll spend early on.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Sofia Almeida</a> · <span>30 Apr 2026</span></div>
+        </article>
+        <article class="card" data-portfolio-item data-tags="ai,jane-doe">
+          <span class="tag tag--secondary">AI</span>
+          <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">RAG, agents, and other words founders keep hearing</a></h3>
+          <p class="t-p3 tc-secondary">A jargon-free tour of the AI patterns worth knowing — and which problems each one is for.</p>
+          <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>24 Apr 2026</span></div>
+        </article>
+      </div>
+
+      <p class="filter-empty t-p2" data-filter-empty hidden>No posts in that category yet — try another.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · AUTHOR SPOTLIGHT ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Author spotlight</p>
+        <h2 class="t-h2">This month: Jane Doe.</h2>
+      </div>
+      <div class="split split--top">
+        <div class="flex gap-s flex-top">
+          <span class="media-ph media-ph--circle spotlight__photo" aria-hidden="true"></span>
+          <div>
+            <h3 class="t-h4"><a class="card-link" href="authors/jane-doe.html">Jane Doe</a></h3>
+            <p class="t-p3 tc-muted">Principal Engineer, AI Practice</p>
+            <p class="t-p2 tc-secondary mt-3xs">Jane has shipped AI into healthcare, fintech, and logistics products — and is just as quick to talk a founder out of using it. She writes about the line between AI that earns its place and AI that's there for the pitch deck.</p>
+            <a class="btn btn--ghost btn--medium mt-s" href="authors/jane-doe.html">All posts by Jane <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div>
+          <p class="section-label">Recent from Jane</p>
+          <div class="spotlight-posts t-p2">
+            <a href="building-ai-that-ships.html">Building AI that ships: where it earns its place →</a>
+            <a href="building-ai-that-ships.html">When not to use an LLM →</a>
+            <a href="building-ai-that-ships.html">What healthcare software actually has to prove →</a>
+            <a href="building-ai-that-ships.html">RAG, agents, and other words founders keep hearing →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6 · GLOSSARY ENTRY POINT + 7 · TOOLS ENTRY POINTS ═════════════ -->
+  <section class="band band--elevated section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Keep exploring</p>
+        <h2 class="t-h2">More than the blog.</h2>
+      </div>
+      <div class="entry-cards">
+        <a class="card" href="../glossary/index.html">
+          <span class="entry-card__icon"><i data-lucide="book-open" aria-hidden="true"></i></span>
+          <h3 class="t-h5 mt-3xs">Glossary</h3>
+          <p class="t-p3 tc-secondary">Tech terms, explained for non-technical founders. Browse A–Z.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Open the glossary <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+        <a class="card" href="../get-an-estimate.html">
+          <span class="entry-card__icon"><i data-lucide="calculator" aria-hidden="true"></i></span>
+          <h3 class="t-h5 mt-3xs">Project Estimator</h3>
+          <p class="t-p3 tc-secondary">A ballpark cost and timeline in 90 seconds — no call, no commitment.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+        <a class="card" href="../how-we-work/engagement-models.html">
+          <span class="entry-card__icon"><i data-lucide="git-branch" aria-hidden="true"></i></span>
+          <h3 class="t-h5 mt-3xs">Engagement Models</h3>
+          <p class="t-p3 tc-secondary">Fixed price, time &amp; material, dedicated team, or outstaffing — compared.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Compare models <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8 · NEWSLETTER SIGNUP ═════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container container-medium text-center">
+      <p class="section-label">Stay in the loop</p>
+      <h2 class="t-h3">A useful read in your inbox, now and then.</h2>
+      <p class="t-p2 tc-secondary mt-3xs" style="margin-inline:auto;max-width:46ch">Occasional notes on building products well — no more than once or twice a month.</p>
+      <form class="newsletter" style="margin-inline:auto" onsubmit="return false">
+        <label class="sr-only" for="nl-email">Your email</label>
+        <input class="input" type="email" id="nl-email" placeholder="you@company.com" autocomplete="email">
+        <button type="submit" class="btn btn--main btn--medium">Subscribe</button>
+      </form>
+      <p class="t-c1 tc-tertiary mt-3xs">No spam. Unsubscribe any time.</p>
+    </div>
+  </section>
+
+</main>
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__cols">
+
+      <!-- 1 · Services (7 categories + All services) -->
+      <nav class="footer-col" aria-label="Services">
+        <span class="footer-col__heading">Services</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../services/ai-transformation.html">AI Transformation</a>
+          <a class="footer-link" href="../services/software-development.html">Software Development</a>
+          <a class="footer-link" href="../services/product-design.html">Product Design</a>
+          <a class="footer-link" href="../services/marketing.html">Marketing</a>
+          <a class="footer-link" href="../services/it-consulting.html">IT Consulting</a>
+          <a class="footer-link" href="../services/support-maintenance.html">Support &amp; Maintenance</a>
+          <a class="footer-link" href="../services/outsourcing-outstaffing.html">Outsourcing &amp; Outstaffing</a>
+          <a class="footer-link" href="../services/index.html">All services →</a>
+        </div>
+      </nav>
+
+      <!-- 2 · Industries & Stage (industries + company stages, full list) -->
+      <nav class="footer-col" aria-label="Industries and company stage">
+        <span class="footer-col__heading">Industries &amp; Stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../industries/healthcare.html">Tech</a>
+          <a class="footer-link" href="../industries/healthcare.html">Finance</a>
+          <a class="footer-link" href="../industries/healthcare.html">Healthcare</a>
+          <a class="footer-link" href="../industries/healthcare.html">Travel &amp; Hospitality</a>
+          <a class="footer-link" href="../industries/healthcare.html">Retail · E-commerce</a>
+          <a class="footer-link" href="../industries/healthcare.html">Education</a>
+          <a class="footer-link" href="../industries/healthcare.html">Manufacturing</a>
+          <a class="footer-link" href="../industries/healthcare.html">Media &amp; Entertainment</a>
+          <a class="footer-link" href="../industries/healthcare.html">Sport</a>
+          <a class="footer-link" href="../industries/healthcare.html">Professional Services</a>
+          <a class="footer-link" href="../industries/healthcare.html">Non-Profit</a>
+          <a class="footer-link" href="../industries/healthcare.html">Beauty &amp; Wellness</a>
+        </div>
+        <span class="footer-col__subheading">By stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Scale-up</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Small Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Midsize Business</a>
+          <a class="footer-link" href="../who-we-serve/early-stage-startup.html">Enterprise</a>
+        </div>
+      </nav>
+
+      <!-- 3 · Service Areas (country pages — SEO surface, not built this session) -->
+      <nav class="footer-col" aria-label="Service areas">
+        <span class="footer-col__heading">Service Areas</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="#">United States</a>
+          <a class="footer-link" href="#">United Kingdom</a>
+          <a class="footer-link" href="#">Germany</a>
+          <a class="footer-link" href="#">United Arab Emirates</a>
+          <a class="footer-link" href="#">Canada</a>
+          <a class="footer-link" href="#">Australia</a>
+          <a class="footer-link" href="#">Armenia</a>
+        </div>
+      </nav>
+
+      <!-- 4 · Resources -->
+      <nav class="footer-col" aria-label="Resources">
+        <span class="footer-col__heading">Resources</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../blog/index.html">Blog</a>
+          <a class="footer-link" href="../glossary/index.html">Glossary</a>
+          <a class="footer-link" href="../get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="../how-we-work/engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="../how-we-work/process.html">Process</a>
+          <a class="footer-link" href="../how-we-work/technologies/index.html">Technologies</a>
+          <a class="footer-link" href="../how-we-work/methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="../how-we-work/tools/index.html">Tools</a>
+          <a class="footer-link" href="#">2025 in review</a>
+        </div>
+      </nav>
+
+      <!-- 5 · Company -->
+      <nav class="footer-col" aria-label="Company">
+        <span class="footer-col__heading">Company</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../about/index.html">About</a>
+          <a class="footer-link" href="../about/index.html">Team</a>
+          <a class="footer-link" href="../about/index.html">Careers</a>
+          <a class="footer-link" href="../about/security-compliance.html">Security &amp; Compliance</a>
+          <a class="footer-link" href="../about/index.html">Partners</a>
+          <a class="footer-link" href="../about/index.html">Press</a>
+          <a class="footer-link" href="../contact.html">Contact</a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Utility row — logo · legal · social · copyright -->
+    <div class="site-footer__utility">
+      <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
+        <i data-lucide="hexagon" aria-hidden="true"></i>
+        VECTO
+      </a>
+
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="../legal/privacy.html">Privacy</a>
+        <a href="../legal/terms.html">Terms</a>
+        <a href="../legal/cookies.html">Cookies</a>
+        <a href="../legal/sitemap.html">Sitemap</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="VECTO on LinkedIn"><i data-lucide="share-2" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on X"><i data-lucide="at-sign" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on GitHub"><i data-lucide="code" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on Instagram"><i data-lucide="camera" aria-hidden="true"></i></a>
+      </div>
+
+      <p class="site-footer__copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../prototype.js"></script>
+</body>
+</html>

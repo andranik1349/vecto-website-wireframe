@@ -277,7 +277,10 @@
         sec.hidden = !$$('[data-portfolio-item]', sec).some((it) => !it.hidden);
       });
       if (countEl) {
-        countEl.textContent = shown + (shown === 1 ? ' project' : ' projects');
+        // Noun is configurable via data-noun (default "project") so the same
+        // filter can label posts, results, etc. — pluralised with a trailing "s".
+        const noun = countEl.dataset.noun || 'project';
+        countEl.textContent = shown + ' ' + noun + (shown === 1 ? '' : 's');
       }
       // Show the empty-state message only when nothing matches.
       if (emptyEl) emptyEl.hidden = shown !== 0;
