@@ -527,7 +527,11 @@
     const form = $('[data-estimator]');
     if (!form) return;
 
-    const output = $('[data-estimator-output]', form);
+    // The output card may be a SIBLING of the form (homepage mini-estimator)
+    // rather than a descendant (get-an-estimate.html). Scope lookups to the
+    // shared .estimator container so both structures work.
+    const scope = form.closest('.estimator') || form;
+    const output = $('[data-estimator-output]', scope);
 
     // Demo cost basis by project type, scaled by timeline urgency.
     const TYPE = {
@@ -550,7 +554,7 @@
       const timeline = ($('[data-estimator-field="timeline"]', form) || {}).value || 'quarter';
       const t = TYPE[type] || TYPE.web;
 
-      const set = (key, val) => { const el = $(`[data-estimate="${key}"]`, form); if (el) el.textContent = val; };
+      const set = (key, val) => { const el = $(`[data-estimate="${key}"]`, scope); if (el) el.textContent = val; };
       set('cost',  t.base);
       set('time',  TIMELINE[timeline] || TIMELINE.quarter);
       set('model', t.model);
