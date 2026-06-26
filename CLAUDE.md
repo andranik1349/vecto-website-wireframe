@@ -29,5 +29,13 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
 - One `prototype.js` (prototype-only) for menus, accordions, sticky CTA, filters, decision tree, estimator stub, Lucide init.
 - Template classes: build one representative example each; link all siblings to it (build-plan §4.4).
 
+## Page-building playbook (learned while building home + services)
+- **Depth-1 partials:** `_nav.html`/`_footer.html` are written at depth 0. To paste into a sub-folder page, generate a prefixed copy — `perl -0pe 's{(href|src)="(?!#|https?://|mailto:|/|\.\./)}{$1="../}g'` — then extract just the `<header>`/`<footer>` element. Use `../../` for depth 2.
+- **Nav contract (prototype.js `initMenus`):** hub triggers (Services / Who We Serve / How We Work / About) are `<a href>` that **navigate on click** and **reveal their panel on hover**; Resources is a `<button>` (no hub page) that toggles. Panels are DOM descendants of `<header>`, so close is driven by `<header>`'s `mouseleave` + a ~220ms grace delay — never per-trigger hover-close (it flickers). Active section is flagged from `location.pathname`.
+- **Six-stage representation differs by page:** horizontal `.stage-journey` on the **homepage only**. On hubs the stages are **vertical anchored blocks** (alternating splits, Build = heaviest). A scroll-spy/anchor nav needs vertically-stacked, distinct targets — never put one over a one-row horizontal strip. Re-read the IA block-by-block per page; "same content" ≠ same layout.
+- **Layout gotchas that bit us:** (a) never nest `<a>` inside `<a>` — e.g. an author link inside a card-link; make the card a `<div>` with separate links. (b) Match `.feature-lead` variant to child count: 1+2 = base, 1+3 = `--3up` (lead needs `align-self:stretch`). (c) Put button icons in the button's own slot, not as a separate circular icon-button.
+- **Verify by DOM geometry** (`getBoundingClientRect` via preview_eval), not screenshots — the preview reliably captures only the top of the page, and caches CSS/JS hard (cache-bust `<link>`/`<script>` with `?v=…` to re-test). See memory `preview-tooling-quirks`.
+- **Git rhythm:** commit only when asked, push only when asked — they are separate instructions.
+
 ## Figma (file `emDaz5ZTNMna0jK1al4G9z`)
 Re-enumerate tokens via full Plugin API when needed (not `get_variable_defs`). Screenshot component nodes (IDs in build-plan §10) to match atomic components.
