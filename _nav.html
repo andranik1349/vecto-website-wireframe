@@ -20,10 +20,12 @@
      DESKTOP-ONLY (hard constraint #1 / §6): no responsive breakpoints, no mobile
      drawer, no hamburger. The persistent "Get an Estimate" CTA stays in the bar.
 
-     Interaction (prototype.js): megamenus/dropdowns open on CLICK only (not hover).
-     The trigger button flips aria-expanded true/false; the matching panel
-     (referenced via aria-controls) gets/loses the [hidden] attribute and its
-     .nav__item gains .is-open. Esc or an outside click closes.
+     Interaction (prototype.js): panels open on HOVER (and on keyboard focus).
+     Hub triggers (Services / Who We Serve / How We Work / About) are <a> links
+     that NAVIGATE to their hub page on click; Resources is a <button> (no hub)
+     that toggles its dropdown on click. Panels are descendants of <header>, so
+     the cursor travels trigger↔panel without flicker; they close only when the
+     pointer leaves the whole header (short grace delay), on Esc, or outside click.
      ════════════════════════════════════════════════════════════════════════ -->
 
 <header class="topbar" role="banner">
@@ -40,16 +42,16 @@
 
       <!-- Services ▾ (megamenu) -->
       <div class="nav__item">
-        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
+        <a class="nav__link" href="services/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
           Services <i data-lucide="chevron-down" aria-hidden="true"></i>
-        </button>
+        </a>
       </div>
 
       <!-- Who We Serve ▾ (megamenu) -->
       <div class="nav__item">
-        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
+        <a class="nav__link" href="who-we-serve/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
           Who We Serve <i data-lucide="chevron-down" aria-hidden="true"></i>
-        </button>
+        </a>
       </div>
 
       <!-- Our Work (direct link, no dropdown) -->
@@ -59,9 +61,9 @@
 
       <!-- How We Work ▾ (megamenu) -->
       <div class="nav__item">
-        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
+        <a class="nav__link" href="how-we-work/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
           How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
-        </button>
+        </a>
       </div>
 
       <!-- Resources ▾ (dropdown) -->
@@ -99,9 +101,9 @@
 
       <!-- About ▾ (dropdown) -->
       <div class="nav__item">
-        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
+        <a class="nav__link" href="about/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
           About <i data-lucide="chevron-down" aria-hidden="true"></i>
-        </button>
+        </a>
 
         <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
           <div class="dropdown__cols">

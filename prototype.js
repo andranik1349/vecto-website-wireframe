@@ -41,17 +41,25 @@
 
 
   /* ════════════════════════════════════════════════════════════════════
-     1. MEGAMENUS + DROPDOWNS
-     Triggers: <button class="nav__link" aria-haspopup aria-expanded
-               aria-controls="<panelId>"> inside a .nav__item.
-     Panel: element with that id carrying [hidden].
-     Opens on hover (with close-delay so the cursor can travel to a
-     full-width panel that lives outside the .nav__item) AND on click;
-     keyboard accessible (Esc closes + restores focus, Tab-out closes).
+     1. MEGAMENUS + DROPDOWNS  — hover to reveal, click to navigate
+     Trigger: .nav__link[aria-controls="<panelId>"] inside a .nav__item.
+       · Hub triggers (Services/Who We Serve/How We Work/About) are <a> — a
+         click NAVIGATES to the hub page; hovering still reveals the panel.
+       · Resources is a <button> (no hub) — click toggles the panel.
+     Panels open on HOVER and stay open (sticky) because they're DOM
+     descendants of <header>: the cursor can travel from a trigger to its
+     full-width panel without leaving the header, so nothing flickers.
+     We only close when the pointer truly leaves the whole header (bar +
+     panels), after a short grace delay, or on Esc / outside click.
      ════════════════════════════════════════════════════════════════════ */
   function initMenus() {
+    const header = $('.topbar');
     const triggers = $$('.nav__link[aria-controls]');
-    if (!triggers.length) return;
+    if (!header || !triggers.length) return;
+
+    const CLOSE_DELAY = 220; // ms grace before closing after leaving the header
+    let closeTimer = null;
+    const cancelClose = () => clearTimeout(closeTimer);
 
     const entries = triggers
       .map((trigger) => {
@@ -62,51 +70,58 @@
       .filter(Boolean);
 
     function open(entry) {
+      cancelClose();
       entries.forEach((e) => e !== entry && close(e));
       entry.trigger.setAttribute('aria-expanded', 'true');
       entry.item.classList.add('is-open');
       entry.panel.hidden = false;
     }
-
     function close(entry) {
       entry.trigger.setAttribute('aria-expanded', 'false');
       entry.item.classList.remove('is-open');
       entry.panel.hidden = true;
     }
-
     function closeAll() { entries.forEach(close); }
+    function scheduleClose() { cancelClose(); closeTimer = setTimeout(closeAll, CLOSE_DELAY); }
 
-    entries.forEach((entry) => {
-      const { trigger, panel, item } = entry;
-      const isOpen = () => trigger.getAttribute('aria-expanded') === 'true';
-
-      // Click-only open/close (no hover) — keyboard-accessible via the button.
-      trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        isOpen() ? close(entry) : open(entry);
-      });
-
-      // Esc closes and returns focus to the trigger.
-      panel.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') { close(entry); trigger.focus(); }
-      });
-      trigger.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') close(entry);
-      });
-
-      // Tab out of the whole item+panel closes it.
-      [item, panel].forEach((el) => {
-        el.addEventListener('focusout', (e) => {
-          const to = e.relatedTarget;
-          if (to && (item.contains(to) || panel.contains(to))) return;
-          close(entry);
-        });
-      });
+    // Hover to reveal. Every primary-nav item reacts: ones with a panel open
+    // it; ones without (Our Work) dismiss whatever's open.
+    $$('.nav__item').forEach((item) => {
+      const entry = entries.find((e) => e.item === item);
+      item.addEventListener('mouseenter', () => (entry ? open(entry) : closeAll()));
     });
 
-    // Click anywhere outside any menu closes them all.
+    entries.forEach((entry) => {
+      const { trigger } = entry;
+      const isOpen = () => trigger.getAttribute('aria-expanded') === 'true';
+
+      trigger.addEventListener('click', (e) => {
+        // Links (hub triggers) navigate on click — let the default happen.
+        // Buttons (Resources, no hub) toggle the panel instead.
+        if (trigger.tagName === 'BUTTON') {
+          e.preventDefault();
+          isOpen() ? close(entry) : open(entry);
+        }
+      });
+
+      // Keyboard: focusing a trigger reveals its panel; Esc closes.
+      trigger.addEventListener('focus', () => open(entry));
+      trigger.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(entry); trigger.blur(); } });
+      entry.panel.addEventListener('keydown', (e) => { if (e.key === 'Escape') { close(entry); trigger.focus(); } });
+    });
+
+    // Sticky close: only when the pointer leaves the whole header (the panels
+    // are descendants, so moving trigger↔panel never fires this). Coming back
+    // in cancels the pending close.
+    header.addEventListener('mouseleave', scheduleClose);
+    header.addEventListener('mouseenter', cancelClose);
+
+    // Close when focus leaves the header entirely, or on an outside click.
+    header.addEventListener('focusout', (e) => {
+      if (!header.contains(e.relatedTarget)) closeAll();
+    });
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.nav__item') && !e.target.closest('.megamenu')) closeAll();
+      if (!e.target.closest('.topbar')) closeAll();
     });
   }
 
