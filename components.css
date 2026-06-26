@@ -641,6 +641,7 @@ a.card:hover,
   align-items: center;
   gap: var(--space-min);
   height: 100%;
+  white-space: nowrap;
   color: var(--text-secondary);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -779,9 +780,13 @@ a.card:hover,
 .dropdown {
   position: absolute;
   top: var(--navbar-height);
-  left: 0;
+  /* Anchor to the trigger's right edge and expand leftward — Resources/About
+     sit on the right of the bar, so left:0 would run off-screen. */
+  right: 0;
+  left: auto;
   z-index: 90;
-  min-width: var(--content-medium-width);
+  width: max-content;
+  max-width: var(--content-narrow-width);
   background-color: var(--surface-popout);
   border: 1px solid var(--border-semi-transparent);
   border-radius: var(--radius-m);
