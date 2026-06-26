@@ -636,51 +636,47 @@ a.card:hover,
   align-items: center;
   height: 100%;
 }
+/* Pill-chip nav link — states copied from Figma GlobalMenuLink (6006:31820):
+   default = white text / transparent; hover (and open) = white / overlay-neutral;
+   selected (current page) = accent text / overlay-dark-2. */
 .nav__link {
   display: inline-flex;
   align-items: center;
   gap: var(--space-min);
-  height: 100%;
+  padding: var(--space-3xs) var(--space-xxs);
+  border-radius: var(--radius-pill);
   white-space: nowrap;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-weight: var(--font-weight-medium);
+  background-color: transparent;
   cursor: pointer;
-  background: none;
   border: none;
-  transition: color .15s ease;
+  transition: background-color .15s ease, color .15s ease;
 }
 .nav__link svg { width: var(--space-xxs); height: var(--space-xxs); transition: transform .18s ease; }
-.nav__link:hover { color: var(--text-primary); }
+.nav__link:hover,
 .nav__item.is-open > .nav__link,
-.nav__link[aria-expanded="true"] { color: var(--text-primary); }
+.nav__link[aria-expanded="true"] {
+  background-color: var(--overlay-neutral);
+  color: var(--text-primary);
+}
 .nav__item.is-open > .nav__link svg,
 .nav__link[aria-expanded="true"] svg { transform: rotate(180deg); }
 
-/* Active section (set by prototype.js initActiveNav) */
+/* Selected — current page/section (set by prototype.js initActiveNav) */
 .nav__link--current,
-.nav__link[aria-current="page"] { color: var(--text-primary); }
+.nav__link[aria-current="page"] {
+  background-color: var(--overlay-dark-2);
+  color: var(--text-accent);
+}
 
-/* Right cluster — hamburger affordance + persistent CTA */
+/* Right cluster — persistent CTA (desktop-only: no hamburger) */
 .topbar__actions {
   display: flex;
   align-items: center;
   gap: var(--space-4xs);
 }
 .nav__cta { margin-left: var(--space-4xs); }
-
-/* Hamburger affordance — inert in this desktop-only prototype (ARIA-only,
-   no drawer is wired). Kept in the header per IA §mm-cta. */
-.nav__toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--space-l);
-  height: var(--space-l);
-  border-radius: var(--radius-xs);
-  color: var(--text-primary);
-}
-.nav__toggle:hover { background-color: var(--overlay-light-3); }
-.nav__toggle svg { width: var(--space-s); height: var(--space-s); }
 
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -726,11 +722,14 @@ a.card:hover,
   align-items: center;
   gap: var(--space-4xs);
   color: var(--text-secondary);
-  padding: var(--space-min) 0;
-  transition: color .15s ease;
+  padding: var(--space-4xs) var(--space-3xs);
+  margin-inline: calc(var(--space-3xs) * -1);
+  border-radius: var(--radius-s);
+  transition: background-color .15s ease, color .15s ease;
 }
 .megamenu__link svg { width: var(--space-xxs); height: var(--space-xxs); color: var(--text-accent); }
-.megamenu__link:hover { color: var(--text-primary); }
+.megamenu__link:hover { background-color: var(--overlay-neutral); color: var(--text-primary); }
+.megamenu__link[aria-current="page"] { color: var(--text-accent); }
 .megamenu__link-desc { color: var(--text-tertiary); font-size: var(--text-size-c1); }
 
 /* Bottom strip — full-service link + Estimator CTA */
@@ -807,8 +806,15 @@ a.card:hover,
   color: var(--text-muted);
 }
 .dropdown__links { display: flex; flex-direction: column; gap: var(--space-min); }
-.dropdown__link { color: var(--text-secondary); padding: var(--space-min) 0; }
-.dropdown__link:hover { color: var(--text-primary); }
+.dropdown__link {
+  color: var(--text-secondary);
+  padding: var(--space-4xs) var(--space-3xs);
+  margin-inline: calc(var(--space-3xs) * -1);
+  border-radius: var(--radius-s);
+  transition: background-color .15s ease, color .15s ease;
+}
+.dropdown__link:hover { background-color: var(--overlay-neutral); color: var(--text-primary); }
+.dropdown__link[aria-current="page"] { color: var(--text-accent); }
 
 
 /* ═══════════════════════════════════════════════════════════════════

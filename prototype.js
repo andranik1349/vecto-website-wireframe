@@ -53,9 +53,6 @@
     const triggers = $$('.nav__link[aria-controls]');
     if (!triggers.length) return;
 
-    const CLOSE_DELAY = 120; // ms — grace period for cursor travel
-    let closeTimer = null;
-
     const entries = triggers
       .map((trigger) => {
         const panel = document.getElementById(trigger.getAttribute('aria-controls'));
@@ -65,7 +62,6 @@
       .filter(Boolean);
 
     function open(entry) {
-      clearTimeout(closeTimer);
       entries.forEach((e) => e !== entry && close(e));
       entry.trigger.setAttribute('aria-expanded', 'true');
       entry.item.classList.add('is-open');
@@ -84,17 +80,7 @@
       const { trigger, panel, item } = entry;
       const isOpen = () => trigger.getAttribute('aria-expanded') === 'true';
 
-      // Hover — track both the trigger's item AND the panel (panels can be
-      // siblings of the topbar, not descendants of the item).
-      [item, panel].forEach((el) => {
-        el.addEventListener('mouseenter', () => open(entry));
-        el.addEventListener('mouseleave', () => {
-          clearTimeout(closeTimer);
-          closeTimer = setTimeout(() => close(entry), CLOSE_DELAY);
-        });
-      });
-
-      // Click toggles (also covers touch / no-hover input).
+      // Click-only open/close (no hover) — keyboard-accessible via the button.
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
         isOpen() ? close(entry) : open(entry);

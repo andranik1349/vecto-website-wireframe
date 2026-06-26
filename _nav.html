@@ -18,13 +18,12 @@
       removing the per-depth bookkeeping — see §4.3 note.)
 
      DESKTOP-ONLY (hard constraint #1 / §6): no responsive breakpoints, no mobile
-     drawer behaviour. The hamburger button below is an inert header AFFORDANCE
-     only (it carries ARIA + the persistent CTA per IA §mm-cta) — prototype.js does
-     not wire a drawer, and no @media rules act on it.
+     drawer, no hamburger. The persistent "Get an Estimate" CTA stays in the bar.
 
-     Interaction hooks (toggled by prototype.js): trigger buttons flip
-     aria-expanded true/false; the matching panel (referenced via aria-controls)
-     gets/loses the [hidden] attribute and its .nav__item gains .is-open.
+     Interaction (prototype.js): megamenus/dropdowns open on CLICK only (not hover).
+     The trigger button flips aria-expanded true/false; the matching panel
+     (referenced via aria-controls) gets/loses the [hidden] attribute and its
+     .nav__item gains .is-open. Esc or an outside click closes.
      ════════════════════════════════════════════════════════════════════════ -->
 
 <header class="topbar" role="banner">
@@ -138,11 +137,8 @@
 
     </nav>
 
-    <!-- Right cluster: hamburger affordance (inert; ARIA only) + persistent CTA -->
+    <!-- Right cluster: persistent CTA (desktop-only — no hamburger) -->
     <div class="topbar__actions">
-      <button type="button" class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
-        <i data-lucide="menu" aria-hidden="true"></i>
-      </button>
       <a class="btn btn--main btn--medium nav__cta" href="get-an-estimate.html">
         Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
       </a>
