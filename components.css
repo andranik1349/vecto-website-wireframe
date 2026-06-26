@@ -420,6 +420,9 @@ a.card:hover,
   overflow: hidden;
 }
 .card__body  { display: flex; flex-direction: column; gap: var(--space-4xs); }
+/* Title link inside a non-anchor card (avoids invalid nested <a>) */
+.card-link { color: inherit; }
+.card-link:hover { color: var(--text-accent); }
 .card__title { font-size: var(--text-size-h5); line-height: var(--text-lh-h5); color: var(--text-primary); }
 .card__meta  { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-muted); font-size: var(--text-size-c1); }
 

@@ -79,6 +79,34 @@
     /* 6 · Benefits — lead card distributes content (icon top, copy anchored bottom) */
     .benefits-lead { justify-content: space-between; gap: var(--space-xl); }
 
+    /* 14 · Blog teaser — featured post fills its column; image grows to balance the 2 stacked posts */
+    .blog-lead { align-self: stretch; }
+    .blog-lead .card__media { flex: 1; aspect-ratio: auto; min-height: var(--space-4xl); }
+
+    /* 9 · Portfolio — featured case: image beside outcome text */
+    .portfolio-feature {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-semi-transparent);
+      border-radius: var(--radius-l);
+      overflow: hidden;
+      transition: border-color .18s ease, transform .18s ease;
+    }
+    .portfolio-feature:hover { border-color: var(--border-default); transform: translateY(-2px); }
+    .portfolio-feature__media {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 340px;
+      background: var(--surface-dark);
+      color: var(--text-tertiary);
+    }
+    .portfolio-feature__media svg { width: var(--space-xl); height: var(--space-xl); }
+    .portfolio-feature__body {
+      display: flex; flex-direction: column; gap: var(--space-3xs);
+      justify-content: center;
+      padding: var(--space-xl);
+    }
+
     /* 7 · Industries — two featured + compact index (editorial, not a 13-cell grid) */
     .ind-grid { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: var(--space-l); align-items: stretch; }
     .ind-feature {
@@ -683,19 +711,23 @@
         <a class="btn btn--ghost btn--medium" href="our-work/index.html">Browse all work <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
 
-      <div class="feature-lead">
-        <a class="card card--with-image feature-lead__primary" href="our-work/fintech-platform.html">
-          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
-          <div class="card__body">
-            <p class="section-label">Built from 0 to 1</p>
-            <h3 class="t-h4">A FinTech platform from pitch deck to 50k users</h3>
-            <p class="t-p3 tc-secondary">We scoped, designed, and shipped the MVP in 14 weeks, then scaled it through Series A.</p>
-            <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">FinTech</span>
-              <span class="tag tag--secondary">AI Transformation</span>
-            </div>
+      <!-- Featured case — image beside outcome (contained, not a giant void) -->
+      <a class="portfolio-feature" href="our-work/fintech-platform.html">
+        <span class="portfolio-feature__media" aria-hidden="true"><i data-lucide="image"></i></span>
+        <div class="portfolio-feature__body">
+          <p class="section-label">Built from 0 to 1</p>
+          <h3 class="t-h3">A FinTech platform from pitch deck to 50k users</h3>
+          <p class="t-p1 tc-secondary">We scoped, designed, and shipped the MVP in 14 weeks, then scaled it through Series A.</p>
+          <div class="card__meta mt-3xs">
+            <span class="tag tag--secondary">FinTech</span>
+            <span class="tag tag--secondary">AI Transformation</span>
+            <span class="btn btn--text btn--small" style="margin-left:auto; padding-right:0">View case study <i data-lucide="arrow-right" aria-hidden="true"></i></span>
           </div>
-        </a>
+        </div>
+      </a>
+
+      <!-- Three supporting outcomes -->
+      <div class="grid-3 mt-l">
         <a class="card" href="our-work/fintech-platform.html">
           <p class="section-label">Scaled to enterprise</p>
           <h3 class="t-h5">From regional tool to multi-tenant SaaS</h3>
@@ -862,27 +894,27 @@
       </div>
 
       <div class="feature-lead">
-        <a class="card card--with-image feature-lead__primary" href="blog/building-ai-that-ships.html">
-          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+        <div class="card card--with-image feature-lead__primary blog-lead">
+          <a class="card__media media-ph" href="blog/building-ai-that-ships.html" aria-label="Building AI that ships"><i data-lucide="image" aria-hidden="true"></i></a>
           <div class="card__body">
-            <h3 class="t-h4">Building AI that ships: where it earns its place, and where it doesn't</h3>
+            <h3 class="t-h4"><a class="card-link" href="blog/building-ai-that-ships.html">Building AI that ships: where it earns its place, and where it doesn't</a></h3>
             <p class="t-p3 tc-secondary">A field guide to spending your AI budget on the parts that actually move the product.</p>
             <div class="card__meta mt-4xs">
               <span class="media-ph media-ph--circle" style="width: var(--space-s)" aria-hidden="true"></span>
               <a href="blog/authors/jane-doe.html">Jane Doe</a> · <span>12 Jun 2026</span>
             </div>
           </div>
-        </a>
-        <a class="card" href="blog/building-ai-that-ships.html">
-          <h3 class="t-h5">What an MVP should actually include</h3>
+        </div>
+        <div class="card">
+          <h3 class="t-h5"><a class="card-link" href="blog/building-ai-that-ships.html">What an MVP should actually include</a></h3>
           <p class="t-p3 tc-secondary">The smallest thing you can ship that still proves the idea.</p>
           <div class="card__meta mt-4xs"><a href="blog/authors/jane-doe.html">Jane Doe</a> · <span>28 May 2026</span></div>
-        </a>
-        <a class="card" href="blog/building-ai-that-ships.html">
-          <h3 class="t-h5">Fixed price vs. time &amp; material, honestly</h3>
+        </div>
+        <div class="card">
+          <h3 class="t-h5"><a class="card-link" href="blog/building-ai-that-ships.html">Fixed price vs. time &amp; material, honestly</a></h3>
           <p class="t-p3 tc-secondary">Which model fits which kind of project — and why.</p>
           <div class="card__meta mt-4xs"><a href="blog/authors/jane-doe.html">Jane Doe</a> · <span>09 May 2026</span></div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
