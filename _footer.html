@@ -1,2 +1,129 @@
-<!-- _footer.html — shared 5-column footer (Services · Industries & Stage · Service Areas · Resources · Company) + utility row -->
-<!-- PATH-DEPTH RULES: same as _nav.html — adjust ../ prefix depth per folder (see build-plan §4.3) -->
+<!-- ════════════════════════════════════════════════════════════════════════
+     _footer.html — shared site footer (single source of truth; pasted into every page)
+     Build-plan §6 · IA §mm-footer: 5 columns + utility row.
+     Carries the SEO long-tail surface (country / year pages, reference hubs).
+
+     PATH-DEPTH PREFIX (build-plan §4.3): written at DEPTH 0 (root). Prepend "../"
+     (depth 1) or "../../" (depth 2) to every relative href when pasting into a
+     sub-folder page — same rule as _nav.html.
+     ════════════════════════════════════════════════════════════════════════ -->
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__cols">
+
+      <!-- 1 · Services (7 categories + All services) -->
+      <nav class="footer-col" aria-label="Services">
+        <span class="footer-col__heading">Services</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="services/ai-transformation.html">AI Transformation</a>
+          <a class="footer-link" href="services/software-development.html">Software Development</a>
+          <a class="footer-link" href="services/product-design.html">Product Design</a>
+          <a class="footer-link" href="services/marketing.html">Marketing</a>
+          <a class="footer-link" href="services/it-consulting.html">IT Consulting</a>
+          <a class="footer-link" href="services/support-maintenance.html">Support &amp; Maintenance</a>
+          <a class="footer-link" href="services/outsourcing-outstaffing.html">Outsourcing &amp; Outstaffing</a>
+          <a class="footer-link" href="services/index.html">All services →</a>
+        </div>
+      </nav>
+
+      <!-- 2 · Industries & Stage (industries + company stages, full list) -->
+      <nav class="footer-col" aria-label="Industries and company stage">
+        <span class="footer-col__heading">Industries &amp; Stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="industries/healthcare.html">Tech</a>
+          <a class="footer-link" href="industries/healthcare.html">Finance</a>
+          <a class="footer-link" href="industries/healthcare.html">Healthcare</a>
+          <a class="footer-link" href="industries/healthcare.html">Travel &amp; Hospitality</a>
+          <a class="footer-link" href="industries/healthcare.html">Retail · E-commerce</a>
+          <a class="footer-link" href="industries/healthcare.html">Education</a>
+          <a class="footer-link" href="industries/healthcare.html">Manufacturing</a>
+          <a class="footer-link" href="industries/healthcare.html">Media &amp; Entertainment</a>
+          <a class="footer-link" href="industries/healthcare.html">Sport</a>
+          <a class="footer-link" href="industries/healthcare.html">Professional Services</a>
+          <a class="footer-link" href="industries/healthcare.html">Non-Profit</a>
+          <a class="footer-link" href="industries/healthcare.html">Beauty &amp; Wellness</a>
+        </div>
+        <span class="footer-col__subheading">By stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+          <a class="footer-link" href="who-we-serve/early-stage-startup.html">Scale-up</a>
+          <a class="footer-link" href="who-we-serve/early-stage-startup.html">Small Business</a>
+          <a class="footer-link" href="who-we-serve/early-stage-startup.html">Midsize Business</a>
+          <a class="footer-link" href="who-we-serve/early-stage-startup.html">Enterprise</a>
+        </div>
+      </nav>
+
+      <!-- 3 · Service Areas (country pages — SEO surface, not built this session) -->
+      <nav class="footer-col" aria-label="Service areas">
+        <span class="footer-col__heading">Service Areas</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="#">United States</a>
+          <a class="footer-link" href="#">United Kingdom</a>
+          <a class="footer-link" href="#">Germany</a>
+          <a class="footer-link" href="#">United Arab Emirates</a>
+          <a class="footer-link" href="#">Canada</a>
+          <a class="footer-link" href="#">Australia</a>
+          <a class="footer-link" href="#">Armenia</a>
+        </div>
+      </nav>
+
+      <!-- 4 · Resources -->
+      <nav class="footer-col" aria-label="Resources">
+        <span class="footer-col__heading">Resources</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="blog/index.html">Blog</a>
+          <a class="footer-link" href="glossary/index.html">Glossary</a>
+          <a class="footer-link" href="get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="how-we-work/engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="how-we-work/process.html">Process</a>
+          <a class="footer-link" href="how-we-work/technologies/index.html">Technologies</a>
+          <a class="footer-link" href="how-we-work/methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="how-we-work/tools/index.html">Tools</a>
+          <a class="footer-link" href="#">2025 in review</a>
+        </div>
+      </nav>
+
+      <!-- 5 · Company -->
+      <nav class="footer-col" aria-label="Company">
+        <span class="footer-col__heading">Company</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="about/index.html">About</a>
+          <a class="footer-link" href="about/index.html">Team</a>
+          <a class="footer-link" href="about/index.html">Careers</a>
+          <a class="footer-link" href="about/security-compliance.html">Security &amp; Compliance</a>
+          <a class="footer-link" href="about/index.html">Partners</a>
+          <a class="footer-link" href="about/index.html">Press</a>
+          <a class="footer-link" href="contact.html">Contact</a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Utility row — logo · legal · social · copyright -->
+    <div class="site-footer__utility">
+      <a class="topbar__logo" href="index.html" aria-label="VECTO — home">
+        <i data-lucide="hexagon" aria-hidden="true"></i>
+        VECTO
+      </a>
+
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="legal/privacy.html">Privacy</a>
+        <a href="legal/terms.html">Terms</a>
+        <a href="legal/cookies.html">Cookies</a>
+        <a href="legal/sitemap.html">Sitemap</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="VECTO on LinkedIn"><i data-lucide="linkedin" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on X"><i data-lucide="twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on GitHub"><i data-lucide="github" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on Instagram"><i data-lucide="instagram" aria-hidden="true"></i></a>
+      </div>
+
+      <p class="site-footer__copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
