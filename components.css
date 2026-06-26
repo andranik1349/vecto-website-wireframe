@@ -614,9 +614,8 @@ a.card:hover,
   justify-content: space-between;
   gap: var(--space-l);
   height: 100%;
-  max-width: var(--content-max-width);
-  margin-inline: auto;
-  padding-inline: var(--grid-margins);
+  /* Full-bleed: logo to the left edge, CTA to the right edge (Figma 8001:2547) */
+  padding-inline: var(--space-xl);
 }
 .topbar__logo {
   display: inline-flex;
@@ -701,9 +700,8 @@ a.card:hover,
 .megamenu[hidden] { display: none; }
 
 .megamenu__inner {
-  max-width: var(--content-max-width);
-  margin-inline: auto;
-  padding-inline: var(--grid-margins);
+  /* Full-bleed to align with the full-bleed topbar */
+  padding-inline: var(--space-xl);
 }
 .megamenu__cols {
   display: grid;
