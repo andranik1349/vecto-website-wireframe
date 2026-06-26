@@ -1071,6 +1071,9 @@ a.card:hover,
   height: 2px;
   background-color: var(--accent);
 }
+/* Bare variant — drop the component's own surface/border so a wrapper bar can
+   provide a full-width background (e.g. services hub .anchor-bar). */
+.anchor-nav--plain { background-color: transparent; border-bottom: 0; }
 
 
 /* ═══════════════════════════════════════════════════════════════════

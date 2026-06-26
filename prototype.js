@@ -460,17 +460,22 @@
       if (activeLink) activeLink.classList.add('anchor-nav__link--active');
     }
 
-    if ('IntersectionObserver' in window) {
-      const byTarget = new Map(map.map(({ link, target }) => [target, link]));
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(byTarget.get(entry.target));
-        });
-      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-      map.forEach(({ target }) => observer.observe(target));
-    } else {
-      setActive(map[0].link);
+    // Scroll-position spy (robust across section heights — an IntersectionObserver
+    // band is unreliable when sections vary a lot in height). The active section
+    // is the last one whose top has passed just below the sticky bar.
+    const navbarH = parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--navbar-height')) || 72;
+    const docTop = (el) => el.getBoundingClientRect().top + window.scrollY;
+
+    function spy() {
+      const probe = window.scrollY + navbarH + 140; // just below the sticky strip
+      let current = map[0];
+      map.forEach((m) => { if (docTop(m.target) <= probe) current = m; });
+      setActive(current.link);
     }
+
+    window.addEventListener('scroll', spy, { passive: true });
+    spy();
   }
 
 

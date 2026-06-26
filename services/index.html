@@ -14,13 +14,42 @@
 
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Page-scoped layout (token-driven). Shared molecules (stage-journey,
-       anchor-nav, feature-lead, bands) come from components/layout. -->
   <style>
     .section-head { margin-bottom: var(--space-l); }
     .section-head .section-label { margin-bottom: var(--space-3xs); }
-
     .svc-hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
+
+    /* Sticky stage anchor bar — full-width surface, links contained */
+    .anchor-bar { background: var(--surface-deep); border-bottom: 1px solid var(--border-semi-transparent); }
+
+    /* Stage block — alternating split rows, one per stage */
+    .stage-visual {
+      aspect-ratio: 4 / 3;
+      border-radius: var(--radius-l);
+      background:
+        linear-gradient(135deg, var(--overlay-dark-2), transparent 60%),
+        var(--surface-elevated);
+      border: 1px solid var(--border-semi-transparent);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--overlay-light-2);
+    }
+    .stage-visual svg { width: var(--space-4xl); height: var(--space-4xl); }
+    .stage-block__subs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-min) var(--space-s);
+      margin-top: var(--space-3xs);
+    }
+    .stage-block__subs a { color: var(--text-secondary); font-size: var(--text-size-p3); padding: var(--space-min) 0; }
+    .stage-block__subs a:hover { color: var(--text-primary); }
+
+    /* Build — the primary stage, visually heaviest (full-width emphasis band) */
+    .stage-build__subs {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-min) var(--space-s);
+      margin-top: var(--space-s);
+    }
+    .stage-build__subs a { color: var(--text-secondary); padding: var(--space-min) 0; }
+    .stage-build__subs a:hover { color: var(--text-primary); }
 
     /* Engagement snapshot — lightweight divided columns, not heavy cards */
     .svc-engagement { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-l); }
@@ -393,93 +422,84 @@
     </div>
   </section>
 
-
-  <!-- ═══ 4 · THE SIX-STAGE JOURNEY (horizontal timeline, Build heaviest) ═ -->
-  <section class="section">
+  <!-- ═══ 2 · STICKY STAGE ANCHOR NAV (jumps to the stage blocks below) ══ -->
+  <div class="anchor-bar sticky-below-nav">
     <div class="container">
-      <div class="section-head">
-        <p class="section-label">The transformation journey</p>
-        <h2 class="t-h2">Six stages, start to finish.</h2>
-        <p class="t-p1 tc-secondary mt-3xs">Build is where most engagements live — but every stage stands on its own, and you can start at any of them.</p>
+      <nav class="anchor-nav anchor-nav--plain" aria-label="Service stages">
+        <a class="anchor-nav__link anchor-nav__link--active" href="#discover">Discover &amp; Validate</a>
+        <a class="anchor-nav__link" href="#design">Design</a>
+        <a class="anchor-nav__link" href="#build">Build</a>
+        <a class="anchor-nav__link" href="#grow">Grow</a>
+        <a class="anchor-nav__link" href="#scale">Scale</a>
+        <a class="anchor-nav__link" href="#maintain">Maintain</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ═══ 3 · DISCOVER & VALIDATE (IT Consulting) ════════════════════════ -->
+  <section class="section" id="discover">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <p class="section-label">Stage 01 · Discover &amp; Validate</p>
+          <h2 class="t-h3">Validate before you build</h2>
+          <p class="t-p2 tc-secondary mt-3xs">Before a line of code, we pressure-test the idea — the market, the model, and what it will actually take to build. You leave with a costed, sequenced plan instead of a hunch.</p>
+          <div class="stage-block__subs">
+            <a href="../services/web-development.html">Market Analysis</a>
+            <a href="../services/web-development.html">Digital Transformation Strategy</a>
+            <a href="../services/web-development.html">Startup Ideation &amp; Feasibility</a>
+            <a href="../services/web-development.html">Product Conceptualization</a>
+            <a href="../services/web-development.html">Financial Modelling</a>
+            <a href="../services/web-development.html">Technical Specification</a>
+            <a href="../services/web-development.html">Cost &amp; Time Estimation</a>
+          </div>
+          <a class="btn btn--text btn--medium mt-s" style="padding-left:0" href="../services/it-consulting.html">Learn more about IT Consulting <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="stage-visual" aria-hidden="true"><i data-lucide="search-check"></i></div>
       </div>
+    </div>
+  </section>
 
-      <div class="stage-journey">
-        <div class="stage" id="discover">
-          <span class="stage__step">1</span>
-          <span class="stage__cat"><a class="card-link" href="../services/it-consulting.html">IT Consulting</a></span>
-          <strong>Discover &amp; Validate</strong>
-          <ul class="stage__subs">
-            <li>Market analysis</li>
-            <li>Feasibility &amp; specs</li>
-            <li>Cost &amp; time estimation</li>
-          </ul>
-          <a class="btn btn--text btn--small" href="../services/it-consulting.html">Learn more <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+  <!-- ═══ 4 · DESIGN (Product Design) ════════════════════════════════════ -->
+  <section class="band band--dark section" id="design">
+    <div class="container">
+      <div class="split split--reverse split--top">
+        <div>
+          <p class="section-label">Stage 02 · Design</p>
+          <h2 class="t-h3">Design that earns users, not just admiration.</h2>
+          <p class="t-p2 tc-secondary mt-3xs">We design products people understand on the first try and come back to. Research, prototyping, and testing de-risk the build before it starts.</p>
+          <div class="stage-block__subs">
+            <a href="../services/web-development.html">UI Design</a>
+            <a href="../services/web-development.html">UX Design</a>
+            <a href="../services/web-development.html">Prototyping &amp; Wireframing</a>
+            <a href="../services/web-development.html">User Testing</a>
+            <a href="../services/web-development.html">Customer Journey Mapping</a>
+            <a href="../services/web-development.html">Product Redesign</a>
+          </div>
+          <a class="btn btn--text btn--medium mt-s" style="padding-left:0" href="../services/product-design.html">Learn more about Product Design <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
-        <div class="stage__connector"><i data-lucide="chevron-right" aria-hidden="true"></i></div>
-
-        <div class="stage" id="design">
-          <span class="stage__step">2</span>
-          <span class="stage__cat"><a class="card-link" href="../services/product-design.html">Product Design</a></span>
-          <strong>Design</strong>
-          <ul class="stage__subs">
-            <li>UX &amp; UI design</li>
-            <li>Prototyping</li>
-            <li>User testing</li>
-          </ul>
-          <a class="btn btn--text btn--small" href="../services/product-design.html">Learn more <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="stage__connector"><i data-lucide="chevron-right" aria-hidden="true"></i></div>
-
-        <div class="stage stage--primary" id="build">
-          <span class="stage__step">3</span>
-          <span class="stage__cat"><a class="card-link" href="../services/software-development.html">Software Development</a></span>
-          <strong>Build</strong>
-          <ul class="stage__subs">
-            <li>Web &amp; mobile apps</li>
-            <li>E-commerce, CRM/ERP</li>
-            <li>Integrations &amp; migration</li>
-          </ul>
-          <a class="btn btn--text btn--small" href="../services/software-development.html">Learn more <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="stage__connector"><i data-lucide="chevron-right" aria-hidden="true"></i></div>
-
-        <div class="stage" id="grow">
-          <span class="stage__step">4</span>
-          <span class="stage__cat"><a class="card-link" href="../services/marketing.html">Marketing</a></span>
-          <strong>Grow</strong>
-          <ul class="stage__subs">
-            <li>SEO · PPC · SMM</li>
-            <li>Lead generation</li>
-            <li>Branding</li>
-          </ul>
-          <a class="btn btn--text btn--small" href="../services/marketing.html">Learn more <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="stage__connector"><i data-lucide="chevron-right" aria-hidden="true"></i></div>
-
-        <div class="stage" id="scale">
-          <span class="stage__step">5</span>
-          <span class="stage__cat"><a class="card-link" href="../services/outsourcing-outstaffing.html">Outsourcing</a></span>
-          <strong>Scale</strong>
-          <ul class="stage__subs">
-            <li>Team outsourcing</li>
-            <li>Staff augmentation</li>
-          </ul>
-          <a class="btn btn--text btn--small" href="../services/outsourcing-outstaffing.html">Learn more <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="stage__connector"><i data-lucide="chevron-right" aria-hidden="true"></i></div>
-
-        <div class="stage" id="maintain">
-          <span class="stage__step">6</span>
-          <span class="stage__cat"><a class="card-link" href="../services/support-maintenance.html">Support</a></span>
-          <strong>Maintain</strong>
-          <ul class="stage__subs">
-            <li>Technical support</li>
-            <li>Security &amp; performance</li>
-            <li>Hosting &amp; infra</li>
-          </ul>
-          <a class="btn btn--text btn--small" href="../services/support-maintenance.html">Learn more <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
+        <div class="stage-visual" aria-hidden="true"><i data-lucide="pen-tool"></i></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · BUILD (Software Development) — the primary stage, heaviest ══ -->
+  <section class="band band--elevated section" id="build">
+    <div class="container">
+      <p class="section-label">Stage 03 · Build · <span class="tc-accent">the primary stage</span></p>
+      <h2 class="t-h2 text-balance" style="max-width: 20ch">Turn your idea into a product your users love.</h2>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 62ch">This is where most engagements live. Web, mobile, e-commerce, CRM/ERP, or a full platform — engineered to hold up in production, not just demo well.</p>
+      <div class="stage-build__subs">
+        <a href="../services/web-development.html">Web Development</a>
+        <a href="../services/web-development.html">Mobile App Development</a>
+        <a href="../services/web-development.html">E-commerce Development</a>
+        <a href="../services/web-development.html">CRM / ERP Development</a>
+        <a href="../services/web-development.html">Bot &amp; Game Development</a>
+        <a href="../services/web-development.html">SPA / PWA Development</a>
+        <a href="../services/web-development.html">3rd Party Integrations</a>
+        <a href="../services/web-development.html">Platform Migration</a>
+      </div>
+      <a class="btn btn--main btn--large mt-l" href="../services/software-development.html">Explore Software Development <i data-lucide="arrow-right" aria-hidden="true"></i></a>
     </div>
   </section>
 
@@ -496,8 +516,73 @@
     </div>
   </section>
 
+  <!-- ═══ 6 · GROW (Marketing) ═══════════════════════════════════════════ -->
+  <section class="section" id="grow">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <p class="section-label">Stage 04 · Grow</p>
+          <h2 class="t-h3">Built it? Now let's make sure people find it.</h2>
+          <p class="t-p2 tc-secondary mt-3xs">A great product nobody hears about doesn't grow. From SEO to paid to content, we drive the demand that turns a launch into a business.</p>
+          <div class="stage-block__subs">
+            <a href="../services/web-development.html">Marketing Strategy</a>
+            <a href="../services/web-development.html">Full Digital Marketing</a>
+            <a href="../services/web-development.html">SEO · GEO · ASO</a>
+            <a href="../services/web-development.html">Lead Generation</a>
+            <a href="../services/web-development.html">PPC · SMM</a>
+            <a href="../services/web-development.html">Digital Branding</a>
+            <a href="../services/web-development.html">Copywriting</a>
+            <a href="../services/web-development.html">Graphic Design</a>
+          </div>
+          <a class="btn btn--text btn--medium mt-s" style="padding-left:0" href="../services/marketing.html">Learn more about Marketing <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="stage-visual" aria-hidden="true"><i data-lucide="trending-up"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7 · SCALE (Outsourcing & Outstaffing) ══════════════════════════ -->
+  <section class="band band--dark section" id="scale">
+    <div class="container">
+      <div class="split split--reverse split--top">
+        <div>
+          <p class="section-label">Stage 05 · Scale</p>
+          <h2 class="t-h3">Plug expert engineers into your team — fast.</h2>
+          <p class="t-p2 tc-secondary mt-3xs">Need more hands without the hiring overhead? Embed vetted engineers into your team, or hand us a whole workstream to own.</p>
+          <div class="stage-block__subs">
+            <a href="../services/web-development.html">Team Outsourcing</a>
+            <a href="../services/web-development.html">Staff Augmentation</a>
+          </div>
+          <a class="btn btn--text btn--medium mt-s" style="padding-left:0" href="../services/outsourcing-outstaffing.html">Learn more about Outsourcing &amp; Outstaffing <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="stage-visual" aria-hidden="true"><i data-lucide="users"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8 · MAINTAIN (Support & Maintenance) ═══════════════════════════ -->
+  <section class="section" id="maintain">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <p class="section-label">Stage 06 · Maintain</p>
+          <h2 class="t-h3">Keep what we built running, evolving, and secure.</h2>
+          <p class="t-p2 tc-secondary mt-3xs">Launch is the start, not the finish. We keep what we built fast, secure, and improving while you focus on the next thing.</p>
+          <div class="stage-block__subs">
+            <a href="../services/web-development.html">Technical Support</a>
+            <a href="../services/web-development.html">Audit &amp; Troubleshooting</a>
+            <a href="../services/web-development.html">Security &amp; Performance</a>
+            <a href="../services/web-development.html">Hosting &amp; Infrastructure</a>
+          </div>
+          <a class="btn btn--text btn--medium mt-s" style="padding-left:0" href="../services/support-maintenance.html">Learn more about Support &amp; Maintenance <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="stage-visual" aria-hidden="true"><i data-lucide="shield-check"></i></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ 9 · ENGAGEMENT MODELS SNAPSHOT ═════════════════════════════════ -->
-  <section class="band band--dark section">
+  <section class="band band--dark-deep section">
     <div class="container">
       <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
         <div>
