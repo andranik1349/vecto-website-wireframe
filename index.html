@@ -76,6 +76,9 @@
     .stage__connector { display: flex; align-items: center; color: var(--text-tertiary); }
     .stage__connector i { width: var(--space-xs); height: var(--space-xs); }
 
+    /* 6 · Benefits — lead card distributes content (icon top, copy anchored bottom) */
+    .benefits-lead { justify-content: space-between; gap: var(--space-xl); }
+
     /* 7 · Industries — two featured + compact index (editorial, not a 13-cell grid) */
     .ind-grid { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: var(--space-l); align-items: stretch; }
     .ind-feature {
@@ -595,11 +598,13 @@
         <p class="section-label">Why founders choose VECTO</p>
         <h2 class="t-h2">Outcomes, not output.</h2>
       </div>
-      <div class="feature-lead">
-        <div class="card feature-lead__primary">
+      <div class="feature-lead feature-lead--3up">
+        <div class="card feature-lead__primary benefits-lead">
           <i data-lucide="zap" aria-hidden="true" style="width: var(--space-m); height: var(--space-m); color: var(--text-accent)"></i>
-          <h3 class="t-h4 mt-3xs">Ship faster</h3>
-          <p class="t-p2 tc-secondary">Senior teams, a proven process, and AI in the loop on every project — so you reach a usable product in weeks, not quarters, without cutting the corners that matter.</p>
+          <div>
+            <h3 class="t-h3">Ship faster</h3>
+            <p class="t-p1 tc-secondary mt-3xs">Senior teams, a proven process, and AI in the loop on every project — so you reach a usable product in weeks, not quarters, without cutting the corners that matter.</p>
+          </div>
         </div>
         <div class="card">
           <i data-lucide="shield-check" aria-hidden="true" style="width: var(--space-s); height: var(--space-s); color: var(--text-accent)"></i>

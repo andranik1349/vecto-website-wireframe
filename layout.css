@@ -172,12 +172,15 @@
   grid-row: 1 / span 2;
 }
 
-/* 3-up variant: 1 large lead + 3 smaller tiles on the right */
+/* 3-up variant: 1 large lead + 3 smaller tiles on the right.
+   The lead stretches to fill its 3-row column so it doesn't sit short
+   inside a tall grid area. */
 .feature-lead--3up {
   grid-template-columns: 3fr 2fr;
 }
 .feature-lead--3up .feature-lead__primary {
   grid-row: span 3;
+  align-self: stretch;
 }
 
 /* ── STAT BAND: figures + labels inline across the full width ── */
