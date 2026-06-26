@@ -474,6 +474,43 @@ a.card:hover,
 
 
 /* ═══════════════════════════════════════════════════════════════════
+   (A) ATOMIC — 6b. ACCORDION (FAQ)
+   Driven by prototype.js: .accordion__trigger flips aria-expanded and
+   toggles [hidden] on the panel it controls. data-accordion="single"
+   on the wrapper makes it close siblings.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.accordion { display: flex; flex-direction: column; }
+.accordion__item { border-bottom: 1px solid var(--border-semi-transparent); }
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  width: 100%;
+  text-align: left;
+  padding: var(--space-s) 0;
+  font-size: var(--text-size-h5);
+  line-height: var(--text-lh-h5);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.accordion__trigger svg {
+  width: var(--space-s);
+  height: var(--space-s);
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: transform .18s ease;
+}
+.accordion__trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.accordion__trigger[aria-expanded="true"] { color: var(--text-accent); }
+.accordion__panel { padding-bottom: var(--space-s); }
+
+
+/* ═══════════════════════════════════════════════════════════════════
    (A) ATOMIC — 7. COMPARISON TABLE
    Side-by-side model comparison (engagement-models, outsourcing).
    ═══════════════════════════════════════════════════════════════════ */
