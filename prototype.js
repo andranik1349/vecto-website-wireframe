@@ -432,6 +432,24 @@
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
 
+    // Deep-link: pre-apply facet selections from the URL so the page can load
+    // already filtered (e.g. the AI Transformation hero links here with
+    // ?facet=technology:ai). Generic facet:value pairs — repeated ?facet=
+    // params and/or a single comma-separated list both work. Case-insensitive.
+    function applyDeepLink() {
+      const raw = new URLSearchParams(location.search).getAll('facet').join(',');
+      if (!raw) return;
+      raw.split(',').forEach((pair) => {
+        const [facetName, value] = pair.split(':').map((s) => (s || '').trim().toLowerCase());
+        if (!facetName || !value) return;
+        const facetEl = $(`.facet[data-facet="${facetName}"]`, bar);
+        if (!facetEl) return;
+        const cb = $$('input[type="checkbox"]', facetEl).find((i) => i.value.toLowerCase() === value);
+        if (cb) cb.checked = true;
+      });
+    }
+
+    applyDeepLink();
     syncSubservice();
     apply();
   }
