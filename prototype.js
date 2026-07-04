@@ -325,6 +325,11 @@
   function initFacetFilter() {
     const bar = $('[data-facet-bar]');
     if (!bar) return;
+    // Landing mode (P7): on a facet LANDING page the bar carries
+    // data-facet-landing="<hub href>". A facet selection there does NOT filter
+    // in place — it navigates to the hub carrying the composed ?facet= state
+    // (one-way door). Absent on the hub itself, so the hub is unaffected.
+    const landing = bar.getAttribute('data-facet-landing');
     const items = $$('[data-portfolio-item]');
     const facets = $$('.facet', bar);
     const countEl = $('[data-filter-count]');
@@ -335,6 +340,23 @@
 
     const selectedIn = (facetEl) =>
       $$('input[type="checkbox"]:checked', facetEl).map((i) => i.value);
+
+    // Current selection across visible facets → {facet: [values]}.
+    function currentSel() {
+      const sel = {};
+      facets.forEach((f) => {
+        if (f.hidden) return;
+        const vals = selectedIn(f);
+        if (vals.length) sel[f.dataset.facet] = vals;
+      });
+      return sel;
+    }
+    // Selection → ?facet=key:value&… query string (the scheme applyDeepLink reads).
+    function facetQS(sel) {
+      const p = new URLSearchParams();
+      Object.keys(sel).forEach((k) => sel[k].forEach((v) => p.append('facet', k + ':' + v)));
+      return p.toString();
+    }
 
     function closeAll(except) {
       facets.forEach((f) => {
@@ -362,12 +384,7 @@
     }
 
     function apply() {
-      const sel = {};
-      facets.forEach((f) => {
-        if (f.hidden) return;
-        const vals = selectedIn(f);
-        if (vals.length) sel[f.dataset.facet] = vals;
-      });
+      const sel = currentSel();
       const keys = Object.keys(sel);
 
       let shown = 0;
@@ -401,10 +418,12 @@
       // back button; clearing all facets clears the query. Same ?facet=key:value
       // scheme applyDeepLink() reads, so read↔write round-trips (one-way-door
       // hub: pure in-place query-param state, never a navigation).
-      const params = new URLSearchParams();
-      keys.forEach((key) => sel[key].forEach((v) => params.append('facet', key + ':' + v)));
-      const qs = params.toString();
-      history.replaceState(null, '', qs ? location.pathname + '?' + qs : location.pathname);
+      // Skipped on a LANDING — its clean canonical URL must not be rewritten by
+      // the initial (pre-selected) filter pass.
+      if (!landing) {
+        const qs = facetQS(sel);
+        history.replaceState(null, '', qs ? location.pathname + '?' + qs : location.pathname);
+      }
     }
 
     // Open/close the facet menus.
@@ -425,12 +444,23 @@
 
     bar.addEventListener('change', (e) => {
       if (!e.target.matches('input[type="checkbox"]')) return;
+      // Landing (one-way door): the first facet selection leaves the landing for
+      // the hub, carrying the pre-selected facet + whatever was just toggled as
+      // composed ?facet= state. Never filters in place here. (Keyword typing
+      // fires 'input', not 'change', so it never reaches this — it only narrows.)
+      if (landing) {
+        const qs = facetQS(currentSel());
+        location.href = landing + (qs ? '?' + qs : '');
+        return;
+      }
       if (serviceFacet && serviceFacet.contains(e.target)) syncSubservice();
       apply();
     });
 
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
+        // On a landing, clearing is also a browse action → go to the hub (all projects).
+        if (landing) { location.href = landing; return; }
         $$('input[type="checkbox"]', bar).forEach((cb) => { cb.checked = false; });
         syncSubservice();
         apply();
