@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>Careers — About — VECTO</title>
+  <meta name="description" content="Open roles at VECTO — engineering, design, and delivery people who can think with a founder. See the roles or leave your CV.">
+
+  <!-- 4-file load order (build-plan §3). DEPTH 2 → ../../ prefix. -->
+  <link rel="stylesheet" href="../../tokens.css">
+  <link rel="stylesheet" href="../../typography.css">
+  <link rel="stylesheet" href="../../components.css">
+  <link rel="stylesheet" href="../../layout.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    .section-head { margin-bottom: var(--space-l); }
+    .section-head .section-label { margin-bottom: var(--space-3xs); }
+
+    /* Open-roles list — cards are <div> (title is the link; tags are separate
+       links, so the card can't be a wrapping <a>). */
+    .job-list { display: flex; flex-direction: column; gap: var(--space-s); }
+    .job-card { padding: var(--space-l); border: 1px solid var(--border-semi-transparent); border-radius: var(--radius-l); background: var(--surface-elevated); }
+    .job-card__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-s); flex-wrap: wrap; }
+    .job-title-link { color: var(--text-primary); text-decoration: none; }
+    .job-title-link:hover { color: var(--text-accent); }
+    .job-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-3xs); color: var(--text-muted); font-size: var(--text-size-c1); margin-top: var(--space-4xs); }
+    .job-card__tags { display: flex; flex-wrap: wrap; gap: var(--space-4xs); margin-top: var(--space-3xs); }
+    .job-view { display: inline-flex; align-items: center; gap: var(--space-min); color: var(--text-accent); font-size: var(--text-size-c1); white-space: nowrap; }
+    .job-view svg { width: 14px; height: 14px; }
+
+    /* Designed empty state — shown when the CMS has no open roles (publish-state
+       driven; no filter JS on this page). .empty-state sets display, so it needs
+       its own [hidden] reset (no global [hidden] rule — see CLAUDE.md). */
+    .empty-state { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3xs); padding: var(--space-xl); border: 1px dashed var(--border-semi-transparent); border-radius: var(--radius-l); }
+    .empty-state[hidden] { display: none; }
+    .empty-state__icon { display: inline-flex; color: var(--text-muted); }
+    .empty-state__icon svg { width: var(--space-l); height: var(--space-l); }
+
+    /* Form (mirrors contact.html's page-scoped form wrapper) */
+    .app-form { display: flex; flex-direction: column; gap: var(--space-s); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-s); }
+    .app-form textarea.input { min-height: var(--space-4xl); resize: vertical; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ⚑ PLACEHOLDER LINKS — Careers list (build-plan §4.4)
+     Every job card below links to senior-frontend-engineer.html — the ONE built
+     example job posting — as a PLACEHOLDER, so the careers surface stays fully
+     clickable from a single template. In PRODUCTION each resolves to its own
+     /about/careers/[job-slug] page (e.g. Product Designer → /about/careers/product-designer).
+     Technology tags link to ../../how-we-work/technologies/react.html (the one
+     built technology template); in production each maps to its own tech page.
+     ════════════════════════════════════════════════════════════════════════ -->
+
+<header class="topbar" role="banner">
+  <div class="topbar__inner">
+
+    <!-- Logo lockup → homepage -->
+    <a class="topbar__logo" href="../../index.html" aria-label="VECTO — home">
+      <i data-lucide="hexagon" aria-hidden="true"></i>
+      VECTO
+    </a>
+
+    <!-- Primary navigation -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Primary">
+
+      <!-- Services ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../../services/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-services">
+          Services <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Solutions (direct link, no dropdown — the "what we offer" pair with Services).
+           Target solutions/index.html is built later (E5 · P2); link is a forward placeholder. -->
+      <div class="nav__item">
+        <a class="nav__link" href="../../solutions/index.html">Solutions</a>
+      </div>
+
+      <!-- Who We Serve ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../../who-we-serve/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-who">
+          Who We Serve <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Our Work (direct link, no dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../../our-work/index.html">Our Work</a>
+      </div>
+
+      <!-- How We Work ▾ (megamenu) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../../how-we-work/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
+          How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <!-- Resources ▾ (dropdown) -->
+      <div class="nav__item">
+        <button type="button" class="nav__link" aria-haspopup="true" aria-expanded="false" aria-controls="mm-resources">
+          Resources <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </button>
+
+        <div class="dropdown dropdown--resources" id="mm-resources" role="region" aria-label="Resources" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <a class="dropdown__heading dropdown__heading--link" href="../../blog/index.html">Blog</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../../blog/index.html">Latest posts</a></li>
+                <li><a class="dropdown__link" href="../../blog/index.html">By topic</a></li>
+                <li><a class="dropdown__link" href="../../blog/authors/jane-doe.html">Authors</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <a class="dropdown__heading dropdown__heading--link" href="../../glossary/index.html">Glossary</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../../glossary/index.html">Tech terms, explained</a></li>
+                <li><a class="dropdown__link" href="../../glossary/index.html">Browse A–Z</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <!-- "Tools" is a grouping label, not a page — non-interactive (no Tools hub; the old link duplicated the Project Estimator link below / the nav CTA). -->
+              <span class="dropdown__heading">Tools</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../../get-an-estimate.html">Project Estimator</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About ▾ (dropdown) -->
+      <div class="nav__item">
+        <a class="nav__link" href="../../about/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-about">
+          About <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </a>
+
+        <!-- About megamenu rebuilt (E3a): Company / Team / Get in touch. Company & Team
+             headings are real-page links (--link, accent-red); "Get in touch" has no hub
+             page → grey <span> label (heading convention). Security & Compliance removed
+             from primary surfaces (E3c) — the page still exists, reachable contextually. -->
+        <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
+          <div class="dropdown__cols">
+            <div class="dropdown__col">
+              <a class="dropdown__heading dropdown__heading--link" href="../../about/company.html">The company</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../../about/company.html#about-vecto">About VECTO</a></li>
+                <li><a class="dropdown__link" href="../../about/company.html#history">Our story</a></li>
+                <li><a class="dropdown__link" href="../../about/company.html#mission">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../../about/company.html#partners">Partners</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <a class="dropdown__heading dropdown__heading--link" href="../../about/team.html">The team</a>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../../about/team.html#leadership">Leadership</a></li>
+                <li><a class="dropdown__link" href="../../about/team.html#specialists">Specialists</a></li>
+                <li><a class="dropdown__link" href="../../about/careers/index.html">Careers</a></li>
+              </ul>
+            </div>
+            <div class="dropdown__col">
+              <!-- "Get in touch" is a grouping label, not a page — non-interactive. -->
+              <span class="dropdown__heading">Get in touch</span>
+              <ul class="dropdown__links">
+                <li><a class="dropdown__link" href="../../about/testimonials.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../../schedule-a-call.html">Schedule a Call</a></li>
+                <li><a class="dropdown__link" href="../../contact.html">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+
+    <!-- Right cluster: persistent CTA (desktop-only — no hamburger) -->
+    <div class="topbar__actions">
+      <!-- CTA compacted to btn--small (E5): the 7-link bar + CTA must fit ~1200px.
+           Acceptable trade — the sticky/floating estimate CTA carries every page. -->
+      <a class="btn btn--main btn--small nav__cta" href="../../get-an-estimate.html">
+        Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       MEGAMENU PANELS (full-width; children of <header> so left/right:0 span
+       the bar). Opened by the matching nav__link via aria-controls.
+
+       HEADING CONVENTION (menus + dropdowns): a column heading is a LINK only
+       when a real destination page exists for it — those carry `--link`
+       (`.megamenu__heading--link` / `.dropdown__heading--link`, accent-red
+       TEXT, not a button). Headings with no real page are plain <span> labels
+       (muted grey, non-interactive) — no invented hubs, no next-best targets.
+       Final visual treatment (label vs heading-link) is a Figma / design-system
+       task: a new component pair (nav label vs nav heading-link).
+       ───────────────────────────────────────────────────────────────────── -->
+
+  <!-- Services megamenu — six sequential stages + cross-cutting AI band -->
+  <div class="megamenu megamenu--services" id="mm-services" role="region" aria-label="Services" hidden>
+    <div class="megamenu__inner">
+      <p class="section-label">From idea to live product — every stage covered</p>
+
+      <!-- AI Transformation — distinct cross-cutting band -->
+      <div class="megamenu__ai-band">
+        <div>
+          <a class="megamenu__heading" href="../../services/ai-transformation.html">AI Transformation — our cross-cutting competency</a>
+          <p class="megamenu__link-desc">Not a stage, but expertise that runs through discovery, design, build and support: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering.</p>
+        </div>
+        <a class="btn btn--secondary-light btn--small" href="../../services/ai-transformation.html">
+          Explore AI Transformation <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="megamenu__cols">
+        <!-- Discover & Validate -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../services/it-consulting.html">Discover &amp; Validate</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../services/it-consulting.html"><strong>IT Consulting</strong></a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Market Analysis</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Digital Transformation Strategy</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Startup Ideation &amp; Feasibility</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Product Conceptualization</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Financial Modelling</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Technical Specification</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Cost &amp; Time Estimation</a></li>
+          </ul>
+        </div>
+
+        <!-- Design -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../services/product-design.html">Design</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../services/product-design.html"><strong>Product Design</strong></a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">UI Design</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">UX Design</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Prototyping &amp; Wireframing</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">User Testing</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Customer Journey Mapping</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Product Redesign</a></li>
+          </ul>
+        </div>
+
+        <!-- Build (primary stage) -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../services/software-development.html">Build</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../services/software-development.html"><strong>Software Development</strong></a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Web Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Mobile App Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">E-commerce Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">CRM Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">ERP Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Bot Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Game Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">SPA Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">PWA Development</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">3rd Party Integrations</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Platform Migration</a></li>
+          </ul>
+        </div>
+
+        <!-- Grow -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../services/marketing.html">Grow</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../services/marketing.html"><strong>Marketing</strong></a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Marketing Strategy</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Full Digital Marketing</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">SEO</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">GEO</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">ASO</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Lead Generation</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">PPC</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">SMM</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Digital Branding</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Copywriting</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <!-- Scale -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../services/outsourcing-outstaffing.html">Scale</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../services/outsourcing-outstaffing.html"><strong>Outsourcing &amp; Outstaffing</strong></a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Team Outsourcing</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Staff Augmentation</a></li>
+          </ul>
+        </div>
+
+        <!-- Maintain -->
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../services/support-maintenance.html">Maintain</a>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../services/support-maintenance.html"><strong>Support &amp; Maintenance</strong></a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Technical Support</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Audit &amp; Troubleshooting</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Security &amp; Performance</a></li>
+            <li><a class="megamenu__link" href="../../services/web-development.html">Hosting &amp; Infrastructure</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../../services/index.html">
+          Need it all? See our end-to-end Digital Transformation service <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Who We Serve megamenu — two-axis panel (company stage × industry) -->
+  <div class="megamenu megamenu--who-we-serve" id="mm-who" role="region" aria-label="Who We Serve" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../who-we-serve/index.html">By company stage</a>
+          <p class="megamenu__link-desc">Where you are right now</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../who-we-serve/early-stage-startup.html">Early-stage Startup</a><span class="megamenu__link-desc">pre-revenue, building MVP</span></li>
+            <li><a class="megamenu__link" href="../../who-we-serve/early-stage-startup.html">Scale-up</a><span class="megamenu__link-desc">product-market fit, growing fast</span></li>
+            <li><a class="megamenu__link" href="../../who-we-serve/early-stage-startup.html">Small Business</a><span class="megamenu__link-desc">established, modernising</span></li>
+            <li><a class="megamenu__link" href="../../who-we-serve/early-stage-startup.html">Midsize Business</a><span class="megamenu__link-desc">multi-team, accelerating</span></li>
+            <li><a class="megamenu__link" href="../../who-we-serve/early-stage-startup.html">Enterprise</a><span class="megamenu__link-desc">complex stack, regulated</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col megamenu__col--industries">
+          <a class="megamenu__heading megamenu__heading--link" href="../../industries/index.html">By industry</a>
+          <p class="megamenu__link-desc">What you sell, who you serve</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Tech</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Travel</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Hospitality</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Finance</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Healthcare</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Manufacturing</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Retail</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Education</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Sport</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Media &amp; Entertainment</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Professional Services</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Non-Profit</a></li>
+            <li><a class="megamenu__link" href="../../industries/healthcare.html">Beauty &amp; Wellness</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../../our-work/index.html">
+          Browse all case studies <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <span class="megamenu__link-desc">With stage and industry filter chips pre-populated</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- How We Work megamenu — three columns (Process · Engagement · Reference) -->
+  <div class="megamenu megamenu--how-we-work" id="mm-howwework" role="region" aria-label="How We Work" hidden>
+    <div class="megamenu__inner">
+      <div class="megamenu__cols">
+
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../how-we-work/process.html">Our Process</a>
+          <p class="megamenu__link-desc">5-step engagement journey</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../how-we-work/process.html#kickoff">1 · Kickoff</a></li>
+            <li><a class="megamenu__link" href="../../how-we-work/process.html#scoping">2 · Scoping</a></li>
+            <li><a class="megamenu__link" href="../../how-we-work/process.html#execute">3 · Execute</a></li>
+            <li><a class="megamenu__link" href="../../how-we-work/process.html#launch">4 · Launch</a></li>
+            <li><a class="megamenu__link" href="../../how-we-work/process.html#iterate">5 · Iterate</a></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <a class="megamenu__heading megamenu__heading--link" href="../../how-we-work/engagement-models.html">Engagement Models</a>
+          <p class="megamenu__link-desc">How we charge &amp; staff</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../how-we-work/engagement-models.html#fixed">Fixed Price</a><span class="megamenu__link-desc">defined scope, fixed cost</span></li>
+            <li><a class="megamenu__link" href="../../how-we-work/engagement-models.html#tm">Time &amp; Material</a><span class="megamenu__link-desc">flexible scope, hourly</span></li>
+            <li><a class="megamenu__link" href="../../how-we-work/engagement-models.html#dedicated">Dedicated Team</a><span class="megamenu__link-desc">your team, our payroll</span></li>
+            <li><a class="megamenu__link" href="../../how-we-work/engagement-models.html#outstaffing">Outstaffing</a><span class="megamenu__link-desc">engineers into your team</span></li>
+          </ul>
+        </div>
+
+        <div class="megamenu__col">
+          <!-- "Reference" is a grouping label, not a page — non-interactive (no HWW "Reference" hub exists; the old link pointed at the HWW hub as a next-best target). The 3 links below carry the real destinations. -->
+          <span class="megamenu__heading">Reference</span>
+          <p class="megamenu__link-desc">What we build with</p>
+          <ul class="megamenu__links">
+            <li><a class="megamenu__link" href="../../how-we-work/technologies/index.html">Technologies — full stack index <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../../how-we-work/methodologies/index.html">Methodologies — how we run delivery <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+            <li><a class="megamenu__link" href="../../how-we-work/tools/index.html">Tools — what we work in day-to-day <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="megamenu__strip">
+        <a class="megamenu__link" href="../../get-an-estimate.html">
+          Not sure where to start? Get a ballpark in 90 seconds <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn--main btn--small" href="../../get-an-estimate.html">
+          Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<main>
+
+  <!-- ═══ Block 1 · Hero + breadcrumb ═══ -->
+  <section class="band band--dark-deep section">
+    <div class="container">
+      <nav class="breadcrumb mb-s" aria-label="Breadcrumb">
+        <a class="breadcrumb__item" href="../../index.html">Home</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <a class="breadcrumb__item" href="../index.html">About</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <span class="breadcrumb__item" aria-current="page">Careers</span>
+      </nav>
+      <p class="section-label">Careers</p>
+      <h1 class="t-h1 text-balance" style="max-width: 20ch">Work with people who sweat the details.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 58ch">
+        We hire for judgment, not just keystrokes — engineers, designers, and delivery leads who can
+        think with a founder. Small senior teams, real ownership, and the same bar we hold client work to.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ Block 2 · Open roles list ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Open roles</p>
+        <h2 class="t-h2">Where we're hiring right now.</h2>
+      </div>
+
+      <div class="job-list">
+
+        <div class="job-card">
+          <div class="job-card__head">
+            <div>
+              <h3 class="t-h4"><a class="job-title-link" href="senior-frontend-engineer.html">Senior Frontend Engineer</a></h3>
+              <div class="job-card__meta"><span>Engineering</span><span>·</span><span>Remote (EU)</span><span>·</span><span>Full-time</span></div>
+            </div>
+            <a class="job-view" href="senior-frontend-engineer.html">View role <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="job-card__tags">
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">React</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Next.js</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">TypeScript</a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card__head">
+            <div>
+              <h3 class="t-h4"><a class="job-title-link" href="senior-frontend-engineer.html">Product Designer</a></h3>
+              <div class="job-card__meta"><span>Design</span><span>·</span><span>Yerevan / Hybrid</span><span>·</span><span>Full-time</span></div>
+            </div>
+            <a class="job-view" href="senior-frontend-engineer.html">View role <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="job-card__tags">
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Figma</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Prototyping</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Design Systems</a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card__head">
+            <div>
+              <h3 class="t-h4"><a class="job-title-link" href="senior-frontend-engineer.html">Backend Engineer</a></h3>
+              <div class="job-card__meta"><span>Engineering</span><span>·</span><span>Remote</span><span>·</span><span>Full-time</span></div>
+            </div>
+            <a class="job-view" href="senior-frontend-engineer.html">View role <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="job-card__tags">
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Node.js</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">PostgreSQL</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">AWS</a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card__head">
+            <div>
+              <h3 class="t-h4"><a class="job-title-link" href="senior-frontend-engineer.html">Delivery Lead</a></h3>
+              <div class="job-card__meta"><span>Delivery</span><span>·</span><span>Remote (EU)</span><span>·</span><span>Full-time</span></div>
+            </div>
+            <a class="job-view" href="senior-frontend-engineer.html">View role <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="job-card__tags">
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Agile</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Client-facing</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Roadmapping</a>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-card__head">
+            <div>
+              <h3 class="t-h4"><a class="job-title-link" href="senior-frontend-engineer.html">AI Engineer</a></h3>
+              <div class="job-card__meta"><span>AI Practice</span><span>·</span><span>Remote</span><span>·</span><span>Full-time</span></div>
+            </div>
+            <a class="job-view" href="senior-frontend-engineer.html">View role <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="job-card__tags">
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">Python</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">LLMs</a>
+            <a class="tag tag--secondary" href="../../how-we-work/technologies/react.html">ML Engineering</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Designed empty state — rendered when no roles are open (publish-state driven). -->
+      <div class="empty-state" data-filter-empty hidden>
+        <span class="empty-state__icon"><i data-lucide="inbox" aria-hidden="true"></i></span>
+        <h3 class="t-h4">No open roles right now.</h3>
+        <p class="t-p2 tc-secondary" style="max-width:48ch">We hire year-round when we meet the right people. Leave your CV below and we'll reach out when something fits.</p>
+        <a class="btn btn--ghost btn--medium" href="#general-application">Leave your CV <i data-lucide="arrow-down" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Block 3 · "Don't see your role?" — general application form ═══ -->
+  <section class="band band--dark section" id="general-application">
+    <div class="container container-medium">
+      <div class="section-head text-center">
+        <p class="section-label">Don't see your role?</p>
+        <h2 class="t-h2">Introduce yourself anyway.</h2>
+        <p class="t-p2 tc-secondary" style="margin-inline:auto;max-width:48ch">If you're good at what you do and you'd fit how we work, we want to know — even between openings.</p>
+      </div>
+      <!-- Provider-backed form (C4 site-wide forms note): posts to a Formspree-class
+           endpoint in production — no custom backend. Static markup only here. -->
+      <form class="app-form" onsubmit="return false">
+        <div class="form-grid">
+          <div class="field">
+            <label class="field__label" for="g-name">Your name</label>
+            <input class="input" type="text" id="g-name" autocomplete="name" placeholder="Jordan Rivera">
+          </div>
+          <div class="field">
+            <label class="field__label" for="g-email">Email</label>
+            <input class="input" type="email" id="g-email" autocomplete="email" placeholder="you@email.com">
+          </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="g-role">What do you do? <span class="tc-tertiary">(discipline)</span></label>
+          <select class="input" id="g-role">
+            <option value="engineering" selected>Engineering</option>
+            <option value="design">Design</option>
+            <option value="delivery">Delivery / Project Management</option>
+            <option value="ai">AI / Data</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="g-cv">CV / résumé <span class="tc-tertiary">(PDF)</span></label>
+          <input class="input" type="file" id="g-cv" accept=".pdf,.doc,.docx">
+        </div>
+        <div class="field">
+          <label class="field__label" for="g-note">A note <span class="tc-tertiary">(optional)</span></label>
+          <textarea class="input" id="g-note" rows="4" placeholder="What you're looking for, links to your work, anything you want us to know."></textarea>
+        </div>
+        <button type="submit" class="btn btn--main btn--large" style="align-self:flex-start">Send application <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <div class="site-footer__cols">
+
+      <!-- 1 · Services (7 categories + All services) -->
+      <nav class="footer-col" aria-label="Services">
+        <span class="footer-col__heading">Services</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../../services/ai-transformation.html">AI Transformation</a>
+          <a class="footer-link" href="../../services/software-development.html">Software Development</a>
+          <a class="footer-link" href="../../services/product-design.html">Product Design</a>
+          <a class="footer-link" href="../../services/marketing.html">Marketing</a>
+          <a class="footer-link" href="../../services/it-consulting.html">IT Consulting</a>
+          <a class="footer-link" href="../../services/support-maintenance.html">Support &amp; Maintenance</a>
+          <a class="footer-link" href="../../services/outsourcing-outstaffing.html">Outsourcing &amp; Outstaffing</a>
+          <a class="footer-link" href="../../services/index.html">All services →</a>
+        </div>
+      </nav>
+
+      <!-- 2 · Industries & Stage (industries + company stages, full list) -->
+      <nav class="footer-col" aria-label="Industries and company stage">
+        <span class="footer-col__heading">Industries &amp; Stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../../industries/healthcare.html">Tech</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Travel</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Hospitality</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Finance</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Healthcare</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Manufacturing</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Retail</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Education</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Sport</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Media &amp; Entertainment</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Professional Services</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Non-Profit</a>
+          <a class="footer-link" href="../../industries/healthcare.html">Beauty &amp; Wellness</a>
+        </div>
+        <span class="footer-col__subheading">By stage</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../../who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+          <a class="footer-link" href="../../who-we-serve/early-stage-startup.html">Scale-up</a>
+          <a class="footer-link" href="../../who-we-serve/early-stage-startup.html">Small Business</a>
+          <a class="footer-link" href="../../who-we-serve/early-stage-startup.html">Midsize Business</a>
+          <a class="footer-link" href="../../who-we-serve/early-stage-startup.html">Enterprise</a>
+        </div>
+      </nav>
+
+      <!-- 3 · Service Areas (country pages — SEO surface, not built this session) -->
+      <nav class="footer-col" aria-label="Service areas">
+        <span class="footer-col__heading">Service Areas</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="#">United States</a>
+          <a class="footer-link" href="#">United Kingdom</a>
+          <a class="footer-link" href="#">Germany</a>
+          <a class="footer-link" href="#">United Arab Emirates</a>
+          <a class="footer-link" href="#">Canada</a>
+          <a class="footer-link" href="#">Australia</a>
+          <a class="footer-link" href="#">Armenia</a>
+        </div>
+      </nav>
+
+      <!-- 4 · Resources -->
+      <nav class="footer-col" aria-label="Resources">
+        <span class="footer-col__heading">Resources</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../../blog/index.html">Blog</a>
+          <a class="footer-link" href="../../glossary/index.html">Glossary</a>
+          <a class="footer-link" href="../../get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="../../how-we-work/engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="../../how-we-work/process.html">Process</a>
+          <a class="footer-link" href="../../how-we-work/technologies/index.html">Technologies</a>
+          <a class="footer-link" href="../../how-we-work/methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="../../how-we-work/tools/index.html">Tools</a>
+          <a class="footer-link" href="#">2025 in review</a>
+        </div>
+      </nav>
+
+      <!-- 5 · Company (E3a: split About; E3c: Security & Compliance removed from footer) -->
+      <nav class="footer-col" aria-label="Company">
+        <span class="footer-col__heading">Company</span>
+        <div class="footer-col__links">
+          <a class="footer-link" href="../../about/index.html">About</a>
+          <a class="footer-link" href="../../about/company.html">Company</a>
+          <a class="footer-link" href="../../about/team.html">Team</a>
+          <a class="footer-link" href="../../about/careers/index.html">Careers</a>
+          <a class="footer-link" href="../../about/testimonials.html">Testimonials</a>
+          <a class="footer-link" href="../../about/company.html#partners">Partners</a>
+          <a class="footer-link" href="../../contact.html">Contact</a>
+        </div>
+      </nav>
+
+    </div>
+
+    <!-- Utility row — logo · legal · social · copyright -->
+    <div class="site-footer__utility">
+      <a class="topbar__logo" href="../../index.html" aria-label="VECTO — home">
+        <i data-lucide="hexagon" aria-hidden="true"></i>
+        VECTO
+      </a>
+
+      <nav class="site-footer__legal" aria-label="Legal">
+        <a href="../../legal/privacy.html">Privacy</a>
+        <a href="../../legal/terms.html">Terms</a>
+        <a href="../../legal/cookies.html">Cookies</a>
+        <a href="../../legal/sitemap.html">Sitemap</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="#" aria-label="VECTO on LinkedIn"><i data-lucide="share-2" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on X"><i data-lucide="at-sign" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on GitHub"><i data-lucide="code" aria-hidden="true"></i></a>
+        <a href="#" aria-label="VECTO on Instagram"><i data-lucide="camera" aria-hidden="true"></i></a>
+      </div>
+
+      <p class="site-footer__copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="../../prototype.js"></script>
+</body>
+</html>
