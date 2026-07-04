@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
   <title>Our Work — VECTO</title>
-  <meta name="description" content="The outcomes that mattered. Browse our work by outcome story, service, industry, or stage — projects built from zero to one, scaled to enterprise, modernised, and rescued.">
+  <meta name="description" content="Projects, industries, and outcomes that mattered. Browse and filter our work by service, industry, technology, platform, country, or company stage.">
 
   <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
   <link rel="stylesheet" href="../tokens.css">
@@ -18,9 +18,7 @@
     .section-head { margin-bottom: var(--space-l); }
     .section-head .section-label { margin-bottom: var(--space-3xs); }
 
-    /* ── 1 · Counter hero ── */
-    .hero-stats { margin-top: var(--space-xl); }
-    .hero-stats .stat-band__figure { color: var(--text-accent); }
+    /* ── 1 · Counter hero — the counter line IS the h1 (no separate stat band) ── */
 
     /* ── 2 · Sticky filter strip — a row of multi-select dropdown facets ── */
     .filter-strip { padding-block: var(--space-3xs); border-bottom: 1px solid var(--border-semi-transparent); }
@@ -58,7 +56,8 @@
       box-shadow: 0 8px 24px var(--overlay-dark-1);
     }
     /* .facet__menu sets display:flex, which would override the [hidden] attr —
-       restore hiding for the closed state (same gotcha as .og-item[hidden]). */
+       restore hiding for the closed state (same gotcha as the portfolio-item /
+       filter-section resets below). */
     .facet__menu[hidden] { display: none; }
     .facet__opt {
       display: flex; align-items: center; gap: var(--space-3xs);
@@ -74,24 +73,31 @@
     }
     .facet-clear:hover { color: var(--text-primary); }
 
-    /* ── 3 · Outcome groups — feature-lead / varied-size (not a flat grid) ── */
-    .og { padding-block: var(--space-xl); border-top: 1px solid var(--border-semi-transparent); }
-    .og:first-of-type { border-top: 0; padding-top: var(--space-l); }
-    .og__head { margin-bottom: var(--space-l); }
-    .og-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap);
-      align-items: start;
-    }
-    /* Featured case leads each group as a full-width horizontal banner —
-       image BESIDE the text at a contained height, never a giant 16/9 void.
-       Supporting cases sit in a 2-up row beneath it. */
-    .og-item.is-featured { grid-column: 1 / -1; flex-direction: row; align-items: stretch; }
-    .og-item.is-featured .card__media {
-      width: auto; flex: 0 0 42%; aspect-ratio: auto; min-height: 300px;
-    }
-    .og-item.is-featured .card__body { flex: 1; justify-content: center; }
-    /* Guarantee filtered items hide — .card sets display, so [hidden] alone won't */
-    .og-item[hidden] { display: none; }
+    /* ── 3 · Featured — one big showcase (full-width image-dominant banner) +
+       three supporting image-top cards (miiind-style). Media stays a contained
+       banner beside text, never a giant 16/9 void (CLAUDE.md gotcha e). ── */
+    .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); align-items: stretch; }
+    .feat-showcase { grid-column: 1 / -1; flex-direction: row; align-items: stretch; padding: 0; overflow: hidden; }
+    .feat-showcase .card__media { width: auto; flex: 0 0 56%; aspect-ratio: auto; min-height: 400px; border-radius: 0; }
+    .feat-showcase .card__body { flex: 1; justify-content: center; padding: var(--space-xl); gap: var(--space-3xs); }
+    .feat-sm { padding: 0; overflow: hidden; }            /* image-top supporting card */
+    .feat-sm .card__body { padding: var(--space-l); }
+
+    /* ── 4 · Asymmetric project grid — CSS-columns masonry. Card heights are
+       varied across a wider ratio palette (3:2 · 4:3 · 1:1 · 4:5 · 3:4 · 2:3)
+       for a Pinterest-like wall. NOTE: the IA content model names 3 aspect
+       presets (1:1 / 2:3 / 3:2); this widens it for the reference look —
+       reconcile the aspect_preset enum in the IA if kept. ── */
+    .project-grid { columns: 3; column-gap: var(--grid-gap); }
+    .project-grid > .card { break-inside: avoid; margin-bottom: var(--grid-gap); }
+    .project-grid .card__body { padding: var(--space-s); }
+
+    /* Filtered items/sections hide — .card and display-set wrappers ignore the
+       bare [hidden] attr (no global [hidden] reset — CLAUDE.md gotcha d). Key the
+       reset on the attributes initFacetFilter toggles so it catches featured
+       banners, grid cards, and whole sections alike. */
+    [data-portfolio-item][hidden] { display: none; }
+    [data-filter-section][hidden] { display: none; }
 
     /* ── 7 · Closing CTA ── */
     .cta-band { text-align: center; }
@@ -488,24 +494,10 @@
         <span class="breadcrumb__item" aria-current="page">Our Work</span>
       </nav>
       <p class="section-label">Our Work</p>
-      <h1 class="t-h1 text-balance" style="max-width: 16ch">The outcomes that mattered.</h1>
-      <p class="t-p1 tc-secondary mt-s" style="max-width: 58ch">Browse the work by the story it tells — built from nothing, scaled under load, dragged out of legacy, or pulled back from the brink. Filter to find yours.</p>
-      <div class="hero-stats">
-        <div class="stat-band stat-band--divided">
-          <div class="stat-band__item">
-            <span class="stat-band__figure t-h1">120+</span>
-            <span class="stat-band__label t-p3 tc-secondary">Projects shipped</span>
-          </div>
-          <div class="stat-band__item">
-            <span class="stat-band__figure t-h1">13</span>
-            <span class="stat-band__label t-p3 tc-secondary">Industries served</span>
-          </div>
-          <div class="stat-band__item">
-            <span class="stat-band__figure t-h1">40+</span>
-            <span class="stat-band__label t-p3 tc-secondary">Products taken to launch</span>
-          </div>
-        </div>
-      </div>
+      <!-- IA-canon counter line (E1). Counts are computed at build time from the
+           content (project/industry/outcome totals) — never hardcoded in production. -->
+      <h1 class="t-h1 text-balance" style="max-width: 20ch">12 projects. 9 industries. 12 outcomes that mattered.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 58ch">Filter by service, industry, technology, platform, country, or company stage to find work like yours.</p>
     </div>
   </section>
 
@@ -692,161 +684,162 @@
     </div>
   </div>
 
-  <!-- ═══ 3 + 4 · OUTCOME GROUPS — each a feature-lead; all projects live here ═══ -->
-  <section class="section">
+  <!-- ═══ 3 · FEATURED PROJECTS ═══════════════════════════════════════════
+       Curated ahead of the grid — hand-picked via a CMS `featured` flag +
+       explicit order; larger editorial contained-banner cards. Featured cards
+       stay filterable ([data-portfolio-item], distinct from the grid so the
+       count stays honest); the whole section collapses when none match. -->
+  <section class="section" data-filter-section>
     <div class="container">
-
-      <!-- Built from 0 to 1 -->
-      <div class="og" data-filter-section>
-        <div class="og__head">
-          <p class="section-label">Built from 0 to 1</p>
-          <h2 class="t-h3">Idea on a napkin → product in the world.</h2>
-        </div>
-        <div class="og-grid">
-          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="healthcare" data-service="software-development" data-subservice="web-development" data-technology="react,typescript,node" data-platform="web" data-country="us" data-size="early-stage" href="fintech-platform.html">
-            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
-            <div class="card__body">
-              <h3 class="t-h4">Lumen Health</h3>
-              <p class="t-p3 tc-secondary">From napkin to a HIPAA-ready MVP in five months — and a seed round on the strength of it.</p>
-              <div class="card__meta mt-4xs">
-                <span class="tag tag--secondary">Healthcare</span>
-                <span class="tag tag--secondary">Web Development</span>
-              </div>
-            </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="mobile-app-development" data-technology="react-native,node" data-platform="mobile" data-country="uk" data-size="early-stage" href="fintech-platform.html">
-            <h3 class="t-h5">Cadence</h3>
-            <p class="t-p3 tc-secondary">A budgeting app that went from prototype to App Store.</p>
-            <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">FinTech</span>
-              <span class="tag tag--secondary">Mobile App</span>
-            </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="media" data-service="software-development" data-subservice="web-development" data-technology="nextjs,typescript" data-platform="web" data-country="us" data-size="early-stage" href="fintech-platform.html">
-            <h3 class="t-h5">Plotline</h3>
-            <p class="t-p3 tc-secondary">A storytelling platform launched in fourteen weeks.</p>
-            <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">Media</span>
-              <span class="tag tag--secondary">Web Development</span>
-            </div>
-          </a>
-        </div>
+      <div class="section-head">
+        <p class="section-label">Featured</p>
+        <h2 class="t-h2">A few we're proud of.</h2>
       </div>
+      <div class="featured-grid">
 
-      <!-- Scaled to enterprise -->
-      <div class="og" data-filter-section>
-        <div class="og__head">
-          <p class="section-label">Scaled to enterprise</p>
-          <h2 class="t-h3">Built ahead of the growth curve, not behind it.</h2>
-        </div>
-        <div class="og-grid">
-          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="retail" data-service="software-development" data-subservice="e-commerce-development" data-technology="nextjs,node,postgresql" data-platform="ecommerce" data-country="de" data-size="scale-up" href="fintech-platform.html">
-            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
-            <div class="card__body">
-              <h3 class="t-h4">Northwind Markets</h3>
-              <p class="t-p3 tc-secondary">A storefront re-architected to take 10× the traffic — Black Friday came and went quietly.</p>
-              <div class="card__meta mt-4xs">
-                <span class="tag tag--secondary">Retail</span>
-                <span class="tag tag--secondary">Web Development</span>
-              </div>
-            </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="web-development" data-technology="react,node,kafka" data-platform="web" data-country="uk" data-size="enterprise" href="fintech-platform.html">
-            <h3 class="t-h5">Vault</h3>
-            <p class="t-p3 tc-secondary">A trading platform that grew without a minute of downtime.</p>
-            <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">FinTech</span>
+        <!-- Big showcase — the lead featured project (miiind-style hero card) -->
+        <a class="card card--with-image feat-showcase" data-portfolio-item data-industry="healthcare" data-service="software-development" data-subservice="web-development" data-technology="react,typescript,node" data-platform="web" data-country="us" data-size="early-stage" href="fintech-platform.html">
+          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <span class="section-label" style="color: var(--text-accent)">Featured project</span>
+            <h3 class="t-h2">Lumen Health</h3>
+            <p class="t-p1 tc-secondary">From napkin to a HIPAA-ready MVP in five months — and a seed round on the strength of it. The project that set the bar for how we scope early-stage healthcare builds.</p>
+            <div class="card__meta mt-3xs">
+              <span class="tag tag--secondary">Healthcare</span>
               <span class="tag tag--secondary">Software Development</span>
             </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="education" data-service="software-development" data-subservice="mobile-app-development" data-technology="react-native" data-platform="mobile" data-country="ca" data-size="scale-up" href="fintech-platform.html">
-            <h3 class="t-h5">Mentor</h3>
-            <p class="t-p3 tc-secondary">A learning app that went from 10k to a million users.</p>
-            <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">Education</span>
-              <span class="tag tag--secondary">Mobile App</span>
-            </div>
-          </a>
-        </div>
-      </div>
+          </div>
+        </a>
 
-      <!-- Modernised legacy -->
-      <div class="og" data-filter-section>
-        <div class="og__head">
-          <p class="section-label">Modernised legacy</p>
-          <h2 class="t-h3">Off the old stack, without the big-bang risk.</h2>
-        </div>
-        <div class="og-grid">
-          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="manufacturing" data-service="software-development" data-subservice="platform-migration" data-technology="dotnet,postgresql" data-platform="web" data-country="de" data-size="midsize" href="fintech-platform.html">
-            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
-            <div class="card__body">
-              <h3 class="t-h4">Atlas Manufacturing</h3>
-              <p class="t-p3 tc-secondary">An ERP that finally replaced six spreadsheets and a decade of workarounds.</p>
-              <div class="card__meta mt-4xs">
-                <span class="tag tag--secondary">Manufacturing</span>
-                <span class="tag tag--secondary">Software Development</span>
-              </div>
-            </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="platform-migration" data-technology="node,aws" data-platform="web" data-country="us" data-size="enterprise" href="fintech-platform.html">
-            <h3 class="t-h5">Beacon</h3>
-            <p class="t-p3 tc-secondary">Migrated off a 15-year-old stack with zero downtime.</p>
-            <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">Finance</span>
-              <span class="tag tag--secondary">Web Development</span>
-            </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="hospitality" data-service="software-development" data-subservice="web-development" data-technology="php,laravel" data-platform="web" data-country="au" data-size="small-business" href="fintech-platform.html">
-            <h3 class="t-h5">Harbor</h3>
-            <p class="t-p3 tc-secondary">A booking system dragged into this decade.</p>
-            <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">Hospitality</span>
-              <span class="tag tag--secondary">Web Development</span>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Saved a struggling product -->
-      <div class="og" data-filter-section>
-        <div class="og__head">
-          <p class="section-label">Saved a struggling product</p>
-          <h2 class="t-h3">Pulled back from the brink, then shipped.</h2>
-        </div>
-        <div class="og-grid">
-          <a class="card card--with-image og-item is-featured" data-portfolio-item data-industry="healthcare" data-service="ai-transformation" data-subservice="ai-integration" data-technology="python,openai" data-platform="web" data-country="us" data-size="scale-up" href="fintech-platform.html">
-            <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
-            <div class="card__body">
-              <h3 class="t-h4">Reform</h3>
-              <p class="t-p3 tc-secondary">A stalled product re-architected, de-risked, and finally shipped to production.</p>
-              <div class="card__meta mt-4xs">
-                <span class="tag tag--secondary">Healthcare</span>
-                <span class="tag tag--secondary">AI Transformation</span>
-              </div>
-            </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="retail" data-service="product-design" data-subservice="product-redesign" data-technology="react,typescript" data-platform="web" data-country="uk" data-size="small-business" href="fintech-platform.html">
-            <h3 class="t-h5">Tally</h3>
-            <p class="t-p3 tc-secondary">A checkout rescued from a 38% drop-off rate.</p>
+        <a class="card card--with-image feat-sm" data-portfolio-item data-industry="retail" data-service="software-development" data-subservice="e-commerce-development" data-technology="nextjs,node,postgresql" data-platform="ecommerce" data-country="de" data-size="scale-up" href="fintech-platform.html">
+          <span class="card__media ratio-3-2 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h4">Northwind Markets</h3>
+            <p class="t-p3 tc-secondary">A storefront re-architected to take 10× the traffic — Black Friday came and went quietly.</p>
             <div class="card__meta mt-4xs">
               <span class="tag tag--secondary">Retail</span>
-              <span class="tag tag--secondary">Web Development</span>
+              <span class="tag tag--secondary">Software Development</span>
             </div>
-          </a>
-          <a class="card og-item" data-portfolio-item data-industry="tech" data-service="ai-transformation" data-subservice="ml-engineering" data-technology="python,pytorch" data-platform="web" data-country="am" data-size="midsize" href="fintech-platform.html">
-            <h3 class="t-h5">Signal</h3>
-            <p class="t-p3 tc-secondary">An AI feature that finally made it out of the demo and into production.</p>
+          </div>
+        </a>
+
+        <a class="card card--with-image feat-sm" data-portfolio-item data-industry="manufacturing" data-service="software-development" data-subservice="platform-migration" data-technology="dotnet,postgresql" data-platform="web" data-country="de" data-size="midsize" href="fintech-platform.html">
+          <span class="card__media ratio-3-2 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h4">Atlas Manufacturing</h3>
+            <p class="t-p3 tc-secondary">An ERP that finally replaced six spreadsheets and a decade of workarounds.</p>
             <div class="card__meta mt-4xs">
-              <span class="tag tag--secondary">Tech</span>
+              <span class="tag tag--secondary">Manufacturing</span>
+              <span class="tag tag--secondary">Software Development</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card card--with-image feat-sm" data-portfolio-item data-industry="healthcare" data-service="ai-transformation" data-subservice="ai-integration" data-technology="python,openai" data-platform="web" data-country="us" data-size="scale-up" href="fintech-platform.html">
+          <span class="card__media ratio-3-2 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h4">Reform</h3>
+            <p class="t-p3 tc-secondary">A stalled product re-architected, de-risked, and finally shipped to production.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Healthcare</span>
               <span class="tag tag--secondary">AI Transformation</span>
             </div>
-          </a>
-        </div>
-      </div>
+          </div>
+        </a>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · ASYMMETRIC PROJECT GRID ═════════════════════════════════════
+       All other projects. Each card uses one of three aspect presets
+       (1:1 / 2:3 / 3:2) — `aspect_preset` is a per-project CMS enum, which means
+       three image-constraint sets in the content model. Card = thumbnail +
+       client + industry tag + service tag (no headline outcome metric — retired). -->
+  <section class="section" data-filter-section>
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">All projects</p>
+        <h2 class="t-h2">The full portfolio.</h2>
+      </div>
+      <div class="project-grid">
+
+        <a class="card card--with-image" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="mobile-app-development" data-technology="react-native,node" data-platform="mobile" data-country="uk" data-size="early-stage" href="fintech-platform.html">
+          <span class="card__media ratio-4-5 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Cadence</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">FinTech</span><span class="tag tag--secondary">Mobile App</span></div>
+          </div>
+        </a>
+
+        <a class="card card--with-image" data-portfolio-item data-industry="media" data-service="software-development" data-subservice="web-development" data-technology="nextjs,typescript" data-platform="web" data-country="us" data-size="early-stage" href="fintech-platform.html">
+          <span class="card__media ratio-3-2 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Plotline</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">Media</span><span class="tag tag--secondary">Web Development</span></div>
+          </div>
+        </a>
+
+        <a class="card card--with-image" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="web-development" data-technology="react,node,kafka" data-platform="web" data-country="uk" data-size="enterprise" href="fintech-platform.html">
+          <span class="card__media ratio-2-3 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Vault</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">FinTech</span><span class="tag tag--secondary">Software Development</span></div>
+          </div>
+        </a>
+
+        <a class="card card--with-image" data-portfolio-item data-industry="education" data-service="software-development" data-subservice="mobile-app-development" data-technology="react-native" data-platform="mobile" data-country="ca" data-size="scale-up" href="fintech-platform.html">
+          <span class="card__media ratio-1-1 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Mentor</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">Education</span><span class="tag tag--secondary">Mobile App</span></div>
+          </div>
+        </a>
+
+        <a class="card card--with-image" data-portfolio-item data-industry="finance" data-service="software-development" data-subservice="platform-migration" data-technology="node,aws" data-platform="web" data-country="us" data-size="enterprise" href="fintech-platform.html">
+          <span class="card__media ratio-3-4 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Beacon</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">Finance</span><span class="tag tag--secondary">Software Development</span></div>
+          </div>
+        </a>
+
+        <a class="card card--with-image" data-portfolio-item data-industry="hospitality" data-service="software-development" data-subservice="web-development" data-technology="php,laravel" data-platform="web" data-country="au" data-size="small-business" href="fintech-platform.html">
+          <span class="card__media ratio-4-3 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Harbor</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">Hospitality</span><span class="tag tag--secondary">Web Development</span></div>
+          </div>
+        </a>
+
+        <a class="card card--with-image" data-portfolio-item data-industry="retail" data-service="product-design" data-subservice="product-redesign" data-technology="react,typescript" data-platform="web" data-country="uk" data-size="small-business" href="fintech-platform.html">
+          <span class="card__media ratio-4-5 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Tally</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">Retail</span><span class="tag tag--secondary">Product Design</span></div>
+          </div>
+        </a>
+
+        <a class="card card--with-image" data-portfolio-item data-industry="tech" data-service="ai-transformation" data-subservice="ml-engineering" data-technology="python,pytorch" data-platform="web" data-country="am" data-size="midsize" href="fintech-platform.html">
+          <span class="card__media ratio-2-3 media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <h3 class="t-h5">Signal</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">Tech</span><span class="tag tag--secondary">AI Transformation</span></div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter empty-state — sits OUTSIDE the two [data-filter-section]s so it
+       isn't collapsed with them; initFacetFilter reveals it when 0 projects match. -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
       <p class="t-p2 tc-tertiary" data-filter-empty hidden style="padding-block: var(--space-l);">No projects match that filter yet — but we've probably done something close. <a href="../contact.html" style="color: var(--text-accent); font-weight: var(--font-weight-medium);">Ask us →</a></p>
     </div>
   </section>
+
 
   <!-- ═══ 7 · CLOSING CTA ════════════════════════════════════════════════ -->
   <section class="band band--popout section">
