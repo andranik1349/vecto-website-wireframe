@@ -56,29 +56,29 @@
     .blog-lead { align-self: stretch; }
     .blog-lead .card__media { flex: 1; aspect-ratio: auto; min-height: var(--space-4xl); }
 
-    /* 9 · Portfolio — featured case: image beside outcome text */
-    .portfolio-feature {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
+    /* 9 · Portfolio — curated featured grid (asymmetric aspect presets, echoing
+       the Our Work masonry). Each card carries its own .ratio-* on the media. */
+    .home-featured { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-l); align-items: start; }
+
+    /* 10 · Review cards — source link to the review platform */
+    .review-src { display: inline-flex; align-items: center; gap: var(--space-min); color: var(--text-accent); font-size: var(--text-size-c1); margin-top: var(--space-4xs); }
+    .review-src:hover { color: var(--text-accent-light); }
+    .review-src i { width: 13px; height: 13px; }
+
+    /* 10a · Solutions strip — compact product mini-portfolio (lighter than the
+       portfolio module; own products, never mixed with client work). */
+    .solutions-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-s); }
+    .sol-tile {
+      display: flex; flex-direction: column; gap: var(--space-4xs); align-items: flex-start;
+      padding: var(--space-m);
       background: var(--surface-elevated);
       border: 1px solid var(--border-semi-transparent);
-      border-radius: var(--radius-l);
-      overflow: hidden;
+      border-radius: var(--radius-m);
       transition: border-color .18s ease, transform .18s ease;
     }
-    .portfolio-feature:hover { border-color: var(--border-default); transform: translateY(-2px); }
-    .portfolio-feature__media {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 340px;
-      background: var(--surface-dark);
-      color: var(--text-tertiary);
-    }
-    .portfolio-feature__media svg { width: var(--space-xl); height: var(--space-xl); }
-    .portfolio-feature__body {
-      display: flex; flex-direction: column; gap: var(--space-3xs);
-      justify-content: center;
-      padding: var(--space-xl);
-    }
+    .sol-tile:hover { border-color: var(--border-default); transform: translateY(-2px); }
+    .sol-tile i { width: var(--space-m); height: var(--space-m); color: var(--text-accent); }
+    .sol-tile__name { color: var(--text-primary); font-weight: var(--font-weight-medium); }
 
     /* 7 · Industries — two featured + compact index (editorial, not a 13-cell grid) */
     .ind-grid { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: var(--space-l); align-items: stretch; }
@@ -108,8 +108,8 @@
     }
     .engage-models { color: var(--text-primary); font-weight: var(--font-weight-medium); }
 
-    /* 16 · Contact — three intent CTAs */
-    .contact-ctas { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-l); }
+    /* 16 · Contact — dual intent CTAs (mirrors the two-path Contact page) */
+    .contact-ctas { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-l); }
     .contact-card {
       display: flex; flex-direction: column; gap: var(--space-4xs); align-items: flex-start;
       padding: var(--space-xl);
@@ -665,7 +665,7 @@
       <p class="t-p1 mt-s" style="color: var(--overlay-light-1)">The AI landscape is loud and hard to read — genuine capability sits alongside hype, and telling them apart takes time most founders don't have. We've done that work. We use AI across every project we run to ship faster and cut costs, and we can help you integrate it into your product or business the right way.</p>
       <div class="flex flex-center gap-3xs mt-l flex-wrap">
         <a class="btn btn--secondary-light btn--large" href="services/ai-transformation.html">How we implement AI <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        <a class="btn btn--ghost btn--large" href="our-work/index.html" style="border-color: var(--overlay-light-2); color: var(--text-primary)">See it in practice <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="our-work/service/ai-transformation.html" style="border-color: var(--overlay-light-2); color: var(--text-primary)">See it in practice <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
@@ -752,48 +752,69 @@
     </div>
   </section>
 
-  <!-- ═══ 9 · PORTFOLIO (outcome groups, varied sizes) ══════════════════ -->
+  <!-- ═══ 9 · PORTFOLIO (curated featured grid — no outcome axis) ════════
+       6 CMS-flagged featured projects in an asymmetric aspect-preset grid
+       (echoes the Our Work masonry). Each card links to its /projects/[name]
+       case (P8). ⚑ Placeholder: the two built case pages stand in for all
+       featured slots — in production each resolves to its own /projects/[slug]. -->
   <section class="section">
     <div class="container">
       <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
         <div>
           <p class="section-label">Our work</p>
-          <h2 class="t-h2">Proof, grouped by the outcome we delivered.</h2>
+          <h2 class="t-h2">A few we're proud of.</h2>
         </div>
         <a class="btn btn--ghost btn--medium" href="our-work/index.html">Browse all work <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
 
-      <!-- Featured case — image beside outcome (contained, not a giant void) -->
-      <a class="portfolio-feature" href="projects/sentigraph-ai.html">
-        <span class="portfolio-feature__media" aria-hidden="true"><i data-lucide="image"></i></span>
-        <div class="portfolio-feature__body">
-          <p class="section-label">Built from 0 to 1</p>
-          <h3 class="t-h3">A FinTech platform from pitch deck to 50k users</h3>
-          <p class="t-p1 tc-secondary">We scoped, designed, and shipped the MVP in 14 weeks, then scaled it through Series A.</p>
-          <div class="card__meta mt-3xs">
-            <span class="tag tag--secondary">FinTech</span>
-            <span class="tag tag--secondary">AI Transformation</span>
-            <span class="btn btn--text btn--small" style="margin-left:auto; padding-right:0">View case study <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+      <div class="home-featured">
+        <a class="card card--with-image" href="projects/sentigraph-ai.html">
+          <span class="card__media media-ph ratio-4-3" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <span class="tag tag--secondary">AI · SaaS</span>
+            <h3 class="t-h5 mt-4xs">SentiGraph — real-time sentiment intelligence</h3>
+            <p class="t-p3 tc-secondary">A streaming NLP platform that turned noisy social data into signals a trading desk could act on.</p>
           </div>
-        </div>
-      </a>
-
-      <!-- Three supporting outcomes -->
-      <div class="grid-3 mt-l">
-        <a class="card" href="projects/sentigraph-ai.html">
-          <p class="section-label">Scaled to enterprise</p>
-          <h3 class="t-h5">From regional tool to multi-tenant SaaS</h3>
-          <p class="t-p3 tc-secondary">Re-architected for scale; now serving enterprise clients across three regions.</p>
         </a>
-        <a class="card" href="projects/sentigraph-ai.html">
-          <p class="section-label">Modernised legacy</p>
-          <h3 class="t-h5">A 10-year-old codebase, brought current</h3>
-          <p class="t-p3 tc-secondary">Incremental migration with zero downtime and a 40% drop in load times.</p>
+        <a class="card card--with-image" href="projects/northwind-markets.html">
+          <span class="card__media media-ph ratio-16-9" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <span class="tag tag--secondary">Retail · E-commerce</span>
+            <h3 class="t-h5 mt-4xs">Northwind Markets — a commerce replatform</h3>
+            <p class="t-p3 tc-secondary">Re-platformed a regional retailer onto a headless stack, cutting page loads in half.</p>
+          </div>
         </a>
-        <a class="card" href="projects/sentigraph-ai.html">
-          <p class="section-label">Saved a struggling product</p>
-          <h3 class="t-h5">A stalled launch, shipped in 90 days</h3>
-          <p class="t-p3 tc-secondary">We stepped in, stabilised the team, and got the product to market.</p>
+        <a class="card card--with-image" href="projects/sentigraph-ai.html">
+          <span class="card__media media-ph ratio-4-3" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <span class="tag tag--secondary">FinTech · Platform</span>
+            <h3 class="t-h5 mt-4xs">A payments platform, MVP to Series A</h3>
+            <p class="t-p3 tc-secondary">Scoped, designed, and shipped a compliant transfers product in 14 weeks.</p>
+          </div>
+        </a>
+        <a class="card card--with-image" href="projects/northwind-markets.html">
+          <span class="card__media media-ph ratio-16-9" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <span class="tag tag--secondary">Healthcare · Web</span>
+            <h3 class="t-h5 mt-4xs">A patient portal built for compliance</h3>
+            <p class="t-p3 tc-secondary">HIPAA-aware scheduling and records for a multi-site clinic group.</p>
+          </div>
+        </a>
+        <a class="card card--with-image" href="projects/sentigraph-ai.html">
+          <span class="card__media media-ph ratio-16-9" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <span class="tag tag--secondary">Logistics · AI</span>
+            <h3 class="t-h5 mt-4xs">Demand forecasting for a 3PL</h3>
+            <p class="t-p3 tc-secondary">A forecasting model that trimmed overstock without missing peak demand.</p>
+          </div>
+        </a>
+        <a class="card card--with-image" href="projects/northwind-markets.html">
+          <span class="card__media media-ph ratio-4-3" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <span class="tag tag--secondary">Marketplace · Web + Mobile</span>
+            <h3 class="t-h5 mt-4xs">A two-sided marketplace with payments</h3>
+            <p class="t-p3 tc-secondary">Buyers, sellers, escrow, and a companion app from a standing start.</p>
+          </div>
         </a>
       </div>
     </div>
@@ -810,24 +831,66 @@
             <span class="tag tag--secondary"><i data-lucide="star" aria-hidden="true"></i> Clutch 4.9 / 5</span>
             <span class="tag tag--secondary"><i data-lucide="star" aria-hidden="true"></i> GoodFirms Top Dev</span>
           </div>
-          <a class="btn btn--text btn--medium mt-s" style="padding-left:0" href="about/index.html">Read all reviews <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          <a class="btn btn--text btn--medium mt-s" style="padding-left:0" href="about/testimonials.html">Read all reviews <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
         <div class="flex flex-col gap-s">
+          <!-- CMS testimonials (author, company, text, source link) — not embedded
+               platform widgets. Source links are placeholders in the prototype. -->
           <blockquote class="card">
             <p class="t-p1">"They treated our budget like their own and shipped the thing that mattered first. Rare."</p>
             <div class="card__meta mt-3xs">
               <span class="media-ph media-ph--circle" style="width: var(--space-l)" aria-hidden="true"></span>
-              <span>Founder &amp; CEO, FinTech startup</span>
+              <span>Elena Fischer · Founder &amp; CEO, Ledgerline</span>
             </div>
+            <a class="review-src" href="#" rel="nofollow"><i data-lucide="external-link" aria-hidden="true"></i> Read on Clutch</a>
           </blockquote>
           <blockquote class="card">
             <p class="t-p1">"Four years in and they still feel like part of our team, not a vendor."</p>
             <div class="card__meta mt-3xs">
               <span class="media-ph media-ph--circle" style="width: var(--space-l)" aria-hidden="true"></span>
-              <span>VP Product, Healthcare scale-up</span>
+              <span>David Okafor · VP Product, Meridian Health</span>
             </div>
+            <a class="review-src" href="#" rel="nofollow"><i data-lucide="external-link" aria-hidden="true"></i> Read on Google</a>
           </blockquote>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 10a · SOLUTIONS STRIP (compact product mini-portfolio) ═════════
+       Our own products are proof too — kept deliberately lighter than the
+       portfolio above and distinct from it (solutions are never mixed with
+       client work). Maps to the Solutions nav item. -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">Solutions</p>
+          <h2 class="t-h2">Products we build and run.</h2>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="solutions/index.html">Explore solutions <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="solutions-strip">
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="shopping-bag" aria-hidden="true"></i>
+          <span class="sol-tile__name">onemall</span>
+          <span class="t-p3 tc-secondary">Multi-vendor marketplace platform.</span>
+        </a>
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="users" aria-hidden="true"></i>
+          <span class="sol-tile__name">onesocial</span>
+          <span class="t-p3 tc-secondary">White-label community &amp; social layer.</span>
+        </a>
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="tag" aria-hidden="true"></i>
+          <span class="sol-tile__name">quickoffer</span>
+          <span class="t-p3 tc-secondary">Offers and loyalty for retail apps.</span>
+        </a>
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="puzzle" aria-hidden="true"></i>
+          <span class="sol-tile__name">plugins</span>
+          <span class="t-p3 tc-secondary">Drop-in modules that speed up a build.</span>
+        </a>
       </div>
     </div>
   </section>
@@ -880,57 +943,16 @@
     </div>
   </section>
 
-  <!-- ═══ 13 · ESTIMATOR ENTRY (2-question mini stub) ═══════════════════ -->
+  <!-- ═══ 13 · ESTIMATE CTA BLOCK (conversion on-ramp) ══════════════════
+       Was a 2-question mini-estimator; the embedded estimator rides with the
+       deferred AI estimator (IA Appendix). This is now a simple CTA to the
+       Get an Estimate page — the sticky nav CTA carries the mid-scroll catch. -->
   <section class="band band--dark-deep section">
-    <div class="container">
-      <div class="estimator">
-        <form class="estimator__input" data-estimator>
-          <p class="section-label">Get an Estimate</p>
-          <h2 class="t-h2">Get a ballpark.</h2>
-          <p class="t-p2 tc-secondary">Two quick questions for a rough cost and timeline — then continue to the full estimate when you're ready.</p>
-
-          <div class="field">
-            <label class="field__label" for="est-type">What are you building?</label>
-            <select class="input" id="est-type" data-estimator-field="type">
-              <option value="mvp">An MVP / first version</option>
-              <option value="web" selected>A web application</option>
-              <option value="mobile">A mobile app</option>
-              <option value="platform">A platform / SaaS</option>
-              <option value="ai">An AI-powered product</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="est-timeline">How soon do you need it?</label>
-            <select class="input" id="est-timeline" data-estimator-field="timeline">
-              <option value="asap">As soon as possible</option>
-              <option value="quarter" selected>This quarter</option>
-              <option value="half-year">Within six months</option>
-              <option value="flexible">Flexible</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn--main btn--large mt-3xs">See my estimate <i data-lucide="arrow-right" aria-hidden="true"></i></button>
-        </form>
-
-        <div class="estimator__output" data-estimator-output hidden>
-          <p class="section-label">Your ballpark</p>
-          <div class="estimator__metric">
-            <span class="estimator__metric-label">Estimated cost</span>
-            <span class="estimator__metric-value estimator__metric-value--accent" data-estimate="cost">—</span>
-          </div>
-          <div class="estimator__metric">
-            <span class="estimator__metric-label">Timeline</span>
-            <span class="estimator__metric-value" data-estimate="time">—</span>
-          </div>
-          <div class="estimator__metric">
-            <span class="estimator__metric-label">Suggested model</span>
-            <span class="estimator__metric-value" data-estimate="model">—</span>
-          </div>
-          <a class="btn btn--main btn--medium mt-3xs" href="get-an-estimate.html">Continue to full estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-          <p class="t-c1 tc-tertiary">Indicative only — your real estimate depends on scope we'll work through together.</p>
-        </div>
-      </div>
+    <div class="container container-medium text-center">
+      <p class="section-label">Get an Estimate</p>
+      <h2 class="t-h2 text-balance">Tell us about your project — get a ballpark from the team.</h2>
+      <p class="t-p1 tc-secondary mt-s" style="margin-inline:auto;max-width:52ch">Describe what you want to build in plain English. A real person reads it and comes back with an indicative range, a timeline, and the way of working that fits — usually within one business day.</p>
+      <a class="btn btn--main btn--large mt-l" href="get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
     </div>
   </section>
 
@@ -985,7 +1007,7 @@
             How long will it take? <i data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
           <div class="accordion__panel" id="faq-1" hidden>
-            <p class="t-p2 tc-secondary">Most first versions ship in 6–14 weeks depending on scope. We give you a sequenced plan during Scoping so you always know what lands when — and the estimator above gets you a ballpark in seconds.</p>
+            <p class="t-p2 tc-secondary">Most first versions ship in 6–14 weeks depending on scope. We give you a sequenced plan during Scoping so you always know what lands when — and a quick estimate request gets you a ballpark to plan around before then.</p>
           </div>
         </div>
         <div class="accordion__item">
@@ -1024,30 +1046,24 @@
     </div>
   </section>
 
-  <!-- ═══ 16 · CONTACT / CTA (three intents) ════════════════════════════ -->
+  <!-- ═══ 16 · CONTACT / CTA (dual intent — mirrors the two-path Contact) ═ -->
   <section class="section">
     <div class="container">
       <div class="section-head text-center">
         <p class="section-label">Start the conversation</p>
-        <h2 class="t-h2">Three ways in — pick whichever fits.</h2>
+        <h2 class="t-h2">Two ways in — pick whichever fits.</h2>
       </div>
       <div class="contact-ctas">
         <div class="contact-card">
           <i data-lucide="calculator" aria-hidden="true"></i>
           <h3 class="t-h4">Get an Estimate</h3>
-          <p class="t-p3 tc-secondary">A rough cost and timeline in a few minutes, no call required.</p>
+          <p class="t-p3 tc-secondary">Have a project in mind and want numbers? Tell us about it and get a ballpark from the team.</p>
           <a class="btn btn--main btn--medium" href="get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="contact-card">
-          <i data-lucide="calendar" aria-hidden="true"></i>
-          <h3 class="t-h4">Book a call</h3>
-          <p class="t-p3 tc-secondary">15 minutes with someone who can actually scope your project.</p>
-          <a class="btn btn--ghost btn--medium" href="schedule-a-call.html">Book a call <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
         <div class="contact-card">
           <i data-lucide="message-square" aria-hidden="true"></i>
           <h3 class="t-h4">Send a question</h3>
-          <p class="t-p3 tc-secondary">Not ready to talk numbers? Ask us anything and we'll reply.</p>
+          <p class="t-p3 tc-secondary">General inquiries, partnerships, or press — send a note and the right person replies.</p>
           <a class="btn btn--ghost btn--medium" href="contact.html">Send a question <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
