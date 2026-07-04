@@ -67,6 +67,18 @@
     .facet__opt:hover { background: var(--overlay-light-3); }
     .facet__opt input { accent-color: var(--accent); }
     .facet__opt[hidden] { display: none; }
+    /* Keyword combobox (C6): type-to-narrow input atop long facet menus.
+       .is-kw-hidden is a CLASS (not the [hidden] attr) so keyword-narrowing
+       composes with sub-service parent-hiding rather than clobbering it. */
+    .facet__opt.is-kw-hidden { display: none; }
+    .facet__search {
+      width: 100%; margin-bottom: var(--space-4xs);
+      padding: var(--space-4xs) var(--space-3xs);
+      background: var(--surface-dark); color: var(--text-primary);
+      border: 1px solid var(--border-default); border-radius: var(--radius-xs);
+      font-family: inherit; font-size: var(--text-size-p3);
+    }
+    .facet__search::placeholder { color: var(--text-tertiary); }
     .facet-clear {
       background: none; border: 0; color: var(--text-tertiary);
       font-family: inherit; font-size: var(--text-size-c1); cursor: pointer; text-decoration: underline;
@@ -506,6 +518,12 @@
        Service is picked) · Platform · Country · Company stage. Multi-select within
        a facet, AND across facets, live count. Country list would be CMS-populated
        from each project's "country" field in production. -->
+  <!-- ONE-WAY-DOOR HUB (C1): these dropdowns are the hub side of the one-way door.
+       Selecting facets is PURE in-place query-param state — prototype.js writes the
+       current selection to the URL via history.replaceState (?facet=key:value, the
+       same scheme applyDeepLink reads) and NEVER navigates, reloads, or shifts the
+       page shape. Facet LANDING pages are the canonical link targets everywhere else
+       on the site (P7); only these hub controls filter in place. -->
   <div class="sticky-bar filter-strip">
     <div class="container filter-strip__inner">
       <div class="facets" data-facet-bar role="group" aria-label="Filter projects">
@@ -516,6 +534,7 @@
             <span class="facet__label">Industry</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
           <div class="facet__menu" role="group" aria-label="Filter by industry" hidden>
+            <input type="text" class="facet__search" data-facet-keyword placeholder="Filter industries…" aria-label="Filter industries by keyword">
             <label class="facet__opt"><input type="checkbox" value="tech"> Tech</label>
             <label class="facet__opt"><input type="checkbox" value="finance"> Finance</label>
             <label class="facet__opt"><input type="checkbox" value="healthcare"> Healthcare</label>
@@ -562,6 +581,7 @@
             <span class="facet__label">Service</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
           <div class="facet__menu" role="group" aria-label="Filter by service" hidden>
+            <input type="text" class="facet__search" data-facet-keyword placeholder="Filter services…" aria-label="Filter services by keyword">
             <label class="facet__opt"><input type="checkbox" value="ai-transformation"> AI Transformation</label>
             <label class="facet__opt"><input type="checkbox" value="software-development"> Software Development</label>
             <label class="facet__opt"><input type="checkbox" value="product-design"> Product Design</label>
@@ -578,6 +598,7 @@
             <span class="facet__label">Sub-services</span><span class="facet__badge" hidden></span><i data-lucide="chevron-down" aria-hidden="true"></i>
           </button>
           <div class="facet__menu" role="group" aria-label="Filter by sub-service" hidden>
+            <input type="text" class="facet__search" data-facet-keyword placeholder="Filter sub-services…" aria-label="Filter sub-services by keyword">
             <!-- Software Development -->
             <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="web-development"> Web Development</label>
             <label class="facet__opt" data-parent="software-development"><input type="checkbox" value="mobile-app-development"> Mobile App Development</label>

@@ -395,6 +395,16 @@
         if (badge) { badge.textContent = n ? String(n) : ''; badge.hidden = n === 0; }
       });
       if (clearBtn) clearBtn.hidden = keys.length === 0;
+
+      // Write filter state back to the URL (shareable / deep-linkable). Uses
+      // replaceState — not pushState — so composing a filter doesn't spam the
+      // back button; clearing all facets clears the query. Same ?facet=key:value
+      // scheme applyDeepLink() reads, so read↔write round-trips (one-way-door
+      // hub: pure in-place query-param state, never a navigation).
+      const params = new URLSearchParams();
+      keys.forEach((key) => sel[key].forEach((v) => params.append('facet', key + ':' + v)));
+      const qs = params.toString();
+      history.replaceState(null, '', qs ? location.pathname + '?' + qs : location.pathname);
     }
 
     // Open/close the facet menus.
@@ -453,6 +463,36 @@
     applyDeepLink();
     syncSubservice();
     apply();
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════════
+     5b. FACET KEYWORD COMBOBOX (type-to-narrow inside a facet dropdown)
+     Markup contract: a text input [data-facet-keyword] as the first child of a
+     .facet__menu; it narrows the sibling .facet__opt checkboxes as you type.
+     Client-side only (C6 — no search backend). Toggles a .is-kw-hidden CLASS
+     (never the `hidden` attr) so it composes with syncSubservice's parent-based
+     hiding instead of fighting it — an option shows only when neither is set.
+     ════════════════════════════════════════════════════════════════════ */
+  function initFacetKeyword() {
+    $$('[data-facet-keyword]').forEach((input) => {
+      const menu = input.closest('.facet__menu');
+      if (!menu) return;
+      const opts = $$('.facet__opt', menu);
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        opts.forEach((opt) => {
+          opt.classList.toggle('is-kw-hidden', q !== '' && !opt.textContent.toLowerCase().includes(q));
+        });
+      });
+      // Fresh start each time the facet opens: clear the query + reveal all opts.
+      const facet = input.closest('.facet');
+      const toggle = facet && $('.facet__toggle', facet);
+      if (toggle) toggle.addEventListener('click', () => {
+        input.value = '';
+        opts.forEach((opt) => opt.classList.remove('is-kw-hidden'));
+      });
+    });
   }
 
 
@@ -703,6 +743,7 @@
     initStickyEstimator();
     initPortfolioFilter();
     initFacetFilter();
+    initFacetKeyword();
     initDecisionTree();
     initEstimator();
     initProcessSteps();
