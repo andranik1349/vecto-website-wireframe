@@ -143,32 +143,34 @@
           About <i data-lucide="chevron-down" aria-hidden="true"></i>
         </a>
 
+        <!-- About megamenu rebuilt (E3a): Company / Team / Get in touch. Company & Team
+             headings are real-page links (--link, accent-red); "Get in touch" has no hub
+             page → grey <span> label (heading convention). Security & Compliance removed
+             from primary surfaces (E3c) — the page still exists, reachable contextually. -->
         <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
           <div class="dropdown__cols">
             <div class="dropdown__col">
-              <!-- About column headings are grouping labels — no per-column page exists yet
-                   (dedicated /about/company + /about/team land in E3a · P3). Non-interactive. -->
-              <span class="dropdown__heading">The company</span>
+              <a class="dropdown__heading dropdown__heading--link" href="../about/company.html">The company</a>
               <ul class="dropdown__links">
                 <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">History</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Mission &amp; Vision</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Partners</a></li>
+                <li><a class="dropdown__link" href="../about/company.html#history">Our story</a></li>
+                <li><a class="dropdown__link" href="../about/company.html#mission">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../about/company.html#partners">Partners</a></li>
               </ul>
             </div>
             <div class="dropdown__col">
-              <span class="dropdown__heading">The team</span>
+              <a class="dropdown__heading dropdown__heading--link" href="../about/team.html">The team</a>
               <ul class="dropdown__links">
-                <li><a class="dropdown__link" href="../about/index.html">Leadership</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Team &amp; specialists</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Careers</a></li>
+                <li><a class="dropdown__link" href="../about/team.html#leadership">Leadership</a></li>
+                <li><a class="dropdown__link" href="../about/team.html#specialists">Specialists</a></li>
+                <li><a class="dropdown__link" href="../about/careers/index.html">Careers</a></li>
               </ul>
             </div>
             <div class="dropdown__col">
-              <span class="dropdown__heading">Trust &amp; contact</span>
+              <!-- "Get in touch" is a grouping label, not a page — non-interactive. -->
+              <span class="dropdown__heading">Get in touch</span>
               <ul class="dropdown__links">
-                <li><a class="dropdown__link" href="../about/security-compliance.html">Security &amp; Compliance</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../about/testimonials.html">Testimonials</a></li>
                 <li><a class="dropdown__link" href="../schedule-a-call.html">Schedule a Call</a></li>
                 <li><a class="dropdown__link" href="../contact.html">Contact</a></li>
               </ul>
@@ -773,6 +775,7 @@
 
     <div class="site-footer__cols">
 
+      <!-- 1 · Services (7 categories + All services) -->
       <nav class="footer-col" aria-label="Services">
         <span class="footer-col__heading">Services</span>
         <div class="footer-col__links">
@@ -787,6 +790,7 @@
         </div>
       </nav>
 
+      <!-- 2 · Industries & Stage (industries + company stages, full list) -->
       <nav class="footer-col" aria-label="Industries and company stage">
         <span class="footer-col__heading">Industries &amp; Stage</span>
         <div class="footer-col__links">
@@ -814,6 +818,7 @@
         </div>
       </nav>
 
+      <!-- 3 · Service Areas (country pages — SEO surface, not built this session) -->
       <nav class="footer-col" aria-label="Service areas">
         <span class="footer-col__heading">Service Areas</span>
         <div class="footer-col__links">
@@ -827,36 +832,39 @@
         </div>
       </nav>
 
+      <!-- 4 · Resources -->
       <nav class="footer-col" aria-label="Resources">
         <span class="footer-col__heading">Resources</span>
         <div class="footer-col__links">
           <a class="footer-link" href="../blog/index.html">Blog</a>
           <a class="footer-link" href="../glossary/index.html">Glossary</a>
           <a class="footer-link" href="../get-an-estimate.html">Project Estimator</a>
-          <a class="footer-link" href="engagement-models.html">Engagement Models</a>
-          <a class="footer-link" href="process.html">Process</a>
-          <a class="footer-link" href="technologies/index.html">Technologies</a>
-          <a class="footer-link" href="methodologies/index.html">Methodologies</a>
-          <a class="footer-link" href="tools/index.html">Tools</a>
+          <a class="footer-link" href="../how-we-work/engagement-models.html">Engagement Models</a>
+          <a class="footer-link" href="../how-we-work/process.html">Process</a>
+          <a class="footer-link" href="../how-we-work/technologies/index.html">Technologies</a>
+          <a class="footer-link" href="../how-we-work/methodologies/index.html">Methodologies</a>
+          <a class="footer-link" href="../how-we-work/tools/index.html">Tools</a>
           <a class="footer-link" href="#">2025 in review</a>
         </div>
       </nav>
 
+      <!-- 5 · Company (E3a: split About; E3c: Security & Compliance removed from footer) -->
       <nav class="footer-col" aria-label="Company">
         <span class="footer-col__heading">Company</span>
         <div class="footer-col__links">
           <a class="footer-link" href="../about/index.html">About</a>
-          <a class="footer-link" href="../about/index.html">Team</a>
-          <a class="footer-link" href="../about/index.html">Careers</a>
-          <a class="footer-link" href="../about/security-compliance.html">Security &amp; Compliance</a>
-          <a class="footer-link" href="../about/index.html">Partners</a>
-          <a class="footer-link" href="../about/index.html">Press</a>
+          <a class="footer-link" href="../about/company.html">Company</a>
+          <a class="footer-link" href="../about/team.html">Team</a>
+          <a class="footer-link" href="../about/careers/index.html">Careers</a>
+          <a class="footer-link" href="../about/testimonials.html">Testimonials</a>
+          <a class="footer-link" href="../about/company.html#partners">Partners</a>
           <a class="footer-link" href="../contact.html">Contact</a>
         </div>
       </nav>
 
     </div>
 
+    <!-- Utility row — logo · legal · social · copyright -->
     <div class="site-footer__utility">
       <a class="topbar__logo" href="../index.html" aria-label="VECTO — home">
         <i data-lucide="hexagon" aria-hidden="true"></i>

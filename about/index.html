@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
   <title>About — VECTO</title>
-  <meta name="description" content="The team behind every project we ship. Twelve years building products with founders — who we are, how we got here, and the people you'll actually work with.">
+  <meta name="description" content="A product partner for non-technical founders and scale-ups. Get to know the company, the team, careers, and what clients say.">
 
   <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
   <link rel="stylesheet" href="../tokens.css">
@@ -12,51 +12,26 @@
   <link rel="stylesheet" href="../components.css">
   <link rel="stylesheet" href="../layout.css">
 
-  <!-- Lucide icons via CDN; prototype.js calls lucide.createIcons() on load. -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Page-scoped layout for About (Tier-1 editorial — vary section rhythm,
-       team gets visual weight). Everything token-driven — no hardcoded values. -->
   <style>
-    .section-head { margin-bottom: var(--space-l); }
-    .section-head .section-label { margin-bottom: var(--space-3xs); }
-
-    /* 1 · Hero */
-    .about-hero__title { max-width: 18ch; }
-    .about-hero__sub   { max-width: 54ch; margin-top: var(--space-s); }
-
-    /* 2 · History — milestones list */
-    .milestones { display: flex; flex-direction: column; gap: var(--space-s); }
-    .milestone { display: grid; grid-template-columns: var(--space-4xl) 1fr; gap: var(--space-s); }
-    .milestone + .milestone { padding-top: var(--space-s); border-top: 1px solid var(--border-semi-transparent); }
-    .milestone__year { color: var(--text-accent); font-weight: var(--font-weight-medium); }
-
-    /* 4 · Team — leadership editorial rows + specialist grid */
-    .lead-row { display: grid; grid-template-columns: 2fr 3fr; gap: var(--space-xl); align-items: center; }
-    .lead-row + .lead-row { margin-top: var(--space-xl); }
-    .lead-row--reverse > :first-child { order: 2; }
-    .lead-row__role { color: var(--text-accent); margin-top: var(--space-min); }
-    .lead-row__bio { color: var(--text-secondary); margin-top: var(--space-3xs); max-width: 52ch; }
-    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-s); margin-top: var(--space-l); }
-    .team-grid .specialist { flex-direction: column; align-items: flex-start; text-align: left; }
-    .team-grid .specialist__bio { color: var(--text-secondary); font-size: var(--text-size-p3); line-height: var(--text-lh-p3); }
-
-    /* 5 · Partners — logo strip */
-    .logo-strip { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s); margin-top: var(--space-s); }
-    .logo-strip .media-ph--logo { width: var(--space-4xl); }
-
-    /* 8 · Security cross-link card */
-    .cross-link { display: flex; align-items: center; gap: var(--space-s); flex-wrap: wrap; }
-    .cross-link__icon { display: inline-flex; color: var(--text-accent); flex: 0 0 auto; }
-    .cross-link__icon svg { width: var(--space-l); height: var(--space-l); }
-    .cross-link__body { flex: 1; min-width: 24ch; }
-
-    /* 9 · Closing dual CTA */
+    /* Deliberately-simple hub (E3a): most visitors deep-link from the megamenu;
+       this page exists for nav consistency + stragglers. Kept intentionally light. */
+    .hub-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
+    .hub-card__media { display: flex; align-items: center; justify-content: center; color: var(--text-accent); }
+    .hub-card__media i { width: var(--space-l); height: var(--space-l); }
     .cta-band { text-align: center; }
     .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
   </style>
 </head>
 <body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ⚑ PLACEHOLDER LINK — the "Careers" section card below points at
+     about/careers/index.html, which is built in E3b · P4. Until then it is a
+     forward placeholder (expected-missing).
+     ════════════════════════════════════════════════════════════════════════ -->
+
 <header class="topbar" role="banner">
   <div class="topbar__inner">
 
@@ -141,32 +116,34 @@
           About <i data-lucide="chevron-down" aria-hidden="true"></i>
         </a>
 
+        <!-- About megamenu rebuilt (E3a): Company / Team / Get in touch. Company & Team
+             headings are real-page links (--link, accent-red); "Get in touch" has no hub
+             page → grey <span> label (heading convention). Security & Compliance removed
+             from primary surfaces (E3c) — the page still exists, reachable contextually. -->
         <div class="dropdown dropdown--about" id="mm-about" role="region" aria-label="About" hidden>
           <div class="dropdown__cols">
             <div class="dropdown__col">
-              <!-- About column headings are grouping labels — no per-column page exists yet
-                   (dedicated /about/company + /about/team land in E3a · P3). Non-interactive. -->
-              <span class="dropdown__heading">The company</span>
+              <a class="dropdown__heading dropdown__heading--link" href="../about/company.html">The company</a>
               <ul class="dropdown__links">
                 <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">History</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Mission &amp; Vision</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Partners</a></li>
+                <li><a class="dropdown__link" href="../about/company.html#history">Our story</a></li>
+                <li><a class="dropdown__link" href="../about/company.html#mission">Mission &amp; Vision</a></li>
+                <li><a class="dropdown__link" href="../about/company.html#partners">Partners</a></li>
               </ul>
             </div>
             <div class="dropdown__col">
-              <span class="dropdown__heading">The team</span>
+              <a class="dropdown__heading dropdown__heading--link" href="../about/team.html">The team</a>
               <ul class="dropdown__links">
-                <li><a class="dropdown__link" href="../about/index.html">Leadership</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Team &amp; specialists</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Careers</a></li>
+                <li><a class="dropdown__link" href="../about/team.html#leadership">Leadership</a></li>
+                <li><a class="dropdown__link" href="../about/team.html#specialists">Specialists</a></li>
+                <li><a class="dropdown__link" href="../about/careers/index.html">Careers</a></li>
               </ul>
             </div>
             <div class="dropdown__col">
-              <span class="dropdown__heading">Trust &amp; contact</span>
+              <!-- "Get in touch" is a grouping label, not a page — non-interactive. -->
+              <span class="dropdown__heading">Get in touch</span>
               <ul class="dropdown__links">
-                <li><a class="dropdown__link" href="../about/security-compliance.html">Security &amp; Compliance</a></li>
-                <li><a class="dropdown__link" href="../about/index.html">Testimonials</a></li>
+                <li><a class="dropdown__link" href="../about/testimonials.html">Testimonials</a></li>
                 <li><a class="dropdown__link" href="../schedule-a-call.html">Schedule a Call</a></li>
                 <li><a class="dropdown__link" href="../contact.html">Contact</a></li>
               </ul>
@@ -421,230 +398,77 @@
 
 </header>
 
+<main>
 
-<main role="main">
-
-  <!-- ═══ 1 · HERO ══════════════════════════════════════════════════════ -->
+  <!-- ═══ Block 1 · Hero ═══ -->
   <section class="band band--dark-deep section">
     <div class="container">
-      <p class="section-label">About VECTO</p>
-      <h1 class="t-h1 about-hero__title">The team behind every project we ship.</h1>
-      <p class="t-p1 tc-secondary about-hero__sub">We're a product partner for non-technical founders and scale-ups — small enough that you'll know everyone working on your product, experienced enough that we've seen how it usually goes wrong.</p>
+      <p class="section-label">About</p>
+      <h1 class="t-h1 text-balance" style="max-width: 20ch">Get to know VECTO.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 58ch">
+        We're a product partner for non-technical founders and scale-ups — small enough that you'll
+        know everyone working on your product, experienced enough that we've seen how it usually goes
+        wrong. Here's where to dig in.
+      </p>
     </div>
   </section>
 
-  <!-- ═══ 2 · HISTORY ═══════════════════════════════════════════════════ -->
+  <!-- ═══ Block 2 · Section cards ═══ -->
   <section class="section">
     <div class="container">
-      <div class="split split--top">
-        <div>
-          <p class="section-label">Our story</p>
-          <h2 class="t-h2">Twelve years turning other people's ideas into products.</h2>
-          <p class="t-p2 tc-secondary mt-s">VECTO started as three engineers taking on the projects bigger agencies wouldn't — the ambiguous, early-stage ones where nobody had written the spec yet. That's still the work we like best. Today we're a team of forty across delivery, design, and AI, and we've shipped products founders have gone on to raise on, sell, and scale.</p>
-        </div>
-        <div class="milestones">
-          <div class="milestone"><span class="milestone__year">2014</span><div><h3 class="t-h5">Founded in Yerevan</h3><p class="t-p3 tc-secondary">Three engineers, a rented room, and a habit of saying yes to hard briefs.</p></div></div>
-          <div class="milestone"><span class="milestone__year">2018</span><div><h3 class="t-h5">First dedicated teams</h3><p class="t-p3 tc-secondary">Scale-ups started embedding us long-term; we grew design and delivery around them.</p></div></div>
-          <div class="milestone"><span class="milestone__year">2022</span><div><h3 class="t-h5">AI practice formed</h3><p class="t-p3 tc-secondary">A standing team for the question every founder now asks — and for talking them out of it when the answer is no.</p></div></div>
-          <div class="milestone"><span class="milestone__year">Today</span><div><h3 class="t-h5">Forty people, one bar</h3><p class="t-p3 tc-secondary">Across three offices — still measuring ourselves by what actually ships.</p></div></div>
-        </div>
+      <div class="hub-cards">
+        <a class="card" href="company.html">
+          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="building-2"></i></span>
+          <div class="card__body">
+            <h2 class="t-h5">Company</h2>
+            <p class="t-p3 tc-secondary">Our story, mission, partners and the numbers behind them.</p>
+          </div>
+        </a>
+        <a class="card" href="team.html">
+          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="users"></i></span>
+          <div class="card__body">
+            <h2 class="t-h5">Team</h2>
+            <p class="t-p3 tc-secondary">The leaders and specialists you'll actually work with.</p>
+          </div>
+        </a>
+        <a class="card" href="careers/index.html">
+          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="briefcase"></i></span>
+          <div class="card__body">
+            <h2 class="t-h5">Careers</h2>
+            <p class="t-p3 tc-secondary">Open roles — and why people stay once they're here.</p>
+          </div>
+        </a>
+        <a class="card" href="testimonials.html">
+          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="quote"></i></span>
+          <div class="card__body">
+            <h2 class="t-h5">Testimonials</h2>
+            <p class="t-p3 tc-secondary">What clients say — with links to the original reviews.</p>
+          </div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 3 · MISSION & VISION ══════════════════════════════════════════ -->
-  <section class="band band--dark section">
-    <div class="container">
-      <div class="split">
-        <div>
-          <p class="section-label">Mission</p>
-          <h2 class="t-h3">Help founders build the right thing — not just any thing.</h2>
-          <p class="t-p2 tc-secondary mt-3xs">Most products don't fail on code; they fail because nobody wanted what got built. Our job is to spend your budget where it proves the idea, and to be honest about the parts that can wait.</p>
-        </div>
-        <div>
-          <p class="section-label">Vision</p>
-          <h2 class="t-h3">A world where a good idea isn't blocked by not being technical.</h2>
-          <p class="t-p2 tc-secondary mt-3xs">Founders shouldn't need a CS degree to get a fair estimate, a clear plan, and software they can trust. We want to be the partner that makes the technical part legible.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 4 · TEAM ══════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <p class="section-label">The team</p>
-        <h2 class="t-h2">The people you'll actually work with.</h2>
-        <p class="t-p2 tc-secondary" style="max-width:54ch">No account managers relaying messages to a team you never meet. The people below are the ones who scope, design, and build your product.</p>
-      </div>
-
-      <!-- Leadership — editorial rows -->
-      <div class="lead-row">
-        <span class="media-ph ratio-4-3" aria-hidden="true"><i data-lucide="user-round"></i></span>
-        <div>
-          <h3 class="t-h4">Narek Hovsepyan</h3>
-          <p class="t-p1 lead-row__role">Founder &amp; CEO</p>
-          <p class="t-p2 lead-row__bio">Started VECTO in 2014 and still sits in on first calls. Spends most of his time making sure the work we take on is work we can do exceptionally — and turning down the rest.</p>
-        </div>
-      </div>
-      <div class="lead-row lead-row--reverse">
-        <span class="media-ph ratio-4-3" aria-hidden="true"><i data-lucide="user-round"></i></span>
-        <div>
-          <h3 class="t-h4">Lilit Grigoryan</h3>
-          <p class="t-p1 lead-row__role">Chief Technology Officer</p>
-          <p class="t-p2 lead-row__bio">Owns the engineering bar across every project. Believes the best architecture is the boring one a future team can still understand, and that "we'll fix it later" is where products go to die.</p>
-        </div>
-      </div>
-      <div class="lead-row">
-        <span class="media-ph ratio-4-3" aria-hidden="true"><i data-lucide="user-round"></i></span>
-        <div>
-          <h3 class="t-h4">Anahit Sargsyan</h3>
-          <p class="t-p1 lead-row__role">Head of Delivery</p>
-          <p class="t-p2 lead-row__bio">Turns ambiguous briefs into sequenced plans founders can actually follow. If you've ever wondered what lands when, that's the question Anahit answers before you sign anything.</p>
-        </div>
-      </div>
-
-      <!-- Specialists — lighter grid -->
-      <div class="team-grid">
-        <div class="specialist">
-          <span class="specialist__photo" aria-hidden="true"></span>
-          <div class="specialist__info">
-            <span class="specialist__name">Jane Doe</span>
-            <span class="specialist__role">Principal Engineer, AI Practice</span>
-            <p class="specialist__bio">Ships AI where it earns its place — and argues against it where it doesn't.</p>
-          </div>
-        </div>
-        <div class="specialist">
-          <span class="specialist__photo" aria-hidden="true"></span>
-          <div class="specialist__info">
-            <span class="specialist__name">Marcus Lindqvist</span>
-            <span class="specialist__role">Solutions Architect</span>
-            <p class="specialist__bio">Pressure-tests the technical shape of an idea before a line of code is written.</p>
-          </div>
-        </div>
-        <div class="specialist">
-          <span class="specialist__photo" aria-hidden="true"></span>
-          <div class="specialist__info">
-            <span class="specialist__name">Sofia Almeida</span>
-            <span class="specialist__role">Product Strategist</span>
-            <p class="specialist__bio">Helps founders decide what to build first, and what to leave for version two.</p>
-          </div>
-        </div>
-        <div class="specialist">
-          <span class="specialist__photo" aria-hidden="true"></span>
-          <div class="specialist__info">
-            <span class="specialist__name">Daniel Avetisyan</span>
-            <span class="specialist__role">AI Practice Lead</span>
-            <p class="specialist__bio">Builds and tunes the models — and keeps a straight face about what they can't do.</p>
-          </div>
-        </div>
-        <div class="specialist">
-          <span class="specialist__photo" aria-hidden="true"></span>
-          <div class="specialist__info">
-            <span class="specialist__name">Mei Tanaka</span>
-            <span class="specialist__role">Lead Product Designer</span>
-            <p class="specialist__bio">Designs interfaces people trust with their money and their time.</p>
-          </div>
-        </div>
-        <div class="specialist">
-          <span class="specialist__photo" aria-hidden="true"></span>
-          <div class="specialist__info">
-            <span class="specialist__name">Tomás Rivera</span>
-            <span class="specialist__role">Engineering Manager</span>
-            <p class="specialist__bio">Keeps small teams shipping weekly without breaking the things that matter.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 5 · PARTNERS ══════════════════════════════════════════════════ -->
-  <section class="band band--elevated section">
-    <div class="container">
-      <div class="split split--top">
-        <div>
-          <p class="section-label">Partners &amp; platforms</p>
-          <h2 class="t-h2">Built on tools we're certified in.</h2>
-          <p class="t-p2 tc-secondary mt-s">We're a certified partner across the platforms most of our builds run on — which means direct support channels, early access, and architecture reviews we can lean on when your product needs them.</p>
-        </div>
-        <div>
-          <p class="t-c1 tc-muted">Technology partners</p>
-          <div class="logo-strip">
-            <span class="media-ph media-ph--logo" aria-label="AWS"></span>
-            <span class="media-ph media-ph--logo" aria-label="Google Cloud"></span>
-            <span class="media-ph media-ph--logo" aria-label="Microsoft Azure"></span>
-            <span class="media-ph media-ph--logo" aria-label="Vercel"></span>
-            <span class="media-ph media-ph--logo" aria-label="Stripe"></span>
-            <span class="media-ph media-ph--logo" aria-label="OpenAI"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 6 · TRUST SIGNALS ═════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head text-center">
-        <p class="section-label">By the numbers</p>
-        <h2 class="t-h2">Proof, not adjectives.</h2>
-      </div>
-      <div class="stat-band stat-band--divided">
-        <div class="stat-band__item"><span class="stat-band__figure tc-accent">12 yrs</span><span class="stat-band__label">building products with founders</span></div>
-        <div class="stat-band__item"><span class="stat-band__figure">120+</span><span class="stat-band__label">products shipped to production</span></div>
-        <div class="stat-band__item"><span class="stat-band__figure">94%</span><span class="stat-band__label">client retention rate</span></div>
-        <div class="stat-band__item"><span class="stat-band__figure">72</span><span class="stat-band__label">net promoter score</span></div>
-        <div class="stat-band__item"><span class="stat-band__figure">9</span><span class="stat-band__label">industry awards since 2019</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 7 · CAREERS CALLOUT ═══════════════════════════════════════════ -->
-  <section class="band band--dark section">
-    <div class="container">
-      <div class="split">
-        <div>
-          <p class="section-label">Careers</p>
-          <h2 class="t-h2">We hire for judgment, not just keystrokes.</h2>
-          <p class="t-p2 tc-secondary mt-s">We're usually looking for engineers, designers, and delivery leads who can think with a founder, not just take tickets. If that sounds like you, we'd like to hear from you — even between openings.</p>
-        </div>
-        <div class="flex flex-col gap-s" style="justify-content:center">
-          <a class="btn btn--main btn--large" href="mailto:careers@vecto.digital">Get in touch about working here <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-          <p class="t-p3 tc-muted">Or email <a href="mailto:careers@vecto.digital">careers@vecto.digital</a> — a real person reads every one.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 8 · SECURITY & COMPLIANCE LINK ════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="card cross-link">
-        <span class="cross-link__icon"><i data-lucide="shield-check" aria-hidden="true"></i></span>
-        <div class="cross-link__body">
-          <h2 class="t-h4">Security-conscious buyer?</h2>
-          <p class="t-p2 tc-secondary mt-3xs">How we protect your code, your data, and your IP — certifications, NDA and IP terms, data handling, and our secure-development practices.</p>
-        </div>
-        <a class="btn btn--ghost btn--large" href="security-compliance.html">Security &amp; Compliance <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 9 · CONTACT / DUAL CTA ════════════════════════════════════════ -->
+  <!-- ═══ Block 3 · Contact strip ═══ -->
   <section class="band band--popout section">
     <div class="container cta-band">
       <p class="section-label">Like the way we think?</p>
       <h2 class="t-h2">Let's talk about your product.</h2>
-      <p class="t-p1 tc-secondary mt-3xs" style="max-width:52ch;margin-inline:auto">Get a ballpark in 90 seconds, or book 30 minutes with the people you just met.</p>
       <div class="cta-band__ctas">
-        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+        <a class="btn btn--main btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
 
 </main>
+
+<!-- Sticky Estimator CTA — Tier-1 hub gets it (build-plan §5) -->
+<aside class="sticky-estimator" aria-label="Get an estimate">
+  <span class="sticky-estimator__copy">Have a project in mind? Get a ballpark.</span>
+  <a class="btn btn--main btn--small" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+</aside>
+
 <footer class="site-footer" role="contentinfo">
   <div class="site-footer__inner">
 
@@ -723,16 +547,16 @@
         </div>
       </nav>
 
-      <!-- 5 · Company -->
+      <!-- 5 · Company (E3a: split About; E3c: Security & Compliance removed from footer) -->
       <nav class="footer-col" aria-label="Company">
         <span class="footer-col__heading">Company</span>
         <div class="footer-col__links">
           <a class="footer-link" href="../about/index.html">About</a>
-          <a class="footer-link" href="../about/index.html">Team</a>
-          <a class="footer-link" href="../about/index.html">Careers</a>
-          <a class="footer-link" href="../about/security-compliance.html">Security &amp; Compliance</a>
-          <a class="footer-link" href="../about/index.html">Partners</a>
-          <a class="footer-link" href="../about/index.html">Press</a>
+          <a class="footer-link" href="../about/company.html">Company</a>
+          <a class="footer-link" href="../about/team.html">Team</a>
+          <a class="footer-link" href="../about/careers/index.html">Careers</a>
+          <a class="footer-link" href="../about/testimonials.html">Testimonials</a>
+          <a class="footer-link" href="../about/company.html#partners">Partners</a>
           <a class="footer-link" href="../contact.html">Contact</a>
         </div>
       </nav>

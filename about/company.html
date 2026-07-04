@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
-  <title>Outsourcing &amp; Outstaffing — VECTO</title>
-  <meta name="description" content="Plug expert engineers into your team — fast. Outsource a whole team we run, or augment yours with engineers you manage directly. Same vetted talent, you choose the model.">
+  <title>Company — About — VECTO</title>
+  <meta name="description" content="Twelve years turning other people's ideas into products. Our story, mission and vision, partners, and the numbers behind them.">
 
   <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
   <link rel="stylesheet" href="../tokens.css">
@@ -17,60 +17,23 @@
   <style>
     .section-head { margin-bottom: var(--space-l); }
     .section-head .section-label { margin-bottom: var(--space-3xs); }
-    .hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
-
-    /* ── 2 · What's included — two sub-service cards + comparison table ── */
-    .sub2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
-    .sub2 .card { display: flex; flex-direction: column; gap: var(--space-3xs); }
-    .sub2__tag { display: inline-flex; align-items: center; gap: var(--space-4xs); color: var(--text-accent); }
-    .sub2__tag i { width: 16px; height: 16px; }
-    .cmp-scroll { overflow-x: auto; margin-top: var(--space-xl); }
-    .cmp-table th:not(:first-child),
-    .cmp-table td:not(:first-child) { width: 38%; }
-
-    /* ── 3 · Benefits — stat band (quantified proof points) ── */
-    .benefits-stats .stat-band__figure { color: var(--text-accent); }
-
-    /* ── 5 · Tech stack — same 33 as Software Development ── */
-    .tech-stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
-    .tech-stack__group { display: flex; flex-direction: column; gap: var(--space-3xs); }
-    .tech-stack__count { color: var(--text-tertiary); font-weight: var(--font-weight-regular); }
-    .tech-stack__tags { display: flex; flex-wrap: wrap; gap: var(--space-4xs); }
-
-    /* ── 6 · Cases — team-extension, retention-led ── */
-    .case3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
-    .case3 .card { display: flex; flex-direction: column; gap: var(--space-4xs); }
-    .case3__figure {
-      font-size: var(--text-size-h2); line-height: 1;
-      font-weight: var(--font-weight-bold); color: var(--text-accent);
-    }
-
-    /* ── 7 · Engagement — two models, mapped to the sub-services ── */
-    .eng2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap); align-items: start; }
-    .eng-card__map { color: var(--text-accent); font-weight: var(--font-weight-medium); }
-
-    .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-l); }
+    /* History — milestones list (migrated from the old About page) */
+    .milestones { display: flex; flex-direction: column; gap: var(--space-s); }
+    .milestone { display: grid; grid-template-columns: var(--space-4xl) 1fr; gap: var(--space-s); }
+    .milestone + .milestone { padding-top: var(--space-s); border-top: 1px solid var(--border-semi-transparent); }
+    .milestone__year { color: var(--text-accent); font-weight: var(--font-weight-medium); }
+    /* Partners — logo strip */
+    .logo-strip { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s); margin-top: var(--space-s); }
+    .logo-strip .media-ph--logo { width: var(--space-4xl); }
+    /* Team callout */
+    .callout { display: flex; align-items: center; gap: var(--space-s); flex-wrap: wrap; }
+    .callout__body { flex: 1; min-width: 24ch; }
+    .cta-band { text-align: center; }
+    .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
   </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════════════════════════════
-     ⚑ PLACEHOLDER LINKS — sub-service template convention (build-plan §4.4)
-     Every link to the Web Development page (services/web-development.html) on
-     this page — in the nav megamenu AND in the page body — is a PLACEHOLDER.
-     It points at the single built sub-service template so this wireframe stays
-     fully clickable with one example page.
-     In PRODUCTION, each of these links must resolve to its OWN real page at
-       /services/[category]/[sub-service]
-       e.g. Mobile App Development → /services/software-development/mobile-app-development
-            UI Design             → /services/product-design/ui-design
-     The IA documents this in prose; this banner is the in-code reminder so the
-     placeholder links are never mistaken for the intended final destinations.
-     ════════════════════════════════════════════════════════════════════════ -->
-
-<!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  _nav.html — pasted at DEPTH 1 (../ prefixes)                           ║
-     ╚══════════════════════════════════════════════════════════════════════╝ -->
 <header class="topbar" role="banner">
   <div class="topbar__inner">
 
@@ -437,387 +400,137 @@
 
 </header>
 
-<main role="main">
+<main>
 
-  <!-- ═══ 1 · HERO ═══════════════════════════════════════════════════════ -->
+  <!-- ═══ Block 1 · Hero + breadcrumb ═══ -->
   <section class="band band--dark-deep section">
     <div class="container">
       <nav class="breadcrumb mb-s" aria-label="Breadcrumb">
         <a class="breadcrumb__item" href="../index.html">Home</a>
         <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
-        <a class="breadcrumb__item" href="index.html">Services</a>
+        <a class="breadcrumb__item" href="index.html">About</a>
         <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
-        <span class="breadcrumb__item" aria-current="page">Outsourcing &amp; Outstaffing</span>
+        <span class="breadcrumb__item" aria-current="page">Company</span>
       </nav>
-      <p class="section-label">Outsourcing &amp; Outstaffing</p>
-      <h1 class="t-h1 text-balance" style="max-width: 16ch">Plug expert engineers into your team — fast.</h1>
-      <p class="t-p1 tc-secondary mt-s" style="max-width: 62ch">Two ways to add senior engineers without the hiring grind: <strong class="tc-primary">outsource</strong> a whole team we run for you, or <strong class="tc-primary">outstaff</strong> — augment yours with people you manage directly. Same vetted talent; you choose how much of the wheel you hold.</p>
-      <div class="hero__ctas">
-        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
-      </div>
+      <p class="section-label">The company</p>
+      <h1 class="t-h1 text-balance" style="max-width: 20ch">The company behind the work.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 58ch">
+        Who we are, how we got here, and what we're trying to do — the parts that don't fit on a
+        services page but tell you whether we're the kind of partner you want.
+      </p>
     </div>
   </section>
 
-  <!-- ═══ 2 · WHAT'S INCLUDED — two sub-services + comparison table ══════ -->
-  <section class="section">
+  <!-- ═══ Block 2 · History ═══ -->
+  <section class="section" id="history">
     <div class="container">
-      <div class="section-head">
-        <p class="section-label">What's included</p>
-        <h2 class="t-h2">Two models. The only real question is who runs the team.</h2>
-        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 60ch">Most buyers don't know the difference until someone draws the line — so here it is, plainly.</p>
-      </div>
-
-      <div class="sub2">
-        <a class="card" href="../services/web-development.html">
-          <span class="sub2__tag section-label"><i data-lucide="users" aria-hidden="true"></i> We run it</span>
-          <h3 class="t-h4">Team Outsourcing</h3>
-          <p class="t-p2 tc-secondary">A full squad — engineers, QA, a delivery lead — that we staff and manage against your goals. You point at the outcome; we own the how.</p>
-          <span class="btn btn--text btn--small" style="padding-left:0">Explore Team Outsourcing <i data-lucide="arrow-right" aria-hidden="true"></i></span>
-        </a>
-        <a class="card" href="../services/web-development.html">
-          <span class="sub2__tag section-label"><i data-lucide="user-plus" aria-hidden="true"></i> You run it</span>
-          <h3 class="t-h4">Staff Augmentation</h3>
-          <p class="t-p2 tc-secondary">Individual senior engineers who join your team and take direction from your managers — extra capacity in your process, not a separate one.</p>
-          <span class="btn btn--text btn--small" style="padding-left:0">Explore Staff Augmentation <i data-lucide="arrow-right" aria-hidden="true"></i></span>
-        </a>
-      </div>
-
-      <div class="cmp-scroll">
-        <table class="cmp-table">
-          <thead>
-            <tr>
-              <th scope="col">How they differ</th>
-              <th scope="col">Team Outsourcing</th>
-              <th scope="col">Staff Augmentation</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Who manages day-to-day</th>
-              <td>We do — our delivery lead</td>
-              <td>You do — your managers</td>
-            </tr>
-            <tr>
-              <th scope="row">Best for</th>
-              <td>A whole function or product you want owned end-to-end</td>
-              <td>Filling specific skill gaps in a team you already run</td>
-            </tr>
-            <tr>
-              <th scope="row">What you provide</th>
-              <td>The goals and priorities</td>
-              <td>The management, process, and direction</td>
-            </tr>
-            <tr>
-              <th scope="row">What we provide</th>
-              <td>The team, the process, and the delivery</td>
-              <td>The engineers</td>
-            </tr>
-            <tr>
-              <th scope="row">Typical shape</th>
-              <td>A full squad (PM, devs, QA)</td>
-              <td>One to several individual engineers</td>
-            </tr>
-            <tr>
-              <th scope="row">Maps to engagement model</th>
-              <td>Dedicated Team</td>
-              <td>Outstaffing</td>
-            </tr>
-            <tr>
-              <th scope="row">Typical ramp-up</th>
-              <td>~2–3 weeks</td>
-              <td>~1–2 weeks</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 3 · BENEFITS — stat band ═══════════════════════════════════════ -->
-  <section class="band band--dark section">
-    <div class="container">
-      <div class="section-head">
-        <p class="section-label">Why teams choose this</p>
-        <h2 class="t-h2">A team, without the year it takes to hire one.</h2>
-      </div>
-      <div class="benefits-stats">
-        <div class="stat-band stat-band--divided">
-          <div class="stat-band__item">
-            <span class="stat-band__figure t-h2">~2 wks</span>
-            <span class="stat-band__label t-p3 tc-secondary">Speed-to-team — from brief to first commit</span>
-          </div>
-          <div class="stat-band__item">
-            <span class="stat-band__figure t-h2">1–20+</span>
-            <span class="stat-band__label t-p3 tc-secondary">Flexible capacity — scale up or down on demand</span>
-          </div>
-          <div class="stat-band__item">
-            <span class="stat-band__figure t-h2">Zero</span>
-            <span class="stat-band__label t-p3 tc-secondary">Recruitment, screening, or HR overhead on you</span>
-          </div>
-          <div class="stat-band__item">
-            <span class="stat-band__figure t-h2">4–6 hrs</span>
-            <span class="stat-band__label t-p3 tc-secondary">Daily overlap with your working day (EU / CIS)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 4 · MINI-PROCESS — scale-specific 5 steps ═════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+      <div class="split split--top">
         <div>
-          <p class="section-label">How a team engagement runs</p>
-          <h2 class="t-h2">From brief to a team that's delivering.</h2>
+          <p class="section-label">Our story</p>
+          <h2 class="t-h2">Twelve years turning other people's ideas into products.</h2>
+          <p class="t-p2 tc-secondary mt-s">VECTO started as three engineers taking on the projects bigger agencies wouldn't — the ambiguous, early-stage ones where nobody had written the spec yet. That's still the work we like best. Today we're a team of forty across delivery, design, and AI, and we've shipped products founders have gone on to raise on, sell, and scale.</p>
         </div>
-        <a class="btn btn--ghost btn--medium" href="../how-we-work/process.html">See the full process <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-      </div>
-      <div class="process-strip">
-        <div class="process-step">
-          <span class="process-step__num">1</span>
-          <span class="process-step__title">Brief</span>
-          <span class="process-step__desc">Tell us the skills, the stack, and the timeline.</span>
-        </div>
-        <div class="process-step">
-          <span class="process-step__num">2</span>
-          <span class="process-step__title">Match</span>
-          <span class="process-step__desc">We propose vetted engineers; you interview and approve.</span>
-        </div>
-        <div class="process-step">
-          <span class="process-step__num">3</span>
-          <span class="process-step__title">Onboard</span>
-          <span class="process-step__desc">Access, context, and into your tools and rituals.</span>
-        </div>
-        <div class="process-step process-step--active">
-          <span class="process-step__num">4</span>
-          <span class="process-step__title">Run</span>
-          <span class="process-step__desc">The team delivers — in your process, or ours.</span>
-        </div>
-        <div class="process-step">
-          <span class="process-step__num">5</span>
-          <span class="process-step__title">Adjust</span>
-          <span class="process-step__desc">Scale the team up or down as the work changes.</span>
+        <div class="milestones">
+          <div class="milestone"><span class="milestone__year">2014</span><div><h3 class="t-h5">Founded in Yerevan</h3><p class="t-p3 tc-secondary">Three engineers, a rented room, and a habit of saying yes to hard briefs.</p></div></div>
+          <div class="milestone"><span class="milestone__year">2018</span><div><h3 class="t-h5">First dedicated teams</h3><p class="t-p3 tc-secondary">Scale-ups started embedding us long-term; we grew design and delivery around them.</p></div></div>
+          <div class="milestone"><span class="milestone__year">2022</span><div><h3 class="t-h5">AI practice formed</h3><p class="t-p3 tc-secondary">A standing team for the question every founder now asks — and for talking them out of it when the answer is no.</p></div></div>
+          <div class="milestone"><span class="milestone__year">Today</span><div><h3 class="t-h5">Forty people, one bar</h3><p class="t-p3 tc-secondary">Across three offices — still measuring ourselves by what actually ships.</p></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 5 · TECH STACK — same 33 as Software Development ═══════════════ -->
-  <section class="band band--dark section">
+  <!-- ═══ Block 3 · Mission & Vision ═══ -->
+  <section class="band band--dark section" id="mission">
     <div class="container">
-      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+      <div class="split">
         <div>
-          <p class="section-label">The depth of talent on tap</p>
-          <h2 class="t-h2">The same 33-technology stack — and the people who know it.</h2>
-          <p class="t-p1 tc-secondary mt-3xs" style="max-width: 62ch">Whatever you're staffing for, the bench runs deep across frontend, backend, and infrastructure.</p>
+          <p class="section-label">Mission</p>
+          <h2 class="t-h3">Help founders build the right thing — not just any thing.</h2>
+          <p class="t-p2 tc-secondary mt-3xs">Most products don't fail on code; they fail because nobody wanted what got built. Our job is to spend your budget where it proves the idea, and to be honest about the parts that can wait.</p>
         </div>
-        <a class="btn btn--ghost btn--medium" href="../how-we-work/technologies/index.html">Explore all technologies <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <div>
+          <p class="section-label">Vision</p>
+          <h2 class="t-h3">A world where a good idea isn't blocked by not being technical.</h2>
+          <p class="t-p2 tc-secondary mt-3xs">Founders shouldn't need a CS degree to get a fair estimate, a clear plan, and software they can trust. We want to be the partner that makes the technical part legible.</p>
+        </div>
       </div>
-      <div class="tech-stack">
-        <div class="tech-stack__group">
-          <span class="megamenu__heading">Frontend <span class="tech-stack__count">· 10</span></span>
-          <div class="tech-stack__tags">
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">React.js</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">React Native</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Vue.js</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Next.js</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">JavaScript</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">TypeScript</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Tailwind CSS</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Ant Design</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Elementor</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">WordPress</a>
-          </div>
+    </div>
+  </section>
+
+  <!-- ═══ Block 4 · Partners ═══ -->
+  <section class="band band--elevated section" id="partners">
+    <div class="container">
+      <div class="split split--top">
+        <div>
+          <p class="section-label">Partners &amp; platforms</p>
+          <h2 class="t-h2">Built on tools we're certified in.</h2>
+          <p class="t-p2 tc-secondary mt-s">We're a certified partner across the platforms most of our builds run on — which means direct support channels, early access, and architecture reviews we can lean on when your product needs them.</p>
         </div>
-        <div class="tech-stack__group">
-          <span class="megamenu__heading">Backend <span class="tech-stack__count">· 13</span></span>
-          <div class="tech-stack__tags">
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Node.js</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">C#</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">.NET</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">PHP</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Laravel</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">WooCommerce</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">PostgreSQL</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Redis</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Elastic Search</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Kafka</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Microservices</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Cloud Transcoding</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">AI</a>
-          </div>
-        </div>
-        <div class="tech-stack__group">
-          <span class="megamenu__heading">Infrastructure &amp; DevOps <span class="tech-stack__count">· 10</span></span>
-          <div class="tech-stack__tags">
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">AWS</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Docker</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Kubernetes</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Terraform</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Cloud</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Grafana</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Sentry</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Mapbox</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">GitHub Actions</a>
-            <a class="tag tag--secondary" href="../how-we-work/technologies/react.html">Nginx</a>
+        <div>
+          <p class="t-c1 tc-muted">Technology partners</p>
+          <div class="logo-strip">
+            <span class="media-ph media-ph--logo" aria-label="AWS"></span>
+            <span class="media-ph media-ph--logo" aria-label="Google Cloud"></span>
+            <span class="media-ph media-ph--logo" aria-label="Microsoft Azure"></span>
+            <span class="media-ph media-ph--logo" aria-label="Vercel"></span>
+            <span class="media-ph media-ph--logo" aria-label="Stripe"></span>
+            <span class="media-ph media-ph--logo" aria-label="OpenAI"></span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 6 · CASE STUDIES — team-extension, retention-led ═══════════════ -->
+  <!-- ═══ Block 5 · Trust signals ═══ -->
   <section class="section">
     <div class="container">
-      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
-        <div>
-          <p class="section-label">Proof</p>
-          <h2 class="t-h2">Teams that stuck around.</h2>
-        </div>
-        <a class="btn btn--ghost btn--medium" href="../our-work/index.html">All team work <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-      </div>
-      <div class="case3">
-        <a class="card" href="../our-work/fintech-platform.html">
-          <span class="case3__figure">0</span>
-          <p class="t-p3 tc-secondary">turnover in three years</p>
-          <h3 class="t-h5 mt-3xs">A five-engineer squad since Series A</h3>
-          <p class="t-p3 tc-secondary mt-4xs">Scale-up SaaS · Team Outsourcing — same faces, compounding context, no rehiring.</p>
-        </a>
-        <a class="card" href="../our-work/fintech-platform.html">
-          <span class="case3__figure">2→12</span>
-          <p class="t-p3 tc-secondary">engineers in one quarter</p>
-          <h3 class="t-h5 mt-3xs">A team scaled for a product push</h3>
-          <p class="t-p3 tc-secondary mt-4xs">FinTech · Staff Augmentation — ramped up fast, then tapered. No hiring, no layoffs.</p>
-        </a>
-        <a class="card" href="../our-work/fintech-platform.html">
-          <span class="case3__figure">94%</span>
-          <p class="t-p3 tc-secondary">retention across placements</p>
-          <h3 class="t-h5 mt-3xs">Engineers who tend to stay</h3>
-          <p class="t-p3 tc-secondary mt-4xs">Across the board — the whole point of a team you can actually rely on.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 7 · ENGAGEMENT MODELS — maps to the two sub-services ═══════════ -->
-  <section class="band band--dark section">
-    <div class="container">
-      <div class="section-head">
-        <p class="section-label">How we'd staff it</p>
-        <h2 class="t-h2">The model decision is the buying decision.</h2>
-        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 60ch">Each sub-service maps to exactly one engagement model — pick the way of working, and the rest follows.</p>
-      </div>
-      <div class="eng2">
-        <div class="card">
-          <p class="t-p3 eng-card__map mt-4xs">For Team Outsourcing</p>
-          <h3 class="t-h4">Dedicated Team</h3>
-          <p class="t-p2 tc-secondary mt-4xs">A full squad we staff, run, and deliver with — on our payroll, focused on your roadmap. You set the goals; we own the how.</p>
-          <a class="btn btn--text btn--small mt-3xs" style="padding-left:0" href="../how-we-work/engagement-models.html">How it works <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="card">
-          <p class="t-p3 eng-card__map mt-4xs">For Staff Augmentation</p>
-          <h3 class="t-h4">Outstaffing</h3>
-          <p class="t-p2 tc-secondary mt-4xs">Individual engineers embedded in your team and managed by you, day to day — we handle employment, you handle direction.</p>
-          <a class="btn btn--text btn--small mt-3xs" style="padding-left:0" href="../how-we-work/engagement-models.html">How it works <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 8 · FAQ — 4 questions verbatim from IA ════════════════════════ -->
-  <section class="section">
-    <div class="container container-medium">
       <div class="section-head text-center">
-        <p class="section-label">Straight answers</p>
-        <h2 class="t-h2">Before you add to the team.</h2>
+        <p class="section-label">By the numbers</p>
+        <h2 class="t-h2">Proof, not adjectives.</h2>
       </div>
-      <div class="accordion" data-accordion="single">
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-1">
-            How fast can you spin up a team? <i data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="accordion__panel" id="oo-faq-1" hidden>
-            <p class="t-p2 tc-secondary">Usually two to three weeks for a dedicated team, and faster for a single augmentation. We propose matched, pre-vetted engineers; you interview and approve everyone before they start.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-2">
-            Who manages day-to-day? <i data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="accordion__panel" id="oo-faq-2" hidden>
-            <p class="t-p2 tc-secondary">It depends on the model. With Team Outsourcing, our delivery lead manages the team day-to-day against your goals. With Staff Augmentation, your managers run the engineers directly — we just handle employment and HR.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-3">
-            How do you handle people leaving? <i data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="accordion__panel" id="oo-faq-3" hidden>
-            <p class="t-p2 tc-secondary">We plan for it. Knowledge is documented rather than siloed in one person's head, and we backfill a departing engineer with continuity — onboarding their replacement on our time, not yours.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false" aria-controls="oo-faq-4">
-            What about IP and contracts? <i data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="accordion__panel" id="oo-faq-4" hidden>
-            <p class="t-p2 tc-secondary">All IP is yours, assigned in the contract from day one. NDAs and standard EU-compliant agreements are in place before any work begins — you own everything the team produces, full stop.</p>
-          </div>
-        </div>
+      <div class="stat-band stat-band--divided">
+        <div class="stat-band__item"><span class="stat-band__figure tc-accent">12 yrs</span><span class="stat-band__label">building products with founders</span></div>
+        <div class="stat-band__item"><span class="stat-band__figure">120+</span><span class="stat-band__label">products shipped to production</span></div>
+        <div class="stat-band__item"><span class="stat-band__figure">94%</span><span class="stat-band__label">client retention rate</span></div>
+        <div class="stat-band__item"><span class="stat-band__figure">72</span><span class="stat-band__label">net promoter score</span></div>
+        <div class="stat-band__item"><span class="stat-band__figure">9</span><span class="stat-band__label">industry awards since 2019</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 9 · TALK TO A SPECIALIST ═══════════════════════════════════════ -->
+  <!-- ═══ Block 6 · Team callout (faces belong on the Team page) ═══ -->
   <section class="band band--dark section">
     <div class="container">
-      <div class="section-head">
-        <p class="section-label">Talk to a specialist</p>
-        <h2 class="t-h2">Ask the person who'd actually build your team.</h2>
-      </div>
-      <div class="specialist">
-        <span class="specialist__photo" aria-hidden="true"></span>
-        <div class="specialist__info">
-          <span class="specialist__name">Tigran Avagyan</span>
-          <span class="specialist__role">Delivery Lead</span>
-          <div class="specialist__ctas">
-            <a class="btn btn--ghost btn--small" href="mailto:tigran@vecto.digital">Email me</a>
-            <a class="btn btn--main btn--small" href="../schedule-a-call.html">Book 15 min <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-          </div>
+      <div class="card callout">
+        <span class="hub-card__media" aria-hidden="true" style="color:var(--text-accent)"><i data-lucide="users" style="width:var(--space-l);height:var(--space-l)"></i></span>
+        <div class="callout__body">
+          <h2 class="t-h4">Meet the people, not just the company.</h2>
+          <p class="t-p2 tc-secondary mt-3xs">The leaders and specialists who'll actually scope, design, and build your product live on the Team page.</p>
         </div>
+        <a class="btn btn--main btn--large" href="team.html">Meet the team <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 10 · RELATED SERVICES ══════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <p class="section-label">Related services</p>
-        <h2 class="t-h2">What the team works on.</h2>
-      </div>
-      <div class="related-grid">
-        <a class="card" href="../services/software-development.html">
-          <h3 class="t-h5">Software Development</h3>
-          <p class="t-p3 tc-secondary">The work the team does — the same engineering, staffed as a team instead of a project.</p>
-          <span class="btn btn--text btn--small" style="padding-left:0">Explore <i data-lucide="arrow-right" aria-hidden="true"></i></span>
-        </a>
-        <a class="card" href="../services/support-maintenance.html">
-          <h3 class="t-h5">Support &amp; Maintenance</h3>
-          <p class="t-p3 tc-secondary">When the team's role is ongoing — keep the product running once it's live.</p>
-          <span class="btn btn--text btn--small" style="padding-left:0">Explore <i data-lucide="arrow-right" aria-hidden="true"></i></span>
-        </a>
+  <!-- ═══ Block 7 · Contact / dual CTA ═══ -->
+  <section class="band band--popout section">
+    <div class="container cta-band">
+      <p class="section-label">Like the way we think?</p>
+      <h2 class="t-h2">Let's talk about your product.</h2>
+      <p class="t-p1 tc-secondary mt-3xs" style="max-width:52ch;margin-inline:auto">Get a ballpark in 90 seconds, or book 30 minutes with the team.</p>
+      <div class="cta-band__ctas">
+        <a class="btn btn--main btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- ═══ 11 · Sticky Estimator CTA — shown on scroll by prototype.js ═════ -->
+<!-- Sticky Estimator CTA — Tier-1/2 pages get it (build-plan §5) -->
 <aside class="sticky-estimator" aria-label="Get an estimate">
-  <span class="sticky-estimator__copy">Need a team? Get a ballpark.</span>
+  <span class="sticky-estimator__copy">Have a project in mind? Get a ballpark.</span>
   <a class="btn btn--main btn--small" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
 </aside>
 
