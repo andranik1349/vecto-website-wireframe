@@ -16,10 +16,31 @@
 
   <style>
     /* Deliberately-simple hub (E3a): most visitors deep-link from the megamenu;
-       this page exists for nav consistency + stragglers. Kept intentionally light. */
-    .hub-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
-    .hub-card__media { display: flex; align-items: center; justify-content: center; color: var(--text-accent); }
-    .hub-card__media i { width: var(--space-l); height: var(--space-l); }
+       this page exists for nav consistency + stragglers. Kept intentionally light.
+       Section cards use the Solutions-hub row pattern: larger horizontal cards
+       stacked vertically, media alternating side. */
+    .hub-list { display: flex; flex-direction: column; gap: var(--space-l); }
+    .hub-row {
+      display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--grid-gap);
+      align-items: center;
+      padding: var(--space-l);
+      border: 1px solid var(--border-semi-transparent);
+      border-radius: var(--radius-l);
+      background: var(--surface-elevated);
+      text-decoration: none;
+      transition: border-color .15s ease, background-color .15s ease, transform .15s ease;
+    }
+    .hub-row:hover { border-color: var(--border-accent); background: var(--surface-popout); transform: translateY(-2px); }
+    /* Alternate the media to the left on even rows for editorial rhythm */
+    .hub-row:nth-child(even) .hub-row__media { order: -1; }
+    .hub-row__body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-3xs); }
+    .hub-row__cat { color: var(--text-muted); font-size: var(--text-size-c1); letter-spacing: 0.08em; text-transform: uppercase; }
+    .hub-row__name { color: var(--text-primary); }
+    .hub-row__tags { display: flex; flex-wrap: wrap; gap: var(--space-4xs); margin-top: var(--space-min); }
+    .hub-tag { font-size: var(--text-size-c1); color: var(--text-secondary-strong); border: 1px solid var(--border-semi-transparent); border-radius: var(--radius-pill); padding: 2px var(--space-4xs); }
+    .hub-row__arrow { color: var(--text-accent); margin-top: var(--space-3xs); }
+    .hub-row__arrow svg { width: var(--space-s); height: var(--space-s); }
+    .hub-row__media i { width: var(--space-xl); height: var(--space-xl); color: var(--text-accent); }
     .cta-band { text-align: center; }
     .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
   </style>
@@ -125,7 +146,7 @@
             <div class="dropdown__col">
               <a class="dropdown__heading dropdown__heading--link" href="../about/company.html">The company</a>
               <ul class="dropdown__links">
-                <li><a class="dropdown__link" href="../about/index.html">About VECTO</a></li>
+                <li><a class="dropdown__link" href="../about/company.html#about-vecto">About VECTO</a></li>
                 <li><a class="dropdown__link" href="../about/company.html#history">Our story</a></li>
                 <li><a class="dropdown__link" href="../about/company.html#mission">Mission &amp; Vision</a></li>
                 <li><a class="dropdown__link" href="../about/company.html#partners">Partners</a></li>
@@ -416,35 +437,71 @@
   <!-- ═══ Block 2 · Section cards ═══ -->
   <section class="section">
     <div class="container">
-      <div class="hub-cards">
-        <a class="card" href="company.html">
-          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="building-2"></i></span>
-          <div class="card__body">
-            <h2 class="t-h5">Company</h2>
-            <p class="t-p3 tc-secondary">Our story, mission, partners and the numbers behind them.</p>
+      <div class="hub-list">
+
+        <a class="hub-row" href="company.html" aria-label="Company — our story, mission, partners and the numbers">
+          <div class="hub-row__body">
+            <span class="hub-row__cat">The company</span>
+            <h2 class="t-h3 hub-row__name">Company</h2>
+            <p class="t-p2 tc-secondary">Who we are, how we got here, and what we're trying to do — twelve years of turning other people's ideas into products.</p>
+            <div class="hub-row__tags">
+              <span class="hub-tag">Our story</span>
+              <span class="hub-tag">Mission &amp; Vision</span>
+              <span class="hub-tag">Partners</span>
+              <span class="hub-tag">By the numbers</span>
+            </div>
+            <span class="hub-row__arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
           </div>
+          <span class="media-ph ratio-16-9 hub-row__media" aria-hidden="true"><i data-lucide="building-2"></i></span>
         </a>
-        <a class="card" href="team.html">
-          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="users"></i></span>
-          <div class="card__body">
-            <h2 class="t-h5">Team</h2>
-            <p class="t-p3 tc-secondary">The leaders and specialists you'll actually work with.</p>
+
+        <a class="hub-row" href="team.html" aria-label="Team — the leaders and specialists you'll work with">
+          <div class="hub-row__body">
+            <span class="hub-row__cat">The team</span>
+            <h2 class="t-h3 hub-row__name">Team</h2>
+            <p class="t-p2 tc-secondary">No account managers relaying messages to a team you never meet — the people below are the ones who scope, design, and build your product.</p>
+            <div class="hub-row__tags">
+              <span class="hub-tag">Leadership</span>
+              <span class="hub-tag">Specialists</span>
+              <span class="hub-tag">Named &amp; photographed</span>
+            </div>
+            <span class="hub-row__arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
           </div>
+          <span class="media-ph ratio-16-9 hub-row__media" aria-hidden="true"><i data-lucide="users"></i></span>
         </a>
-        <a class="card" href="careers/index.html">
-          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="briefcase"></i></span>
-          <div class="card__body">
-            <h2 class="t-h5">Careers</h2>
-            <p class="t-p3 tc-secondary">Open roles — and why people stay once they're here.</p>
+
+        <a class="hub-row" href="careers/index.html" aria-label="Careers — open roles and why people stay">
+          <div class="hub-row__body">
+            <span class="hub-row__cat">Careers</span>
+            <h2 class="t-h3 hub-row__name">Careers</h2>
+            <p class="t-p2 tc-secondary">We hire for judgment, not just keystrokes. See the open roles — and why people tend to stay once they're here.</p>
+            <div class="hub-row__tags">
+              <span class="hub-tag">Engineering</span>
+              <span class="hub-tag">Design</span>
+              <span class="hub-tag">Delivery</span>
+              <span class="hub-tag">Open applications</span>
+            </div>
+            <span class="hub-row__arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
           </div>
+          <span class="media-ph ratio-16-9 hub-row__media" aria-hidden="true"><i data-lucide="briefcase"></i></span>
         </a>
-        <a class="card" href="testimonials.html">
-          <span class="card__media hub-card__media" aria-hidden="true"><i data-lucide="quote"></i></span>
-          <div class="card__body">
-            <h2 class="t-h5">Testimonials</h2>
-            <p class="t-p3 tc-secondary">What clients say — with links to the original reviews.</p>
+
+        <a class="hub-row" href="testimonials.html" aria-label="Testimonials — what clients say, with links to the reviews">
+          <div class="hub-row__body">
+            <span class="hub-row__cat">Testimonials</span>
+            <h2 class="t-h3 hub-row__name">Testimonials</h2>
+            <p class="t-p2 tc-secondary">What clients say in their own words — every quote links to the original, public review. No cherry-picked screenshots.</p>
+            <div class="hub-row__tags">
+              <span class="hub-tag">80+ reviews</span>
+              <span class="hub-tag">Clutch</span>
+              <span class="hub-tag">Google</span>
+              <span class="hub-tag">GoodFirms</span>
+            </div>
+            <span class="hub-row__arrow"><i data-lucide="arrow-right" aria-hidden="true"></i></span>
           </div>
+          <span class="media-ph ratio-16-9 hub-row__media" aria-hidden="true"><i data-lucide="quote"></i></span>
         </a>
+
       </div>
     </div>
   </section>
