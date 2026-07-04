@@ -717,13 +717,32 @@ a.card:hover,
   color: var(--text-muted);
 }
 .megamenu__heading--accent { color: var(--text-accent); }
-/* Heading-as-link — section headers that navigate to their hub/landing page.
-   Keeps the muted label look; adds an interactive hover affordance. */
-a.megamenu__heading,
-a.dropdown__heading { text-decoration: none; cursor: pointer; transition: color .15s ease; }
-a.megamenu__heading:hover,
-a.dropdown__heading:hover { color: var(--text-primary); }
-.megamenu__ai-band a.megamenu__heading { text-decoration: underline; text-underline-offset: 3px; }
+/* ── Nav heading convention (supersedes the old "headings are links" rule) ──
+   Default .megamenu__heading / .dropdown__heading = NON-interactive muted label
+   (the --text-muted rule above). A heading is a LINK only when a real
+   destination page exists for it — mark those with --link: accent-red TEXT
+   (colour only, NOT a button/pill), with a brighter hover. No invented hubs, no
+   next-best targets. Final label-vs-heading-link visual is a Figma / DS task. */
+/* `a.` qualifier keeps specificity (0,1,1) above the base .dropdown__heading
+   (0,1,0) rule that is declared later in this file — link-headings are always
+   <a>, labels are <span>, so this never touches a label. */
+a.megamenu__heading--link,
+a.dropdown__heading--link {
+  color: var(--text-accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .15s ease;
+}
+a.megamenu__heading--link:hover,
+a.dropdown__heading--link:hover { color: var(--text-accent-light); }
+/* AI band sits on a red surface — its heading link stays white + underlined
+   (accent-red would be invisible on the band). */
+.megamenu__ai-band a.megamenu__heading {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
 .megamenu__links { display: flex; flex-direction: column; gap: var(--space-min); }
 .megamenu__link {
   display: flex;

@@ -146,6 +146,7 @@
     // of the primary-nav element that represents it.
     const SECTION_TO_PANEL = {
       'services':       'mm-services',
+      'solutions':      null,             // direct link, matched by href below
       'who-we-serve':   'mm-who',
       'industries':     'mm-who',        // industries live under the Who We Serve axis
       'our-work':       null,            // direct link, matched by href below
