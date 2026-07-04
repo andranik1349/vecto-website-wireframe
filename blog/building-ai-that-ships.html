@@ -52,6 +52,15 @@
     /* Newsletter */
     .newsletter { display: flex; gap: var(--space-4xs); max-width: 32ch; margin-top: var(--space-s); }
     .newsletter .input { flex: 1; }
+
+    /* Secondary relations — cross-discovery modules (never routes) */
+    .relations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-l); }
+    .relations-col__head { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-primary); }
+    .relations-col__head i { width: var(--space-s); height: var(--space-s); color: var(--text-accent); flex: 0 0 auto; }
+    .relations-list { display: flex; flex-direction: column; gap: var(--space-4xs); margin-top: var(--space-3xs); list-style: none; padding: 0; }
+    .relations-list a { display: inline-flex; align-items: baseline; gap: var(--space-min); color: var(--text-secondary-strong); font-size: var(--text-size-p3); line-height: var(--text-lh-p3); }
+    .relations-list a:hover { color: var(--text-primary); }
+    .relations-list i { width: 13px; height: 13px; flex: 0 0 auto; align-self: center; }
   </style>
 </head>
 <body>
@@ -428,7 +437,7 @@
 
       <div class="megamenu__strip">
         <a class="megamenu__link" href="../get-an-estimate.html">
-          Not sure where to start? Tell us about your project â get a ballpark from the team <i data-lucide="arrow-right" aria-hidden="true"></i>
+          Not sure where to start? Tell us about your project — get a ballpark from the team <i data-lucide="arrow-right" aria-hidden="true"></i>
         </a>
         <a class="btn btn--main btn--small" href="../get-an-estimate.html">
           Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
@@ -455,10 +464,14 @@
       </nav>
 
       <header>
+        <!-- Two-tier categorization (E2): a post carries EXACTLY ONE primary
+             category, which is ROUTABLE — the chip below links to the post's
+             /blog/category/[topic] page, and the post lists there. The four
+             secondary relations below the article (projects / services /
+             technologies / industries) power cross-discovery in BOTH directions
+             and NEVER create routes. -->
         <div class="post-tags">
-          <span class="tag tag--secondary">AI</span>
-          <span class="tag tag--secondary">Software Development</span>
-          <span class="tag tag--secondary">Machine Learning</span>
+          <a class="tag tag--button post-cat" href="category/insights.html">Insights</a>
         </div>
         <h1 class="t-h1 post-title">Building AI that ships: where it earns its place, and where it doesn't</h1>
         <div class="post-byline">
@@ -519,6 +532,51 @@
     </div>
   </article>
 
+  <!-- ═══ SECONDARY RELATIONS — cross-discovery into the site's own IA ═════
+       The four relation groups below are the post's SECONDARY tier: related
+       projects, services, technologies, and industries. They link both ways
+       (those pages pull their related posts in return) and never create routes
+       — only the primary category (chip in the header) is routable. -->
+  <section class="section" id="relations">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Related across VECTO</p>
+        <h2 class="t-h2">Where this connects.</h2>
+        <p class="t-p2 tc-secondary" style="max-width:60ch">This post's secondary relations into our own work — the projects it draws on, the services and technologies it touches, and the industries where it applies. Cross-discovery links, not categories.</p>
+      </div>
+      <div class="relations-grid">
+        <div class="relations-col">
+          <h3 class="t-h6 relations-col__head"><i data-lucide="folder-kanban" aria-hidden="true"></i> Related projects</h3>
+          <ul class="relations-list">
+            <li><a href="../projects/sentigraph-ai.html">SentiGraph — sentiment intelligence <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+            <li><a href="../projects/northwind-markets.html">Northwind Markets — commerce replatform <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+        <div class="relations-col">
+          <h3 class="t-h6 relations-col__head"><i data-lucide="layers" aria-hidden="true"></i> Related services</h3>
+          <ul class="relations-list">
+            <li><a href="../services/ai-transformation.html">AI Transformation <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+            <li><a href="../services/software-development.html">Software Development <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+        <div class="relations-col">
+          <h3 class="t-h6 relations-col__head"><i data-lucide="cpu" aria-hidden="true"></i> Related technologies</h3>
+          <ul class="relations-list">
+            <li><a href="../how-we-work/technologies/react.html">Python <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+            <li><a href="../how-we-work/technologies/react.html">LangChain <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+        <div class="relations-col">
+          <h3 class="t-h6 relations-col__head"><i data-lucide="building-2" aria-hidden="true"></i> Related industries</h3>
+          <ul class="relations-list">
+            <li><a href="../industries/healthcare.html">Healthcare <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+            <li><a href="../industries/healthcare.html">Finance <i data-lucide="arrow-up-right" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ RELATED POSTS ═════════════════════════════════════════════════ -->
   <section class="band band--dark section">
     <div class="container">
@@ -528,19 +586,19 @@
       </div>
       <div class="related-grid">
         <a class="card" href="building-ai-that-ships.html">
-          <span class="tag tag--secondary">AI</span>
+          <span class="tag tag--secondary">Insights</span>
           <h3 class="t-h5 mt-4xs">When not to use an LLM</h3>
           <p class="t-p3 tc-secondary">The unglamorous cases where a rule and a database beat a model.</p>
           <span class="btn btn--text btn--small" style="padding-left:0">Read <i data-lucide="arrow-right" aria-hidden="true"></i></span>
         </a>
         <a class="card" href="building-ai-that-ships.html">
-          <span class="tag tag--secondary">Build</span>
+          <span class="tag tag--secondary">Guides</span>
           <h3 class="t-h5 mt-4xs">What an MVP should actually include</h3>
           <p class="t-p3 tc-secondary">The smallest thing you can ship that still proves the idea.</p>
           <span class="btn btn--text btn--small" style="padding-left:0">Read <i data-lucide="arrow-right" aria-hidden="true"></i></span>
         </a>
         <a class="card" href="building-ai-that-ships.html">
-          <span class="tag tag--secondary">AI</span>
+          <span class="tag tag--secondary">Tech News</span>
           <h3 class="t-h5 mt-4xs">RAG, agents, and other words founders keep hearing</h3>
           <p class="t-p3 tc-secondary">A jargon-free tour of the AI patterns worth knowing.</p>
           <span class="btn btn--text btn--small" style="padding-left:0">Read <i data-lucide="arrow-right" aria-hidden="true"></i></span>

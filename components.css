@@ -1231,3 +1231,9 @@ a.dropdown__heading--link:hover { color: var(--text-accent-light); }
   background-color: var(--overlay-light-3);
   padding: 0 var(--space-min); border-radius: var(--radius-s);
 }
+
+/* ── Load-more (prototype.js initLoadMore) ───────────────────────────────
+   Hides list items beyond the revealed batch. A class, not the [hidden]
+   attribute, because the items are .card (display:flex) which ignores
+   [hidden] (memory hidden-attr-needs-display-reset). */
+.is-lm-hidden { display: none !important; }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
   <title>Blog — VECTO</title>
-  <meta name="description" content="What we've learned, written up. Plain-English thinking for non-technical founders — on building, design, AI, engineering, and running a product company.">
+  <meta name="description" content="What we've learned, written up. Plain-English thinking for non-technical founders — tech news, company updates, insights, and guides on building software that ships.">
 
   <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
   <link rel="stylesheet" href="../tokens.css">
@@ -29,15 +29,11 @@
     .blog-lead { align-self: stretch; }
     .blog-lead .card__media { flex: 1; aspect-ratio: auto; min-height: var(--space-4xl); }
 
-    /* 3 · Filter bar + recent grid */
-    .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4xs); }
-    .filter-count { margin-left: auto; color: var(--text-muted); font-size: var(--text-size-p3); }
+    /* 3 · Category chips (real links, single-select navigation) + 4 · recent grid */
+    .cat-chips { display: flex; flex-wrap: wrap; gap: var(--space-4xs); }
     .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-l); margin-top: var(--space-l); }
     .blog-grid .card__media { min-height: var(--space-3xl); }
-    /* CRITICAL: .card is display:flex, so the native [hidden] attribute is
-       ignored unless we re-assert display:none (memory hidden-attr-needs-display-reset). */
-    [data-portfolio-item][hidden] { display: none; }
-    .filter-empty { color: var(--text-secondary); padding: var(--space-l) 0; }
+    .load-more-row { display: flex; justify-content: center; margin-top: var(--space-l); }
 
     /* 5 · Author spotlight */
     .spotlight__photo { width: var(--space-4xl); height: var(--space-4xl); }
@@ -421,7 +417,7 @@
 
       <div class="megamenu__strip">
         <a class="megamenu__link" href="../get-an-estimate.html">
-          Not sure where to start? Tell us about your project â get a ballpark from the team <i data-lucide="arrow-right" aria-hidden="true"></i>
+          Not sure where to start? Tell us about your project — get a ballpark from the team <i data-lucide="arrow-right" aria-hidden="true"></i>
         </a>
         <a class="btn btn--main btn--small" href="../get-an-estimate.html">
           Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
@@ -456,7 +452,7 @@
         <div class="card card--with-image feature-lead__primary blog-lead">
           <a class="card__media media-ph" href="building-ai-that-ships.html" aria-label="Building AI that ships"><i data-lucide="image" aria-hidden="true"></i></a>
           <div class="card__body">
-            <span class="tag tag--secondary">AI</span>
+            <span class="tag tag--secondary">Insights</span>
             <h3 class="t-h4 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Building AI that ships: where it earns its place, and where it doesn't</a></h3>
             <p class="t-p3 tc-secondary">A field guide to spending your AI budget on the parts that actually move the product — and recognising the parts that don't.</p>
             <div class="card__meta mt-4xs">
@@ -466,13 +462,13 @@
           </div>
         </div>
         <div class="card">
-          <span class="tag tag--secondary">Build</span>
+          <span class="tag tag--secondary">Guides</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">What an MVP should actually include</a></h3>
           <p class="t-p3 tc-secondary">The smallest thing you can ship that still proves the idea.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>28 May 2026</span></div>
         </div>
         <div class="card">
-          <span class="tag tag--secondary">Founder advice</span>
+          <span class="tag tag--secondary">Guides</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Fixed price vs. time &amp; material, honestly</a></h3>
           <p class="t-p3 tc-secondary">Which model fits which kind of project — and why.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Marcus Lindqvist</a> · <span>09 May 2026</span></div>
@@ -481,10 +477,18 @@
     </div>
   </section>
 
-  <!-- ═══ 3 · CATEGORIES (filter) + 4 · RECENT POSTS GRID ═══════════════
-       Single-select category filter (initPortfolioFilter): one [data-filter-group],
-       posts tagged data-tags="<category>,<author-slug>". Author discovery happens
-       via the spotlight + bylines, so the visible axis is category only. ═══ -->
+  <!-- ═══ 3 · CATEGORY CHIPS (real links) + 4 · RECENT POSTS (load-more) ═══
+       Blog is single-select: every post has exactly ONE primary category, so
+       there's no composition conflict — the category chips ARE the navigation.
+       They are real <a> links to /blog/category/[topic], NOT client-side filter
+       toggles (contrast the multi-select Our Work facets). The old
+       initPortfolioFilter client filter is retired from this hub. ═══════════
+       ⚑ PLACEHOLDER category set (E2/D8): Tech News · Company Updates · Insights
+       · Guides is a MARKED PLACEHOLDER pending D15 (content/SEO team finalises
+       the primary list). Only the Insights route is built as the representative
+       example (§4.4 template-link convention); the other three chips point at it
+       for now. In production each resolves to its own /blog/category/[slug]
+       (tech-news · company-updates · insights · guides). -->
   <section class="band band--dark section">
     <div class="container">
       <div class="section-head">
@@ -492,75 +496,79 @@
         <h2 class="t-h2">Recent posts.</h2>
       </div>
 
-      <div class="filter-bar" data-filter-group>
-        <button class="tag tag--button is-active" data-filter="all">All</button>
-        <button class="tag tag--button" data-filter="build">Build</button>
-        <button class="tag tag--button" data-filter="design">Design</button>
-        <button class="tag tag--button" data-filter="ai">AI</button>
-        <button class="tag tag--button" data-filter="founder">Founder advice</button>
-        <button class="tag tag--button" data-filter="engineering">Engineering</button>
-        <button class="tag tag--button" data-filter="industry">Industry insights</button>
-        <span class="filter-count" data-filter-count data-noun="post">—</span>
-      </div>
+      <nav class="cat-chips" aria-label="Browse by category">
+        <a class="tag tag--button is-active" href="index.html">All</a>
+        <a class="tag tag--button" href="category/insights.html">Tech News</a>
+        <a class="tag tag--button" href="category/insights.html">Company Updates</a>
+        <a class="tag tag--button" href="category/insights.html">Insights</a>
+        <a class="tag tag--button" href="category/insights.html">Guides</a>
+      </nav>
 
-      <div class="blog-grid">
-        <article class="card" data-portfolio-item data-tags="ai,jane-doe">
-          <span class="tag tag--secondary">AI</span>
+      <!-- D9: load-more validated here — reveals the next batch client-side
+           rather than numbered pages. Shared initLoadMore drives this list and
+           the category page's list from one helper. -->
+      <div class="blog-grid" id="recent-list" data-load-more-list data-batch="6">
+        <article class="card">
+          <span class="tag tag--secondary">Insights</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">When not to use an LLM</a></h3>
           <p class="t-p3 tc-secondary">The unglamorous cases where a rule and a database beat a model — and your users never notice.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>05 Jun 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="build,marcus-lindqvist">
-          <span class="tag tag--secondary">Build</span>
+        <article class="card">
+          <span class="tag tag--secondary">Guides</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Shipping weekly without breaking things</a></h3>
           <p class="t-p3 tc-secondary">The handful of habits that let a small team release every week and still sleep at night.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Marcus Lindqvist</a> · <span>02 Jun 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="design,sofia-almeida">
-          <span class="tag tag--secondary">Design</span>
+        <article class="card">
+          <span class="tag tag--secondary">Insights</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Designing for trust in fintech</a></h3>
           <p class="t-p3 tc-secondary">Why the smallest interface details decide whether people hand you their money.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Sofia Almeida</a> · <span>29 May 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="engineering,marcus-lindqvist">
-          <span class="tag tag--secondary">Engineering</span>
+        <article class="card">
+          <span class="tag tag--secondary">Guides</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Choosing a stack you won't regret in a year</a></h3>
           <p class="t-p3 tc-secondary">Boring, proven, and well-documented beats new and exciting more often than founders expect.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Marcus Lindqvist</a> · <span>22 May 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="founder,sofia-almeida">
-          <span class="tag tag--secondary">Founder advice</span>
+        <article class="card">
+          <span class="tag tag--secondary">Guides</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">How to brief an agency so you get what you want</a></h3>
           <p class="t-p3 tc-secondary">What to write down before the first call so the estimate you get back is one you can trust.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Sofia Almeida</a> · <span>18 May 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="industry,jane-doe">
-          <span class="tag tag--secondary">Industry insights</span>
+        <article class="card">
+          <span class="tag tag--secondary">Insights</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">What healthcare software actually has to prove</a></h3>
           <p class="t-p3 tc-secondary">Compliance isn't a feature you bolt on at the end — it shapes the build from day one.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>14 May 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="build,jane-doe">
-          <span class="tag tag--secondary">Build</span>
+        <article class="card">
+          <span class="tag tag--secondary">Guides</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">The feature you can cut (and won't miss)</a></h3>
           <p class="t-p3 tc-secondary">A practical way to tell the must-haves from the nice-to-haves before they eat your budget.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>08 May 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="design,sofia-almeida">
-          <span class="tag tag--secondary">Design</span>
+        <article class="card">
+          <span class="tag tag--secondary">Insights</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">Wireframes earn their keep</a></h3>
           <p class="t-p3 tc-secondary">Why a clickable wireframe saves more money than any other hour you'll spend early on.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Sofia Almeida</a> · <span>30 Apr 2026</span></div>
         </article>
-        <article class="card" data-portfolio-item data-tags="ai,jane-doe">
-          <span class="tag tag--secondary">AI</span>
+        <article class="card">
+          <span class="tag tag--secondary">Tech News</span>
           <h3 class="t-h5 mt-4xs"><a class="card-link" href="building-ai-that-ships.html">RAG, agents, and other words founders keep hearing</a></h3>
           <p class="t-p3 tc-secondary">A jargon-free tour of the AI patterns worth knowing — and which problems each one is for.</p>
           <div class="card__meta mt-4xs"><a href="authors/jane-doe.html">Jane Doe</a> · <span>24 Apr 2026</span></div>
         </article>
       </div>
 
-      <p class="filter-empty t-p2" data-filter-empty hidden>No posts in that category yet — try another.</p>
+      <div class="load-more-row" data-load-more-row>
+        <button type="button" class="btn btn--ghost btn--medium" data-load-more="recent-list">
+          Load more posts <i data-lucide="chevron-down" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
   </section>
 

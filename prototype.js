@@ -683,6 +683,38 @@
 
 
   /* ════════════════════════════════════════════════════════════════════
+     7c. LOAD-MORE (blog hub recent posts + blog category page; D9 pattern)
+     One shared helper — reused by any post list, not two copies.
+     Markup contract:
+       <div id="recent-list" data-load-more-list data-batch="6"> …items… </div>
+       <div data-load-more-row>
+         <button data-load-more="recent-list">Load more</button>
+       </div>
+     Reveals the next `data-batch` direct children per click; hides the button's
+     row once the list is exhausted. Uses a class (.is-lm-hidden{display:none})
+     rather than the hidden attribute — the items are .card (display:flex), which
+     ignores [hidden] (memory hidden-attr-needs-display-reset).
+     ════════════════════════════════════════════════════════════════════ */
+  function initLoadMore() {
+    $$('[data-load-more]').forEach((trigger) => {
+      const list = document.getElementById(trigger.getAttribute('data-load-more'));
+      if (!list) return;
+      const batch = parseInt(list.getAttribute('data-batch'), 10) || 6;
+      const items = Array.prototype.slice.call(list.children);
+      const row = trigger.closest('[data-load-more-row]') || trigger;
+      let shown = batch;
+
+      function render() {
+        items.forEach((it, i) => it.classList.toggle('is-lm-hidden', i >= shown));
+        row.hidden = shown >= items.length;
+      }
+      render();
+      trigger.addEventListener('click', () => { shown += batch; render(); });
+    });
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════════
      8. PROCESS STEP EXPANSION (Process page interactive diagram)
      Each <button class="process-step__toggle"> toggles .is-expanded on its
      parent .process-step, revealing the .process-step__detail.
@@ -800,6 +832,7 @@
     initDecisionTree();
     initEstimator();
     initEstimateSuccess();
+    initLoadMore();
     initProcessSteps();
     initAnchorNav();
     initRails();
