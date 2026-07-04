@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
   <title>Get an Estimate — VECTO</title>
-  <meta name="description" content="Describe your project in plain English and get an indicative cost range, timeline, and recommended engagement model in 90 seconds. No calls, no commitment.">
+  <meta name="description" content="Tell us about your project in plain English. A real person on our team replies with an indicative cost range, timeline, and recommended way of working — usually within one business day. No calls, no commitment.">
+
+  <!-- Launch flow (E4): a simple estimate-request form — fill → submit → success
+       state with an optional Schedule a Call. Provider-backed in production; static
+       here. The AI-assisted on-site estimator is DEFERRED (IA Appendix): it returns
+       post-launch as a client island in this same page shell (same URL, same entry
+       points), with this form as its no-JS/error fallback. -->
 
   <!-- 4-file load order (build-plan §3). Root depth → no path prefix. -->
   <link rel="stylesheet" href="tokens.css">
@@ -18,16 +24,16 @@
   <!-- Page-scoped layout for the Estimator page (build-plan allows a per-page
        <style> block). Everything token-driven — no hardcoded colour/size. -->
   <style>
-    /* Page-scoped helpers also defined locally on the built pages (kept per-page,
-       not global) — section rhythm, the 3-up case grid, and the model list. */
+    /* Page-scoped helpers (kept per-page, not global) — section rhythm,
+       the request form, the success state, the honest 3-step, the case grid. */
     .section-head { margin-bottom: var(--space-l); }
     .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-l); }
     .engage-models { color: var(--text-primary); font-weight: var(--font-weight-medium); }
 
     /* 1 · Hero */
-    .est-hero__inner { max-width: 60ch; }
-    .est-hero__title { max-width: 18ch; }
-    .est-hero__sub   { max-width: 52ch; margin-top: var(--space-s); }
+    .est-hero__inner { max-width: 62ch; }
+    .est-hero__title { max-width: 20ch; }
+    .est-hero__sub   { max-width: 56ch; margin-top: var(--space-s); }
     .est-hero__trust {
       display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-m);
       margin-top: var(--space-l); color: var(--text-secondary);
@@ -35,29 +41,35 @@
     .est-hero__trust span { display: inline-flex; align-items: center; gap: var(--space-4xs); }
     .est-hero__trust i { width: var(--space-xs); height: var(--space-xs); color: var(--text-accent); }
 
-    /* 2 · Estimator — focused single column on this page (output reveals BELOW
-       the form, not in an empty side column). Textarea is decorative; the two
-       selects drive the hard-wired demo output. */
-    .estimator { grid-template-columns: 1fr; gap: var(--space-l); }
-    .est-widget__describe { min-height: var(--space-4xl); resize: vertical; }
-    .est-clarify { display: flex; flex-direction: column; gap: var(--space-s); }
-    .est-clarify__head { margin-top: var(--space-xs); }
-    .estimator__next {
-      display: flex; flex-direction: column; gap: var(--space-3xs);
-      padding-top: var(--space-s); border-top: 1px solid var(--border-semi-transparent);
+    /* 2 · Estimate request form — plain-language, provider-backed (static here) */
+    .estimate-form { display: flex; flex-direction: column; gap: var(--space-s); }
+    .estimate-form__describe { min-height: var(--space-4xl); resize: vertical; }
+    .estimate-form__optional { margin-top: var(--space-xs); }
+    .estimate-form__grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-s); }
+
+    /* 4 · Success state — the toggled <section data-estimate-success> has no
+       display override, so the hidden attribute works without a reset. */
+    .estimate-success { display: flex; flex-direction: column; align-items: flex-start; }
+    .estimate-success__icon { display: inline-flex; color: var(--text-accent); margin-bottom: var(--space-3xs); }
+    .estimate-success__icon svg { width: var(--space-l); height: var(--space-l); }
+    .estimate-success__next {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-l); flex-wrap: wrap; width: 100%;
+      margin-top: var(--space-l); padding-top: var(--space-l);
+      border-top: 1px solid var(--border-semi-transparent);
     }
+    .estimate-success__next-body { flex: 1; min-width: 26ch; }
+    .estimate-success__more { margin-top: var(--space-s); }
 
-    /* 3 · Accuracy — two honest columns */
-    .accuracy-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l); }
-    .accuracy-list { display: flex; flex-direction: column; gap: var(--space-4xs); margin-top: var(--space-3xs); }
-    .accuracy-list li { display: flex; gap: var(--space-4xs); color: var(--text-secondary); }
-    .accuracy-list i { width: var(--space-xs); height: var(--space-xs); flex: 0 0 auto; margin-top: 4px; }
-    .accuracy-list--tight i { color: var(--text-accent); }
-    .accuracy-list--wide i  { color: var(--text-muted); }
-
-    /* 6 · Save / share */
-    .share-row { display: flex; flex-wrap: wrap; gap: var(--space-3xs); margin-top: var(--space-s); }
-    .share-url { max-width: 40ch; }
+    /* 3 · What happens after you submit — honest three-step */
+    .after-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-l); list-style: none; padding: 0; margin: 0; }
+    .after-step { display: flex; gap: var(--space-s); align-items: flex-start; }
+    .after-step__num {
+      display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto;
+      width: var(--space-l); height: var(--space-l); border-radius: 50%;
+      border: 1px solid var(--text-accent); color: var(--text-accent);
+      font-weight: var(--font-weight-bold);
+    }
   </style>
 </head>
 <body>
@@ -132,10 +144,10 @@
               </ul>
             </div>
             <div class="dropdown__col">
-              <!-- "Tools" is a grouping label, not a page — non-interactive (no Tools hub; the old link duplicated the Project Estimator link below / the nav CTA). -->
+              <!-- "Tools" is a grouping label, not a page — non-interactive (no Tools hub; the old link duplicated the Get an Estimate link below / the nav CTA). -->
               <span class="dropdown__heading">Tools</span>
               <ul class="dropdown__links">
-                <li><a class="dropdown__link" href="get-an-estimate.html">Project Estimator</a></li>
+                <li><a class="dropdown__link" href="get-an-estimate.html">Get an Estimate</a></li>
               </ul>
             </div>
           </div>
@@ -419,7 +431,7 @@
 
       <div class="megamenu__strip">
         <a class="megamenu__link" href="get-an-estimate.html">
-          Not sure where to start? Get a ballpark in 90 seconds <i data-lucide="arrow-right" aria-hidden="true"></i>
+          Not sure where to start? Tell us about your project â get a ballpark from the team <i data-lucide="arrow-right" aria-hidden="true"></i>
         </a>
         <a class="btn btn--main btn--small" href="get-an-estimate.html">
           Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i>
@@ -437,134 +449,163 @@
   <section class="band band--dark-deep section">
     <div class="container">
       <div class="est-hero__inner">
-        <p class="section-label">Project Estimator</p>
-        <h1 class="t-h1 est-hero__title">Get a ballpark range in 90 seconds.</h1>
-        <p class="t-p1 tc-secondary est-hero__sub">No calls, no commitment. Describe what you want to build in plain English and we'll give you an indicative cost, a timeline, and the way of working that fits — the same starting point we'd use in a real scoping call.</p>
+        <p class="section-label">Get an Estimate</p>
+        <h1 class="t-h1 est-hero__title">Tell us about your project — get a ballpark from the team.</h1>
+        <p class="t-p1 tc-secondary est-hero__sub">Describe what you want to build in plain English. A real person on our team reads it and comes back with an indicative cost range, a timeline, and the way of working that fits — usually within one business day. No calls required, no commitment.</p>
         <div class="est-hero__trust t-p3">
-          <span><i data-lucide="clock" aria-hidden="true"></i> About 90 seconds</span>
-          <span><i data-lucide="mail-x" aria-hidden="true"></i> No email required to see it</span>
-          <span><i data-lucide="git-branch" aria-hidden="true"></i> A recommended engagement model</span>
+          <span><i data-lucide="user-round" aria-hidden="true"></i> A real person reads every one</span>
+          <span><i data-lucide="clock" aria-hidden="true"></i> Reply within one business day</span>
+          <span><i data-lucide="shield-check" aria-hidden="true"></i> No commitment, no sales sequence</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 2 · ESTIMATOR WIDGET + 3 · OUTPUT CARD ════════════════════════
-       The output card lives INSIDE the form so prototype.js initEstimator()
-       (which scopes its queries to [data-estimator]) can find and fill it.
-       The plain-language textarea is decorative — the two selects drive the
-       hard-wired demo output. Not a real calculator. ═══════════════════ -->
-  <section class="section">
+  <!-- ═══ 2 · ESTIMATE REQUEST FORM ═════════════════════════════════════
+       Static markup (provider-backed in production per the site-wide forms
+       note). prototype.js initEstimateSuccess() intercepts submit, prevents
+       the post, and reveals the success state below. [data-estimate-formblock]
+       is what gets hidden on submit. ═══════════════════════════════════ -->
+  <section class="section" id="estimate" data-estimate-formblock>
     <div class="container container-medium">
-      <form class="estimator" data-estimator>
+      <div class="section-head">
+        <p class="section-label">Your project</p>
+        <h2 class="t-h3">The basics — we'll work out the rest together.</h2>
+      </div>
+      <form class="estimate-form" data-estimate-form onsubmit="return false" novalidate>
+        <div class="field">
+          <label class="field__label" for="ef-describe">What do you want to build? <span class="tc-tertiary">Describe it the way you'd explain it to a friend.</span></label>
+          <textarea class="input estimate-form__describe" id="ef-describe" name="description" rows="4"
+            placeholder="e.g. A marketplace for second-hand musical instruments, with payments, seller profiles, and a mobile app."></textarea>
+        </div>
 
-        <div class="estimator__input">
-          <p class="section-label">Tell us about it</p>
-          <h2 class="t-h3">Describe your project</h2>
-
+        <p class="section-label section-label--muted estimate-form__optional">A few optional details</p>
+        <div class="estimate-form__grid">
           <div class="field">
-            <label class="field__label" for="est-describe">In a sentence or two, the way you'd explain it to a friend</label>
-            <textarea class="input est-widget__describe" id="est-describe" rows="3"
-              placeholder="e.g. A marketplace for second-hand musical instruments, with payments, seller profiles, and a mobile app."></textarea>
-            <p class="field__helper"><i data-lucide="sparkles" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px"></i> Our AI reads this and asks a couple of clarifying questions before estimating.</p>
+            <label class="field__label" for="ef-service">What kind of work?</label>
+            <select class="input" id="ef-service" name="service">
+              <option value="" selected>Not sure yet</option>
+              <option>New product / MVP</option>
+              <option>Web application</option>
+              <option>Mobile app</option>
+              <option>Platform / SaaS</option>
+              <option>AI-powered product</option>
+              <option>Design</option>
+              <option>Support &amp; maintenance</option>
+              <option>A team to extend ours</option>
+            </select>
           </div>
-
-          <div class="est-clarify">
-            <p class="section-label section-label--muted est-clarify__head">A couple of clarifying questions</p>
-
-            <div class="field">
-              <label class="field__label" for="est-type">What are you building?</label>
-              <select class="input" id="est-type" data-estimator-field="type">
-                <option value="mvp">An MVP / first version</option>
-                <option value="web" selected>A web application</option>
-                <option value="mobile">A mobile app</option>
-                <option value="platform">A platform / SaaS</option>
-                <option value="ai">An AI-powered product</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="est-timeline">How soon do you need it?</label>
-              <select class="input" id="est-timeline" data-estimator-field="timeline">
-                <option value="asap">As soon as possible</option>
-                <option value="quarter" selected>This quarter</option>
-                <option value="half-year">Within six months</option>
-                <option value="flexible">Flexible</option>
-              </select>
-            </div>
+          <div class="field">
+            <label class="field__label" for="ef-timeline">When do you need it?</label>
+            <select class="input" id="ef-timeline" name="timeline">
+              <option value="" selected>Not sure yet</option>
+              <option>As soon as possible</option>
+              <option>This quarter</option>
+              <option>Within six months</option>
+              <option>Flexible</option>
+            </select>
           </div>
-
-          <button type="submit" class="btn btn--main btn--large mt-3xs">See my estimate <i data-lucide="arrow-right" aria-hidden="true"></i></button>
-        </div>
-
-        <div class="estimator__output" data-estimator-output hidden>
-          <p class="section-label">Your ballpark</p>
-          <div class="estimator__metric">
-            <span class="estimator__metric-label">Estimated cost</span>
-            <span class="estimator__metric-value estimator__metric-value--accent" data-estimate="cost">—</span>
-          </div>
-          <div class="estimator__metric">
-            <span class="estimator__metric-label">Timeline</span>
-            <span class="estimator__metric-value" data-estimate="time">—</span>
-          </div>
-          <div class="estimator__metric">
-            <span class="estimator__metric-label">Recommended model</span>
-            <span class="estimator__metric-value" data-estimate="model">—</span>
-          </div>
-
-          <div class="estimator__next">
-            <p class="t-p3 tc-secondary">Suggested next step</p>
-            <a class="btn btn--main btn--medium" href="schedule-a-call.html">Turn this into a real plan <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-            <a class="btn btn--text btn--small" href="#comparable" style="padding-left:0">Or see comparable projects <i data-lucide="arrow-down" aria-hidden="true"></i></a>
-            <p class="t-c1 tc-tertiary">Indicative only — your real estimate depends on scope we'll work through together.</p>
+          <div class="field">
+            <label class="field__label" for="ef-budget">Rough budget</label>
+            <select class="input" id="ef-budget" name="budget">
+              <option value="" selected>Not sure yet</option>
+              <option>Under $25k</option>
+              <option>$25k – $75k</option>
+              <option>$75k – $150k</option>
+              <option>$150k – $300k</option>
+              <option>$300k+</option>
+            </select>
           </div>
         </div>
 
+        <div class="estimate-form__grid">
+          <div class="field">
+            <label class="field__label" for="ef-name">Your name</label>
+            <input class="input" type="text" id="ef-name" name="name" autocomplete="name" placeholder="Jordan Rivera">
+          </div>
+          <div class="field">
+            <label class="field__label" for="ef-email">Email</label>
+            <input class="input" type="email" id="ef-email" name="email" autocomplete="email" placeholder="you@company.com">
+          </div>
+          <div class="field">
+            <label class="field__label" for="ef-company">Company <span class="tc-tertiary">(optional)</span></label>
+            <input class="input" type="text" id="ef-company" name="company" autocomplete="organization" placeholder="Acme Inc.">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--main btn--large mt-3xs">Send my project details <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+        <p class="t-c1 tc-tertiary">We reply by email — usually within one business day. No newsletter, no sales sequence.</p>
       </form>
     </div>
   </section>
 
-  <!-- ═══ 4 · HOW ACCURATE IS THIS? ═════════════════════════════════════ -->
-  <section class="band band--dark section">
-    <div class="container">
-      <div class="split split--top">
-        <div>
-          <p class="section-label">How accurate is this, really?</p>
-          <h2 class="t-h2">A range, not a number.</h2>
-          <p class="t-p2 tc-secondary mt-s">It's an honest ballpark — wide enough that we'd stand behind it, narrow enough to plan around. We'd rather show you a range up front than a precise number that quietly balloons later. A real scoping conversation is what turns this into a fixed figure: we pin down the features that matter, the ones that can wait, and the integrations hiding in the details.</p>
-          <a class="btn btn--ghost btn--medium mt-s" href="schedule-a-call.html">Get a tighter number <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        </div>
-        <div class="accuracy-cols">
-          <div>
-            <h3 class="t-h5">What tightens the range</h3>
-            <ul class="accuracy-list accuracy-list--tight">
-              <li><i data-lucide="check" aria-hidden="true"></i> A clear, prioritised feature list</li>
-              <li><i data-lucide="check" aria-hidden="true"></i> Examples or references you like</li>
-              <li><i data-lucide="check" aria-hidden="true"></i> Known integrations and platforms</li>
-              <li><i data-lucide="check" aria-hidden="true"></i> Existing designs or brand assets</li>
-            </ul>
+  <!-- ═══ 4 · SUCCESS STATE (revealed on submit by initEstimateSuccess) ══
+       The one designed post-submit moment: confirmation + an OPTIONAL
+       Schedule a Call step. Hidden until the form is submitted. ═════════ -->
+  <section class="section" data-estimate-success hidden>
+    <div class="container container-medium">
+      <div class="card estimate-success">
+        <span class="estimate-success__icon"><i data-lucide="circle-check-big" aria-hidden="true"></i></span>
+        <p class="section-label">Got it</p>
+        <h2 class="t-h2">Thanks — your project's on its way to the team.</h2>
+        <p class="t-p2 tc-secondary mt-s">We read every request ourselves. You'll get an indicative range, a timeline, and a suggested way of working by email — usually within one business day. Keep an eye on your inbox (and spam, just in case) for a reply from the VECTO team.</p>
+
+        <div class="estimate-success__next">
+          <div class="estimate-success__next-body">
+            <h3 class="t-h4">Want to talk it through sooner?</h3>
+            <p class="t-p3 tc-secondary">Skip the wait and book 30 minutes with a scoping lead. Entirely optional — only if it's useful to you.</p>
           </div>
-          <div>
-            <h3 class="t-h5">What widens it</h3>
-            <ul class="accuracy-list accuracy-list--wide">
-              <li><i data-lucide="minus" aria-hidden="true"></i> Scope that's still taking shape</li>
-              <li><i data-lucide="minus" aria-hidden="true"></i> Design starting from scratch</li>
-              <li><i data-lucide="minus" aria-hidden="true"></i> Undecided third-party systems</li>
-              <li><i data-lucide="minus" aria-hidden="true"></i> Compliance or regulatory unknowns</li>
-            </ul>
-          </div>
+          <a class="btn btn--main btn--large" href="schedule-a-call.html">Schedule a call <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
+
+        <a class="btn btn--text btn--small estimate-success__more" href="#comparable" style="padding-left:0">Meanwhile, see projects like yours <i data-lucide="arrow-down" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 5 · COMPARABLE CASE STUDIES ═══════════════════════════════════ -->
+  <!-- ═══ 3 · WHAT HAPPENS AFTER YOU SUBMIT ═════════════════════════════
+       Absorbs the old "how accurate is this?" reassurance into three honest
+       steps. ═══════════════════════════════════════════════════════════ -->
+  <section class="band band--dark section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">What happens after you submit</p>
+        <h2 class="t-h2">Three steps, no mystery.</h2>
+        <p class="t-p2 tc-secondary" style="max-width:56ch">An estimate is a starting point, not a contract. Here's exactly how we get you a useful one — and what turns a ballpark into a firm number.</p>
+      </div>
+      <ol class="after-steps">
+        <li class="after-step">
+          <span class="after-step__num">1</span>
+          <div>
+            <h3 class="t-h5">We read it</h3>
+            <p class="t-p3 tc-secondary">A real person on the team — not a bot — reads what you sent and works out what you're really after. If something's unclear, we'll ask a quick question or two.</p>
+          </div>
+        </li>
+        <li class="after-step">
+          <span class="after-step__num">2</span>
+          <div>
+            <h3 class="t-h5">You get a ballpark by email</h3>
+            <p class="t-p3 tc-secondary">An honest range — wide enough that we'd stand behind it, narrow enough to plan around — with a timeline and the engagement model we'd suggest. A clear brief tightens it; scope that's still taking shape widens it.</p>
+          </div>
+        </li>
+        <li class="after-step">
+          <span class="after-step__num">3</span>
+          <div>
+            <h3 class="t-h5">Optional call, if you want one</h3>
+            <p class="t-p3 tc-secondary">Want to talk it through? Book 30 minutes with a scoping lead and we'll turn the range into a sequenced plan. Not ready? There's no follow-up you didn't ask for.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · COMPARABLE CASE STUDIES (editorially curated) ═════════════ -->
   <section class="section" id="comparable">
     <div class="container">
       <div class="section-head">
-        <p class="section-label">Comparable projects</p>
+        <p class="section-label">Projects like yours</p>
         <h2 class="t-h2">Roughly what a build like yours looks like.</h2>
-        <p class="t-p2 tc-secondary" style="max-width:56ch">Three projects matched to the kind of product you described — what they cost in effort, how long they took, and what they shipped.</p>
+        <p class="t-p2 tc-secondary" style="max-width:56ch">A hand-picked few from our work — what they cost in effort, how long they took, and what they shipped. Browse the full portfolio for more.</p>
       </div>
 
       <div class="related-grid">
@@ -596,6 +637,7 @@
           </div>
         </a>
       </div>
+      <a class="btn btn--ghost btn--medium mt-l" href="our-work/index.html">Browse all our work <i data-lucide="arrow-right" aria-hidden="true"></i></a>
     </div>
   </section>
 
@@ -606,38 +648,12 @@
         <div>
           <p class="section-label">Wondering which way to work with us?</p>
           <h2 class="t-h2">Fixed price, or a team that flexes with you?</h2>
-          <p class="t-p2 tc-secondary mt-s">Your estimate suggests a model — but the right fit depends on how settled your scope is and whether you're building, or extending your own team. Weigh Fixed Price, Time &amp; Material, a Dedicated Team, and Outstaffing side by side.</p>
+          <p class="t-p2 tc-secondary mt-s">The right fit depends on how settled your scope is and whether you're building something new, or extending your own team. Weigh Fixed Price, Time &amp; Material, a Dedicated Team, and Outstaffing side by side.</p>
         </div>
         <div class="flex flex-col gap-s">
           <p class="t-p1"><span class="engage-models">Fixed Price · Time &amp; Material · Dedicated Team · Outstaffing</span></p>
           <a class="btn btn--main btn--large" href="how-we-work/engagement-models.html">Compare engagement models <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 7 · SAVE / SHARE OUTPUT ═══════════════════════════════════════ -->
-  <section class="section">
-    <div class="container container-medium text-center">
-      <p class="section-label">Keep your estimate</p>
-      <h2 class="t-h3">Save it, send it, or share it.</h2>
-      <p class="t-p2 tc-secondary mt-3xs" style="margin-inline:auto;max-width:48ch">Email the result to yourself, send it to a co-founder, or download a one-page PDF to take into your next conversation.</p>
-      <div class="share-row" style="justify-content:center">
-        <button type="button" class="btn btn--secondary-dark btn--medium"><i data-lucide="mail" aria-hidden="true"></i> Email me the result</button>
-        <button type="button" class="btn btn--secondary-dark btn--medium"><i data-lucide="link" aria-hidden="true"></i> Copy share link</button>
-        <button type="button" class="btn btn--secondary-dark btn--medium"><i data-lucide="download" aria-hidden="true"></i> Download PDF</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 8 · SCHEDULE A CALL CTA ═══════════════════════════════════════ -->
-  <section class="band band--accent section">
-    <div class="container text-center">
-      <h2 class="t-h2">Want a real number?</h2>
-      <p class="t-p1 mt-3xs" style="margin-inline:auto;max-width:48ch">Book 30 minutes with our scoping team and we'll turn this ballpark into a real, sequenced plan.</p>
-      <div class="flex flex-center gap-3xs mt-l">
-        <a class="btn btn--secondary-light btn--large" href="schedule-a-call.html">Book 30 min with our scoping team <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        <a class="btn btn--ghost btn--large" href="contact.html">Prefer to write first?</a>
       </div>
     </div>
   </section>
@@ -715,7 +731,7 @@
         <div class="footer-col__links">
           <a class="footer-link" href="blog/index.html">Blog</a>
           <a class="footer-link" href="glossary/index.html">Glossary</a>
-          <a class="footer-link" href="get-an-estimate.html">Project Estimator</a>
+          <a class="footer-link" href="get-an-estimate.html">Get an Estimate</a>
           <a class="footer-link" href="how-we-work/engagement-models.html">Engagement Models</a>
           <a class="footer-link" href="how-we-work/process.html">Process</a>
           <a class="footer-link" href="how-we-work/technologies/index.html">Technologies</a>

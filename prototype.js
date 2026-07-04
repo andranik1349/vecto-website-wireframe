@@ -660,6 +660,29 @@
 
 
   /* ════════════════════════════════════════════════════════════════════
+     7b. ESTIMATE SUCCESS STATE (get-an-estimate.html launch flow)
+     Prototype-only display toggle — NOT a submission. The estimate form is
+     static markup (provider-backed in production, C4); on submit we
+     preventDefault() and reveal the designed post-submit success panel so
+     the "optional Schedule a Call" moment can be validated. Never posts,
+     never navigates. No-ops on pages without the markup.
+     ════════════════════════════════════════════════════════════════════ */
+  function initEstimateSuccess() {
+    const form  = $('[data-estimate-form]');
+    const panel = $('[data-estimate-success]');
+    if (!form || !panel) return;
+
+    const formblock = form.closest('[data-estimate-formblock]') || form;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formblock.hidden = true;
+      panel.hidden = false;
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+
+  /* ════════════════════════════════════════════════════════════════════
      8. PROCESS STEP EXPANSION (Process page interactive diagram)
      Each <button class="process-step__toggle"> toggles .is-expanded on its
      parent .process-step, revealing the .process-step__detail.
@@ -776,6 +799,7 @@
     initFacetKeyword();
     initDecisionTree();
     initEstimator();
+    initEstimateSuccess();
     initProcessSteps();
     initAnchorNav();
     initRails();
