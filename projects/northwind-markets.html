@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1280">
-  <title>Industries — VECTO</title>
-  <meta name="description" content="Industry-specific expertise across thirteen verticals. Find yours — from Healthcare and Finance to Retail, Education, and Non-Profit — and the capability we bring to it.">
+  <title>Northwind Markets — Case Study — VECTO</title>
+  <meta name="description" content="How Northwind Markets re-architected its storefront to take 10× the traffic — a retail commerce case study.">
 
   <!-- 4-file load order (build-plan §3). DEPTH 1 → ../ prefix. -->
   <link rel="stylesheet" href="../tokens.css">
@@ -17,49 +17,18 @@
   <style>
     .section-head { margin-bottom: var(--space-l); }
     .section-head .section-label { margin-bottom: var(--space-3xs); }
-
-    /* ── 1 · Hero search — prominent, this hub is a directory ── */
-    .ind-search { position: relative; max-width: 30rem; margin-top: var(--space-l); }
-    .ind-search > i {
-      position: absolute; left: var(--space-s); top: 50%; transform: translateY(-50%);
-      width: 18px; height: 18px; color: var(--text-tertiary); pointer-events: none;
-    }
-    .ind-search input {
-      width: 100%;
-      padding: var(--space-3xs) var(--space-s) var(--space-3xs) var(--space-xl);
-      background: var(--surface-elevated);
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius-pill);
-      color: var(--text-primary);
-      font-family: inherit; font-size: var(--text-size-p2);
-    }
-    .ind-search input::placeholder { color: var(--text-tertiary); }
-    .ind-search input:focus { outline: none; border-color: var(--accent); }
-
-    /* ── 2 · Industry index — 2-column directory list (NOT a 13-cell grid) ── */
-    .ind-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--space-3xl); }
-    .ind-row {
-      display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-s);
-      align-items: center;
-      padding-block: var(--space-s);
-      border-bottom: 1px solid var(--border-semi-transparent);
-      color: var(--text-primary);
-    }
-    .ind-row__icon {
-      width: var(--space-xl); height: var(--space-xl);
-      display: inline-flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-m);
-      background: var(--surface-elevated); border: 1px solid var(--border-semi-transparent);
-      color: var(--text-accent);
-    }
-    .ind-row__icon svg { width: 18px; height: 18px; }
-    .ind-row__name { transition: color .15s ease; }
-    .ind-row:hover .ind-row__name { color: var(--text-accent); }
-    .ind-row__arrow { color: var(--text-tertiary); }
-    .ind-empty { color: var(--text-tertiary); padding-block: var(--space-l); }
-    .ind-empty a { color: var(--text-accent); font-weight: var(--font-weight-medium); }
-
-    /* ── 3 · Cases / 5 · CTA ── */
+    .hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
+    .hero__meta { display: flex; flex-wrap: wrap; gap: var(--space-4xs); margin-top: var(--space-s); }
+    .ph-figure { display: flex; flex-direction: column; gap: var(--space-3xs); }
+    .ph-figure .media-ph { width: 100%; }
+    .ph-figure__cap { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-tertiary); font-size: var(--text-size-c1); }
+    .ph-figure__cap i { width: 14px; height: 14px; flex: 0 0 auto; }
+    .snapshot { display: flex; flex-direction: column; background: var(--surface-elevated); border: 1px solid var(--border-semi-transparent); border-radius: var(--radius-m); padding: var(--space-s) var(--space-l); }
+    .snap-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-s); align-items: baseline; padding-block: var(--space-3xs); border-top: 1px solid var(--border-semi-transparent); }
+    .snap-row:first-child { border-top: 0; }
+    .snap-row__key { color: var(--text-muted); font-size: var(--text-size-c1); text-transform: uppercase; letter-spacing: 0.08em; }
+    .snap-row__val { color: var(--text-primary); }
+    .outcomes-stats .stat-band__figure { color: var(--text-accent); }
     .case3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
     .cta-band { text-align: center; }
     .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
@@ -68,20 +37,13 @@
 <body>
 
 <!-- ════════════════════════════════════════════════════════════════════════
-     ⚑ PLACEHOLDER LINKS — industry template convention (build-plan §4.4)
-     Every industry link on this page (in the index and the nav megamenu)
-     points to industries/healthcare.html — the single built industry
-     template — so the wireframe stays clickable from one example.
-     Only Healthcare is real today. In PRODUCTION each must resolve to its
-     OWN page at /industries/[industry] (e.g. Finance → /industries/finance,
-     Retail → /industries/retail).
-     Case links → ../projects/sentigraph-ai.html are likewise placeholders
-     for the case template (prod /our-work/[case]).
+     A second /projects/ example — deliberately lighter than the SentiGraph
+     template. Its purpose is to exercise the E6 ABSENT external-CTA state: this
+     product has NO public URL, so cta_label/cta_url are unset and the external
+     "Launch website" button is simply not rendered (hidden-when-absent). The
+     hero/closing CTAs fall back to the internal estimate/schedule pair.
      ════════════════════════════════════════════════════════════════════════ -->
 
-<!-- ╔══════════════════════════════════════════════════════════════════════╗
-     ║  _nav.html — pasted at DEPTH 1 (../ prefixes)                           ║
-     ╚══════════════════════════════════════════════════════════════════════╝ -->
 <header class="topbar" role="banner">
   <div class="topbar__inner">
 
@@ -448,220 +410,135 @@
 
 </header>
 
-<main role="main">
+<main>
 
-  <!-- ═══ 1 · HERO + SEARCH ══════════════════════════════════════════════ -->
+  <!-- ═══ 1 · Hero (NO external product CTA — absent state) ═══ -->
   <section class="band band--dark-deep section">
     <div class="container">
       <nav class="breadcrumb mb-s" aria-label="Breadcrumb">
         <a class="breadcrumb__item" href="../index.html">Home</a>
         <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
-        <span class="breadcrumb__item" aria-current="page">Industries</span>
+        <a class="breadcrumb__item" href="../our-work/index.html">Our Work</a>
+        <span class="breadcrumb__sep"><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+        <span class="breadcrumb__item" aria-current="page">Northwind Markets</span>
       </nav>
-      <p class="section-label">Industries</p>
-      <h1 class="t-h1 text-balance" style="max-width: 18ch">Industry-specific expertise across thirteen verticals.</h1>
-      <p class="t-p1 tc-secondary mt-s" style="max-width: 58ch">Find your industry below to see the problems we solve in it and the work we've shipped. Not sure it's listed? Start typing — the practices usually transfer.</p>
-      <div class="ind-search">
-        <i data-lucide="search" aria-hidden="true"></i>
-        <input id="ind-search" type="search" placeholder="Search industries — e.g. Healthcare, Retail…" aria-label="Search industries">
+      <p class="section-label">Case Study</p>
+      <h1 class="t-h1 text-balance" style="max-width: 20ch">Northwind Markets: a storefront rebuilt to take 10× the traffic.</h1>
+      <p class="t-p1 tc-secondary mt-s" style="max-width: 62ch">A fast-growing retailer was outrunning its platform. We re-architected the storefront and checkout ahead of the growth curve — Black Friday came and went quietly.</p>
+      <div class="hero__meta">
+        <span class="tag tag--secondary">Retail</span>
+        <span class="tag tag--secondary">E-commerce</span>
+        <span class="tag tag--secondary">Software Development</span>
+      </div>
+      <!-- External product CTA (E6) is ABSENT here: no cta_url on this project, so
+           the "Launch website" button is omitted. Only internal CTAs render. -->
+      <div class="hero__ctas">
+        <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Talk to the team that built this <i data-lucide="calendar" aria-hidden="true"></i></a>
+      </div>
+      <div class="ph-figure mt-xl">
+        <span class="media-ph ratio-21-9" aria-hidden="true"><i data-lucide="image"></i></span>
+        <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> Hero product visual — the Northwind storefront under peak load.</span>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 2 · INDUSTRY INDEX — 2-column directory (filterable) ═══════════ -->
+  <!-- ═══ 2 · Client snapshot ═══ -->
   <section class="section">
     <div class="container">
-      <div class="ind-list" id="ind-list">
-        <a class="ind-row" data-name="tech technology" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="cpu" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Tech</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Platforms and dev tooling for product-led companies.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="travel" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="plane" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Travel</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Booking engines and itinerary platforms that scale with the seasons.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="hospitality hotels" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="concierge-bell" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Hospitality</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Guest-facing apps and property systems that run 24/7.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="finance fintech banking" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="landmark" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Finance</h2>
-            <p class="t-p3 tc-secondary mt-4xs">PCI-DSS-grade fintech, trading tools, and secure payments.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="healthcare health medical" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="heart-pulse" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Healthcare</h2>
-            <p class="t-p3 tc-secondary mt-4xs">HIPAA-ready platforms, patient portals, and clinical tooling.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="manufacturing industrial" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="factory" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Manufacturing</h2>
-            <p class="t-p3 tc-secondary mt-4xs">ERP, inventory, and the systems that run the floor.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="retail e-commerce ecommerce" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="shopping-bag" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Retail</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Storefronts and commerce built for peak traffic.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="education edtech learning" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="graduation-cap" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Education</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Learning platforms and student systems, FERPA-aware.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="sport sports fitness" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="trophy" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Sport</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Fan apps, ticketing, and real-time data experiences.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="media entertainment streaming" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="clapperboard" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Media &amp; Entertainment</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Streaming, content, and high-traffic delivery.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="professional services consulting legal" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="briefcase" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Professional Services</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Client portals and the tools that bill the hours.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="non-profit nonprofit charity ngo" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="heart-handshake" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Non-Profit</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Donor platforms and lean tooling that respects the mission's budget.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-        <a class="ind-row" data-name="beauty wellness spa" href="healthcare.html">
-          <span class="ind-row__icon"><i data-lucide="sparkles" aria-hidden="true"></i></span>
-          <div>
-            <h2 class="t-h5 ind-row__name">Beauty &amp; Wellness</h2>
-            <p class="t-p3 tc-secondary mt-4xs">Booking, membership, and brand-led commerce.</p>
-          </div>
-          <i class="ind-row__arrow" data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
+      <div class="split split--top">
+        <div>
+          <p class="section-label">Where they started</p>
+          <h2 class="t-h2">Growing fast, on a platform that couldn't keep up.</h2>
+          <p class="t-p2 tc-secondary mt-s">Northwind's catalogue and traffic had tripled in two years on a storefront that was never built for it — page loads crept up, and every sale spike was a fire drill. They had an in-house team, but no bandwidth to re-platform without stalling the roadmap.</p>
+        </div>
+        <div class="snapshot">
+          <div class="snap-row"><span class="snap-row__key">Stage</span><span class="snap-row__val t-p2">Scale-up</span></div>
+          <div class="snap-row"><span class="snap-row__key">Industry</span><span class="snap-row__val t-p2">Retail — e-commerce</span></div>
+          <div class="snap-row"><span class="snap-row__key">Engagement</span><span class="snap-row__val t-p2">Dedicated Team</span></div>
+          <div class="snap-row"><span class="snap-row__key">When</span><span class="snap-row__val t-p2">2023 — 2024</span></div>
+        </div>
       </div>
-      <p class="ind-empty t-p2" id="ind-empty" hidden>No match — but the practices usually transfer. <a href="../contact.html">Tell us your industry →</a></p>
     </div>
   </section>
 
-  <!-- ═══ 3 · CROSS-INDUSTRY CASE STUDIES ════════════════════════════════ -->
-  <section class="band band--dark section">
+  <!-- ═══ 3 · Outcomes ═══ -->
+  <section class="band band--elevated section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Outcomes</p>
+        <h2 class="t-h2">What changed for Northwind.</h2>
+      </div>
+      <div class="outcomes-stats">
+        <div class="stat-band stat-band--divided">
+          <div class="stat-band__item"><span class="stat-band__figure t-h1">10×</span><span class="stat-band__label t-p3 tc-secondary">Peak traffic handled, same infra budget</span></div>
+          <div class="stat-band__item"><span class="stat-band__figure t-h1">1.2s</span><span class="stat-band__label t-p3 tc-secondary">Median page load, down from 4.8s</span></div>
+          <div class="stat-band__item"><span class="stat-band__figure t-h1">+18%</span><span class="stat-band__label t-p3 tc-secondary">Conversion after the rebuild</span></div>
+          <div class="stat-band__item"><span class="stat-band__figure t-h1">0</span><span class="stat-band__label t-p3 tc-secondary">Downtime through Black Friday</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · Related case studies ═══ -->
+  <section class="section">
     <div class="container">
       <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
         <div>
-          <p class="section-label">Proof</p>
-          <h2 class="t-h2">Work that crossed industries.</h2>
+          <p class="section-label">More like this</p>
+          <h2 class="t-h2">Related work.</h2>
         </div>
         <a class="btn btn--ghost btn--medium" href="../our-work/index.html">All case studies <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
       <div class="case3">
-        <a class="card card--with-image" href="../projects/sentigraph-ai.html">
+        <a class="card card--with-image" href="sentigraph-ai.html">
           <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
           <div class="card__body">
-            <p class="section-label">Finance</p>
-            <h3 class="t-h5">A trading platform re-architected for scale</h3>
-            <p class="t-p3 tc-secondary">Zero downtime, full audit trail — the compliance bar met without slowing delivery.</p>
+            <p class="section-label">SentiGraph</p>
+            <h3 class="t-h5">An AI sentiment engine two non-engineers got to market</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">AI &amp; ML</span><span class="tag tag--secondary">AI Transformation</span></div>
           </div>
         </a>
-        <a class="card card--with-image" href="../projects/sentigraph-ai.html">
+        <a class="card card--with-image" href="sentigraph-ai.html">
           <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
           <div class="card__body">
-            <p class="section-label">Healthcare</p>
-            <h3 class="t-h5">A patient portal that passed audit first time</h3>
-            <p class="t-p3 tc-secondary">HIPAA controls designed in from day one, not bolted on before launch.</p>
+            <p class="section-label">Lumen Health</p>
+            <h3 class="t-h5">A HIPAA-ready MVP that raised a seed round</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">Healthcare</span><span class="tag tag--secondary">Web Development</span></div>
           </div>
         </a>
-        <a class="card card--with-image" href="../projects/sentigraph-ai.html">
+        <a class="card card--with-image" href="sentigraph-ai.html">
           <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
           <div class="card__body">
-            <p class="section-label">Retail</p>
-            <h3 class="t-h5">A storefront that didn't blink on Black Friday</h3>
-            <p class="t-p3 tc-secondary">Built ahead of the traffic curve — the busiest day of the year was quiet backstage.</p>
+            <p class="section-label">Vault</p>
+            <h3 class="t-h5">A trading platform that grew without a minute of downtime</h3>
+            <div class="card__meta mt-4xs"><span class="tag tag--secondary">FinTech</span><span class="tag tag--secondary">Software Development</span></div>
           </div>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 4 · FAQ ════════════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="container container-medium">
-      <div class="section-head text-center">
-        <p class="section-label">Straight answers</p>
-        <h2 class="t-h2">Questions we hear a lot.</h2>
-      </div>
-      <div class="accordion" data-accordion="single">
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false" aria-controls="in-faq-1">
-            What if my industry isn't here? <i data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="accordion__panel" id="in-faq-1" hidden>
-            <p class="t-p2 tc-secondary">These thirteen are where we go deepest, but they're not a wall. The engineering practices — security, scale, integrations — carry across domains, and we've almost certainly built something adjacent. Tell us your field and we'll be straight about how much of it we already know.</p>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__trigger" aria-expanded="false" aria-controls="in-faq-2">
-            Do you have compliance experience for regulated verticals? <i data-lucide="chevron-down" aria-hidden="true"></i>
-          </button>
-          <div class="accordion__panel" id="in-faq-2" hidden>
-            <p class="t-p2 tc-secondary">Yes. We've shipped against HIPAA (healthcare), PCI-DSS (finance/payments), FERPA (education), and GDPR across the board. Compliance is designed into the architecture from the start — and our Security &amp; Compliance page goes into the specifics.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 5 · CLOSING ESTIMATOR CTA ══════════════════════════════════════ -->
+  <!-- ═══ 5 · Closing CTA (internal only — no external product CTA) ═══ -->
   <section class="band band--popout section">
     <div class="container cta-band">
-      <p class="section-label">Found your vertical?</p>
-      <h2 class="t-h2">Let's scope the work.</h2>
-      <p class="t-p1 tc-secondary mt-3xs" style="max-width: 50ch; margin-inline: auto;">Get a ballpark in 90 seconds — industry-specific, not a generic guess.</p>
+      <p class="section-label">Want a project like this one?</p>
+      <h2 class="t-h2">Start where Northwind did.</h2>
+      <p class="t-p1 tc-secondary mt-3xs" style="max-width: 54ch; margin-inline: auto;">Get a ballpark in 90 seconds, or talk it through with the team that shipped it.</p>
       <div class="cta-band__ctas">
         <a class="btn btn--main btn--large" href="../get-an-estimate.html">Get an estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Schedule a call <i data-lucide="calendar" aria-hidden="true"></i></a>
+        <a class="btn btn--ghost btn--large" href="../schedule-a-call.html">Talk to the team that built this <i data-lucide="calendar" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
 
 </main>
+
+<!-- Sticky Estimator CTA — case-study pages get it (build-plan §5) -->
+<aside class="sticky-estimator" aria-label="Get an estimate">
+  <span class="sticky-estimator__copy">Have a project like this? Get a ballpark.</span>
+  <a class="btn btn--main btn--small" href="../get-an-estimate.html">Get an Estimate <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+</aside>
 
 <footer class="site-footer" role="contentinfo">
   <div class="site-footer__inner">
@@ -785,25 +662,5 @@
 </footer>
 
 <script src="../prototype.js"></script>
-<!-- Page-scoped: live-filter the industry directory by the hero search (block 1 → 2). -->
-<script>
-  (function () {
-    var q = document.getElementById('ind-search');
-    var empty = document.getElementById('ind-empty');
-    if (!q) return;
-    var rows = Array.prototype.slice.call(document.querySelectorAll('.ind-row'));
-    q.addEventListener('input', function () {
-      var v = q.value.trim().toLowerCase();
-      var shown = 0;
-      rows.forEach(function (r) {
-        var hay = (r.getAttribute('data-name') || '') + ' ' + r.textContent.toLowerCase();
-        var match = hay.indexOf(v) > -1;
-        r.style.display = match ? '' : 'none';
-        if (match) shown++;
-      });
-      if (empty) empty.hidden = shown !== 0;
-    });
-  })();
-</script>
 </body>
 </html>
