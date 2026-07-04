@@ -834,6 +834,9 @@ a.dropdown__heading--link:hover { color: var(--text-accent-light); }
   text-transform: uppercase;
   color: var(--text-muted);
 }
+/* Tagline under a label heading (e.g. Glossary's "Tech terms, explained for
+   founders") — the dropdown analogue of .megamenu__link-desc; not a link. */
+.dropdown__link-desc { color: var(--text-secondary); font-size: var(--text-size-c1); }
 .dropdown__links { display: flex; flex-direction: column; gap: var(--space-min); }
 .dropdown__link {
   color: var(--text-secondary-strong);
