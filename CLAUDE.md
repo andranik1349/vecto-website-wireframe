@@ -2,6 +2,8 @@
 
 Auto-loaded every session. Read this first, then read the relevant section of the source docs before each task.
 
+**Repo layout note:** this repo is now a small demo hub. The prototype itself lives in `prototype/` (not the repo root) — every relative-path recipe below is relative to `prototype/` unless stated otherwise. The repo root only holds this file, the landing `index.html`, the GitHub Pages `404.html`, and a sibling `explorations/` folder of unrelated early design artifacts.
+
 ## What this is
 A **desktop-only, static, clickable prototype** (no framework, no build step) to validate IA, block & CTA placement, and copy with stakeholders. Fidelity bar = the HES wireframe. NOT a production site.
 

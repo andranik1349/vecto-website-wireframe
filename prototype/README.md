@@ -30,9 +30,9 @@ Because pages are static HTML with relative paths, the `../` prefix depth varies
 
 | Page location | Depth | Prefix for assets & root pages | Example |
 |---|---|---|---|
-| `wireframe/` (root) | 0 | none | `href="tokens.css"` |
-| `wireframe/services/` etc. | 1 | `../` | `href="../tokens.css"` |
-| `wireframe/how-we-work/technologies/` etc. | 2 | `../../` | `href="../../tokens.css"` |
+| `prototype/` (root) | 0 | none | `href="tokens.css"` |
+| `prototype/services/` etc. | 1 | `../` | `href="../tokens.css"` |
+| `prototype/how-we-work/technologies/` etc. | 2 | `../../` | `href="../../tokens.css"` |
 
 **Recommended alternative:** serve with any static server (`npx serve .` or similar) and use root-relative paths (`/tokens.css`, `/services/index.html`) to eliminate per-depth bookkeeping entirely.
 
@@ -64,7 +64,7 @@ Lucide only — no emoji anywhere in markup or copy. Load via CDN UMD script; in
 
 ---
 
-## Source docs (sibling `../docs/` folder)
+## Source docs (sibling `../../docs/` folder)
 
 | File | Purpose |
 |---|---|

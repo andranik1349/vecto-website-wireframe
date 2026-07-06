@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VECTO — Digital products for founders who can't afford to build the wrong thing</title>
+<meta name="description" content="VECTO is the product partner for non-technical founders and scale-ups — from validating the idea to shipping, growing, and maintaining it.">
+
+<!-- Brand font: Google Sans Flex (per direction — stay on Google Sans) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,300..700&display=swap" rel="stylesheet">
+
+<!-- Ultra-light line icons (Phosphor) — replaces thick Lucide. Per-weight CSS so thin/regular/fill all render. -->
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   VECTO — High-end home exploration
+   Standalone / self-contained. Dark + red glow. On-brand tokens (#CA1D00).
+   Vibe: Ethereal Glass  ·  Layout: Editorial Split + Asymmetric Bento
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* Surfaces — deep OLED-leaning base carrying the brand's dark hue */
+  --bg:            #08080A;
+  --bg-2:          #0D0E11;
+  --surface:       rgba(255,255,255,.025);
+  --surface-2:     rgba(255,255,255,.045);
+  --surface-3:     rgba(255,255,255,.065);
+
+  /* Hairlines — no generic gray 1px borders */
+  --line:          rgba(255,255,255,.08);
+  --line-strong:   rgba(255,255,255,.14);
+  --inset-hi:      inset 0 1px 0 rgba(255,255,255,.08);
+
+  /* Brand accent */
+  --red:           #CA1D00;
+  --red-hover:     #9E1300;
+  --red-light:     #EB3213;
+  --red-glow:      rgba(202,29,0,.55);
+  --cyan:          #2BBAD6;
+
+  /* Text */
+  --text:          #F6F6F8;
+  --text-2:        rgba(246,246,248,.64);
+  --text-3:        rgba(246,246,248,.40);
+  --text-4:        rgba(246,246,248,.26);
+
+  /* Motion */
+  --ease:          cubic-bezier(.32,.72,0,1);
+  --ease-soft:     cubic-bezier(.4,.14,.2,1);
+
+  --font: "Google Sans Flex","Google Sans","Product Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --maxw: 1200px;
+  --maxw-med: 900px;
+  --maxw-narrow: 720px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  font-weight:400;
+  line-height:1.5;
+  overflow-x:hidden;
+  font-variation-settings:"opsz" 24;
+}
+
+/* ── Ambient background: red mesh glow + fixed film grain ─────────────── */
+.bg-mesh{
+  position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(60vw 55vh at 78% -5%, rgba(202,29,0,.28), transparent 60%),
+    radial-gradient(48vw 48vh at 8% 12%, rgba(235,50,19,.14), transparent 55%),
+    radial-gradient(70vw 60vh at 50% 118%, rgba(202,29,0,.20), transparent 60%),
+    var(--bg);
+}
+.bg-grain{
+  position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Typography scale ────────────────────────────────────────────────── */
+.display{ font-size:clamp(2.9rem,6.4vw,5.2rem); line-height:1.02; letter-spacing:-.035em; font-weight:600; font-variation-settings:"opsz" 96; }
+.h2{ font-size:clamp(2.1rem,3.8vw,3.15rem); line-height:1.06; letter-spacing:-.03em; font-weight:600; font-variation-settings:"opsz" 72; }
+.h3{ font-size:clamp(1.6rem,2.6vw,2.25rem); line-height:1.12; letter-spacing:-.025em; font-weight:600; }
+.h4{ font-size:1.5rem; line-height:1.2; letter-spacing:-.02em; font-weight:600; }
+.h5{ font-size:1.18rem; line-height:1.3; letter-spacing:-.015em; font-weight:500; }
+.lead{ font-size:clamp(1.05rem,1.4vw,1.25rem); line-height:1.6; color:var(--text-2); font-weight:400; }
+.body{ font-size:1rem; line-height:1.6; color:var(--text-2); }
+.small{ font-size:.9rem; line-height:1.55; color:var(--text-2); }
+.balance{ text-wrap:balance; }
+.grad-text{ background:linear-gradient(120deg,#fff 30%,var(--red-light)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+/* Eyebrow tag */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:.5em;
+  font-size:10px; text-transform:uppercase; letter-spacing:.24em; font-weight:500;
+  color:var(--text-2);
+  padding:.5em 1em; border-radius:999px;
+  background:var(--surface); border:1px solid var(--line);
+  box-shadow:var(--inset-hi);
+}
+.eyebrow::before{ content:""; width:5px; height:5px; border-radius:50%; background:var(--red-light); box-shadow:0 0 10px var(--red-glow); }
+
+/* ── Layout ──────────────────────────────────────────────────────────── */
+.container{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(20px,5vw,40px); }
+.container.med{ max-width:var(--maxw-med); }
+.container.narrow{ max-width:var(--maxw-narrow); }
+section{ position:relative; padding-block:clamp(80px,11vw,150px); }
+.section-head{ margin-bottom:clamp(40px,5vw,64px); }
+.section-head .eyebrow{ margin-bottom:20px; }
+.section-head .lead{ margin-top:16px; max-width:60ch; }
+.center{ text-align:center; }
+.center .lead{ margin-inline:auto; }
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex; align-items:center; gap:.65em;
+  font-family:var(--font); font-weight:500; font-size:1rem; line-height:1;
+  padding:.95em 1.1em .95em 1.5em;
+  border-radius:999px; border:1px solid transparent; cursor:pointer;
+  text-decoration:none; white-space:nowrap;
+  transition:transform .4s var(--ease), background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease);
+}
+.btn i{ font-size:1.15em; }
+.btn:active{ transform:scale(.975); }
+.btn--sm{ font-size:.85rem; padding:.7em .8em .7em 1.15em; }
+.btn--lg{ font-size:1.08rem; padding:1.05em 1.15em 1.05em 1.65em; }
+
+.btn--primary{
+  background:linear-gradient(180deg,var(--red-light),var(--red));
+  color:#fff;
+  box-shadow:0 8px 30px -8px var(--red-glow), var(--inset-hi);
+}
+.btn--primary:hover{ box-shadow:0 14px 44px -8px var(--red-glow), var(--inset-hi); transform:translateY(-2px); }
+.btn--ghost{ background:var(--surface); color:var(--text); border-color:var(--line-strong); backdrop-filter:blur(8px); }
+.btn--ghost:hover{ background:var(--surface-2); border-color:rgba(255,255,255,.28); transform:translateY(-2px); }
+.btn--text{ padding:0; background:none; color:var(--text); gap:.5em; }
+.btn--text:hover{ color:var(--red-light); }
+
+/* Button-in-button trailing icon */
+.btn__ico{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:2em; height:2em; border-radius:50%;
+  background:rgba(255,255,255,.16); box-shadow:var(--inset-hi);
+  transition:transform .45s var(--ease), background .45s var(--ease);
+}
+.btn__ico i{ font-size:.95em; }
+.btn--ghost .btn__ico{ background:var(--surface-3); }
+.btn:hover .btn__ico{ transform:translate(3px,-2px) scale(1.06); }
+.btn--primary:hover .btn__ico{ background:rgba(255,255,255,.26); }
+
+/* ── Double-bezel card ───────────────────────────────────────────────── */
+.shell{
+  padding:6px; border-radius:32px;
+  background:var(--surface); border:1px solid var(--line);
+  transition:transform .55s var(--ease), border-color .55s var(--ease), background .55s var(--ease);
+}
+.shell:hover{ border-color:var(--line-strong); transform:translateY(-4px); }
+.core{
+  height:100%; border-radius:26px; padding:clamp(24px,3vw,34px);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  box-shadow:var(--inset-hi);
+}
+.card-ico{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:48px; height:48px; border-radius:14px;
+  background:radial-gradient(120% 120% at 30% 20%,rgba(235,50,19,.22),rgba(255,255,255,.03));
+  border:1px solid var(--line); color:var(--red-light);
+  box-shadow:var(--inset-hi);
+}
+.card-ico i{ font-size:1.5rem; }
+
+/* Tags / chips */
+.tag{
+  display:inline-flex; align-items:center; gap:.45em;
+  font-size:.78rem; font-weight:500; color:var(--text-2);
+  padding:.4em .85em; border-radius:999px;
+  background:var(--surface); border:1px solid var(--line);
+}
+.tag i{ font-size:.95em; color:var(--red-light); }
+a.chip{
+  display:inline-flex; align-items:center; gap:.5em;
+  font-size:.9rem; color:var(--text-2); text-decoration:none;
+  padding:.55em 1em; border-radius:999px;
+  background:var(--surface); border:1px solid var(--line);
+  transition:all .35s var(--ease);
+}
+a.chip:hover{ color:var(--text); border-color:var(--line-strong); background:var(--surface-2); transform:translateY(-2px); }
+a.chip i{ color:var(--red-light); font-size:1em; }
+
+/* ═══ NAV — floating glass pill ══════════════════════════════════════ */
+.nav-wrap{ position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:center; padding:18px 20px; pointer-events:none; }
+.nav{
+  pointer-events:auto;
+  display:flex; align-items:center; gap:6px;
+  padding:8px 8px 8px 20px; border-radius:999px;
+  background:rgba(12,12,15,.62); backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid var(--line-strong); box-shadow:0 12px 40px -12px rgba(0,0,0,.7), var(--inset-hi);
+  max-width:100%;
+}
+.nav__logo{ display:flex; align-items:center; gap:.5em; font-weight:600; letter-spacing:-.02em; color:var(--text); text-decoration:none; font-size:1.05rem; padding-right:8px; }
+.nav__logo i{ color:var(--red-light); font-size:1.25rem; }
+.nav__links{ display:flex; align-items:center; }
+.nav__item{ position:relative; }
+.nav__link{
+  display:inline-flex; align-items:center; gap:.3em;
+  font-size:.9rem; font-weight:500; color:var(--text-2); text-decoration:none;
+  padding:.6em .85em; border-radius:999px; cursor:pointer; background:none; border:none; font-family:var(--font);
+  transition:color .3s var(--ease), background .3s var(--ease);
+}
+.nav__link i{ font-size:.85em; transition:transform .3s var(--ease); }
+.nav__item:hover .nav__link{ color:var(--text); background:var(--surface-2); }
+.nav__item:hover .nav__link i{ transform:rotate(180deg); }
+.nav__cta{ margin-left:4px; }
+
+/* dropdown flyout */
+.flyout{
+  position:absolute; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(8px);
+  min-width:240px; padding:10px; border-radius:20px;
+  background:rgba(16,16,20,.9); backdrop-filter:blur(24px) saturate(160%);
+  border:1px solid var(--line-strong); box-shadow:0 24px 60px -18px rgba(0,0,0,.8), var(--inset-hi);
+  opacity:0; visibility:hidden; transition:opacity .35s var(--ease), transform .35s var(--ease); z-index:120;
+}
+.flyout--wide{ min-width:460px; }
+.nav__item:hover .flyout{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.flyout__grid{ display:grid; gap:10px; }
+.flyout--wide .flyout__grid{ grid-template-columns:1fr 1fr; }
+.fly-h{ font-size:.7rem; text-transform:uppercase; letter-spacing:.16em; color:var(--text-3); padding:6px 10px 2px; }
+.fly-a{ display:flex; align-items:center; gap:.6em; font-size:.9rem; color:var(--text-2); text-decoration:none; padding:.55em .7em; border-radius:12px; transition:all .25s var(--ease); }
+.fly-a:hover{ color:var(--text); background:var(--surface-2); }
+.fly-a i{ color:var(--red-light); font-size:1em; }
+.nav-toggle{ display:none; }
+
+/* ═══ HERO ═══════════════════════════════════════════════════════════ */
+.hero{ padding-top:clamp(150px,17vw,220px); padding-bottom:clamp(70px,8vw,110px); }
+.hero__grid{ display:grid; grid-template-columns:1.08fr .92fr; gap:clamp(40px,5vw,72px); align-items:center; }
+.hero__title{ margin-top:26px; max-width:15ch; }
+.hero__sub{ margin-top:24px; max-width:48ch; }
+.hero__ctas{ display:flex; align-items:center; gap:14px; margin-top:38px; flex-wrap:wrap; }
+
+/* Hero visual — glass product composition with red glow */
+.hero__viz{ position:relative; aspect-ratio:5/4.4; }
+.hero__viz .glow{ position:absolute; inset:-10%; background:radial-gradient(circle at 60% 40%,var(--red-glow),transparent 62%); filter:blur(40px); z-index:0; }
+.viz-panel{
+  position:absolute; border-radius:24px; z-index:1;
+  background:linear-gradient(155deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+  border:1px solid var(--line-strong); box-shadow:0 30px 70px -20px rgba(0,0,0,.7), var(--inset-hi);
+  backdrop-filter:blur(6px);
+}
+.viz-main{ inset:8% 6% 20% 12%; padding:22px; overflow:hidden; }
+.viz-main::before{ content:""; position:absolute; top:0; left:0; right:0; height:44px; background:rgba(255,255,255,.03); border-bottom:1px solid var(--line); }
+.viz-dots{ position:absolute; top:17px; left:20px; display:flex; gap:7px; }
+.viz-dots span{ width:10px; height:10px; border-radius:50%; background:var(--line-strong); }
+.viz-dots span:first-child{ background:var(--red); }
+.viz-rows{ margin-top:46px; display:flex; flex-direction:column; gap:14px; }
+.viz-row{ height:12px; border-radius:6px; background:linear-gradient(90deg,rgba(255,255,255,.12),rgba(255,255,255,.03)); }
+.viz-row.r1{ width:70%; } .viz-row.r2{ width:92%; } .viz-row.r3{ width:55%; }
+.viz-bars{ margin-top:26px; display:flex; align-items:flex-end; gap:10px; height:96px; }
+.viz-bars b{ flex:1; border-radius:6px 6px 0 0; background:linear-gradient(180deg,var(--red-light),rgba(202,29,0,.15)); box-shadow:0 0 24px -6px var(--red-glow); display:block; }
+.viz-float{
+  z-index:2; padding:16px 18px; border-radius:18px; display:flex; align-items:center; gap:12px;
+  background:rgba(16,16,20,.72); backdrop-filter:blur(18px);
+  border:1px solid var(--line-strong); box-shadow:0 24px 50px -18px rgba(0,0,0,.8), var(--inset-hi);
+}
+.viz-float--tr{ top:4%; right:0; }
+.viz-float--br{ bottom:6%; right:6%; }
+.viz-float .ico{ width:40px; height:40px; border-radius:11px; display:grid; place-items:center; background:radial-gradient(120% 120% at 30% 20%,rgba(235,50,19,.3),rgba(255,255,255,.04)); color:var(--red-light); }
+.viz-float .ico i{ font-size:1.3rem; }
+.viz-float .fig{ font-size:1.15rem; font-weight:600; letter-spacing:-.02em; }
+.viz-float .cap{ font-size:.72rem; color:var(--text-3); }
+
+/* ═══ STAT BAND ══════════════════════════════════════════════════════ */
+.stat-band{ display:grid; grid-template-columns:repeat(4,1fr); }
+.stat{ padding:8px 28px; border-left:1px solid var(--line); }
+.stat:first-child{ border-left:none; padding-left:0; }
+.stat__fig{ font-size:clamp(2rem,3.4vw,2.8rem); font-weight:600; letter-spacing:-.03em; line-height:1; font-variation-settings:"opsz" 72; }
+.stat__fig.accent{ color:var(--red-light); }
+.stat__lbl{ margin-top:10px; font-size:.86rem; color:var(--text-2); max-width:22ch; }
+.trust-row{ display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; margin-top:56px; padding-top:36px; border-top:1px solid var(--line); }
+.logos{ display:flex; align-items:center; gap:26px; flex-wrap:wrap; }
+.logos .lbl{ font-size:.78rem; text-transform:uppercase; letter-spacing:.16em; color:var(--text-3); }
+.logo-ph{ width:96px; height:26px; border-radius:6px; background:linear-gradient(90deg,rgba(255,255,255,.10),rgba(255,255,255,.03)); }
+.ratings{ display:flex; gap:10px; flex-wrap:wrap; }
+
+/* ═══ SIX-STAGE JOURNEY ══════════════════════════════════════════════ */
+.stages{ display:grid; grid-template-columns:repeat(6,1fr); gap:12px; align-items:stretch; }
+.stage{ position:relative; }
+.stage .core{ display:flex; flex-direction:column; gap:12px; padding:22px; height:100%; }
+.stage--primary .core{ background:linear-gradient(180deg,rgba(202,29,0,.22),rgba(202,29,0,.05)); border:1px solid rgba(235,50,19,.35); }
+.stage--primary.shell{ border-color:rgba(235,50,19,.3); }
+.stage__step{ width:34px; height:34px; border-radius:50%; display:grid; place-items:center; font-size:.85rem; font-weight:600; color:var(--red-light); background:var(--surface-2); border:1px solid var(--line); }
+.stage--primary .stage__step{ background:var(--red); color:#fff; border-color:transparent; box-shadow:0 0 20px -4px var(--red-glow); }
+.stage__cat{ font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--text-3); }
+.stage__cat a{ color:var(--red-light); text-decoration:none; }
+.stage__name{ font-size:1.12rem; font-weight:600; letter-spacing:-.02em; }
+.stage__subs{ list-style:none; display:flex; flex-direction:column; gap:5px; margin-top:2px; }
+.stage__subs li{ font-size:.82rem; color:var(--text-2); padding-left:14px; position:relative; }
+.stage__subs li::before{ content:""; position:absolute; left:0; top:.6em; width:4px; height:4px; border-radius:50%; background:var(--red); }
+.stage__more{ margin-top:auto; font-size:.8rem; color:var(--text-2); text-decoration:none; display:inline-flex; align-items:center; gap:.4em; transition:color .3s var(--ease); }
+.stage__more:hover{ color:var(--red-light); }
+
+/* ═══ AI BAND ════════════════════════════════════════════════════════ */
+.ai-band{ position:relative; overflow:hidden; }
+.ai-band .shell{ border-radius:40px; }
+.ai-band .core{ border-radius:34px; padding:clamp(48px,7vw,96px) clamp(28px,5vw,64px); background:linear-gradient(160deg,rgba(202,29,0,.24),rgba(255,255,255,.02) 60%); text-align:center; position:relative; overflow:hidden; }
+.ai-band .core::after{ content:""; position:absolute; width:60vw; height:60vw; border-radius:50%; right:-20%; top:-40%; background:radial-gradient(circle,var(--red-glow),transparent 60%); filter:blur(30px); pointer-events:none; }
+.ai-band .inner{ position:relative; z-index:1; }
+.ai-band .lead{ color:rgba(255,255,255,.78); margin-inline:auto; max-width:62ch; }
+.ai-band .btns{ display:flex; justify-content:center; gap:14px; margin-top:36px; flex-wrap:wrap; }
+
+/* ═══ BENTO (benefits) ═══════════════════════════════════════════════ */
+.bento{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.bento .b-lead{ grid-column:span 1; grid-row:span 2; }
+.bento .b-lead .core{ display:flex; flex-direction:column; justify-content:space-between; gap:28px; min-height:340px; }
+.bento .core{ display:flex; flex-direction:column; gap:14px; }
+.b-title{ font-size:1.28rem; font-weight:600; letter-spacing:-.02em; }
+.b-lead .b-title{ font-size:1.7rem; }
+
+/* ═══ INDUSTRIES ═════════════════════════════════════════════════════ */
+.ind-grid{ display:grid; grid-template-columns:1fr 1fr 1.5fr; gap:18px; align-items:stretch; }
+.ind-feature{ text-decoration:none; color:inherit; display:flex; }
+.ind-feature .core{ display:flex; flex-direction:column; gap:12px; }
+.ind-feature .go{ margin-top:auto; font-size:.85rem; color:var(--red-light); display:inline-flex; align-items:center; gap:.4em; }
+.ind-index{ display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; align-content:start; }
+.ind-index a{ display:flex; align-items:center; gap:.6em; color:var(--text-2); text-decoration:none; padding:.5em 0; font-size:.92rem; border-bottom:1px solid transparent; transition:color .3s var(--ease); }
+.ind-index a:hover{ color:var(--text); }
+.ind-index i{ color:var(--red-light); font-size:1.05em; }
+.serve-chips{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:40px; padding-top:36px; border-top:1px solid var(--line); }
+.serve-chips .lbl{ font-size:.78rem; text-transform:uppercase; letter-spacing:.16em; color:var(--text-3); margin-right:6px; }
+
+/* ═══ PORTFOLIO ══════════════════════════════════════════════════════ */
+.work-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.work-card{ text-decoration:none; color:inherit; display:flex; }
+.work-card .core{ padding:8px; display:flex; flex-direction:column; }
+.work-media{ position:relative; border-radius:19px; overflow:hidden; aspect-ratio:4/3; background:
+  linear-gradient(135deg,rgba(202,29,0,.25),transparent 55%),
+  linear-gradient(315deg,rgba(43,186,214,.12),transparent 50%),
+  var(--bg-2);
+  display:grid; place-items:center; }
+.work-card:nth-child(2) .work-media,.work-card:nth-child(4) .work-media,.work-card:nth-child(5) .work-media{ aspect-ratio:16/10; }
+.work-media i{ font-size:2rem; color:var(--text-4); }
+.work-media::after{ content:""; position:absolute; inset:0; background:radial-gradient(circle at 70% 20%,rgba(235,50,19,.18),transparent 55%); }
+.work-body{ padding:20px 16px 14px; display:flex; flex-direction:column; gap:8px; }
+.work-body .h5{ transition:color .3s var(--ease); }
+.work-card:hover .work-body .h5{ color:var(--red-light); }
+
+/* ═══ REVIEWS ════════════════════════════════════════════════════════ */
+.split{ display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(32px,5vw,64px); align-items:start; }
+.quotes{ display:flex; flex-direction:column; gap:16px; }
+.quote .core{ display:flex; flex-direction:column; gap:16px; }
+.quote p{ font-size:1.15rem; line-height:1.5; letter-spacing:-.01em; }
+.quote__meta{ display:flex; align-items:center; gap:12px; font-size:.9rem; color:var(--text-2); }
+.avatar{ width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,rgba(235,50,19,.4),rgba(255,255,255,.05)); border:1px solid var(--line); }
+.review-src{ display:inline-flex; align-items:center; gap:.4em; font-size:.82rem; color:var(--red-light); text-decoration:none; }
+.review-src:hover{ color:#fff; }
+
+/* ═══ SOLUTIONS ══════════════════════════════════════════════════════ */
+.sol-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.sol-tile{ text-decoration:none; color:inherit; display:flex; }
+.sol-tile .core{ display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+.sol-name{ font-size:1.05rem; font-weight:600; letter-spacing:-.01em; }
+
+/* ═══ PROCESS ════════════════════════════════════════════════════════ */
+.process{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+.pstep .core{ display:flex; flex-direction:column; gap:10px; }
+.pstep--active .core{ background:linear-gradient(180deg,rgba(202,29,0,.2),rgba(202,29,0,.04)); }
+.pstep--active.shell{ border-color:rgba(235,50,19,.3); }
+.pstep__num{ font-size:.78rem; font-weight:600; color:var(--red-light); }
+.pstep__title{ font-size:1.1rem; font-weight:600; letter-spacing:-.02em; }
+.pstep__desc{ font-size:.85rem; color:var(--text-2); }
+.engage{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-top:36px; padding-top:34px; border-top:1px solid var(--line); }
+.engage .models{ color:var(--text); font-weight:500; }
+
+/* ═══ ESTIMATE CTA ═══════════════════════════════════════════════════ */
+.cta-block .core{ border-radius:34px; padding:clamp(48px,7vw,90px) clamp(28px,5vw,56px); text-align:center; background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(202,29,0,.1)); position:relative; overflow:hidden; }
+.cta-block .core::before{ content:""; position:absolute; inset:0; background:radial-gradient(50vw 40vh at 50% 120%,var(--red-glow),transparent 60%); pointer-events:none; }
+.cta-block .inner{ position:relative; z-index:1; }
+
+/* ═══ BLOG ═══════════════════════════════════════════════════════════ */
+.blog-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:18px; }
+.blog-lead{ grid-row:span 2; }
+.blog-lead .core{ padding:8px; display:flex; flex-direction:column; height:100%; }
+.blog-media{ border-radius:19px; aspect-ratio:16/9; min-height:200px; flex:1; background:
+  linear-gradient(135deg,rgba(202,29,0,.28),transparent 55%),var(--bg-2);
+  display:grid; place-items:center; position:relative; overflow:hidden; }
+.blog-media i{ font-size:2rem; color:var(--text-4); }
+.blog-media::after{ content:""; position:absolute; inset:0; background:radial-gradient(circle at 30% 20%,rgba(235,50,19,.2),transparent 55%); }
+.blog-lead .body-wrap{ padding:22px 16px 12px; display:flex; flex-direction:column; gap:10px; }
+.blog-sm .core{ display:flex; flex-direction:column; gap:8px; justify-content:center; }
+.blog-meta{ display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--text-3); margin-top:2px; }
+.blog-meta .avatar{ width:26px; height:26px; }
+.blog-grid a{ color:inherit; text-decoration:none; }
+.blog-grid a:hover{ color:var(--red-light); }
+
+/* ═══ FAQ ════════════════════════════════════════════════════════════ */
+.acc{ display:flex; flex-direction:column; gap:12px; }
+.acc__item .core{ padding:0; }
+.acc__trigger{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px clamp(20px,3vw,30px); background:none; border:none; color:var(--text); font-family:var(--font); font-size:1.1rem; font-weight:500; letter-spacing:-.015em; cursor:pointer; text-align:left; }
+.acc__trigger i{ color:var(--red-light); font-size:1.3rem; transition:transform .45s var(--ease); flex-shrink:0; }
+.acc__item.open .acc__trigger i{ transform:rotate(45deg); }
+.acc__panel{ max-height:0; overflow:hidden; transition:max-height .5s var(--ease); }
+.acc__panel-in{ padding:0 clamp(20px,3vw,30px) 24px; }
+.acc__panel-in p{ color:var(--text-2); line-height:1.6; max-width:70ch; }
+
+/* ═══ CONTACT DUAL ═══════════════════════════════════════════════════ */
+.contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.contact-card .core{ display:flex; flex-direction:column; gap:12px; align-items:flex-start; padding:clamp(28px,4vw,44px); }
+.contact-card .btn{ margin-top:8px; }
+
+/* ═══ STICKY ESTIMATOR ══════════════════════════════════════════════ */
+.sticky-est{
+  position:fixed; bottom:24px; right:24px; z-index:90;
+  display:flex; align-items:center; gap:14px; padding:10px 10px 10px 20px; border-radius:999px;
+  background:rgba(12,12,15,.72); backdrop-filter:blur(20px); border:1px solid var(--line-strong);
+  box-shadow:0 20px 50px -14px rgba(0,0,0,.8), var(--inset-hi);
+  opacity:0; transform:translateY(20px); pointer-events:none; transition:opacity .5s var(--ease), transform .5s var(--ease);
+}
+.sticky-est.show{ opacity:1; transform:translateY(0); pointer-events:auto; }
+.sticky-est__copy{ font-size:.9rem; font-weight:500; }
+
+/* ═══ FOOTER ═════════════════════════════════════════════════════════ */
+.footer{ border-top:1px solid var(--line); padding-block:clamp(56px,7vw,88px) 40px; position:relative; }
+.footer__cols{ display:grid; grid-template-columns:1.4fr 1.4fr 1fr 1fr 1fr; gap:32px; }
+.fcol h4{ font-size:.78rem; text-transform:uppercase; letter-spacing:.16em; color:var(--text-3); margin-bottom:16px; }
+.fcol .sub{ font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:var(--text-4); margin:18px 0 12px; }
+.fcol a{ display:block; color:var(--text-2); text-decoration:none; font-size:.9rem; padding:5px 0; transition:color .25s var(--ease); }
+.fcol a:hover{ color:var(--red-light); }
+.footer__util{ display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-top:56px; padding-top:32px; border-top:1px solid var(--line); }
+.footer__legal{ display:flex; gap:22px; flex-wrap:wrap; }
+.footer__legal a{ color:var(--text-2); text-decoration:none; font-size:.85rem; }
+.footer__legal a:hover{ color:var(--text); }
+.footer__social{ display:flex; gap:10px; }
+.footer__social a{ width:38px; height:38px; border-radius:50%; display:grid; place-items:center; color:var(--text-2); background:var(--surface); border:1px solid var(--line); transition:all .3s var(--ease); }
+.footer__social a:hover{ color:var(--red-light); border-color:var(--line-strong); transform:translateY(-2px); }
+.copyright{ font-size:.82rem; color:var(--text-3); }
+
+/* ═══ SCROLL REVEAL ══════════════════════════════════════════════════ */
+.reveal{ opacity:0; transform:translateY(40px); filter:blur(8px); transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+.reveal.in{ opacity:1; transform:none; filter:blur(0); }
+.reveal[data-d="1"]{ transition-delay:.08s; }
+.reveal[data-d="2"]{ transition-delay:.16s; }
+.reveal[data-d="3"]{ transition-delay:.24s; }
+.reveal[data-d="4"]{ transition-delay:.32s; }
+.reveal[data-d="5"]{ transition-delay:.4s; }
+@media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; filter:none; } *{ scroll-behavior:auto; } }
+
+/* ═══ RESPONSIVE ═════════════════════════════════════════════════════ */
+@media (max-width:1080px){
+  .stages{ grid-template-columns:repeat(3,1fr); }
+  .stat-band{ grid-template-columns:repeat(2,1fr); gap:24px 0; }
+  .stat{ padding-left:24px; } .stat:nth-child(odd){ border-left:none; padding-left:0; }
+  .work-grid,.bento{ grid-template-columns:repeat(2,1fr); }
+  .bento .b-lead{ grid-row:auto; grid-column:span 2; }
+  .sol-grid{ grid-template-columns:repeat(2,1fr); }
+  .process{ grid-template-columns:repeat(3,1fr); }
+  .footer__cols{ grid-template-columns:repeat(3,1fr); }
+  .nav__links{ display:none; }
+  .nav-toggle{ display:inline-flex; }
+}
+@media (max-width:820px){
+  .hero__grid{ grid-template-columns:1fr; }
+  .hero__viz{ max-width:520px; margin-inline:auto; width:100%; }
+  .split,.blog-grid,.ind-grid,.contact-grid{ grid-template-columns:1fr; }
+  .blog-lead{ grid-row:auto; }
+}
+@media (max-width:640px){
+  .stages,.bento,.work-grid,.sol-grid,.process,.stat-band{ grid-template-columns:1fr; }
+  .bento .b-lead{ grid-column:auto; }
+  .footer__cols{ grid-template-columns:1fr 1fr; }
+  .stat{ border-left:none; padding-left:0; }
+  .sticky-est__copy{ display:none; }
+  .nav{ padding-left:16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+<div class="bg-grain"></div>
+
+<!-- ═══ NAV ═══ -->
+<div class="nav-wrap">
+  <nav class="nav" aria-label="Primary">
+    <a class="nav__logo" href="#"><i class="ph-fill ph-hexagon"></i> VECTO</a>
+    <div class="nav__links">
+      <div class="nav__item">
+        <button class="nav__link">Services <i class="ph ph-caret-down"></i></button>
+        <div class="flyout flyout--wide">
+          <p class="fly-h">From idea to live product — every stage</p>
+          <div class="flyout__grid">
+            <a class="fly-a" href="#"><i class="ph-thin ph-compass"></i> Discover &amp; Validate</a>
+            <a class="fly-a" href="#"><i class="ph-thin ph-pen-nib"></i> Design</a>
+            <a class="fly-a" href="#"><i class="ph-thin ph-code"></i> Build</a>
+            <a class="fly-a" href="#"><i class="ph-thin ph-trend-up"></i> Grow</a>
+            <a class="fly-a" href="#"><i class="ph-thin ph-users-three"></i> Scale</a>
+            <a class="fly-a" href="#"><i class="ph-thin ph-lifebuoy"></i> Maintain</a>
+            <a class="fly-a" href="#" style="grid-column:span 2;color:var(--red-light)"><i class="ph-thin ph-sparkle"></i> AI Transformation — cross-cutting</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#solutions">Solutions</a></div>
+      <div class="nav__item">
+        <button class="nav__link">Who We Serve <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">By company stage</p>
+          <a class="fly-a" href="#"><i class="ph-thin ph-rocket"></i> Early-stage Startup</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-chart-line-up"></i> Scale-up</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-buildings"></i> Enterprise</a>
+          <p class="fly-h" style="margin-top:6px">By industry</p>
+          <a class="fly-a" href="#"><i class="ph-thin ph-squares-four"></i> Browse all industries</a>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#work">Our Work</a></div>
+      <div class="nav__item">
+        <button class="nav__link">How We Work <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">Reference</p>
+          <a class="fly-a" href="#process"><i class="ph-thin ph-path"></i> Our Process</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-handshake"></i> Engagement Models</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-stack"></i> Technologies</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-wrench"></i> Tools</a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <button class="nav__link">Resources <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">Resources</p>
+          <a class="fly-a" href="#blog"><i class="ph-thin ph-article"></i> Blog</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-book-open"></i> Glossary</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-calculator"></i> Get an Estimate</a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <button class="nav__link">About <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">About</p>
+          <a class="fly-a" href="#"><i class="ph-thin ph-building"></i> The company</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-users"></i> The team</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-chat-circle"></i> Contact</a>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn--primary btn--sm nav__cta" href="#estimate">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    <button class="nav__link nav-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+  </nav>
+</div>
+
+<main>
+
+<!-- ═══ 1 · HERO ═══ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__grid">
+      <div>
+        <span class="eyebrow reveal">Your product partner, end to end</span>
+        <h1 class="display hero__title balance reveal" data-d="1">Digital products for founders who can't afford to <span class="grad-text">build the wrong thing.</span></h1>
+        <p class="lead hero__sub reveal" data-d="2">We take non-technical founders and scale-ups from a rough idea to a shipped, growing product — validating before we build, then designing, engineering, and maintaining it. 120+ products shipped, 94% client retention.</p>
+        <div class="hero__ctas reveal" data-d="3">
+          <a class="btn btn--primary btn--lg" href="#estimate">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+          <a class="btn btn--ghost btn--lg" href="#work">See our work</a>
+        </div>
+      </div>
+      <div class="hero__viz reveal" data-d="2" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="viz-panel viz-main">
+          <div class="viz-dots"><span></span><span></span><span></span></div>
+          <div class="viz-rows">
+            <div class="viz-row r1"></div>
+            <div class="viz-row r2"></div>
+            <div class="viz-row r3"></div>
+          </div>
+          <div class="viz-bars"><b style="height:45%"></b><b style="height:68%"></b><b style="height:52%"></b><b style="height:88%"></b><b style="height:72%"></b><b style="height:100%"></b></div>
+        </div>
+        <div class="viz-panel viz-float viz-float--tr">
+          <div class="ico"><i class="ph-thin ph-rocket-launch"></i></div>
+          <div><div class="fig">6–14 wks</div><div class="cap">idea → shipped</div></div>
+        </div>
+        <div class="viz-panel viz-float viz-float--br">
+          <div class="ico"><i class="ph-thin ph-sparkle"></i></div>
+          <div><div class="fig">AI in the loop</div><div class="cap">every project</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2 · TRUST STRIP ═══ -->
+<section style="padding-block:clamp(30px,4vw,50px)">
+  <div class="container reveal">
+    <div class="stat-band">
+      <div class="stat"><div class="stat__fig accent">12 yrs</div><div class="stat__lbl">building products with founders</div></div>
+      <div class="stat"><div class="stat__fig">120+</div><div class="stat__lbl">products shipped to production</div></div>
+      <div class="stat"><div class="stat__fig">94%</div><div class="stat__lbl">client retention rate</div></div>
+      <div class="stat"><div class="stat__fig">72</div><div class="stat__lbl">net promoter score</div></div>
+    </div>
+    <div class="trust-row">
+      <div class="logos">
+        <span class="lbl">Trusted by</span>
+        <span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span>
+      </div>
+      <div class="ratings">
+        <span class="tag"><i class="ph-fill ph-star"></i> Clutch 4.9</span>
+        <span class="tag"><i class="ph-fill ph-star"></i> GoodFirms</span>
+        <span class="tag"><i class="ph-fill ph-star"></i> G2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 · SMALL INTRO ═══ -->
+<section>
+  <div class="container narrow center reveal">
+    <h2 class="h3 balance">We turn your idea into a product your users love.</h2>
+    <p class="lead" style="margin-top:20px">VECTO is a full-stack product studio. Founders come to us with a problem and a deadline, not a spec — so we start by getting the idea right, then build the team, the design, and the engineering to ship it. One partner from first call to live product, and well beyond launch.</p>
+  </div>
+</section>
+
+<!-- ═══ 4 · SIX-STAGE JOURNEY ═══ -->
+<section id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">What we do</span>
+      <h2 class="h2 balance">From idea to live product — every stage covered.</h2>
+      <p class="lead">Six sequential stages of a product's life. Start wherever you are; we cover the rest.</p>
+    </div>
+    <div class="stages">
+      <div class="shell stage reveal" data-d="1"><div class="core"><span class="stage__step">1</span><span class="stage__cat"><a href="#">IT Consulting</a></span><span class="stage__name">Discover &amp; Validate</span><ul class="stage__subs"><li>Market analysis</li><li>Feasibility &amp; specs</li><li>Cost &amp; time estimation</li></ul><a class="stage__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+      <div class="shell stage reveal" data-d="1"><div class="core"><span class="stage__step">2</span><span class="stage__cat"><a href="#">Product Design</a></span><span class="stage__name">Design</span><ul class="stage__subs"><li>UX &amp; UI design</li><li>Prototyping</li><li>User testing</li></ul><a class="stage__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+      <div class="shell stage stage--primary reveal" data-d="2"><div class="core"><span class="stage__step">3</span><span class="stage__cat"><a href="#">Software Development</a></span><span class="stage__name">Build</span><ul class="stage__subs"><li>Web &amp; mobile apps</li><li>E-commerce, CRM/ERP</li><li>Integrations &amp; migration</li></ul><a class="stage__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+      <div class="shell stage reveal" data-d="2"><div class="core"><span class="stage__step">4</span><span class="stage__cat"><a href="#">Marketing</a></span><span class="stage__name">Grow</span><ul class="stage__subs"><li>SEO · PPC · SMM</li><li>Lead generation</li><li>Branding</li></ul><a class="stage__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+      <div class="shell stage reveal" data-d="3"><div class="core"><span class="stage__step">5</span><span class="stage__cat"><a href="#">Outsourcing</a></span><span class="stage__name">Scale</span><ul class="stage__subs"><li>Team outsourcing</li><li>Staff augmentation</li></ul><a class="stage__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+      <div class="shell stage reveal" data-d="3"><div class="core"><span class="stage__step">6</span><span class="stage__cat"><a href="#">Support</a></span><span class="stage__name">Maintain</span><ul class="stage__subs"><li>Technical support</li><li>Security &amp; performance</li><li>Hosting &amp; infra</li></ul><a class="stage__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5 · AI BAND ═══ -->
+<section class="ai-band">
+  <div class="container">
+    <div class="shell reveal"><div class="core"><div class="inner">
+      <span class="eyebrow" style="border-color:rgba(255,255,255,.2)">AI Transformation</span>
+      <h2 class="h2 balance" style="margin-top:22px">AI expertise, earned in practice.</h2>
+      <p class="lead" style="margin-top:18px">The AI landscape is loud and hard to read — genuine capability sits alongside hype, and telling them apart takes time most founders don't have. We've done that work. We use AI across every project we run to ship faster and cut costs, and we can help you integrate it into your product or business the right way.</p>
+      <div class="btns">
+        <a class="btn btn--primary btn--lg" href="#">How we implement AI <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+        <a class="btn btn--ghost btn--lg" href="#work">See it in practice <span class="btn__ico"><i class="ph ph-arrow-up-right"></i></span></a>
+      </div>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══ 6 · BENEFITS (bento) ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why founders choose VECTO</span>
+      <h2 class="h2">Outcomes, not output.</h2>
+    </div>
+    <div class="bento">
+      <div class="shell b-lead reveal" data-d="1"><div class="core">
+        <span class="card-ico"><i class="ph-thin ph-lightning"></i></span>
+        <div><h3 class="b-title">Ship faster</h3><p class="body" style="margin-top:10px">Senior teams, a proven process, and AI in the loop on every project — so you reach a usable product in weeks, not quarters, without cutting the corners that matter.</p></div>
+      </div></div>
+      <div class="shell reveal" data-d="2"><div class="core"><span class="card-ico"><i class="ph-thin ph-shield-check"></i></span><h3 class="b-title">Avoid the wrong build</h3><p class="small">We validate the idea and scope before a line of code, so you don't fund the wrong thing.</p></div></div>
+      <div class="shell reveal" data-d="3"><div class="core"><span class="card-ico"><i class="ph-thin ph-trend-up"></i></span><h3 class="b-title">Scale without hiring</h3><p class="small">Flex an expert team up or down as you grow — no recruiting, no payroll overhead.</p></div></div>
+      <div class="shell reveal" data-d="2"><div class="core"><span class="card-ico"><i class="ph-thin ph-wrench"></i></span><h3 class="b-title">Keep it running</h3><p class="small">We don't disappear at launch — support, security, and performance are part of the deal.</p></div></div>
+      <div class="shell reveal" data-d="3"><div class="core"><span class="card-ico"><i class="ph-thin ph-handshake"></i></span><h3 class="b-title">One partner, end to end</h3><p class="small">From first call to live product and beyond — no handoffs between agencies to manage.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7 · INDUSTRIES ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Who we serve</span>
+      <h2 class="h2">Depth in the industries we know best.</h2>
+    </div>
+    <div class="ind-grid">
+      <a class="shell ind-feature reveal" data-d="1" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-heartbeat"></i></span><h3 class="h4">Healthcare</h3><p class="small">HIPAA-aware platforms, patient apps, and clinical tooling built for regulated environments.</p><span class="go">Explore Healthcare <i class="ph ph-arrow-right"></i></span></div></a>
+      <a class="shell ind-feature reveal" data-d="2" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-bank"></i></span><h3 class="h4">Finance</h3><p class="small">FinTech products, payment flows, and data-heavy dashboards where trust and uptime are non-negotiable.</p><span class="go">Explore Finance <i class="ph ph-arrow-right"></i></span></div></a>
+      <div class="shell reveal" data-d="3"><div class="core"><div class="ind-index">
+        <a href="#"><i class="ph-thin ph-cpu"></i> Tech</a>
+        <a href="#"><i class="ph-thin ph-airplane-tilt"></i> Travel</a>
+        <a href="#"><i class="ph-thin ph-bell"></i> Hospitality</a>
+        <a href="#"><i class="ph-thin ph-shopping-cart"></i> Retail</a>
+        <a href="#"><i class="ph-thin ph-graduation-cap"></i> Education</a>
+        <a href="#"><i class="ph-thin ph-factory"></i> Manufacturing</a>
+        <a href="#"><i class="ph-thin ph-film-slate"></i> Media &amp; Ent.</a>
+        <a href="#"><i class="ph-thin ph-trophy"></i> Sport</a>
+        <a href="#"><i class="ph-thin ph-briefcase"></i> Professional</a>
+        <a href="#"><i class="ph-thin ph-hand-heart"></i> Non-Profit</a>
+        <a href="#"><i class="ph-thin ph-sparkle"></i> Beauty &amp; Wellness</a>
+      </div></div></div>
+    </div>
+    <!-- 8 · who-we-serve chips -->
+    <div class="serve-chips reveal">
+      <span class="lbl">Built for</span>
+      <a class="chip" href="#">Early-stage Startup</a>
+      <a class="chip" href="#">Scale-up</a>
+      <a class="chip" href="#">Small Business</a>
+      <a class="chip" href="#">Midsize Business</a>
+      <a class="chip" href="#">Enterprise</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 9 · PORTFOLIO ═══ -->
+<section id="work">
+  <div class="container">
+    <div class="section-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div><span class="eyebrow">Our work</span><h2 class="h2" style="margin-top:18px">A few we're proud of.</h2></div>
+      <a class="btn btn--ghost" href="#">Browse all work <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="work-grid">
+      <a class="shell work-card reveal" data-d="1" href="#"><div class="core"><span class="work-media"><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">AI · SaaS</span><h3 class="h5">SentiGraph — real-time sentiment intelligence</h3><p class="small">A streaming NLP platform that turned noisy social data into signals a trading desk could act on.</p></div></div></a>
+      <a class="shell work-card reveal" data-d="2" href="#"><div class="core"><span class="work-media"><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Retail · E-commerce</span><h3 class="h5">Northwind Markets — a commerce replatform</h3><p class="small">Re-platformed a regional retailer onto a headless stack, cutting page loads in half.</p></div></div></a>
+      <a class="shell work-card reveal" data-d="3" href="#"><div class="core"><span class="work-media"><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">FinTech · Platform</span><h3 class="h5">A payments platform, MVP to Series A</h3><p class="small">Scoped, designed, and shipped a compliant transfers product in 14 weeks.</p></div></div></a>
+      <a class="shell work-card reveal" data-d="1" href="#"><div class="core"><span class="work-media"><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Healthcare · Web</span><h3 class="h5">A patient portal built for compliance</h3><p class="small">HIPAA-aware scheduling and records for a multi-site clinic group.</p></div></div></a>
+      <a class="shell work-card reveal" data-d="2" href="#"><div class="core"><span class="work-media"><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Logistics · AI</span><h3 class="h5">Demand forecasting for a 3PL</h3><p class="small">A forecasting model that trimmed overstock without missing peak demand.</p></div></div></a>
+      <a class="shell work-card reveal" data-d="3" href="#"><div class="core"><span class="work-media"><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Marketplace · Web + Mobile</span><h3 class="h5">A two-sided marketplace with payments</h3><p class="small">Buyers, sellers, escrow, and a companion app from a standing start.</p></div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 · REVIEWS ═══ -->
+<section>
+  <div class="container">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow">What clients say</span>
+        <h2 class="h3 balance" style="margin-top:20px">Rated for delivery, communication, and staying power.</h2>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:26px">
+          <span class="tag"><i class="ph-fill ph-star"></i> Clutch 4.9 / 5</span>
+          <span class="tag"><i class="ph-fill ph-star"></i> GoodFirms Top Dev</span>
+        </div>
+        <a class="btn btn--text" style="margin-top:26px" href="#">Read all reviews <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <div class="quotes">
+        <div class="shell quote reveal" data-d="1"><div class="core"><p>"They treated our budget like their own and shipped the thing that mattered first. Rare."</p><div class="quote__meta"><span class="avatar"></span> Elena Fischer · Founder &amp; CEO, Ledgerline</div><a class="review-src" href="#"><i class="ph ph-arrow-square-out"></i> Read on Clutch</a></div></div>
+        <div class="shell quote reveal" data-d="2"><div class="core"><p>"Four years in and they still feel like part of our team, not a vendor."</p><div class="quote__meta"><span class="avatar"></span> David Okafor · VP Product, Meridian Health</div><a class="review-src" href="#"><i class="ph ph-arrow-square-out"></i> Read on Google</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10a · SOLUTIONS ═══ -->
+<section id="solutions">
+  <div class="container">
+    <div class="section-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div><span class="eyebrow">Solutions</span><h2 class="h2" style="margin-top:18px">Products we build and run.</h2></div>
+      <a class="btn btn--ghost" href="#">Explore solutions <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="sol-grid">
+      <a class="shell sol-tile reveal" data-d="1" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-shopping-bag-open"></i></span><span class="sol-name">onemall</span><span class="small">Multi-vendor marketplace platform.</span></div></a>
+      <a class="shell sol-tile reveal" data-d="2" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-users-three"></i></span><span class="sol-name">onesocial</span><span class="small">White-label community &amp; social layer.</span></div></a>
+      <a class="shell sol-tile reveal" data-d="3" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-tag"></i></span><span class="sol-name">quickoffer</span><span class="small">Offers and loyalty for retail apps.</span></div></a>
+      <a class="shell sol-tile reveal" data-d="4" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-puzzle-piece"></i></span><span class="sol-name">plugins</span><span class="small">Drop-in modules that speed up a build.</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11 · PROCESS ═══ -->
+<section id="process">
+  <div class="container">
+    <div class="section-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div><span class="eyebrow">How we work</span><h2 class="h2" style="margin-top:18px">Every engagement runs the same five-step way.</h2></div>
+      <a class="btn btn--ghost" href="#">See the full process <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="process">
+      <div class="shell pstep reveal" data-d="1"><div class="core"><span class="pstep__num">01</span><span class="pstep__title">Kickoff</span><span class="pstep__desc">Align on goals, users, and what success looks like.</span></div></div>
+      <div class="shell pstep reveal" data-d="1"><div class="core"><span class="pstep__num">02</span><span class="pstep__title">Scoping</span><span class="pstep__desc">Turn the idea into a costed, sequenced plan.</span></div></div>
+      <div class="shell pstep pstep--active reveal" data-d="2"><div class="core"><span class="pstep__num">03</span><span class="pstep__title">Execute</span><span class="pstep__desc">Design and build in tight iterations you can see.</span></div></div>
+      <div class="shell pstep reveal" data-d="2"><div class="core"><span class="pstep__num">04</span><span class="pstep__title">Launch</span><span class="pstep__desc">Ship to production with the safeguards in place.</span></div></div>
+      <div class="shell pstep reveal" data-d="3"><div class="core"><span class="pstep__num">05</span><span class="pstep__title">Iterate</span><span class="pstep__desc">Measure, improve, and keep the product evolving.</span></div></div>
+    </div>
+    <!-- 12 · engagement -->
+    <div class="engage reveal">
+      <p class="lead" style="color:var(--text)">Flexible ways to work together — <span class="models">Fixed Price · Time &amp; Material · Dedicated Team · Outstaffing</span></p>
+      <a class="btn btn--text" href="#">Compare engagement models <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 13 · ESTIMATE CTA ═══ -->
+<section id="estimate" class="cta-block">
+  <div class="container med">
+    <div class="shell reveal"><div class="core"><div class="inner">
+      <span class="eyebrow">Get an Estimate</span>
+      <h2 class="h2 balance" style="margin-top:22px">Tell us about your project — get a ballpark from the team.</h2>
+      <p class="lead" style="margin:18px auto 0;max-width:52ch">Describe what you want to build in plain English. A real person reads it and comes back with an indicative range, a timeline, and the way of working that fits — usually within one business day.</p>
+      <a class="btn btn--primary btn--lg" style="margin-top:34px" href="#">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══ 14 · BLOG ═══ -->
+<section id="blog">
+  <div class="container">
+    <div class="section-head reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div><span class="eyebrow">From the blog</span><h2 class="h2" style="margin-top:18px">Plain-English thinking for founders.</h2></div>
+      <a class="btn btn--ghost" href="#">All posts <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="blog-grid">
+      <a class="shell blog-lead reveal" data-d="1" href="#"><div class="core"><span class="blog-media"><i class="ph-thin ph-image"></i></span><div class="body-wrap"><h3 class="h4">Building AI that ships: where it earns its place, and where it doesn't</h3><p class="small">A field guide to spending your AI budget on the parts that actually move the product.</p><div class="blog-meta"><span class="avatar"></span> Jane Doe · 12 Jun 2026</div></div></div></a>
+      <a class="shell blog-sm reveal" data-d="2" href="#"><div class="core"><h3 class="h5">What an MVP should actually include</h3><p class="small">The smallest thing you can ship that still proves the idea.</p><div class="blog-meta">Jane Doe · 28 May 2026</div></div></a>
+      <a class="shell blog-sm reveal" data-d="3" href="#"><div class="core"><h3 class="h5">Fixed price vs. time &amp; material, honestly</h3><p class="small">Which model fits which kind of project — and why.</p><div class="blog-meta">Jane Doe · 09 May 2026</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 15 · FAQ ═══ -->
+<section>
+  <div class="container med">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Questions founders ask</span>
+      <h2 class="h2">Straight answers, before you ask.</h2>
+    </div>
+    <div class="acc reveal">
+      <div class="shell acc__item"><div class="core"><button class="acc__trigger">How long will it take? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>Most first versions ship in 6–14 weeks depending on scope. We give you a sequenced plan during Scoping so you always know what lands when — and a quick estimate request gets you a ballpark to plan around before then.</p></div></div></div></div>
+      <div class="shell acc__item"><div class="core"><button class="acc__trigger">What does it cost? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>It depends on scope, but our projects typically range from $30k for a focused MVP to $250k+ for a full platform. The estimator gives you an honest range up front; there are no surprise line items.</p></div></div></div></div>
+      <div class="shell acc__item"><div class="core"><button class="acc__trigger">Who owns the IP? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>You do — fully. Code, designs, and documentation are yours, transferred on payment. We work behind your brand and inside your repositories from day one.</p></div></div></div></div>
+      <div class="shell acc__item"><div class="core"><button class="acc__trigger">Where are your engineers based? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>Our teams work from our own offices, not a freelance marketplace. You get consistent people who stay on your product, with working hours that overlap yours.</p></div></div></div></div>
+      <div class="shell acc__item"><div class="core"><button class="acc__trigger">What if we want to bring it in-house later? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>That's a normal, healthy outcome and we plan for it. Clean code, documentation, and a structured handover mean your future in-house team can pick up without us as a dependency.</p></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 16 · CONTACT DUAL ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Start the conversation</span>
+      <h2 class="h2">Two ways in — pick whichever fits.</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="shell contact-card reveal" data-d="1"><div class="core"><span class="card-ico"><i class="ph-thin ph-calculator"></i></span><h3 class="h4">Get an Estimate</h3><p class="small">Have a project in mind and want numbers? Tell us about it and get a ballpark from the team.</p><a class="btn btn--primary" href="#">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a></div></div>
+      <div class="shell contact-card reveal" data-d="2"><div class="core"><span class="card-ico"><i class="ph-thin ph-chat-circle-dots"></i></span><h3 class="h4">Send a question</h3><p class="small">General inquiries, partnerships, or press — send a note and the right person replies.</p><a class="btn btn--ghost" href="#">Send a question <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ STICKY ESTIMATOR ═══ -->
+<aside class="sticky-est" id="stickyEst">
+  <span class="sticky-est__copy">See if we're a fit</span>
+  <a class="btn btn--primary btn--sm" href="#estimate">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+</aside>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__cols">
+      <nav class="fcol"><h4>Services</h4>
+        <a href="#">AI Transformation</a><a href="#">Software Development</a><a href="#">Product Design</a><a href="#">Marketing</a><a href="#">IT Consulting</a><a href="#">Support &amp; Maintenance</a><a href="#">Outsourcing &amp; Outstaffing</a><a href="#" style="color:var(--red-light)">All services →</a>
+      </nav>
+      <nav class="fcol"><h4>Industries &amp; Stage</h4>
+        <a href="#">Tech</a><a href="#">Finance</a><a href="#">Healthcare</a><a href="#">Retail</a><a href="#">Manufacturing</a><a href="#">Media &amp; Entertainment</a>
+        <span class="sub">By stage</span>
+        <a href="#">Early-stage Startup</a><a href="#">Scale-up</a><a href="#">Enterprise</a>
+      </nav>
+      <nav class="fcol"><h4>Service Areas</h4>
+        <a href="#">United States</a><a href="#">United Kingdom</a><a href="#">Germany</a><a href="#">United Arab Emirates</a><a href="#">Canada</a><a href="#">Australia</a><a href="#">Armenia</a>
+      </nav>
+      <nav class="fcol"><h4>Resources</h4>
+        <a href="#">Blog</a><a href="#">Glossary</a><a href="#">Get an Estimate</a><a href="#">Engagement Models</a><a href="#">Process</a><a href="#">Technologies</a><a href="#">Tools</a>
+      </nav>
+      <nav class="fcol"><h4>Company</h4>
+        <a href="#">About</a><a href="#">Company</a><a href="#">Team</a><a href="#">Careers</a><a href="#">Testimonials</a><a href="#">Partners</a><a href="#">Contact</a>
+      </nav>
+    </div>
+    <div class="footer__util">
+      <a class="nav__logo" href="#"><i class="ph-fill ph-hexagon"></i> VECTO</a>
+      <nav class="footer__legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a><a href="#">Sitemap</a></nav>
+      <div class="footer__social">
+        <a href="#" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+        <a href="#" aria-label="X"><i class="ph ph-x-logo"></i></a>
+        <a href="#" aria-label="GitHub"><i class="ph ph-github-logo"></i></a>
+        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+      </div>
+      <p class="copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Scroll reveal */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{ threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* FAQ accordion (single-open) */
+document.querySelectorAll('.acc__trigger').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item = btn.closest('.acc__item');
+    const panel = btn.nextElementSibling;
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.acc__item.open').forEach(i=>{ i.classList.remove('open'); i.querySelector('.acc__panel').style.maxHeight=null; });
+    if(!open){ item.classList.add('open'); panel.style.maxHeight = panel.scrollHeight+'px'; }
+  });
+});
+
+/* Sticky estimator: show after hero */
+const sticky = document.getElementById('stickyEst');
+const stickyIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=> sticky.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0));
+},{ threshold:0 });
+stickyIO.observe(document.querySelector('.hero'));
+
+/* Magnetic buttons */
+document.querySelectorAll('.btn--primary, .btn--ghost').forEach(btn=>{
+  btn.addEventListener('mousemove',(e)=>{
+    const r = btn.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2)/r.width;
+    const y = (e.clientY - r.top - r.height/2)/r.height;
+    btn.style.transform = `translate(${x*5}px, ${y*5-2}px)`;
+  });
+  btn.addEventListener('mouseleave',()=>{ btn.style.transform=''; });
+});
+</script>
+</body>
+</html>
