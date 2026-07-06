@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VECTO — Digital products for founders who can't afford to build the wrong thing</title>
+<meta name="description" content="VECTO is the product partner for non-technical founders and scale-ups — from validating the idea to shipping, growing, and maintaining it.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,300..700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   VECTO — Home high-end · V2 (editorialized layouts)
+   Same 16 sections + sequence; internal composition reworked.
+   Bold asymmetry · overlap · oversized type. Showpieces: Hero + AI band.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --bg:#08080A; --bg-2:#0D0E11;
+  --surface:rgba(255,255,255,.025); --surface-2:rgba(255,255,255,.045); --surface-3:rgba(255,255,255,.065);
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.14); --inset-hi:inset 0 1px 0 rgba(255,255,255,.08);
+  --red:#CA1D00; --red-hover:#9E1300; --red-light:#EB3213; --red-glow:rgba(202,29,0,.55); --cyan:#2BBAD6;
+  --text:#F6F6F8; --text-2:rgba(246,246,248,.64); --text-3:rgba(246,246,248,.40); --text-4:rgba(246,246,248,.26);
+  --ease:cubic-bezier(.32,.72,0,1); --ease-soft:cubic-bezier(.4,.14,.2,1);
+  --font:"Google Sans Flex","Google Sans","Product Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --maxw:1240px; --maxw-med:920px; --maxw-narrow:720px;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+body{ font-family:var(--font); background:var(--bg); color:var(--text); line-height:1.5; overflow-x:hidden; font-variation-settings:"opsz" 24; }
+
+.bg-mesh{ position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(60vw 55vh at 80% -8%, rgba(202,29,0,.30), transparent 60%),
+    radial-gradient(48vw 48vh at 4% 10%, rgba(235,50,19,.13), transparent 55%),
+    radial-gradient(70vw 60vh at 50% 120%, rgba(202,29,0,.18), transparent 60%),
+    var(--bg); }
+.bg-grain{ position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Type */
+.mega{ font-size:clamp(3.2rem,9vw,7.4rem); line-height:.96; letter-spacing:-.045em; font-weight:600; font-variation-settings:"opsz" 144; }
+.display{ font-size:clamp(2.6rem,5.6vw,4.6rem); line-height:1.02; letter-spacing:-.035em; font-weight:600; font-variation-settings:"opsz" 110; }
+.h2{ font-size:clamp(2.1rem,4vw,3.3rem); line-height:1.05; letter-spacing:-.032em; font-weight:600; font-variation-settings:"opsz" 72; }
+.h3{ font-size:clamp(1.6rem,2.7vw,2.35rem); line-height:1.1; letter-spacing:-.026em; font-weight:600; }
+.h4{ font-size:1.5rem; line-height:1.18; letter-spacing:-.02em; font-weight:600; }
+.h5{ font-size:1.16rem; line-height:1.3; letter-spacing:-.015em; font-weight:500; }
+.lead{ font-size:clamp(1.05rem,1.4vw,1.28rem); line-height:1.58; color:var(--text-2); }
+.body{ font-size:1rem; line-height:1.6; color:var(--text-2); }
+.small{ font-size:.9rem; line-height:1.55; color:var(--text-2); }
+.balance{ text-wrap:balance; }
+.italic{ font-style:italic; }
+.grad-text{ background:linear-gradient(115deg,#fff 32%,var(--red-light)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.outline-text{ color:transparent; -webkit-text-stroke:1.4px var(--line-strong); }
+
+.eyebrow{ display:inline-flex; align-items:center; gap:.5em; font-size:10px; text-transform:uppercase; letter-spacing:.24em; font-weight:500; color:var(--text-2); padding:.5em 1em; border-radius:999px; background:var(--surface); border:1px solid var(--line); box-shadow:var(--inset-hi); }
+.eyebrow::before{ content:""; width:5px; height:5px; border-radius:50%; background:var(--red-light); box-shadow:0 0 10px var(--red-glow); }
+.eyebrow--plain{ background:none; border:none; box-shadow:none; padding-left:0; }
+
+.container{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(20px,5vw,44px); }
+.container.med{ max-width:var(--maxw-med); } .container.narrow{ max-width:var(--maxw-narrow); }
+section{ position:relative; padding-block:clamp(84px,12vw,168px); }
+.center{ text-align:center; }
+
+/* Buttons */
+.btn{ display:inline-flex; align-items:center; gap:.65em; font-family:var(--font); font-weight:500; font-size:1rem; line-height:1; padding:.95em 1.1em .95em 1.5em; border-radius:999px; border:1px solid transparent; cursor:pointer; text-decoration:none; white-space:nowrap; transition:transform .4s var(--ease), background .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease); }
+.btn i{ font-size:1.15em; } .btn:active{ transform:scale(.975); }
+.btn--sm{ font-size:.85rem; padding:.7em .8em .7em 1.15em; } .btn--lg{ font-size:1.08rem; padding:1.05em 1.15em 1.05em 1.65em; }
+.btn--primary{ background:linear-gradient(180deg,var(--red-light),var(--red)); color:#fff; box-shadow:0 8px 30px -8px var(--red-glow), var(--inset-hi); }
+.btn--primary:hover{ box-shadow:0 14px 44px -8px var(--red-glow), var(--inset-hi); transform:translateY(-2px); }
+.btn--ghost{ background:var(--surface); color:var(--text); border-color:var(--line-strong); backdrop-filter:blur(8px); }
+.btn--ghost:hover{ background:var(--surface-2); border-color:rgba(255,255,255,.28); transform:translateY(-2px); }
+.btn--text{ padding:0; background:none; color:var(--text); gap:.5em; } .btn--text:hover{ color:var(--red-light); }
+.btn__ico{ display:inline-flex; align-items:center; justify-content:center; width:2em; height:2em; border-radius:50%; background:rgba(255,255,255,.16); box-shadow:var(--inset-hi); transition:transform .45s var(--ease), background .45s var(--ease); }
+.btn__ico i{ font-size:.95em; } .btn--ghost .btn__ico{ background:var(--surface-3); }
+.btn:hover .btn__ico{ transform:translate(3px,-2px) scale(1.06); } .btn--primary:hover .btn__ico{ background:rgba(255,255,255,.26); }
+
+/* Cards */
+.shell{ padding:6px; border-radius:32px; background:var(--surface); border:1px solid var(--line); transition:transform .55s var(--ease), border-color .55s var(--ease), background .55s var(--ease); }
+.shell:hover{ border-color:var(--line-strong); transform:translateY(-4px); }
+.core{ height:100%; border-radius:26px; padding:clamp(24px,3vw,34px); background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015)); box-shadow:var(--inset-hi); }
+.card-ico{ display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:14px; background:radial-gradient(120% 120% at 30% 20%,rgba(235,50,19,.22),rgba(255,255,255,.03)); border:1px solid var(--line); color:var(--red-light); box-shadow:var(--inset-hi); }
+.card-ico i{ font-size:1.5rem; }
+.tag{ display:inline-flex; align-items:center; gap:.45em; font-size:.78rem; font-weight:500; color:var(--text-2); padding:.4em .85em; border-radius:999px; background:var(--surface); border:1px solid var(--line); }
+.tag i{ font-size:.95em; color:var(--red-light); }
+a.chip{ display:inline-flex; align-items:center; gap:.5em; font-size:.9rem; color:var(--text-2); text-decoration:none; padding:.55em 1em; border-radius:999px; background:var(--surface); border:1px solid var(--line); transition:all .35s var(--ease); }
+a.chip:hover{ color:var(--text); border-color:var(--line-strong); background:var(--surface-2); transform:translateY(-2px); }
+a.chip i{ color:var(--red-light); }
+
+/* ═══ NAV (floating pill — carried from v1) ═══ */
+.nav-wrap{ position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:center; padding:18px 20px; pointer-events:none; }
+.nav{ pointer-events:auto; display:flex; align-items:center; gap:6px; padding:8px 8px 8px 20px; border-radius:999px; background:rgba(12,12,15,.62); backdrop-filter:blur(20px) saturate(160%); border:1px solid var(--line-strong); box-shadow:0 12px 40px -12px rgba(0,0,0,.7), var(--inset-hi); max-width:100%; }
+.nav__logo{ display:flex; align-items:center; gap:.5em; font-weight:600; letter-spacing:-.02em; color:var(--text); text-decoration:none; font-size:1.05rem; padding-right:8px; }
+.nav__logo i{ color:var(--red-light); font-size:1.25rem; }
+.nav__links{ display:flex; align-items:center; }
+.nav__item{ position:relative; }
+.nav__link{ display:inline-flex; align-items:center; gap:.3em; font-size:.9rem; font-weight:500; color:var(--text-2); text-decoration:none; padding:.6em .85em; border-radius:999px; cursor:pointer; background:none; border:none; font-family:var(--font); transition:color .3s var(--ease), background .3s var(--ease); }
+.nav__link i{ font-size:.85em; transition:transform .3s var(--ease); }
+.nav__item:hover .nav__link{ color:var(--text); background:var(--surface-2); }
+.nav__item:hover .nav__link i{ transform:rotate(180deg); }
+.nav__cta{ margin-left:4px; }
+.flyout{ position:absolute; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(8px); min-width:240px; padding:10px; border-radius:20px; background:rgba(16,16,20,.9); backdrop-filter:blur(24px) saturate(160%); border:1px solid var(--line-strong); box-shadow:0 24px 60px -18px rgba(0,0,0,.8), var(--inset-hi); opacity:0; visibility:hidden; transition:opacity .35s var(--ease), transform .35s var(--ease); z-index:120; }
+.flyout--wide{ min-width:460px; }
+.nav__item:hover .flyout{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.flyout__grid{ display:grid; gap:10px; } .flyout--wide .flyout__grid{ grid-template-columns:1fr 1fr; }
+.fly-h{ font-size:.7rem; text-transform:uppercase; letter-spacing:.16em; color:var(--text-3); padding:6px 10px 2px; }
+.fly-a{ display:flex; align-items:center; gap:.6em; font-size:.9rem; color:var(--text-2); text-decoration:none; padding:.55em .7em; border-radius:12px; transition:all .25s var(--ease); }
+.fly-a:hover{ color:var(--text); background:var(--surface-2); } .fly-a i{ color:var(--red-light); }
+.nav-toggle{ display:none; }
+
+/* ═══ 1 · HERO (showpiece — editorial masthead + overlap) ═══ */
+.hero{ padding-top:clamp(140px,15vw,190px); padding-bottom:clamp(48px,6vw,80px); }
+.hero__masthead{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; padding-bottom:clamp(30px,5vw,56px); border-bottom:1px solid var(--line); }
+.hero__meta{ display:flex; gap:26px; flex-wrap:wrap; align-items:center; font-size:.82rem; color:var(--text-3); }
+.hero__meta b{ color:var(--text); font-weight:500; }
+.hero__lead{ margin-top:clamp(30px,5vw,58px); }
+.hero__lead .mega{ max-width:18ch; }
+.hero__foot{ display:grid; grid-template-columns:1fr .92fr; gap:clamp(30px,5vw,64px); align-items:end; margin-top:clamp(24px,3vw,40px); }
+.hero__sub{ max-width:44ch; }
+.hero__ctas{ display:flex; align-items:center; gap:14px; margin-top:30px; flex-wrap:wrap; }
+.hero__viz{ position:relative; aspect-ratio:5/4.2; margin-top:clamp(-140px,-11vw,-40px); }
+.hero__viz .glow{ position:absolute; inset:-14%; background:radial-gradient(circle at 60% 38%,var(--red-glow),transparent 62%); filter:blur(46px); z-index:0; }
+.viz-panel{ position:absolute; border-radius:24px; z-index:1; background:linear-gradient(155deg,rgba(255,255,255,.09),rgba(255,255,255,.02)); border:1px solid var(--line-strong); box-shadow:0 30px 70px -20px rgba(0,0,0,.7), var(--inset-hi); backdrop-filter:blur(6px); }
+.viz-main{ inset:6% 4% 18% 14%; padding:22px; overflow:hidden; }
+.viz-main::before{ content:""; position:absolute; top:0; left:0; right:0; height:44px; background:rgba(255,255,255,.03); border-bottom:1px solid var(--line); }
+.viz-dots{ position:absolute; top:17px; left:20px; display:flex; gap:7px; } .viz-dots span{ width:10px; height:10px; border-radius:50%; background:var(--line-strong); } .viz-dots span:first-child{ background:var(--red); }
+.viz-rows{ margin-top:46px; display:flex; flex-direction:column; gap:14px; }
+.viz-row{ height:12px; border-radius:6px; background:linear-gradient(90deg,rgba(255,255,255,.12),rgba(255,255,255,.03)); }
+.viz-row.r1{ width:70%; } .viz-row.r2{ width:92%; } .viz-row.r3{ width:55%; }
+.viz-bars{ margin-top:26px; display:flex; align-items:flex-end; gap:10px; height:96px; }
+.viz-bars b{ flex:1; border-radius:6px 6px 0 0; background:linear-gradient(180deg,var(--red-light),rgba(202,29,0,.15)); box-shadow:0 0 24px -6px var(--red-glow); display:block; }
+.viz-float{ z-index:2; padding:15px 17px; border-radius:18px; display:flex; align-items:center; gap:12px; background:rgba(16,16,20,.72); backdrop-filter:blur(18px); border:1px solid var(--line-strong); box-shadow:0 24px 50px -18px rgba(0,0,0,.8), var(--inset-hi); }
+.viz-float--tr{ top:-2%; right:-2%; } .viz-float--br{ bottom:4%; right:4%; }
+.viz-float .ico{ width:40px; height:40px; border-radius:11px; display:grid; place-items:center; background:radial-gradient(120% 120% at 30% 20%,rgba(235,50,19,.3),rgba(255,255,255,.04)); color:var(--red-light); } .viz-float .ico i{ font-size:1.3rem; }
+.viz-float .fig{ font-size:1.12rem; font-weight:600; letter-spacing:-.02em; } .viz-float .cap{ font-size:.72rem; color:var(--text-3); }
+
+/* ═══ 2 · TRUST STRIP (editorial: 1 feature stat + minis + logo marquee) ═══ */
+.trust{ padding-block:clamp(30px,4vw,52px); }
+.trust__grid{ display:grid; grid-template-columns:1.1fr 2fr; gap:clamp(24px,4vw,52px); align-items:stretch; }
+.stat-feature .core{ display:flex; flex-direction:column; justify-content:center; gap:8px; min-height:100%; }
+.stat-feature .fig{ font-size:clamp(3.4rem,6vw,5rem); font-weight:600; letter-spacing:-.04em; line-height:.9; color:var(--red-light); font-variation-settings:"opsz" 144; }
+.stat-feature .lbl{ color:var(--text-2); max-width:24ch; }
+.stat-minis{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; align-content:center; }
+.stat-mini{ padding:8px 26px; border-left:1px solid var(--line); }
+.stat-mini:first-child{ border-left:none; padding-left:0; }
+.stat-mini .fig{ font-size:clamp(2rem,3.4vw,2.8rem); font-weight:600; letter-spacing:-.03em; line-height:1; font-variation-settings:"opsz" 72; }
+.stat-mini .lbl{ margin-top:10px; font-size:.86rem; color:var(--text-2); max-width:20ch; }
+.trust__foot{ display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-top:36px; padding-top:30px; border-top:1px solid var(--line); }
+.marquee{ overflow:hidden; flex:1; min-width:260px; -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); }
+.marquee__track{ display:flex; gap:44px; align-items:center; width:max-content; animation:marq 26s linear infinite; }
+.marquee:hover .marquee__track{ animation-play-state:paused; }
+@keyframes marq{ to{ transform:translateX(-50%); } }
+.logo-ph{ width:104px; height:26px; border-radius:6px; background:linear-gradient(90deg,rgba(255,255,255,.11),rgba(255,255,255,.03)); flex:none; }
+.ratings{ display:flex; gap:10px; flex-wrap:wrap; }
+
+/* ═══ 3 · INTRO (asymmetric editorial statement) ═══ */
+.intro__grid{ display:grid; grid-template-columns:1.35fr 1fr; gap:clamp(28px,5vw,72px); align-items:end; }
+.intro__statement{ font-size:clamp(1.7rem,3.2vw,2.7rem); line-height:1.15; letter-spacing:-.028em; font-weight:500; text-wrap:balance; }
+.intro__statement em{ color:var(--red-light); font-style:normal; }
+.intro__para{ padding-bottom:8px; }
+
+/* ═══ 4 · SIX-STAGE JOURNEY (scroll-pinned horizontal rail) ═══ */
+.stages-pin{ height:340vh; }
+.stages-sticky{ position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding-block:60px; }
+.stages-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(24px,3vw,40px); }
+.stages-progress{ width:180px; max-width:40vw; height:3px; border-radius:2px; background:var(--line); overflow:hidden; }
+.stages-progress i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--red),var(--red-light)); box-shadow:0 0 12px var(--red-glow); }
+.stages-track{ overflow:hidden; }
+.stages-rail{ display:flex; gap:20px; padding-inline:clamp(20px,5vw,44px); width:max-content; will-change:transform; }
+.stage-card{ width:min(78vw,380px); flex:none; }
+.stage-card .core{ display:flex; flex-direction:column; gap:16px; min-height:400px; }
+.stage-card__step{ font-size:clamp(3rem,5vw,4.4rem); font-weight:600; line-height:.8; letter-spacing:-.04em; color:var(--line-strong); font-variation-settings:"opsz" 144; -webkit-text-stroke:1px var(--line-strong); }
+.stage-card--primary .core{ background:linear-gradient(180deg,rgba(202,29,0,.24),rgba(202,29,0,.05)); }
+.stage-card--primary.shell{ border-color:rgba(235,50,19,.32); }
+.stage-card--primary .stage-card__step{ color:var(--red-light); -webkit-text-stroke:0; }
+.stage-card__cat{ font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--text-3); }
+.stage-card__cat a{ color:var(--red-light); text-decoration:none; }
+.stage-card__name{ font-size:1.7rem; font-weight:600; letter-spacing:-.03em; }
+.stage-card__subs{ list-style:none; display:flex; flex-direction:column; gap:7px; }
+.stage-card__subs li{ font-size:.92rem; color:var(--text-2); padding-left:16px; position:relative; }
+.stage-card__subs li::before{ content:""; position:absolute; left:0; top:.62em; width:5px; height:5px; border-radius:50%; background:var(--red); }
+.stage-card__more{ margin-top:auto; font-size:.86rem; color:var(--text-2); text-decoration:none; display:inline-flex; align-items:center; gap:.4em; transition:color .3s var(--ease); }
+.stage-card__more:hover{ color:var(--red-light); }
+.stages-hint{ text-align:center; margin-top:22px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--text-3); display:flex; align-items:center; justify-content:center; gap:.6em; }
+
+/* ═══ 5 · AI BAND (showpiece — oversized type + competency index) ═══ */
+.ai{ overflow:hidden; }
+.ai__inner{ position:relative; }
+.ai__glow{ position:absolute; width:70vw; height:70vw; max-width:900px; max-height:900px; right:-16%; top:50%; transform:translateY(-50%); background:radial-gradient(circle,var(--red-glow),transparent 62%); filter:blur(30px); pointer-events:none; z-index:0; animation:pulse 7s var(--ease-soft) infinite; }
+@keyframes pulse{ 0%,100%{ opacity:.7; transform:translateY(-50%) scale(1); } 50%{ opacity:1; transform:translateY(-50%) scale(1.06); } }
+.ai__grid{ position:relative; z-index:1; display:grid; grid-template-columns:1.25fr .9fr; gap:clamp(32px,5vw,72px); align-items:center; }
+.ai__word{ font-size:clamp(7rem,20vw,17rem); line-height:.8; font-weight:600; letter-spacing:-.05em; font-variation-settings:"opsz" 144; background:linear-gradient(150deg,#fff,var(--red-light) 90%); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:10px; }
+.ai__title{ max-width:16ch; }
+.ai__sub{ color:rgba(255,255,255,.78); max-width:52ch; margin-top:20px; }
+.ai__ctas{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+.ai__index{ display:flex; flex-direction:column; }
+.ai__index a{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 4px; border-top:1px solid var(--line); color:var(--text); text-decoration:none; font-size:1.12rem; font-weight:500; letter-spacing:-.015em; transition:padding .4s var(--ease), color .4s var(--ease); }
+.ai__index a:last-child{ border-bottom:1px solid var(--line); }
+.ai__index a i{ color:var(--red-light); opacity:0; transform:translateX(-8px); transition:all .4s var(--ease); }
+.ai__index a:hover{ padding-left:16px; color:var(--red-light); }
+.ai__index a:hover i{ opacity:1; transform:translateX(0); }
+.ai__index .n{ font-size:.78rem; color:var(--text-3); width:2em; }
+
+/* ═══ 6 · BENEFITS (editorial numbered index, sticky heading) ═══ */
+.benefits__grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:clamp(32px,5vw,72px); align-items:start; }
+.benefits__head{ position:sticky; top:120px; }
+.benefit-row{ display:grid; grid-template-columns:auto 1fr; gap:24px; padding:28px 0; border-top:1px solid var(--line); align-items:start; transition:opacity .4s var(--ease); }
+.benefit-row:last-child{ border-bottom:1px solid var(--line); }
+.benefit-row__n{ font-size:1rem; color:var(--red-light); font-weight:600; padding-top:6px; }
+.benefit-row__t{ font-size:1.5rem; font-weight:600; letter-spacing:-.02em; }
+.benefit-row__d{ color:var(--text-2); margin-top:8px; max-width:52ch; }
+.benefit-row__ico{ color:var(--text-3); font-size:1.6rem; }
+
+/* ═══ 7 · INDUSTRIES (editorial directory: features + type list) ═══ */
+.ind__head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vw,48px); }
+.ind__grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.ind-feature{ text-decoration:none; color:inherit; display:flex; }
+.ind-feature .core{ display:flex; flex-direction:column; gap:14px; }
+.ind-feature h3{ margin-top:4px; }
+.ind-feature .go{ margin-top:auto; font-size:.9rem; color:var(--red-light); display:inline-flex; align-items:center; gap:.4em; }
+.ind-list{ margin-top:20px; display:grid; grid-template-columns:repeat(4,1fr); gap:0 4px; border-top:1px solid var(--line); }
+.ind-list a{ display:flex; align-items:center; gap:.6em; color:var(--text-2); text-decoration:none; padding:16px 8px; font-size:.98rem; border-bottom:1px solid var(--line); transition:color .3s var(--ease), background .3s var(--ease); }
+.ind-list a:hover{ color:var(--text); background:var(--surface); }
+.ind-list i{ color:var(--red-light); }
+.serve-chips{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:36px; }
+.serve-chips .lbl{ font-size:.78rem; text-transform:uppercase; letter-spacing:.16em; color:var(--text-3); margin-right:6px; }
+
+/* ═══ 9 · PORTFOLIO (horizontal scroll rail) ═══ */
+.work__head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vw,48px); }
+.work-rail{ display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px clamp(20px,5vw,44px) 24px; margin-inline:calc(-1 * clamp(20px,5vw,44px)); scrollbar-width:none; }
+.work-rail::-webkit-scrollbar{ display:none; }
+.work-slide{ scroll-snap-align:start; flex:none; width:min(84vw,440px); text-decoration:none; color:inherit; }
+.work-slide .core{ padding:8px; display:flex; flex-direction:column; height:100%; }
+.work-media{ position:relative; border-radius:19px; overflow:hidden; aspect-ratio:16/11; background:linear-gradient(135deg,rgba(202,29,0,.25),transparent 55%),linear-gradient(315deg,rgba(43,186,214,.12),transparent 50%),var(--bg-2); display:grid; place-items:center; }
+.work-media i{ font-size:2.2rem; color:var(--text-4); }
+.work-media::after{ content:""; position:absolute; inset:0; background:radial-gradient(circle at 70% 20%,rgba(235,50,19,.18),transparent 55%); }
+.work-media__n{ position:absolute; top:14px; left:16px; font-size:.8rem; color:var(--text-3); letter-spacing:.1em; z-index:1; }
+.work-body{ padding:20px 16px 14px; display:flex; flex-direction:column; gap:8px; }
+.work-body .h4{ transition:color .3s var(--ease); }
+.work-slide:hover .work-body .h4{ color:var(--red-light); }
+.rail-nav{ display:flex; gap:10px; }
+.rail-nav button{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; background:var(--surface); border:1px solid var(--line-strong); color:var(--text); cursor:pointer; transition:all .3s var(--ease); }
+.rail-nav button:hover{ background:var(--surface-2); transform:translateY(-2px); }
+.rail-nav i{ font-size:1.2rem; }
+
+/* ═══ 10 · REVIEWS (big editorial pull-quote + offset second) ═══ */
+.reviews__grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(32px,5vw,64px); align-items:start; }
+.reviews__aside{ position:sticky; top:120px; }
+.reviews__aside .ratings{ margin-top:24px; }
+.big-quote{ position:relative; }
+.big-quote__mark{ font-size:8rem; line-height:.6; color:var(--red); opacity:.25; font-weight:700; }
+.big-quote__text{ font-size:clamp(1.5rem,2.8vw,2.3rem); line-height:1.25; letter-spacing:-.02em; font-weight:500; margin-top:-24px; text-wrap:balance; }
+.big-quote__meta{ display:flex; align-items:center; gap:14px; margin-top:26px; color:var(--text-2); }
+.avatar{ width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg,rgba(235,50,19,.4),rgba(255,255,255,.05)); border:1px solid var(--line); flex:none; }
+.review-src{ display:inline-flex; align-items:center; gap:.4em; font-size:.82rem; color:var(--red-light); text-decoration:none; margin-top:14px; }
+.review-src:hover{ color:#fff; }
+.quote-2{ margin-top:24px; margin-left:clamp(0px,8vw,120px); }
+.quote-2 .core{ display:flex; flex-direction:column; gap:14px; }
+.quote-2 p{ font-size:1.12rem; line-height:1.5; }
+.quote-2 .m{ display:flex; align-items:center; gap:12px; font-size:.9rem; color:var(--text-2); }
+
+/* ═══ 10a · SOLUTIONS (staggered offset tiles) ═══ */
+.sol__head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vw,48px); }
+.sol-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:start; }
+.sol-tile{ text-decoration:none; color:inherit; display:flex; }
+.sol-tile:nth-child(even){ margin-top:clamp(20px,4vw,52px); }
+.sol-tile .core{ display:flex; flex-direction:column; gap:12px; align-items:flex-start; min-height:190px; }
+.sol-name{ font-size:1.15rem; font-weight:600; letter-spacing:-.01em; }
+
+/* ═══ 11 · PROCESS (vertical editorial timeline) ═══ */
+.proc__head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vw,48px); }
+.timeline{ position:relative; }
+.timeline::before{ content:""; position:absolute; left:clamp(30px,5vw,64px); top:20px; bottom:20px; width:1px; background:var(--line); }
+.tstep{ display:grid; grid-template-columns:clamp(64px,10vw,132px) 1fr; gap:clamp(20px,4vw,48px); padding:26px 0; align-items:baseline; position:relative; }
+.tstep__num{ font-size:clamp(2.4rem,5vw,4rem); font-weight:600; line-height:.8; letter-spacing:-.04em; color:var(--line-strong); -webkit-text-stroke:1px var(--line-strong); font-variation-settings:"opsz" 144; position:relative; }
+.tstep__num::after{ content:""; position:absolute; right:-6px; top:50%; width:11px; height:11px; border-radius:50%; background:var(--bg); border:2px solid var(--line-strong); transform:translate(50%,-50%); }
+.tstep--active .tstep__num{ color:var(--red-light); -webkit-text-stroke:0; }
+.tstep--active .tstep__num::after{ background:var(--red); border-color:var(--red); box-shadow:0 0 16px var(--red-glow); }
+.tstep__title{ font-size:1.5rem; font-weight:600; letter-spacing:-.02em; }
+.tstep__desc{ color:var(--text-2); margin-top:6px; max-width:56ch; }
+.engage{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-top:40px; padding-top:32px; border-top:1px solid var(--line); }
+.engage .models{ color:var(--text); font-weight:500; }
+
+/* ═══ 13 · ESTIMATE CTA (left-weighted editorial band) ═══ */
+.cta{ }
+.cta .core{ border-radius:36px; padding:clamp(44px,6vw,86px); background:linear-gradient(150deg,rgba(255,255,255,.05),rgba(202,29,0,.12)); position:relative; overflow:hidden; }
+.cta .core::before{ content:""; position:absolute; inset:0; background:radial-gradient(46vw 40vh at 88% 120%,var(--red-glow),transparent 60%); pointer-events:none; }
+.cta__grid{ position:relative; z-index:1; display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(28px,5vw,64px); align-items:center; }
+.cta__grid .lead{ max-width:46ch; }
+
+/* ═══ 14 · BLOG (editorial: featured + numbered index) ═══ */
+.blog__head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vw,48px); }
+.blog__grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:clamp(28px,4vw,56px); align-items:center; }
+.blog-feat{ text-decoration:none; color:inherit; display:block; }
+.blog-feat__media{ position:relative; border-radius:24px; aspect-ratio:16/10; overflow:hidden; background:linear-gradient(135deg,rgba(202,29,0,.28),transparent 55%),var(--bg-2); display:grid; place-items:center; margin-bottom:22px; }
+.blog-feat__media i{ font-size:2.2rem; color:var(--text-4); }
+.blog-feat__media::after{ content:""; position:absolute; inset:0; background:radial-gradient(circle at 28% 20%,rgba(235,50,19,.2),transparent 55%); }
+.blog-feat h3{ transition:color .3s var(--ease); } .blog-feat:hover h3{ color:var(--red-light); }
+.blog-meta{ display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--text-3); margin-top:12px; }
+.blog-meta .avatar{ width:28px; height:28px; }
+.blog-index a{ display:grid; grid-template-columns:auto 1fr; gap:20px; padding:24px 0; border-top:1px solid var(--line); text-decoration:none; color:inherit; align-items:start; transition:padding .35s var(--ease); }
+.blog-index a:last-child{ border-bottom:1px solid var(--line); }
+.blog-index a:hover{ padding-left:10px; } .blog-index a:hover h4{ color:var(--red-light); }
+.blog-index .n{ font-size:.8rem; color:var(--red-light); font-weight:600; padding-top:5px; }
+.blog-index h4{ transition:color .3s var(--ease); }
+.blog-index p{ font-size:.9rem; color:var(--text-2); margin-top:6px; }
+
+/* ═══ 15 · FAQ (asymmetric: sticky heading + list) ═══ */
+.faq__grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(32px,5vw,72px); align-items:start; }
+.faq__head{ position:sticky; top:120px; }
+.acc{ display:flex; flex-direction:column; }
+.acc__item{ border-top:1px solid var(--line); }
+.acc__item:last-child{ border-bottom:1px solid var(--line); }
+.acc__trigger{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:26px 4px; background:none; border:none; color:var(--text); font-family:var(--font); font-size:1.18rem; font-weight:500; letter-spacing:-.015em; cursor:pointer; text-align:left; }
+.acc__trigger i{ color:var(--red-light); font-size:1.3rem; transition:transform .45s var(--ease); flex-shrink:0; }
+.acc__item.open .acc__trigger i{ transform:rotate(45deg); }
+.acc__panel{ max-height:0; overflow:hidden; transition:max-height .5s var(--ease); }
+.acc__panel-in{ padding:0 4px 26px; } .acc__panel-in p{ color:var(--text-2); line-height:1.6; max-width:66ch; }
+
+/* ═══ 16 · CONTACT (asymmetric: statement + primary/secondary) ═══ */
+.contact__grid{ display:grid; grid-template-columns:1fr 1.15fr; gap:clamp(32px,5vw,64px); align-items:center; }
+.contact__cards{ display:grid; gap:16px; }
+.contact-card .core{ display:flex; align-items:flex-start; gap:20px; }
+.contact-card--primary .core{ background:linear-gradient(150deg,rgba(202,29,0,.2),rgba(255,255,255,.02)); }
+.contact-card--primary.shell{ border-color:rgba(235,50,19,.28); }
+.contact-card .txt{ display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+.contact-card .btn{ margin-top:6px; }
+
+/* Sticky estimator */
+.sticky-est{ position:fixed; bottom:24px; right:24px; z-index:90; display:flex; align-items:center; gap:14px; padding:10px 10px 10px 20px; border-radius:999px; background:rgba(12,12,15,.72); backdrop-filter:blur(20px); border:1px solid var(--line-strong); box-shadow:0 20px 50px -14px rgba(0,0,0,.8), var(--inset-hi); opacity:0; transform:translateY(20px); pointer-events:none; transition:opacity .5s var(--ease), transform .5s var(--ease); }
+.sticky-est.show{ opacity:1; transform:translateY(0); pointer-events:auto; }
+.sticky-est__copy{ font-size:.9rem; font-weight:500; }
+
+/* Footer + giant wordmark */
+.footer{ border-top:1px solid var(--line); padding-block:clamp(56px,7vw,88px) 40px; position:relative; }
+.footer__cols{ display:grid; grid-template-columns:1.4fr 1.4fr 1fr 1fr 1fr; gap:32px; }
+.fcol h4{ font-size:.78rem; text-transform:uppercase; letter-spacing:.16em; color:var(--text-3); margin-bottom:16px; }
+.fcol .sub{ font-size:.72rem; text-transform:uppercase; letter-spacing:.14em; color:var(--text-4); margin:18px 0 12px; }
+.fcol a{ display:block; color:var(--text-2); text-decoration:none; font-size:.9rem; padding:5px 0; transition:color .25s var(--ease); }
+.fcol a:hover{ color:var(--red-light); }
+.footer__util{ display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-top:56px; padding-top:32px; border-top:1px solid var(--line); }
+.footer__legal{ display:flex; gap:22px; flex-wrap:wrap; } .footer__legal a{ color:var(--text-2); text-decoration:none; font-size:.85rem; } .footer__legal a:hover{ color:var(--text); }
+.footer__social{ display:flex; gap:10px; }
+.footer__social a{ width:38px; height:38px; border-radius:50%; display:grid; place-items:center; color:var(--text-2); background:var(--surface); border:1px solid var(--line); transition:all .3s var(--ease); }
+.footer__social a:hover{ color:var(--red-light); border-color:var(--line-strong); transform:translateY(-2px); }
+.copyright{ font-size:.82rem; color:var(--text-3); }
+.footer__wordmark{ font-size:clamp(5rem,22vw,20rem); line-height:.8; font-weight:600; letter-spacing:-.05em; text-align:center; margin-top:clamp(40px,6vw,80px); color:transparent; -webkit-text-stroke:1px var(--line); font-variation-settings:"opsz" 144; user-select:none; }
+
+/* Reveal */
+.reveal{ opacity:0; transform:translateY(40px); filter:blur(8px); transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+.reveal.in{ opacity:1; transform:none; filter:blur(0); }
+.reveal[data-d="1"]{ transition-delay:.08s; } .reveal[data-d="2"]{ transition-delay:.16s; } .reveal[data-d="3"]{ transition-delay:.24s; } .reveal[data-d="4"]{ transition-delay:.32s; } .reveal[data-d="5"]{ transition-delay:.4s; }
+@media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; filter:none; } *{ scroll-behavior:auto; } .ai__glow{ animation:none; } .marquee__track{ animation:none; } }
+
+/* Responsive */
+@media (max-width:1080px){
+  .trust__grid{ grid-template-columns:1fr; } .stat-minis{ grid-template-columns:repeat(3,1fr); }
+  .ind-list{ grid-template-columns:repeat(2,1fr); }
+  .sol-grid{ grid-template-columns:repeat(2,1fr); } .sol-tile:nth-child(even){ margin-top:0; } .sol-tile:nth-child(3),.sol-tile:nth-child(4){ margin-top:clamp(20px,4vw,52px); }
+  .nav__links{ display:none; } .nav-toggle{ display:inline-flex; }
+}
+@media (max-width:860px){
+  .hero__foot,.intro__grid,.ai__grid,.benefits__grid,.ind__grid,.reviews__grid,.cta__grid,.blog__grid,.faq__grid,.contact__grid{ grid-template-columns:1fr; }
+  .hero__viz{ margin-top:20px; max-width:520px; }
+  .benefits__head,.reviews__aside,.faq__head{ position:static; }
+  .ai__word{ font-size:clamp(5rem,26vw,9rem); }
+  .quote-2{ margin-left:0; }
+  /* disable pin → native horizontal swipe */
+  .stages-pin{ height:auto; } .stages-sticky{ position:static; height:auto; padding-block:0; }
+  .stages-track{ overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; margin-inline:calc(-1 * clamp(20px,5vw,44px)); }
+  .stages-track::-webkit-scrollbar{ display:none; }
+  .stages-rail{ transform:none !important; } .stage-card{ scroll-snap-align:start; }
+  .stages-progress{ display:none; }
+}
+@media (max-width:600px){
+  .stat-minis{ grid-template-columns:1fr; } .stat-mini{ border-left:none; padding-left:0; border-top:1px solid var(--line); padding-block:16px; } .stat-mini:first-child{ border-top:none; }
+  .ind-list,.sol-grid{ grid-template-columns:1fr; } .sol-tile{ margin-top:0 !important; }
+  .footer__cols{ grid-template-columns:1fr 1fr; }
+  .sticky-est__copy{ display:none; } .nav{ padding-left:16px; }
+  .benefit-row{ grid-template-columns:1fr; gap:8px; } .benefit-row__ico{ display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+<div class="bg-grain"></div>
+
+<!-- ═══ NAV ═══ -->
+<div class="nav-wrap">
+  <nav class="nav" aria-label="Primary">
+    <a class="nav__logo" href="#"><i class="ph-fill ph-hexagon"></i> VECTO</a>
+    <div class="nav__links">
+      <div class="nav__item">
+        <button class="nav__link">Services <i class="ph ph-caret-down"></i></button>
+        <div class="flyout flyout--wide">
+          <p class="fly-h">From idea to live product — every stage</p>
+          <div class="flyout__grid">
+            <a class="fly-a" href="#services"><i class="ph-thin ph-compass"></i> Discover &amp; Validate</a>
+            <a class="fly-a" href="#services"><i class="ph-thin ph-pen-nib"></i> Design</a>
+            <a class="fly-a" href="#services"><i class="ph-thin ph-code"></i> Build</a>
+            <a class="fly-a" href="#services"><i class="ph-thin ph-trend-up"></i> Grow</a>
+            <a class="fly-a" href="#services"><i class="ph-thin ph-users-three"></i> Scale</a>
+            <a class="fly-a" href="#services"><i class="ph-thin ph-lifebuoy"></i> Maintain</a>
+            <a class="fly-a" href="#ai" style="grid-column:span 2;color:var(--red-light)"><i class="ph-thin ph-sparkle"></i> AI Transformation — cross-cutting</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#solutions">Solutions</a></div>
+      <div class="nav__item">
+        <button class="nav__link">Who We Serve <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">By company stage</p>
+          <a class="fly-a" href="#industries"><i class="ph-thin ph-rocket"></i> Early-stage Startup</a>
+          <a class="fly-a" href="#industries"><i class="ph-thin ph-chart-line-up"></i> Scale-up</a>
+          <a class="fly-a" href="#industries"><i class="ph-thin ph-buildings"></i> Enterprise</a>
+          <p class="fly-h" style="margin-top:6px">By industry</p>
+          <a class="fly-a" href="#industries"><i class="ph-thin ph-squares-four"></i> Browse all industries</a>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#work">Our Work</a></div>
+      <div class="nav__item">
+        <button class="nav__link">How We Work <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">Reference</p>
+          <a class="fly-a" href="#process"><i class="ph-thin ph-path"></i> Our Process</a>
+          <a class="fly-a" href="#process"><i class="ph-thin ph-handshake"></i> Engagement Models</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-stack"></i> Technologies</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-wrench"></i> Tools</a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <button class="nav__link">Resources <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">Resources</p>
+          <a class="fly-a" href="#blog"><i class="ph-thin ph-article"></i> Blog</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-book-open"></i> Glossary</a>
+          <a class="fly-a" href="#estimate"><i class="ph-thin ph-calculator"></i> Get an Estimate</a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <button class="nav__link">About <i class="ph ph-caret-down"></i></button>
+        <div class="flyout">
+          <p class="fly-h">About</p>
+          <a class="fly-a" href="#"><i class="ph-thin ph-building"></i> The company</a>
+          <a class="fly-a" href="#"><i class="ph-thin ph-users"></i> The team</a>
+          <a class="fly-a" href="#contact"><i class="ph-thin ph-chat-circle"></i> Contact</a>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn--primary btn--sm nav__cta" href="#estimate">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    <button class="nav__link nav-toggle" aria-label="Menu"><i class="ph ph-list"></i></button>
+  </nav>
+</div>
+
+<main>
+
+<!-- ═══ 1 · HERO ═══ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__masthead reveal">
+      <span class="eyebrow eyebrow--plain">Your product partner, end to end</span>
+      <div class="hero__meta">
+        <span><b>12 yrs</b> with founders</span>
+        <span><b>120+</b> shipped</span>
+        <span><b>94%</b> retention</span>
+      </div>
+    </div>
+    <div class="hero__lead">
+      <h1 class="mega balance reveal" data-d="1">Digital products for founders who can't afford to <span class="grad-text">build the wrong thing.</span></h1>
+    </div>
+    <div class="hero__foot">
+      <div class="reveal" data-d="2">
+        <p class="lead hero__sub">We take non-technical founders and scale-ups from a rough idea to a shipped, growing product — validating before we build, then designing, engineering, and maintaining it.</p>
+        <div class="hero__ctas">
+          <a class="btn btn--primary btn--lg" href="#estimate">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+          <a class="btn btn--ghost btn--lg" href="#work">See our work</a>
+        </div>
+      </div>
+      <div class="hero__viz reveal" data-d="3" aria-hidden="true">
+        <div class="glow"></div>
+        <div class="viz-panel viz-main">
+          <div class="viz-dots"><span></span><span></span><span></span></div>
+          <div class="viz-rows"><div class="viz-row r1"></div><div class="viz-row r2"></div><div class="viz-row r3"></div></div>
+          <div class="viz-bars"><b style="height:45%"></b><b style="height:68%"></b><b style="height:52%"></b><b style="height:88%"></b><b style="height:72%"></b><b style="height:100%"></b></div>
+        </div>
+        <div class="viz-panel viz-float viz-float--tr"><div class="ico"><i class="ph-thin ph-rocket-launch"></i></div><div><div class="fig">6–14 wks</div><div class="cap">idea → shipped</div></div></div>
+        <div class="viz-panel viz-float viz-float--br"><div class="ico"><i class="ph-thin ph-sparkle"></i></div><div><div class="fig">AI in the loop</div><div class="cap">every project</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2 · TRUST STRIP ═══ -->
+<section class="trust">
+  <div class="container">
+    <div class="trust__grid">
+      <div class="shell stat-feature reveal"><div class="core">
+        <span class="fig" data-count="12" data-suffix=" yrs">0</span>
+        <span class="lbl">building products with founders — long enough to know what ships and what stalls.</span>
+      </div></div>
+      <div class="stat-minis reveal" data-d="1">
+        <div class="stat-mini"><div class="fig" data-count="120" data-suffix="+">0</div><div class="lbl">products shipped to production</div></div>
+        <div class="stat-mini"><div class="fig" data-count="94" data-suffix="%">0</div><div class="lbl">client retention rate</div></div>
+        <div class="stat-mini"><div class="fig" data-count="72">0</div><div class="lbl">net promoter score</div></div>
+      </div>
+    </div>
+    <div class="trust__foot reveal" data-d="1">
+      <div class="marquee"><div class="marquee__track">
+        <span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span>
+        <span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span><span class="logo-ph"></span>
+      </div></div>
+      <div class="ratings">
+        <span class="tag"><i class="ph-fill ph-star"></i> Clutch 4.9</span>
+        <span class="tag"><i class="ph-fill ph-star"></i> GoodFirms</span>
+        <span class="tag"><i class="ph-fill ph-star"></i> G2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3 · INTRO ═══ -->
+<section>
+  <div class="container">
+    <div class="intro__grid">
+      <div class="reveal">
+        <span class="eyebrow" style="margin-bottom:26px">Who we are</span>
+        <p class="intro__statement">We turn your idea into a product your users love — <em>one partner, from first call to live product,</em> and well beyond launch.</p>
+      </div>
+      <p class="lead intro__para reveal" data-d="1">VECTO is a full-stack product studio. Founders come to us with a problem and a deadline, not a spec — so we start by getting the idea right, then build the team, the design, and the engineering to ship it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4 · SIX-STAGE JOURNEY (scroll-pinned horizontal rail) ═══ -->
+<section class="stages-pin" id="services">
+  <div class="stages-sticky">
+    <div class="container stages-head">
+      <div>
+        <span class="eyebrow">What we do</span>
+        <h2 class="h2 balance" style="margin-top:18px;max-width:18ch">From idea to live product — every stage covered.</h2>
+      </div>
+      <div class="stages-progress" aria-hidden="true"><i id="stagesBar"></i></div>
+    </div>
+    <div class="stages-track">
+      <div class="stages-rail" id="stagesRail">
+        <div class="shell stage-card"><div class="core"><span class="stage-card__step">01</span><span class="stage-card__cat"><a href="#">IT Consulting</a></span><span class="stage-card__name">Discover &amp; Validate</span><ul class="stage-card__subs"><li>Market analysis</li><li>Feasibility &amp; specs</li><li>Cost &amp; time estimation</li></ul><a class="stage-card__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+        <div class="shell stage-card"><div class="core"><span class="stage-card__step">02</span><span class="stage-card__cat"><a href="#">Product Design</a></span><span class="stage-card__name">Design</span><ul class="stage-card__subs"><li>UX &amp; UI design</li><li>Prototyping</li><li>User testing</li></ul><a class="stage-card__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+        <div class="shell stage-card stage-card--primary"><div class="core"><span class="stage-card__step">03</span><span class="stage-card__cat"><a href="#">Software Development</a></span><span class="stage-card__name">Build</span><ul class="stage-card__subs"><li>Web &amp; mobile apps</li><li>E-commerce, CRM/ERP</li><li>Integrations &amp; migration</li></ul><a class="stage-card__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+        <div class="shell stage-card"><div class="core"><span class="stage-card__step">04</span><span class="stage-card__cat"><a href="#">Marketing</a></span><span class="stage-card__name">Grow</span><ul class="stage-card__subs"><li>SEO · PPC · SMM</li><li>Lead generation</li><li>Branding</li></ul><a class="stage-card__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+        <div class="shell stage-card"><div class="core"><span class="stage-card__step">05</span><span class="stage-card__cat"><a href="#">Outsourcing</a></span><span class="stage-card__name">Scale</span><ul class="stage-card__subs"><li>Team outsourcing</li><li>Staff augmentation</li></ul><a class="stage-card__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+        <div class="shell stage-card"><div class="core"><span class="stage-card__step">06</span><span class="stage-card__cat"><a href="#">Support</a></span><span class="stage-card__name">Maintain</span><ul class="stage-card__subs"><li>Technical support</li><li>Security &amp; performance</li><li>Hosting &amp; infra</li></ul><a class="stage-card__more" href="#">Learn more <i class="ph ph-arrow-right"></i></a></div></div>
+      </div>
+    </div>
+    <p class="stages-hint">Start wherever you are — we cover the rest <i class="ph ph-arrow-right"></i></p>
+  </div>
+</section>
+
+<!-- ═══ 5 · AI BAND (showpiece) ═══ -->
+<section class="ai" id="ai">
+  <div class="ai__glow" aria-hidden="true"></div>
+  <div class="container ai__inner">
+    <div class="ai__grid">
+      <div class="reveal">
+        <span class="eyebrow" style="border-color:rgba(255,255,255,.2)">AI Transformation</span>
+        <div class="ai__word" aria-hidden="true">AI</div>
+        <h2 class="display ai__title balance">Expertise, earned in practice.</h2>
+        <p class="lead ai__sub">The AI landscape is loud and hard to read — genuine capability sits alongside hype. We've done that work: we use AI across every project we run to ship faster and cut costs, and we help you integrate it the right way.</p>
+        <div class="ai__ctas">
+          <a class="btn btn--primary btn--lg" href="#">How we implement AI <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+          <a class="btn btn--ghost btn--lg" href="#work">See it in practice <span class="btn__ico"><i class="ph ph-arrow-up-right"></i></span></a>
+        </div>
+      </div>
+      <div class="ai__index reveal" data-d="1">
+        <a href="#"><span><span class="n">01</span> AI Integration</span> <i class="ph ph-arrow-right"></i></a>
+        <a href="#"><span><span class="n">02</span> Generative AI Development</span> <i class="ph ph-arrow-right"></i></a>
+        <a href="#"><span><span class="n">03</span> ML Engineering</span> <i class="ph ph-arrow-right"></i></a>
+        <a href="#"><span><span class="n">04</span> Data Analytics</span> <i class="ph ph-arrow-right"></i></a>
+        <a href="#"><span><span class="n">05</span> AI Prompt Engineering</span> <i class="ph ph-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6 · BENEFITS (editorial numbered index) ═══ -->
+<section>
+  <div class="container">
+    <div class="benefits__grid">
+      <div class="benefits__head reveal">
+        <span class="eyebrow">Why founders choose VECTO</span>
+        <h2 class="h2" style="margin-top:20px">Outcomes,<br>not output.</h2>
+        <p class="body" style="margin-top:20px;max-width:34ch">Five reasons founders stay with us past the first launch.</p>
+      </div>
+      <div>
+        <div class="benefit-row reveal"><span class="benefit-row__n">01</span><div><div class="benefit-row__t">Ship faster</div><p class="benefit-row__d">Senior teams, a proven process, and AI in the loop on every project — so you reach a usable product in weeks, not quarters, without cutting the corners that matter.</p></div></div>
+        <div class="benefit-row reveal"><span class="benefit-row__n">02</span><div><div class="benefit-row__t">Avoid the wrong build</div><p class="benefit-row__d">We validate the idea and scope before a line of code, so you don't fund the wrong thing.</p></div></div>
+        <div class="benefit-row reveal"><span class="benefit-row__n">03</span><div><div class="benefit-row__t">Scale without hiring</div><p class="benefit-row__d">Flex an expert team up or down as you grow — no recruiting, no payroll overhead.</p></div></div>
+        <div class="benefit-row reveal"><span class="benefit-row__n">04</span><div><div class="benefit-row__t">Keep it running</div><p class="benefit-row__d">We don't disappear at launch — support, security, and performance are part of the deal.</p></div></div>
+        <div class="benefit-row reveal"><span class="benefit-row__n">05</span><div><div class="benefit-row__t">One partner, end to end</div><p class="benefit-row__d">From first call to live product and beyond — no handoffs between agencies to manage.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7 · INDUSTRIES (editorial directory) ═══ -->
+<section id="industries">
+  <div class="container">
+    <div class="ind__head reveal">
+      <div><span class="eyebrow">Who we serve</span><h2 class="h2" style="margin-top:18px;max-width:20ch">Depth in the industries we know best.</h2></div>
+      <a class="btn btn--ghost" href="#">All industries <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="ind__grid">
+      <a class="shell ind-feature reveal" data-d="1" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-heartbeat"></i></span><h3 class="h4">Healthcare</h3><p class="body">HIPAA-aware platforms, patient apps, and clinical tooling built for regulated environments where compliance and uptime aren't optional.</p><span class="go">Explore Healthcare <i class="ph ph-arrow-right"></i></span></div></a>
+      <a class="shell ind-feature reveal" data-d="2" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-bank"></i></span><h3 class="h4">Finance</h3><p class="body">FinTech products, payment flows, and data-heavy dashboards where trust and uptime are non-negotiable and every edge case matters.</p><span class="go">Explore Finance <i class="ph ph-arrow-right"></i></span></div></a>
+    </div>
+    <div class="ind-list reveal" data-d="1">
+      <a href="#"><i class="ph-thin ph-cpu"></i> Tech</a>
+      <a href="#"><i class="ph-thin ph-airplane-tilt"></i> Travel</a>
+      <a href="#"><i class="ph-thin ph-bell"></i> Hospitality</a>
+      <a href="#"><i class="ph-thin ph-shopping-cart"></i> Retail</a>
+      <a href="#"><i class="ph-thin ph-graduation-cap"></i> Education</a>
+      <a href="#"><i class="ph-thin ph-factory"></i> Manufacturing</a>
+      <a href="#"><i class="ph-thin ph-film-slate"></i> Media &amp; Ent.</a>
+      <a href="#"><i class="ph-thin ph-trophy"></i> Sport</a>
+      <a href="#"><i class="ph-thin ph-briefcase"></i> Professional Services</a>
+      <a href="#"><i class="ph-thin ph-hand-heart"></i> Non-Profit</a>
+      <a href="#"><i class="ph-thin ph-sparkle"></i> Beauty &amp; Wellness</a>
+      <a href="#" style="color:var(--red-light)"><i class="ph-thin ph-dots-three"></i> &amp; more</a>
+    </div>
+    <div class="serve-chips reveal">
+      <span class="lbl">Built for</span>
+      <a class="chip" href="#">Early-stage Startup</a>
+      <a class="chip" href="#">Scale-up</a>
+      <a class="chip" href="#">Small Business</a>
+      <a class="chip" href="#">Midsize Business</a>
+      <a class="chip" href="#">Enterprise</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 9 · PORTFOLIO (horizontal rail) ═══ -->
+<section id="work">
+  <div class="container">
+    <div class="work__head reveal">
+      <div><span class="eyebrow">Our work</span><h2 class="h2" style="margin-top:18px">A few we're proud of.</h2></div>
+      <div class="rail-nav">
+        <button aria-label="Previous" data-rail="prev"><i class="ph ph-arrow-left"></i></button>
+        <button aria-label="Next" data-rail="next"><i class="ph ph-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="work-rail" id="workRail">
+      <a class="shell work-slide reveal" href="#"><div class="core"><span class="work-media"><span class="work-media__n">01</span><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">AI · SaaS</span><h3 class="h4">SentiGraph — real-time sentiment intelligence</h3><p class="small">A streaming NLP platform that turned noisy social data into signals a trading desk could act on.</p></div></div></a>
+      <a class="shell work-slide reveal" href="#"><div class="core"><span class="work-media"><span class="work-media__n">02</span><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Retail · E-commerce</span><h3 class="h4">Northwind Markets — a commerce replatform</h3><p class="small">Re-platformed a regional retailer onto a headless stack, cutting page loads in half.</p></div></div></a>
+      <a class="shell work-slide reveal" href="#"><div class="core"><span class="work-media"><span class="work-media__n">03</span><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">FinTech · Platform</span><h3 class="h4">A payments platform, MVP to Series A</h3><p class="small">Scoped, designed, and shipped a compliant transfers product in 14 weeks.</p></div></div></a>
+      <a class="shell work-slide reveal" href="#"><div class="core"><span class="work-media"><span class="work-media__n">04</span><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Healthcare · Web</span><h3 class="h4">A patient portal built for compliance</h3><p class="small">HIPAA-aware scheduling and records for a multi-site clinic group.</p></div></div></a>
+      <a class="shell work-slide reveal" href="#"><div class="core"><span class="work-media"><span class="work-media__n">05</span><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Logistics · AI</span><h3 class="h4">Demand forecasting for a 3PL</h3><p class="small">A forecasting model that trimmed overstock without missing peak demand.</p></div></div></a>
+      <a class="shell work-slide reveal" href="#"><div class="core"><span class="work-media"><span class="work-media__n">06</span><i class="ph-thin ph-image"></i></span><div class="work-body"><span class="tag">Marketplace · Web + Mobile</span><h3 class="h4">A two-sided marketplace with payments</h3><p class="small">Buyers, sellers, escrow, and a companion app from a standing start.</p></div></div></a>
+      <a class="work-slide" href="#" style="display:flex;align-items:center;justify-content:center;min-width:280px"><span class="btn btn--ghost btn--lg">Browse all work <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 · REVIEWS (big pull-quote) ═══ -->
+<section>
+  <div class="container">
+    <div class="reviews__grid">
+      <div class="reviews__aside reveal">
+        <span class="eyebrow">What clients say</span>
+        <h3 class="h3 balance" style="margin-top:20px">Rated for delivery, communication, and staying power.</h3>
+        <div class="ratings">
+          <span class="tag"><i class="ph-fill ph-star"></i> Clutch 4.9 / 5</span>
+          <span class="tag"><i class="ph-fill ph-star"></i> GoodFirms Top Dev</span>
+        </div>
+        <a class="btn btn--text" style="margin-top:24px" href="#">Read all reviews <i class="ph ph-arrow-right"></i></a>
+      </div>
+      <div>
+        <div class="big-quote reveal" data-d="1">
+          <div class="big-quote__mark" aria-hidden="true">"</div>
+          <p class="big-quote__text balance">They treated our budget like their own and shipped the thing that mattered first. Rare.</p>
+          <div class="big-quote__meta"><span class="avatar"></span><div>Elena Fischer · Founder &amp; CEO, Ledgerline<br><a class="review-src" href="#"><i class="ph ph-arrow-square-out"></i> Read on Clutch</a></div></div>
+        </div>
+        <div class="shell quote-2 reveal" data-d="2"><div class="core"><p>"Four years in and they still feel like part of our team, not a vendor."</p><div class="m"><span class="avatar" style="width:38px;height:38px"></span> David Okafor · VP Product, Meridian Health</div><a class="review-src" href="#" style="margin-top:0"><i class="ph ph-arrow-square-out"></i> Read on Google</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10a · SOLUTIONS (staggered tiles) ═══ -->
+<section id="solutions">
+  <div class="container">
+    <div class="sol__head reveal">
+      <div><span class="eyebrow">Solutions</span><h2 class="h2" style="margin-top:18px">Products we build and run.</h2></div>
+      <a class="btn btn--ghost" href="#">Explore solutions <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="sol-grid">
+      <a class="shell sol-tile reveal" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-shopping-bag-open"></i></span><span class="sol-name">onemall</span><span class="small">Multi-vendor marketplace platform.</span></div></a>
+      <a class="shell sol-tile reveal" data-d="1" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-users-three"></i></span><span class="sol-name">onesocial</span><span class="small">White-label community &amp; social layer.</span></div></a>
+      <a class="shell sol-tile reveal" data-d="2" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-tag"></i></span><span class="sol-name">quickoffer</span><span class="small">Offers and loyalty for retail apps.</span></div></a>
+      <a class="shell sol-tile reveal" data-d="3" href="#"><div class="core"><span class="card-ico"><i class="ph-thin ph-puzzle-piece"></i></span><span class="sol-name">plugins</span><span class="small">Drop-in modules that speed up a build.</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11 · PROCESS (vertical timeline) ═══ -->
+<section id="process">
+  <div class="container">
+    <div class="proc__head reveal">
+      <div><span class="eyebrow">How we work</span><h2 class="h2" style="margin-top:18px;max-width:20ch">Every engagement runs the same five-step way.</h2></div>
+      <a class="btn btn--ghost" href="#">See the full process <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="timeline">
+      <div class="tstep reveal"><div class="tstep__num">01</div><div><div class="tstep__title">Kickoff</div><p class="tstep__desc">Align on goals, users, and what success looks like.</p></div></div>
+      <div class="tstep reveal"><div class="tstep__num">02</div><div><div class="tstep__title">Scoping</div><p class="tstep__desc">Turn the idea into a costed, sequenced plan.</p></div></div>
+      <div class="tstep tstep--active reveal"><div class="tstep__num">03</div><div><div class="tstep__title">Execute</div><p class="tstep__desc">Design and build in tight iterations you can see.</p></div></div>
+      <div class="tstep reveal"><div class="tstep__num">04</div><div><div class="tstep__title">Launch</div><p class="tstep__desc">Ship to production with the safeguards in place.</p></div></div>
+      <div class="tstep reveal"><div class="tstep__num">05</div><div><div class="tstep__title">Iterate</div><p class="tstep__desc">Measure, improve, and keep the product evolving.</p></div></div>
+    </div>
+    <div class="engage reveal">
+      <p class="lead" style="color:var(--text)">Flexible ways to work together — <span class="models">Fixed Price · Time &amp; Material · Dedicated Team · Outstaffing</span></p>
+      <a class="btn btn--text" href="#">Compare engagement models <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 13 · ESTIMATE CTA ═══ -->
+<section class="cta" id="estimate">
+  <div class="container">
+    <div class="shell reveal"><div class="core"><div class="cta__grid">
+      <div>
+        <span class="eyebrow">Get an Estimate</span>
+        <h2 class="display balance" style="margin-top:20px">Tell us about your project.</h2>
+      </div>
+      <div>
+        <p class="lead">Describe what you want to build in plain English. A real person reads it and comes back with an indicative range, a timeline, and the way of working that fits — usually within one business day.</p>
+        <a class="btn btn--primary btn--lg" style="margin-top:28px" href="#">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+      </div>
+    </div></div></div>
+  </div>
+</section>
+
+<!-- ═══ 14 · BLOG (editorial featured + index) ═══ -->
+<section id="blog">
+  <div class="container">
+    <div class="blog__head reveal">
+      <div><span class="eyebrow">From the blog</span><h2 class="h2" style="margin-top:18px">Plain-English thinking for founders.</h2></div>
+      <a class="btn btn--ghost" href="#">All posts <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+    </div>
+    <div class="blog__grid">
+      <a class="blog-feat reveal" href="#">
+        <span class="blog-feat__media"><i class="ph-thin ph-image"></i></span>
+        <span class="tag">Featured</span>
+        <h3 class="h3" style="margin-top:14px;max-width:20ch">Building AI that ships: where it earns its place, and where it doesn't</h3>
+        <p class="body" style="margin-top:10px">A field guide to spending your AI budget on the parts that actually move the product.</p>
+        <div class="blog-meta"><span class="avatar"></span> Jane Doe · 12 Jun 2026</div>
+      </a>
+      <div class="blog-index reveal" data-d="1">
+        <a href="#"><span class="n">01</span><div><h4 class="h5">What an MVP should actually include</h4><p>The smallest thing you can ship that still proves the idea.</p></div></a>
+        <a href="#"><span class="n">02</span><div><h4 class="h5">Fixed price vs. time &amp; material, honestly</h4><p>Which model fits which kind of project — and why.</p></div></a>
+        <a href="#"><span class="n">03</span><div><h4 class="h5">Scoping without a spec</h4><p>How we turn a founder's problem into a costed plan.</p></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 15 · FAQ (asymmetric split) ═══ -->
+<section>
+  <div class="container">
+    <div class="faq__grid">
+      <div class="faq__head reveal">
+        <span class="eyebrow">Questions founders ask</span>
+        <h2 class="h2" style="margin-top:20px">Straight answers,<br>before you ask.</h2>
+      </div>
+      <div class="acc reveal" data-d="1">
+        <div class="acc__item"><button class="acc__trigger">How long will it take? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>Most first versions ship in 6–14 weeks depending on scope. We give you a sequenced plan during Scoping so you always know what lands when — and a quick estimate request gets you a ballpark to plan around before then.</p></div></div></div>
+        <div class="acc__item"><button class="acc__trigger">What does it cost? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>It depends on scope, but our projects typically range from $30k for a focused MVP to $250k+ for a full platform. The estimator gives you an honest range up front; there are no surprise line items.</p></div></div></div>
+        <div class="acc__item"><button class="acc__trigger">Who owns the IP? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>You do — fully. Code, designs, and documentation are yours, transferred on payment. We work behind your brand and inside your repositories from day one.</p></div></div></div>
+        <div class="acc__item"><button class="acc__trigger">Where are your engineers based? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>Our teams work from our own offices, not a freelance marketplace. You get consistent people who stay on your product, with working hours that overlap yours.</p></div></div></div>
+        <div class="acc__item"><button class="acc__trigger">What if we want to bring it in-house later? <i class="ph ph-plus"></i></button><div class="acc__panel"><div class="acc__panel-in"><p>That's a normal, healthy outcome and we plan for it. Clean code, documentation, and a structured handover mean your future in-house team can pick up without us as a dependency.</p></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 16 · CONTACT (asymmetric) ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact__grid">
+      <div class="reveal">
+        <span class="eyebrow">Start the conversation</span>
+        <h2 class="display balance" style="margin-top:20px">Two ways in — pick whichever fits.</h2>
+      </div>
+      <div class="contact__cards">
+        <div class="shell contact-card contact-card--primary reveal" data-d="1"><div class="core"><span class="card-ico"><i class="ph-thin ph-calculator"></i></span><div class="txt"><h3 class="h4">Get an Estimate</h3><p class="small">Have a project in mind and want numbers? Tell us about it and get a ballpark from the team.</p><a class="btn btn--primary" href="#">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a></div></div></div>
+        <div class="shell contact-card reveal" data-d="2"><div class="core"><span class="card-ico"><i class="ph-thin ph-chat-circle-dots"></i></span><div class="txt"><h3 class="h4">Send a question</h3><p class="small">General inquiries, partnerships, or press — send a note and the right person replies.</p><a class="btn btn--ghost" href="#">Send a question <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<aside class="sticky-est" id="stickyEst">
+  <span class="sticky-est__copy">See if we're a fit</span>
+  <a class="btn btn--primary btn--sm" href="#estimate">Get an Estimate <span class="btn__ico"><i class="ph ph-arrow-right"></i></span></a>
+</aside>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__cols">
+      <nav class="fcol"><h4>Services</h4>
+        <a href="#">AI Transformation</a><a href="#">Software Development</a><a href="#">Product Design</a><a href="#">Marketing</a><a href="#">IT Consulting</a><a href="#">Support &amp; Maintenance</a><a href="#">Outsourcing &amp; Outstaffing</a><a href="#" style="color:var(--red-light)">All services →</a>
+      </nav>
+      <nav class="fcol"><h4>Industries &amp; Stage</h4>
+        <a href="#">Tech</a><a href="#">Finance</a><a href="#">Healthcare</a><a href="#">Retail</a><a href="#">Manufacturing</a><a href="#">Media &amp; Entertainment</a>
+        <span class="sub">By stage</span>
+        <a href="#">Early-stage Startup</a><a href="#">Scale-up</a><a href="#">Enterprise</a>
+      </nav>
+      <nav class="fcol"><h4>Service Areas</h4>
+        <a href="#">United States</a><a href="#">United Kingdom</a><a href="#">Germany</a><a href="#">United Arab Emirates</a><a href="#">Canada</a><a href="#">Australia</a><a href="#">Armenia</a>
+      </nav>
+      <nav class="fcol"><h4>Resources</h4>
+        <a href="#">Blog</a><a href="#">Glossary</a><a href="#">Get an Estimate</a><a href="#">Engagement Models</a><a href="#">Process</a><a href="#">Technologies</a><a href="#">Tools</a>
+      </nav>
+      <nav class="fcol"><h4>Company</h4>
+        <a href="#">About</a><a href="#">Company</a><a href="#">Team</a><a href="#">Careers</a><a href="#">Testimonials</a><a href="#">Partners</a><a href="#">Contact</a>
+      </nav>
+    </div>
+    <div class="footer__util">
+      <a class="nav__logo" href="#"><i class="ph-fill ph-hexagon"></i> VECTO</a>
+      <nav class="footer__legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a><a href="#">Sitemap</a></nav>
+      <div class="footer__social">
+        <a href="#" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+        <a href="#" aria-label="X"><i class="ph ph-x-logo"></i></a>
+        <a href="#" aria-label="GitHub"><i class="ph ph-github-logo"></i></a>
+        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+      </div>
+      <p class="copyright">© 2026 VECTO Digital. All rights reserved.</p>
+    </div>
+    <div class="footer__wordmark" aria-hidden="true">VECTO</div>
+  </div>
+</footer>
+
+<script>
+/* Scroll reveal */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{ threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* Animated counters */
+function animateCount(el){
+  const target = parseFloat(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const dur = 1400; const t0 = performance.now();
+  function tick(now){
+    const p = Math.min((now - t0)/dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if(p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const countIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); countIO.unobserve(e.target); } });
+},{ threshold:0.5 });
+document.querySelectorAll('[data-count]').forEach(el=>countIO.observe(el));
+
+/* FAQ accordion (single-open) */
+document.querySelectorAll('.acc__trigger').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item = btn.closest('.acc__item');
+    const panel = btn.nextElementSibling;
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.acc__item.open').forEach(i=>{ i.classList.remove('open'); i.querySelector('.acc__panel').style.maxHeight=null; });
+    if(!open){ item.classList.add('open'); panel.style.maxHeight = panel.scrollHeight+'px'; }
+  });
+});
+
+/* Sticky estimator */
+const sticky = document.getElementById('stickyEst');
+const stickyIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=> sticky.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top < 0));
+},{ threshold:0 });
+stickyIO.observe(document.querySelector('.hero'));
+
+/* Magnetic buttons */
+document.querySelectorAll('.btn--primary, .btn--ghost').forEach(btn=>{
+  btn.addEventListener('mousemove',(e)=>{
+    const r = btn.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2)/r.width;
+    const y = (e.clientY - r.top - r.height/2)/r.height;
+    btn.style.transform = `translate(${x*5}px, ${y*5-2}px)`;
+  });
+  btn.addEventListener('mouseleave',()=>{ btn.style.transform=''; });
+});
+
+/* Scroll-pinned horizontal stages */
+(function(){
+  const pin = document.querySelector('.stages-pin');
+  const rail = document.getElementById('stagesRail');
+  const bar = document.getElementById('stagesBar');
+  if(!pin || !rail) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const mobile = () => window.matchMedia('(max-width:860px)').matches;
+  let ticking = false;
+  function update(){
+    ticking = false;
+    if(reduced || mobile()){ rail.style.transform='none'; return; }
+    const rect = pin.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = pin.offsetHeight - vh;
+    const progress = Math.min(Math.max(-rect.top / total, 0), 1);
+    const dist = rail.scrollWidth - pin.clientWidth;
+    rail.style.transform = `translateX(${-progress * Math.max(dist,0)}px)`;
+    if(bar) bar.style.width = (progress*100) + '%';
+  }
+  window.addEventListener('scroll',()=>{ if(!ticking){ requestAnimationFrame(update); ticking=true; } }, {passive:true});
+  window.addEventListener('resize', update);
+  update();
+})();
+
+/* Portfolio rail arrows */
+(function(){
+  const rail = document.getElementById('workRail');
+  if(!rail) return;
+  const step = () => Math.min(rail.clientWidth*0.8, 460);
+  document.querySelectorAll('[data-rail]').forEach(b=>{
+    b.addEventListener('click',()=> rail.scrollBy({ left: (b.dataset.rail==='next'?1:-1)*step(), behavior:'smooth' }));
+  });
+})();
+</script>
+</body>
+</html>
