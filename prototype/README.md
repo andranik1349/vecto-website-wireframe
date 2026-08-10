@@ -68,7 +68,7 @@ Lucide only — no emoji anywhere in markup or copy. Load via CDN UMD script; in
 
 | File | Purpose |
 |---|---|
-| `vecto-master-ia-revised.html` | Canonical content & block structure for every page |
-| `wireframe-build-plan.md` | Architecture, file tree, layout principles, component inventory, per-page specs |
-| `figma-tokens-reference.md` | Full Figma token extract — authoritative values source for `tokens.css` / `typography.css` |
-| `claude-code-prompts.md` | Ordered build prompts (run 0 → 19) |
+| `../../docs/ia.md` | Canonical content & block structure for every page |
+| `../../docs/legacy/wireframe-build-plan.md` | Architecture, file tree, layout principles, component inventory, per-page specs |
+| `../../docs/legacy/figma-tokens-reference.md` | Full Figma token extract — authoritative values source for `tokens.css` / `typography.css` |
+| `../../docs/legacy/claude-code-prompts.md` | Ordered build prompts (run 0 → 19; consumed) |

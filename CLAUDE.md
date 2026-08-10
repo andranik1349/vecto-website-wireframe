@@ -2,16 +2,28 @@
 
 Auto-loaded every session. Read this first, then read the relevant section of the source docs before each task.
 
-**Repo layout note:** this repo is now a small demo hub. The prototype itself lives in `prototype/` (not the repo root) — every relative-path recipe below is relative to `prototype/` unless stated otherwise. The repo root only holds this file, the landing `index.html`, the GitHub Pages `404.html`, and a sibling `explorations/` folder of unrelated early design artifacts.
+**Repo layout note:** this repo is now a small demo hub. The prototype itself lives in `prototype/` (not the repo
+  root) — every relative-path recipe below is relative to `prototype/` unless stated otherwise. The repo root only
+  holds this file, the landing `index.html`, the GitHub Pages `404.html`, and a sibling `explorations/` folder of
+  unrelated early design artifacts (its `token-variant-spec-draft.md` is a DUPLICATE — the authoritative copy is the
+  project-root `explorations/`, which `../docs/README.md` names as the `tokens` seed).
 
 ## What this is
 A **desktop-only, static, clickable prototype** (no framework, no build step) to validate IA, block & CTA placement, and copy with stakeholders. Fidelity bar = the HES wireframe. NOT a production site.
 
 ## Source-of-truth docs (in the sibling `../docs/` folder — request read access if needed)
-- **`vecto-master-ia-revised.html`** — canonical content & block structure for every page. The authority on *what* each page contains. Reuse its hero headlines, FAQ questions, and CTA labels verbatim; mine its per-block prose for believable placeholder copy elsewhere.
-- **`wireframe-build-plan.md`** — architecture, file tree (§4.1), pathing (§4.3), layout principles (§4a), component inventory (§5), per-page specs (§8).
-- **`figma-tokens-reference.md`** — the design tokens (use the **Desktop** column / resolved colors; the wireframe flattens the full system).
-- **`claude-code-prompts.md`** — the ordered build prompts (run 0 → 19).
+- **`../docs/ia.md`** — canonical content & block structure for every page. The authority on *what* each page
+  contains. Reuse its hero headlines, FAQ questions, and CTA labels verbatim; mine its per-block prose for believable
+  placeholder copy elsewhere. (Fact split per decision D-09 in `../docs/decision-log.md`: the IA owns structure +
+  block-level copy directives; this wireframe owns the full placeholder copy and rendered UX.)
+- **`../docs/legacy/wireframe-build-plan.md`** — architecture, file tree (§4.1), pathing (§4.3), layout principles
+  (§4a), component inventory (§5), per-page specs (§8). (Archived location — still the operative reference for
+  wireframe maintenance: D-08 deliberately left the already-archived wireframe docs in `legacy/` with this file
+  pointing at them, so this is a blessed exception to "nothing in legacy/ is operative", not drift to fix.)
+- **`../docs/legacy/figma-tokens-reference.md`** — the design tokens (use the **Desktop** column / resolved colors; the wireframe flattens the full system).
+- **`../docs/legacy/claude-code-prompts.md`** — the ordered build prompts (run 0 → 19; consumed — historical reference).
+
+**New wireframe-maintenance artifacts** (plans, prompt sets, ledgers) go in `docs/` inside THIS repo (`wireframe/docs/`, create at first need) — never in the sibling `../docs/`, which is the production-build corpus (decision D-08).
 
 **Before each task, open the doc section it references and read it** — don't build from memory.
 
@@ -33,29 +45,100 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
 
 ## Page-building playbook (learned while building home + services)
 - **Depth-1 partials:** `_nav.html`/`_footer.html` are written at depth 0. To paste into a sub-folder page, generate a prefixed copy — `perl -0pe 's{(href|src)="(?!#|https?://|mailto:|/|\.\./)}{$1="../}g'` — then extract just the `<header>`/`<footer>` element. Use `../../` for depth 2.
-- **Nav contract (prototype.js `initMenus`):** hub triggers (Services / Who We Serve / How We Work / About) are `<a href>` that **navigate on click** and **reveal their panel on hover**; Resources is a `<button>` (no hub page) that toggles. Panels are DOM descendants of `<header>`, so close is driven by `<header>`'s `mouseleave` + a ~220ms grace delay — never per-trigger hover-close (it flickers). Active section is flagged from `location.pathname`.
+- **Nav contract (prototype.js `initMenus`):** hub triggers (Services / Who We Serve / How We Work / About) are `<a
+  href>` that **navigate on click** and **reveal their panel on hover**; Resources is a `<button>` (no hub page) that
+  toggles. Panels are DOM descendants of `<header>`, so close is driven by `<header>`'s `mouseleave` + a ~220ms grace
+  delay — never per-trigger hover-close (it flickers). Active section is flagged from `location.pathname`.
 - **Six-stage representation differs by page:** horizontal `.stage-journey` on the **homepage only**. On hubs the stages are **vertical anchored blocks** (alternating splits, Build = heaviest). A scroll-spy/anchor nav needs vertically-stacked, distinct targets — never put one over a one-row horizontal strip. Re-read the IA block-by-block per page; "same content" ≠ same layout.
-- **Layout gotchas that bit us:** (a) never nest `<a>` inside `<a>` — e.g. an author link inside a card-link; make the card a `<div>` with separate links. (b) Match `.feature-lead` variant to child count: 1+2 = base, 1+3 = `--3up` (lead needs `align-self:stretch`). (c) Put button icons in the button's own slot, not as a separate circular icon-button. (d) **No global `[hidden]` reset.** Components self-reset (`.megamenu[hidden]{display:none}` etc.). Any element you set an explicit `display` on (`.card`, `.facet__menu`, a flex/grid wrapper) will **ignore the `hidden` attribute** — so any JS that toggles `el.hidden` needs a matching `.yourclass[hidden]{display:none}` rule, or it stays visible. Bit the Our Work filter 3× (cards, dropdown menus, badges). See memory `hidden-attr-needs-display-reset`. (e) **Featured-card "void":** a `.card--with-image` lead made wide (grid span / 60%+) blows its `aspect-ratio:16/9` media into a huge empty box. For an enlarged lead, make it a **contained horizontal banner** (image *beside* text, `min-height` not aspect-ratio) — pattern in homepage `.portfolio-feature` and `our-work` `.og-item.is-featured`. (f) When `.card` (which is `display:flex;flex-direction:column`) is reused in a custom flex/grid row, set `flex-direction:row` explicitly or it stacks (bit `it-consulting` `.eng-solo`).
-- **Verify by DOM geometry** (`getBoundingClientRect` via preview_eval) — the preview caches CSS/JS hard (cache-bust `<link>`/`<script>` with `?v=…`) and starves `requestAnimationFrame`/IntersectionObserver on programmatic scroll (dispatch `new Event('scroll')`; sticky-CTA/scroll-spy won't toggle in-eval — verify the CSS state instead). **But geometry has a blind spot: it reads `el.hidden`/offsets while a CSS `display` override keeps the element visually shown — only a SCREENSHOT catches that class of bug.** So: geometry for layout/counts, one screenshot to confirm nothing's visually wrong. Mid-page screenshots are unreliable (flat dark band); top-of-page and modest-scroll shots work. See memory `preview-tooling-quirks`.
+- **Layout gotchas that bit us:**
+  - (a) 
+  - (a) never nest `<a>` inside `<a>` — e.g. an author link inside a card-link; make the card a `<div>` with separate links.
+  - (b) Match `.feature-lead` variant to child count: 1+2 = base, 1+3 = `--3up` (lead needs `align-self:stretch`).
+  - (c) Put button icons in the button's own slot, not as a separate circular icon-button.
+  - (d) **No global `[hidden]` reset.** Components self-reset (`.megamenu[hidden]{display:none}` etc.). Any element
+    you set an explicit `display` on (`.card`, `.facet__menu`, a flex/grid wrapper) will **ignore the `hidden`
+    attribute** — so any JS that toggles `el.hidden` needs a matching `.yourclass[hidden]{display:none}` rule, or it
+    stays visible. Bit the Our Work filter 3× (cards, dropdown menus, badges). See memory
+    `hidden-attr-needs-display-reset`.
+  - (e) **Featured-card "void":** a `.card--with-image` lead made wide (grid span / 60%+) blows its `aspect-ratio:16/9` media into a huge empty box. For an enlarged lead, make it a **contained horizontal banner** (image *beside* text, `min-height` not aspect-ratio) — pattern in homepage `.portfolio-feature` and `our-work` `.og-item.is-featured`.
+  - (f) When `.card` (which is `display:flex;flex-direction:column`) is reused in a custom flex/grid row, set `flex-direction:row` explicitly or it stacks (bit `it-consulting` `.eng-solo`).
+- **Verify by DOM geometry** (`getBoundingClientRect` via preview_eval) — the preview caches CSS/JS hard (cache-bust
+  `<link>`/`<script>` with `?v=…`) and starves `requestAnimationFrame`/IntersectionObserver on programmatic scroll
+  (dispatch `new Event('scroll')`; sticky-CTA/scroll-spy won't toggle in-eval — verify the CSS state instead). **But
+  geometry has a blind spot: it reads `el.hidden`/offsets while a CSS `display` override keeps the element visually
+  shown — only a SCREENSHOT catches that class of bug.** So: geometry for layout/counts, one screenshot to confirm
+  nothing's visually wrong. Mid-page screenshots are unreliable (flat dark band); top-of-page and modest-scroll shots
+  work. See memory `preview-tooling-quirks`.
 - **Preview server / `launch.json`:** another chat often holds port 4321, so `preview_start` fails. Temporarily flip `.claude/launch.json` to `{"autoPort":true,"runtimeExecutable":"sh","runtimeArgs":["-c","python3 -m http.server ${PORT:-4321}"]}` to grab a free port, verify, then **restore the original 4321 config** before finishing. (Restore every time — don't commit the autoPort variant.)
-- **Client-side filters live in `prototype.js`:** `initPortfolioFilter` (flat single-select chips: `[data-filter-group]` + `.tag--button.is-active` + `[data-portfolio-item][data-tags]`) and `initFacetFilter` (Our Work's multi-facet dropdowns: `[data-facet-bar]` with `.facet[data-facet]` checkboxes; AND-across / OR-within; dependent sub-services revealed by selected Service; `[data-filter-count]` + `[data-filter-empty]` + hides empty `[data-filter-section]` groups). Reuse these contracts rather than reinventing.
-- **Placeholder/template-link convention (apply to EVERY template + the pages linking to it).** Per §4.4 we build one representative example per family and point all siblings at it (sub-services → `web-development.html`; industries → `industries/[industry]` template; company stages → `who-we-serve/[stage]`; cases → `our-work/[case]`; technologies/methodologies/tools → their `react`/`ci-cd`/`jira` templates; blog post + author; glossary entry). Whenever you build such a page, make the placeholder/template status explicit so a future design/dev pass can't mistake it for the final destination:
-  1. **One convention comment per file** (NOT per link — the megamenu repeats links dozens of times; per-link = noise). Put a single HTML comment block at the top of `<body>` stating that every link to the template page is a placeholder and must resolve to its real `/path/[slug]` in production, with 1–2 concrete examples. Add the same note to the shared partial that carries the links (e.g. `_nav.html`). Skip files with no such links (e.g. `_footer.html`).
-  2. **Visible banner on the template page itself.** A full-bleed `.tmpl-banner` notice at the very top of `<body>` *above* the sticky `.topbar` (so it scrolls away while the nav sticks), Lucide `flag` icon + one sentence naming the page's template role and the `/path/[slug]` production target. **`.tmpl-banner` is now a shared component in `components.css`** (don't redeclare it per page). Lucide-only, no emoji in the rendered banner (the `⚑` is fine inside HTML comments).
-  Reference implementations: built template pages each carry the banner + comment — `services/web-development.html` (sub-service), `who-we-serve/early-stage-startup.html` (company stage), `industries/healthcare.html` (industry). Hubs that only *link* to templates carry just the comment (e.g. `who-we-serve/index.html`, `industries/index.html`, `our-work/index.html`, the 8 `services/*.html`, `_nav.html`).
-- **Depth-2 partials (proven recipe).** For `how-we-work/<x>/` pages, transform a depth-1 how-we-work nav/footer: `perl -0pe 's{href="\.\./}{href="../../}g'` (root links → `../../`), then prefix the how-we-work-local links with one `../`: `s{href="(index\.html|process\.html|engagement-models\.html|technologies/|methodologies/|tools/)}{href="../$1}g`. **ONE identical depth-2 nav/footer works for every `how-we-work/X/` page** (`../technologies/index.html` resolves correctly from any of them). Breadcrumb at depth 2: Home→`../../index.html`, How We Work→`../index.html`, hub→`index.html`. `initActiveNav` flags the section at any depth — no manual class.
-- **Lucide deprecated icon names render nothing** — the `<i data-lucide="…">` stays un-replaced (e.g. `trello` is dead → use `clipboard-list` / `square-kanban`; `kanban` etc.). **Always assert `document.querySelectorAll('i[data-lucide]').length === 0` after load** — any leftover > 0 means a bad icon name. (This check is also how you confirm Lucide ran; note Lucide *keeps* the `data-lucide` attr on the generated `<svg>`, so query `i[data-lucide]` specifically, not `[data-lucide]`.)
-- **Nav heading convention — labels by default, links only where a real page exists (P1, supersedes the old "headings are LINKS" rule).** A `.megamenu__heading` / `.dropdown__heading` is a **link only when a real destination page exists for it**; otherwise it's a plain **non-interactive `<span>` label**. **No invented hubs, no next-best-option targets** (the old prototype's "Reference"→`how-we-work/index.html` and "Trust & contact"→`about/security-compliance.html` are exactly the pathology this kills — both are now `<span>` labels; likewise "Get in touch", "Tools", and "Glossary"). Link-headings carry a **`--link` modifier** (`.megamenu__heading--link` / `.dropdown__heading--link`) = **accent-red TEXT** (`--text-accent`, colour only — NOT a button/pill), hover→`--text-accent-light`. Label state = the base muted-grey `--text-muted`. Currently links: all Services stage headings + AI band, "By company stage", "By industry", "Our Process", "Engagement Models", "Blog", "The company", "The team". **"Glossary" is a LABEL, not a link** — a heading link there would duplicate its own "Browse A–Z" link (the column's single link to the glossary hub), so the label carries a **tagline** (`.dropdown__link-desc` = "Tech terms, explained for founders", mirroring the megamenu link-desc) instead. **AI-band heading is the exception** — stays white + underlined (accent-red is invisible on the red band). Header-only hubs (esp. **Industries** — no top-level nav item) stay reachable because their heading maps to a real hub page (`industries/index.html`). Final label-vs-heading-link visual is a Figma/DS task (new component pair). When copying the nav, keep spans as spans and `--link` on the link-headings.
-- **Nav link brightness.** Interactive nav list items use **`--text-secondary-strong` (78% white)**, never `--text-secondary` (48%, reads as disabled). Hierarchy in the menus: bold category `.megamenu__link strong` → white; regular `.megamenu__link`/`.dropdown__link` → 78%; `.megamenu__link-desc` → 48%. Don't dim nav links back down. (`--text-secondary` is still correct for body/secondary copy elsewhere — the token change is scoped to nav.)
-- **`.ph-figure` image-placeholder pattern.** The IA never specifies media, so mark where real screenshots/diagrams/charts/photos go: `<div class="ph-figure"><span class="media-ph ratio-…"><i data-lucide="…"></i></span><span class="ph-figure__cap"><i data-lucide="image"></i> caption naming the asset</span></div>`. Heavy on the case study (hero shot, UI gallery, architecture diagram, outcome chart, portrait, timeline); light on editorial/reference pages (a logo `.media-ph--logo` in tech/tool template heroes). `.media-ph` (+ `--logo` / `--circle`) and `.ratio-*` already exist.
+- **Client-side filters live in `prototype.js`:** `initPortfolioFilter` (flat single-select chips:
+  `[data-filter-group]` + `.tag--button.is-active` + `[data-portfolio-item][data-tags]`) and `initFacetFilter` (Our
+  Work's multi-facet dropdowns: `[data-facet-bar]` with `.facet[data-facet]` checkboxes; AND-across / OR-within;
+  dependent sub-services revealed by selected Service; `[data-filter-count]` + `[data-filter-empty]` + hides empty
+  `[data-filter-section]` groups). Reuse these contracts rather than reinventing.
+- **Placeholder/template-link convention (apply to EVERY template + the pages linking to it).** Per §4.4 we build one
+  representative example per family and point all siblings at it (sub-services → `web-development.html`; industries →
+  `industries/[industry]` template; company stages → `who-we-serve/[stage]`; cases → `our-work/[case]`;
+  technologies/methodologies/tools → their `react`/`ci-cd`/`jira` templates; blog post + author; glossary entry).
+  Whenever you build such a page, make the placeholder/template status explicit so a future design/dev pass can't
+  mistake it for the final destination:
+  1. **One convention comment per file** (NOT per link — the megamenu repeats links dozens of times; per-link =
+  noise). Put a single HTML comment block at the top of `<body>` stating that every link to the template page is a
+  placeholder and must resolve to its real `/path/[slug]` in production, with 1–2 concrete examples. Add the same note
+  to the shared partial that carries the links (e.g. `_nav.html`). Skip files with no such links (e.g.
+  `_footer.html`).
+  2. **Visible banner on the template page itself.** A full-bleed `.tmpl-banner` notice at the very top of `<body>`
+  *above* the sticky `.topbar` (so it scrolls away while the nav sticks), Lucide `flag` icon + one sentence naming the
+  page's template role and the `/path/[slug]` production target. **`.tmpl-banner` is now a shared component in
+  `components.css`** (don't redeclare it per page). Lucide-only, no emoji in the rendered banner (the `⚑` is fine
+  inside HTML comments).
+  Reference implementations: built template pages each carry the banner + comment — `services/web-development.html`
+  (sub-service), `who-we-serve/early-stage-startup.html` (company stage), `industries/healthcare.html` (industry).
+  Hubs that only *link* to templates carry just the comment (e.g. `who-we-serve/index.html`, `industries/index.html`,
+  `our-work/index.html`, the 8 `services/*.html`, `_nav.html`).
+- **Depth-2 partials (proven recipe).** For `how-we-work/<x>/` pages, transform a depth-1 how-we-work nav/footer:
+  `perl -0pe 's{href="\.\./}{href="../../}g'` (root links → `../../`), then prefix the how-we-work-local links with
+  one `../`:
+  `s{href="(index\.html|process\.html|engagement-models\.html|technologies/|methodologies/|tools/)}{href="../$1}g`.
+  **ONE identical depth-2 nav/footer works for every `how-we-work/X/` page** (`../technologies/index.html` resolves
+  correctly from any of them). Breadcrumb at depth 2: Home→`../../index.html`, How We Work→`../index.html`,
+  hub→`index.html`. `initActiveNav` flags the section at any depth — no manual class.
+- **Lucide deprecated icon names render nothing** — the `<i data-lucide="…">` stays un-replaced (e.g. `trello` is dead
+  → use `clipboard-list` / `square-kanban`; `kanban` etc.). **Always assert
+  `document.querySelectorAll('i[data-lucide]').length === 0` after load** — any leftover > 0 means a bad icon name.
+  (This check is also how you confirm Lucide ran; note Lucide *keeps* the `data-lucide` attr on the generated `<svg>`,
+  so query `i[data-lucide]` specifically, not `[data-lucide]`.)
+- **Nav heading convention — labels by default, links only where a real page exists.** A
+  `.megamenu__heading` / `.dropdown__heading` is a **link only when a real destination page exists
+  for it**; otherwise it is a plain non-interactive `<span>` label (no href, no hover underline).
+  When a heading IS a link, its list may still omit an explicit "hub" row — the heading itself is
+  the way in. Current link/label census: read the built nav (`prototype.js` + the header partial)
+  — the DOM is the inventory, never a list kept here. Rationale + history: decision P1 in
+  `../docs/legacy/plan-ia-update-audit.md`.
+- **Nav link brightness.** Interactive nav list items use **`--text-secondary-strong` (78% white)**, never
+  `--text-secondary` (48%, reads as disabled). Hierarchy in the menus: bold category `.megamenu__link strong` → white;
+  regular `.megamenu__link`/`.dropdown__link` → 78%; `.megamenu__link-desc` → 48%. Don't dim nav links back down.
+  (`--text-secondary` is still correct for body/secondary copy elsewhere — the token change is scoped to nav.)
+- **`.ph-figure` image-placeholder pattern.** The IA never specifies media, so mark where real
+  screenshots/diagrams/charts/photos go: `<div class="ph-figure"><span class="media-ph ratio-…"><i
+  data-lucide="…"></i></span><span class="ph-figure__cap"><i data-lucide="image"></i> caption naming the
+  asset</span></div>`. Heavy on the case study (hero shot, UI gallery, architecture diagram, outcome chart, portrait,
+  timeline); light on editorial/reference pages (a logo `.media-ph--logo` in tech/tool template heroes). `.media-ph`
+  (+ `--logo` / `--circle`) and `.ratio-*` already exist.
 - **Verifying CSS edits:** navigating with `?v=…` busts the HTML doc but **not the linked CSS** (cached hard). To check a CSS change, force-reload stylesheets in-eval — clone each `link[rel=stylesheet]` with a `?v=Date.now()` href and remove the old node — then read computed styles. Use **`preview_network` (filter `failed`)** to catch 404s, especially on deep (`../../`) pages.
 - **Section count ≠ IA block count.** Group related IA blocks into one `<section>` when that's the right layout (tech hub = 7 IA blocks but 5 sections — the 3 stack categories live in one `.index-list`). Assert the content pieces (groups/cards/links/FAQ items), not a section==block number.
 - **Git rhythm:** commit only when asked, push only when asked — they are separate instructions.
 
 ## Interactive components — already wired in `prototype.js` (write markup only)
 Every interaction is implemented and auto-inits on `DOMContentLoaded`; absent markup = silent no-op. So interactive pages need **no JS** — just markup matching these contracts:
-- **`initProcessSteps`** — expandable diagram: a `.process-step` containing `<button class="process-step__toggle">` + a `.process-step__detail`; click toggles `.is-expanded` (CSS reveals the detail). ⚠️ It wires **every** `.process-step` on the page → give the per-stage anatomy sections a **different class** (`.stage-anatomy`) so they aren't double-wired; static strips (no `__detail`) safely no-op.
-- **`initDecisionTree`** — `<div data-decision-tree>` › `.decision-question[data-question="name"]` (first shows, engine hides the rest); answer buttons carry `data-goto="<question>"` or `data-result="<key>"`; result `[data-result-panel]` holds empty `[data-result-model]`/`[data-result-desc]` + `[data-decision-restart]`. **Result keys are hard-wired** in a MODELS object: `fixed` / `tm` / `dedicated` / `outstaffing` (model name + desc text) — match these exactly.
+- **`initProcessSteps`** — expandable diagram: a `.process-step` containing `<button class="process-step__toggle">` +
+  a `.process-step__detail`; click toggles `.is-expanded` (CSS reveals the detail). ⚠️ It wires **every**
+  `.process-step` on the page → give the per-stage anatomy sections a **different class** (`.stage-anatomy`) so they
+  aren't double-wired; static strips (no `__detail`) safely no-op.
+- **`initDecisionTree`** — `<div data-decision-tree>` › `.decision-question[data-question="name"]` (first shows,
+  engine hides the rest); answer buttons carry `data-goto="<question>"` or `data-result="<key>"`; result
+  `[data-result-panel]` holds empty `[data-result-model]`/`[data-result-desc]` + `[data-decision-restart]`. **Result
+  keys are hard-wired** in a MODELS object: `fixed` / `tm` / `dedicated` / `outstaffing` (model name + desc text) —
+  match these exactly.
 - **`initAnchorNav`** — `.anchor-nav__link[href="#id"]` maps to the section with that `id`; scroll-spy adds `.anchor-nav__link--active`. Wrap in `.anchor-bar.sticky-below-nav`. **Anchor ids are a contract with inbound nav links:** process = `#kickoff #scoping #execute #launch #iterate`; engagement-models = `#fixed #tm #dedicated #outstaffing`.
 - **`initAccordions`** — `.accordion[data-accordion="single"]` + `.accordion__trigger[aria-controls="id"]` + `.accordion__panel#id[hidden]` (single = closes siblings).
 - **`initStickyEstimator`** — `.sticky-estimator` gets `.is-visible` at `scrollY>600`. Tier-1/Tier-2 deep pages get the floating aside; **Tier-3 reference pages skip it** (closing Estimator CTA block only).
