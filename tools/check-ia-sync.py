@@ -286,6 +286,22 @@ else:
     record("PASS", "full pages built", f"all {checked} pages badged **full** exist in prototype/")
 
 # ─────────────────────────────────────────────────────────────────────────────
+# CHECK 4b — the ia.md table of contents is derived, so it must be current.
+# Delegated to the generator so the slug rule has one home (it was verified against GitHub's
+# own renderer; two copies of that rule would age apart).
+# ─────────────────────────────────────────────────────────────────────────────
+import subprocess  # noqa: E402  (local to this check)
+
+gen = ROOT / "tools" / "gen-ia-toc.py"
+if not gen.is_file():
+    record("FAIL", "toc current", f"{gen.name} is missing — the TOC has no generator")
+else:
+    r = subprocess.run([sys.executable, str(gen), "--check"], capture_output=True, text=True)
+    out = (r.stdout + r.stderr).strip().split("\n")[-1]
+    record("PASS" if r.returncode == 0 else "FAIL", "toc current",
+           re.sub(r"^(OK|FAIL)\s+", "", out))
+
+# ─────────────────────────────────────────────────────────────────────────────
 # CHECK 5 — Lucide icon names: any un-replaced <i data-lucide> is a dead icon name
 # ─────────────────────────────────────────────────────────────────────────────
 bad_icons = sorted(set(re.findall(r'data-lucide="(trello|kanban)"', navsrc)))

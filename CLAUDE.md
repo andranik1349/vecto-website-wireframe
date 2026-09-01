@@ -136,7 +136,9 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   and the built nav both state — taxonomy lists, nav slot count, heading link/label claims, declared-`full`
   pages existing, heading names the doc quotes actually existing. Run it after ANY change to the nav, the
   taxonomy, or a page's existence; non-zero exit means the doc and the build disagree. It is the reason the
-  heading census is not kept in prose anywhere. Registered as an instrument in `docs/project-outline.md`
+  heading census is not kept in prose anywhere. It also asserts `docs/ia.md`'s table of contents is
+  current — the TOC is GENERATED, never hand-edited: rename or add a heading, then run
+  `python3 tools/gen-ia-toc.py`. Both are registered as instruments in `docs/project-outline.md`
   §"Verification instruments".
 - **Git rhythm:** commit only when asked, push only when asked — they are separate instructions.
 
