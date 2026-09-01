@@ -104,7 +104,9 @@
         <div class="dropdown dropdown--resources" id="mm-resources" role="region" aria-label="Resources" hidden>
           <div class="dropdown__cols">
             <div class="dropdown__col">
-              <a class="dropdown__heading dropdown__heading--link" href="../../blog/index.html">Blog</a>
+              <!-- "Blog" is a label, not a link (heading convention): a heading link would
+                   duplicate "Latest posts" and "By topic" below — both resolve to the blog hub. -->
+              <span class="dropdown__heading">Blog</span>
               <ul class="dropdown__links">
                 <li><a class="dropdown__link" href="../../blog/index.html">Latest posts</a></li>
                 <li><a class="dropdown__link" href="../../blog/index.html">By topic</a></li>
@@ -203,20 +205,30 @@
       <p class="section-label">From idea to live product — every stage covered</p>
 
       <!-- AI Transformation — distinct cross-cutting band -->
-      <div class="megamenu__ai-band">
+      <!-- ONE clickable card: the whole red band is a single <a> to the AI
+           Transformation page, not a wrapper holding several discrete hit targets.
+           Per the no-nested-anchor rule the heading is plain text and the "Explore"
+           pill is a visual affordance <span>, hidden from assistive tech (the heading
+           already names the destination). Hover/focus live on a.megamenu__ai-band. -->
+      <a class="megamenu__ai-band" href="../../services/ai-transformation.html" aria-label="AI Transformation — our cross-cutting competency">
         <div>
-          <a class="megamenu__heading" href="../../services/ai-transformation.html">AI Transformation — our cross-cutting competency</a>
+          <span class="megamenu__heading">AI Transformation — our cross-cutting competency</span>
           <p class="megamenu__link-desc">Not a stage, but expertise that runs through discovery, design, build and support: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering.</p>
         </div>
-        <a class="btn btn--secondary-light btn--small" href="../../services/ai-transformation.html">
+        <span class="btn btn--secondary-light btn--small" aria-hidden="true">
           Explore AI Transformation <i data-lucide="arrow-right" aria-hidden="true"></i>
-        </a>
-      </div>
+        </span>
+      </a>
 
       <div class="megamenu__cols">
+        <!-- HEADING CONVENTION: the six column headings below are service STAGES — a
+             presentational grouping layer (ia §"Guiding principles"), not pages. They are
+             non-interactive <span> labels: every one of them used to link to its own
+             column's first child (Discover & Validate → it-consulting.html, the same
+             target as "IT Consulting" below it), so the heading link added no destination. -->
         <!-- Discover & Validate -->
         <div class="megamenu__col">
-          <a class="megamenu__heading megamenu__heading--link" href="../../services/it-consulting.html">Discover &amp; Validate</a>
+          <span class="megamenu__heading">Discover &amp; Validate</span>
           <ul class="megamenu__links">
             <li><a class="megamenu__link" href="../../services/it-consulting.html"><strong>IT Consulting</strong></a></li>
             <li><a class="megamenu__link" href="../../services/web-development.html">Market Analysis</a></li>
@@ -231,7 +243,7 @@
 
         <!-- Design -->
         <div class="megamenu__col">
-          <a class="megamenu__heading megamenu__heading--link" href="../../services/product-design.html">Design</a>
+          <span class="megamenu__heading">Design</span>
           <ul class="megamenu__links">
             <li><a class="megamenu__link" href="../../services/product-design.html"><strong>Product Design</strong></a></li>
             <li><a class="megamenu__link" href="../../services/web-development.html">UI Design</a></li>
@@ -245,7 +257,7 @@
 
         <!-- Build (primary stage) -->
         <div class="megamenu__col">
-          <a class="megamenu__heading megamenu__heading--link" href="../../services/software-development.html">Build</a>
+          <span class="megamenu__heading">Build</span>
           <ul class="megamenu__links">
             <li><a class="megamenu__link" href="../../services/software-development.html"><strong>Software Development</strong></a></li>
             <li><a class="megamenu__link" href="../../services/web-development.html">Web Development</a></li>
@@ -264,7 +276,7 @@
 
         <!-- Grow -->
         <div class="megamenu__col">
-          <a class="megamenu__heading megamenu__heading--link" href="../../services/marketing.html">Grow</a>
+          <span class="megamenu__heading">Grow</span>
           <ul class="megamenu__links">
             <li><a class="megamenu__link" href="../../services/marketing.html"><strong>Marketing</strong></a></li>
             <li><a class="megamenu__link" href="../../services/web-development.html">Marketing Strategy</a></li>
@@ -283,7 +295,7 @@
 
         <!-- Scale -->
         <div class="megamenu__col">
-          <a class="megamenu__heading megamenu__heading--link" href="../../services/outsourcing-outstaffing.html">Scale</a>
+          <span class="megamenu__heading">Scale</span>
           <ul class="megamenu__links">
             <li><a class="megamenu__link" href="../../services/outsourcing-outstaffing.html"><strong>Outsourcing &amp; Outstaffing</strong></a></li>
             <li><a class="megamenu__link" href="../../services/web-development.html">Team Outsourcing</a></li>
@@ -293,7 +305,7 @@
 
         <!-- Maintain -->
         <div class="megamenu__col">
-          <a class="megamenu__heading megamenu__heading--link" href="../../services/support-maintenance.html">Maintain</a>
+          <span class="megamenu__heading">Maintain</span>
           <ul class="megamenu__links">
             <li><a class="megamenu__link" href="../../services/support-maintenance.html"><strong>Support &amp; Maintenance</strong></a></li>
             <li><a class="megamenu__link" href="../../services/web-development.html">Technical Support</a></li>
@@ -321,7 +333,12 @@
       <div class="megamenu__cols">
 
         <div class="megamenu__col">
-          <a class="megamenu__heading megamenu__heading--link" href="../../who-we-serve/index.html">By company stage</a>
+          <!-- "By company stage" is a label, not a link (heading convention): it pointed at
+               who-we-serve/index.html, the same page the "Who We Serve" nav trigger itself
+               goes to, so the heading link added no destination. Its neighbour "By industry"
+               stays a link — industries/ is a distinct hub. The two axes are not mirrored
+               axes, so they need not be styled symmetrically. -->
+          <span class="megamenu__heading">By company stage</span>
           <p class="megamenu__link-desc">Where you are right now</p>
           <ul class="megamenu__links">
             <li><a class="megamenu__link" href="../../who-we-serve/early-stage-startup.html">Early-stage Startup</a><span class="megamenu__link-desc">pre-revenue, building MVP</span></li>

@@ -735,13 +735,22 @@ a.dropdown__heading--link {
 }
 a.megamenu__heading--link:hover,
 a.dropdown__heading--link:hover { color: var(--text-accent-light); }
-/* AI band sits on a red surface — its heading link stays white + underlined
-   (accent-red would be invisible on the band). */
-.megamenu__ai-band a.megamenu__heading {
-  color: var(--text-primary);
+/* AI band is ONE clickable card: the whole band is a single <a> (see _nav.html),
+   so it carries the interactive state instead of any child. No nested anchors —
+   the heading is a <span> and the "Explore" pill is a visual affordance <span>.
+   Hovering anywhere on the band underlines the heading and lights the pill. */
+a.megamenu__ai-band { text-decoration: none; cursor: pointer; }
+a.megamenu__ai-band:hover .megamenu__heading,
+a.megamenu__ai-band:focus-visible .megamenu__heading {
   text-decoration: underline;
   text-underline-offset: 3px;
-  cursor: pointer;
+}
+a.megamenu__ai-band:hover .btn--secondary-light {
+  background-color: var(--border-light);
+}
+a.megamenu__ai-band:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
 }
 .megamenu__links { display: flex; flex-direction: column; gap: var(--space-min); }
 .megamenu__link {
