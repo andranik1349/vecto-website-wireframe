@@ -225,6 +225,46 @@ else:
     record("PASS", "heading names exist", "every heading ia.md names by quote exists in the nav")
 
 # ─────────────────────────────────────────────────────────────────────────────
+# CHECK 3c — the two naming registers must agree on MEMBERSHIP, not wording.
+# ia.md states each sub-service twice on purpose: a short nav label in the Services megamenu section
+# (which matches the built nav) and a formal page name — H1 + URL slug — in the category's
+# site-structure section. Wording differing is correct; a differing COUNT means one register gained
+# or lost a sub-service and the other was never updated, which silently forks the taxonomy.
+# ─────────────────────────────────────────────────────────────────────────────
+STAGE_TO_CATEGORY = {
+    "Discover & Validate": "IT Consulting",
+    "Design": "Product Design",
+    "Build": "Software Development",
+    "Grow": "Marketing",
+    "Scale": "Outsourcing & Outstaffing",
+    "Maintain": "Support & Maintenance",
+}
+page_names = {}
+for mm in re.finditer(
+    r"^### (?P<cat>[^·\n]+?) · `/services/[^`]+` · \*\*full\*\*(?P<body>.*?)(?=^### )", iasrc, re.M | re.S
+):
+    b = re.search(r"\*\*Sub-service pages\*\*[^:]*:\s*(.+)", mm.group("body"))
+    if b:
+        page_names[mm.group("cat").strip()] = [x.strip() for x in b.group(1).split(" · ") if x.strip()]
+
+register_problems = []
+for stage, cat in STAGE_TO_CATEGORY.items():
+    labels = ia_lists.get(stage)
+    names = page_names.get(cat)
+    if labels is None or names is None:
+        register_problems.append(f"{stage}/{cat}: could not read both registers")
+    elif len(labels) != len(names):
+        register_problems.append(
+            f"{stage} has {len(labels)} nav labels but {cat} lists {len(names)} page names"
+        )
+if register_problems:
+    record("FAIL", "naming registers", "; ".join(register_problems))
+else:
+    total = sum(len(v) for v in page_names.values())
+    record("PASS", "naming registers",
+           f"nav-label and page-name registers agree in count across all 6 stages ({total} sub-services)")
+
+# ─────────────────────────────────────────────────────────────────────────────
 # CHECK 4 — every page ia.md badges **full** exists in the prototype
 # Templates and mention-level pages are skipped by design (§4.4 builds one example per family);
 # deferred pages are skipped because their whole point is not existing yet.

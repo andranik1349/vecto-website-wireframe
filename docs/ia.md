@@ -118,6 +118,14 @@ Layout note: with AI broken out, the panel doesn't fit a clean six-column grid. 
 
 Panel headline: **"From idea to live product — every stage covered."**
 
+> **The stage lists below are NAV LABELS, not page names.** They are the short forms as they appear in
+the menu, and they match the built nav exactly. Each sub-service's formal page name — the H1 and the URL
+slug, which the SEO foundation holds fixed — lives in its category's **Sub-service pages** line under
+§"Site structure — Services". The two registers differ on purpose ("Technical Support" in the menu,
+"Technical Support & Maintenance" as the page), so neither list is a duplicate of the other and neither
+may be deleted in favour of the other. What must always agree is the *membership and count* of the two
+lists; `tools/check-ia-sync.py` asserts that, plus the nav labels against the built nav.
+
 **Discover & Validate:** Market Analysis · Digital Transformation Strategy · Startup Ideation & Feasibility · Product Conceptualization · Financial Modelling · Technical Specification · Cost & Time Estimation
 
 **Design:** UI Design · UX Design · Prototyping & Wireframing · User Testing · Customer Journey Mapping · Product Redesign
@@ -184,7 +192,7 @@ explained for founders" is the Glossary tagline, not a link.
 The About headline itself is clickable and links to the `/about` hub; the panel deep-links the sub-pages — Company,
 Team, Careers, Testimonials — plus Schedule a Call and Contact. The expected journey is that most visitors skip the
 hub and go straight to a sub-page. Security & Compliance is on hold — off all visible surfaces, parked in the
-Appendix. Heading behavior: "The company" and "The team" head real pages and are links; "Trust & contact" is a
+Appendix. Heading behavior: "The company" and "The team" head real pages and are links; "Get in touch" is a
 non-interactive label. Schedule a Call and Contact are standalone pages (root-level URLs) — their presence here is
 menu placement, not hierarchy.
 
@@ -192,7 +200,7 @@ menu placement, not hierarchy.
 
 **The team:** Team — leadership & specialists · Careers — open roles
 
-**Trust & contact** *(label)*: Testimonials · Schedule a Call · Contact
+**Get in touch** *(label)*: Testimonials · Schedule a Call · Contact
 
 ### Get an Estimate — primary CTA
 
@@ -373,7 +381,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
   we've built something?" (components are modular so models can be swapped without rebuilding everything around them)
   · "We've heard AI can hallucinate or behave unpredictably — how do you handle that?" (failure modes are designed
   for: human review layers, fallback logic, confidence thresholds).
-**Sub-service pages** *(each follows the sub-service template)*: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering
 
 ### Software Development · `/services/software-development` · **full**
 
@@ -395,7 +403,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Product Design (precedes build), AI Transformation (often integrated), Support & Maintenance (after build). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(each follows the sub-service template)*: Web Development · Mobile App Development · Bot Development · Game Development · E-commerce Development · CRM Development · ERP Development · PWA Development · SPA Development · 3rd Party Integrations · Platform Migration Services
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Web Development · Mobile App Development · Bot Development · Game Development · E-commerce Development · CRM Development · ERP Development · PWA Development · SPA Development · 3rd Party Integrations · Platform Migration Services
 
 ### Product Design · `/services/product-design` · **full**
 
@@ -417,7 +425,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | IT Consulting (validate the idea first), Software Development (then build), Marketing (then grow). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(each follows the sub-service template)*: UI Design · UX Design · Product Redesign · User Testing · Prototyping & Wireframing · Customer Journey Development
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: UI Design · UX Design · Product Redesign · User Testing · Prototyping & Wireframing · Customer Journey Development
 
 ### Marketing · `/services/marketing` · **full**
 
@@ -439,7 +447,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Software Development (build), IT Consulting (market analysis), Product Design (conversion-led design). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(each follows the sub-service template)*: Marketing Strategy Development · Full Digital Marketing · SEO · GEO · ASO · Lead Generation · SMM · Graphic Design · PPC · Copywriting · Digital Branding
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Marketing Strategy Development · Full Digital Marketing · SEO · GEO · ASO · Lead Generation · SMM · Graphic Design · PPC · Copywriting · Digital Branding
 
 ### IT Consulting · `/services/it-consulting` · **full**
 
@@ -461,7 +469,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Product Design (after validation), Software Development (after specification). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(each follows the sub-service template)*: Market Analysis · Digital Transformation Strategy · Startup Ideation & Feasibility Analysis · Product Conceptualization · Financial Model Development · Technical Specification Development · Product Development Cost & Time Estimation
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Market Analysis · Digital Transformation Strategy · Startup Ideation & Feasibility Analysis · Product Conceptualization · Financial Model Development · Technical Specification Development · Product Development Cost & Time Estimation
 
 ### Support & Maintenance · `/services/support-maintenance` · **full**
 
@@ -483,7 +491,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Software Development (the original build), Outsourcing & Outstaffing (extend the team). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(each follows the sub-service template)*: Technical Support & Maintenance · Audit and Troubleshooting · Security, Performance Enhancements and Updates · Hosting and Infrastructure Support
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Technical Support & Maintenance · Audit and Troubleshooting · Security, Performance Enhancements and Updates · Hosting and Infrastructure Support
 
 ### Outsourcing & Outstaffing · `/services/outsourcing-outstaffing` · **full**
 
@@ -509,7 +517,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Software Development (the work the team does), Support & Maintenance (when the team's role is ongoing). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(each follows the sub-service template)*: Team Outsourcing · Staff Augmentation
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Team Outsourcing · Staff Augmentation
 
 ## Site structure — Solutions
 
