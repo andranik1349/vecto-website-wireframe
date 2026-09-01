@@ -14,16 +14,16 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
 ## Source-of-truth docs (in the sibling `../docs/` folder — request read access if needed)
 - **`../docs/ia.md`** — canonical content & block structure for every page. The authority on *what* each page
   contains. Reuse its hero headlines, FAQ questions, and CTA labels verbatim; mine its per-block prose for believable
-  placeholder copy elsewhere. (Fact split per decision D-09 in `../docs/decision-log.md`: the IA owns structure +
+  placeholder copy elsewhere. (Fact split per `../docs/ia.md` header §"Fact split": the IA owns structure +
   block-level copy directives; this wireframe owns the full placeholder copy and rendered UX.)
 - **`../docs/legacy/wireframe-build-plan.md`** — architecture, file tree (§4.1), pathing (§4.3), layout principles
   (§4a), component inventory (§5), per-page specs (§8). (Archived location — still the operative reference for
-  wireframe maintenance: D-08 deliberately left the already-archived wireframe docs in `legacy/` with this file
+  wireframe maintenance: DL-08 deliberately left the already-archived wireframe docs in `legacy/` with this file
   pointing at them, so this is a blessed exception to "nothing in legacy/ is operative", not drift to fix.)
 - **`../docs/legacy/figma-tokens-reference.md`** — the design tokens (use the **Desktop** column / resolved colors; the wireframe flattens the full system).
 - **`../docs/legacy/claude-code-prompts.md`** — the ordered build prompts (run 0 → 19; consumed — historical reference).
 
-**New wireframe-maintenance artifacts** (plans, prompt sets, ledgers) go in `docs/` inside THIS repo (`wireframe/docs/`, create at first need) — never in the sibling `../docs/`, which is the production-build corpus (decision D-08).
+**New wireframe-maintenance artifacts** (plans, prompt sets, ledgers) go in `docs/` inside THIS repo (`wireframe/docs/`, create at first need) — never in the sibling `../docs/`, which is the production-build corpus (decision DL-08).
 
 **Before each task, open the doc section it references and read it** — don't build from memory.
 
