@@ -132,6 +132,12 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   (+ `--logo` / `--circle`) and `.ratio-*` already exist.
 - **Verifying CSS edits:** navigating with `?v=…` busts the HTML doc but **not the linked CSS** (cached hard). To check a CSS change, force-reload stylesheets in-eval — clone each `link[rel=stylesheet]` with a `?v=Date.now()` href and remove the old node — then read computed styles. Use **`preview_network` (filter `failed`)** to catch 404s, especially on deep (`../../`) pages.
 - **Section count ≠ IA block count.** Group related IA blocks into one `<section>` when that's the right layout (tech hub = 7 IA blocks but 5 sections — the 3 stack categories live in one `.index-list`). Assert the content pieces (groups/cards/links/FAQ items), not a section==block number.
+- **`ia.md` sync check.** `python3 tools/check-ia-sync.py` from the repo root asserts the facts `docs/ia.md`
+  and the built nav both state — taxonomy lists, nav slot count, heading link/label claims, declared-`full`
+  pages existing, heading names the doc quotes actually existing. Run it after ANY change to the nav, the
+  taxonomy, or a page's existence; non-zero exit means the doc and the build disagree. It is the reason the
+  heading census is not kept in prose anywhere. Registered as an instrument in `docs/project-outline.md`
+  §"Verification instruments".
 - **Git rhythm:** commit only when asked, push only when asked — they are separate instructions.
 
 ## Interactive components — already wired in `prototype.js` (write markup only)

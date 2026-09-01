@@ -92,6 +92,7 @@ Doing one without the other recreates HES's gap in mirror image.
 - **Editor walkthroughs** — a human doing real admin tasks; the only reliable way to catch quiet failures. Include an *adversarial* pass per stage gate: deliberately produce nonsense (contradicting fields, set-then-unset leftovers, publishing half-filled entries) and check the **public render**, not just admin state.
 - **Build-diff alerting** — a rebuild that changes pages it shouldn't says so.
 - **Rollback tag before any mass change** — a git tag ahead of every refactor or sweeping edit, so any step reverts cleanly; byte-level DOM baselines are the parity gate for behavior-preserving refactors.
+- **`ia` ↔ artifact sync check** — `wireframe/tools/check-ia-sync.py`: asserts the handful of facts this corpus and the built artifact both state (taxonomy lists, nav slot count, heading link/label claims, declared-`full` pages existing, heading names the doc quotes actually existing). Non-zero exit = drift. Run it after any structural change to either side, and before editing `ia` at scale. The instrument exists because the same class of drift recurred twice: the hygiene answer to a recurring failure is a mechanical check, not another prose rule. It carries its own negative tests in its docstring's spirit — a check never shown to fail is a hope. When the front-end repo takes over the corpus, this check is re-pointed at the production components, not retired.
 
 ### The build method — brief → in-repo plan → build (DL-20)
 
