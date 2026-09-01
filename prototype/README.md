@@ -64,11 +64,11 @@ Lucide only — no emoji anywhere in markup or copy. Load via CDN UMD script; in
 
 ---
 
-## Source docs (sibling `../../docs/` folder)
+## Source docs (sibling `../docs/` folder)
 
 | File | Purpose |
 |---|---|
-| `../../docs/ia.md` | Canonical content & block structure for every page |
-| `../../docs/legacy/wireframe-build-plan.md` | Architecture, file tree, layout principles, component inventory, per-page specs |
-| `../../docs/legacy/figma-tokens-reference.md` | Full Figma token extract — authoritative values source for `tokens.css` / `typography.css` |
-| `../../docs/legacy/claude-code-prompts.md` | Ordered build prompts (run 0 → 19; consumed) |
+| `../docs/ia.md` | Canonical content & block structure for every page |
+| `../docs/legacy/wireframe-build-plan.md` | Architecture, file tree, layout principles, component inventory, per-page specs |
+| `../docs/legacy/figma-tokens-reference.md` | Full Figma token extract — authoritative values source for `tokens.css` / `typography.css` |
+| `../docs/legacy/claude-code-prompts.md` | Ordered build prompts (run 0 → 19; consumed) |
