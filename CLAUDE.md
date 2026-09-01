@@ -107,12 +107,17 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   `document.querySelectorAll('i[data-lucide]').length === 0` after load** — any leftover > 0 means a bad icon name.
   (This check is also how you confirm Lucide ran; note Lucide *keeps* the `data-lucide` attr on the generated `<svg>`,
   so query `i[data-lucide]` specifically, not `[data-lucide]`.)
-- **Nav heading convention — labels by default, links only where a real page exists.** A
-  `.megamenu__heading` / `.dropdown__heading` is a **link only when a real destination page exists
-  for it**; otherwise it is a plain non-interactive `<span>` label (no href, no hover underline).
-  When a heading IS a link, its list may still omit an explicit "hub" row — the heading itself is
-  the way in. Current link/label census: read the built nav (`prototype.js` + the header partial)
-  — the DOM is the inventory, never a list kept here. Rationale + history: decision P1 in
+- **Nav heading convention — labels by default, links only where the link adds a destination.** A
+  `.megamenu__heading` / `.dropdown__heading` is a link only when **both** hold: a real destination
+  page exists for it, **and** that page isn't already reachable from inside the same column or from
+  the menu's own top-level trigger. Otherwise it is a plain non-interactive `<span>` label (no href,
+  no hover underline). The second test is the one that bites: a heading whose href equals its first
+  child's, or equals its own nav trigger's, is a duplicate and must be a label — that is why the six
+  Services stage headings, Resources "Blog" and WWS "By company stage" are labels even though pages
+  exist behind some of them. When a heading IS a link, its list may still omit an explicit "hub" row
+  — the heading itself is the way in. Current link/label census: read the built nav (`prototype.js`
+  + the header partial) — the DOM is the inventory, never a list kept here. Convention + rationale:
+  `../docs/ia.md` §"Menu-heading convention"; history: E7 in
   `../docs/legacy/plan-ia-update-audit.md`.
 - **Nav link brightness.** Interactive nav list items use **`--text-secondary-strong` (78% white)**, never
   `--text-secondary` (48%, reads as disabled). Hierarchy in the menus: bold category `.megamenu__link strong` → white;
