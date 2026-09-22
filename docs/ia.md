@@ -1239,11 +1239,12 @@ yes or no, after which it is promoted to a real entry or deleted.
   renders entries from the CMS rather than giving each one a URL, so adopting these means a content
   model change: individual testimonials become addressable entries. Worth weighing against thin-content
   risk — a single quote per URL is exactly the page Google's guidance treats as low value.
-- **Targeting** — a twelfth Marketing sub-service, `/services/marketing/targeted-advertising-services`.
-  Deliberately **not** added to either naming register: the megamenu taxonomy and the Sub-service pages
-  line must agree in count, and adding it to one without the built nav fails the sync check. Note the
-  sitemap's own entry is internally inconsistent — the display name is "Targeting" while the slug reads
-  `targeted-advertising-services`. Resolve the name before adopting it.
+- **Targeting** — a twelfth Marketing sub-service. Its two names follow this doc's existing register
+  split exactly: **"Targeting"** is the short menu label, **"Targeted Advertising Services"** is the
+  formal page name behind the slug `/services/marketing/targeted-advertising-services`. Nothing to
+  resolve on naming; what needs a decision is whether Marketing gains a twelfth sub-service at all.
+  Until it does, it stays out of **both** registers — the megamenu taxonomy and the Sub-service pages
+  line must agree in count, and adding it to either without the built nav fails the sync check.
 
 ### Why VECTO — parked, not deleted · **deferred**
 

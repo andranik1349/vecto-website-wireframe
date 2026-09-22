@@ -235,7 +235,9 @@ Solutions strip with Portfolio and Reviews as proof.
 name**, the sitemap wins. Six routes moved: `/our-work`→`/portfolio`, `/how-we-work/technologies`→
 `/technologies`, `/about/testimonials`→`/testimonials`, `/about/careers`→`/careers`, `/contact`→
 `/contact-us`, `/get-an-estimate`→`/quote`. Industry, company-stage and formal sub-service names follow the
-sheet. Four sheet-only items are recorded in the Appendix as **proposed**, not adopted. The sheet's authority
+sheet. Four sheet-only items are recorded in the Appendix as **proposed**, not adopted — including a twelfth
+Marketing sub-service whose short label ("Targeting") and formal slug name ("Targeted Advertising
+Services") follow the same two-register split this corpus already uses. The sheet's authority
 stops at URLs and names: it does not decide what the site contains.
 **Why:** the front-end build starts against these URLs, and every week built against the wrong ones is
 rework. The decisive finding was that one move *reverses* a cost rather than paying one — the corpus had
