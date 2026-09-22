@@ -211,8 +211,8 @@ Panel headline: **"From idea to live product — every stage covered."**
 > **The stage lists below are NAV LABELS, not page names.** They are the short forms as they appear in
 the menu, and they match the built nav exactly. Each sub-service's formal page name — the H1 and the URL
 slug, which the SEO foundation holds fixed — lives in its category's **Sub-service pages** line under
-§"Site structure — Services". The two registers differ on purpose ("Technical Support" in the menu,
-"Technical Support & Maintenance" as the page), so neither list is a duplicate of the other and neither
+§"Site structure — Services". The two registers differ on purpose ("SMM" in the menu, "Social Media
+Marketing" as the page), so neither list is a duplicate of the other and neither
 may be deleted in favour of the other. What must always agree is the *membership and count* of the two
 lists; `tools/check-ia-sync.py` asserts that, plus the nav labels against the built nav.
 
@@ -239,9 +239,9 @@ cross-cutting.
 
 A single panel with two distinct columns — answering both "are you in my industry?" and "are you at my stage?" in one look. Heading behavior: "By industry" links `/industries`; "By company stage" is a non-interactive label — `/who-we-serve` is a legitimate hub, but it is exactly where the "Who We Serve" trigger itself goes, so a heading link would only restate it. The two axes therefore do not read symmetrically; making that deliberate is a design task.
 
-**By company stage:** Early-stage Startup — pre-revenue, building MVP · Scale-up — product-market fit, growing fast · Small Business — established, modernising · Midsize Business — multi-team, accelerating · Enterprise — complex stack, regulated
+**By company stage:** Early Stage Startups — pre-revenue, building MVP · Scale Up Startups — product-market fit, growing fast · Small Businesses — established, modernising · Midsize Businesses — multi-team, accelerating · Enterprises — complex stack, regulated
 
-**By industry:** Tech · Finance · Healthcare · Travel · Hospitality · Retail · Education · Manufacturing · Media & Entertainment · Sport · Professional Services · Non-Profit · Beauty & Wellness
+**By industry:** Technology · Finance · Healthcare · Travel · Hospitality · Retail · Education · Manufacturing · Media and Entertainment · Sports · Professional Services · Non-Profit Organizations · Beauty and Wellness
 
 ### Our Work — direct link (no megamenu)
 
@@ -346,7 +346,7 @@ search crawlers and technical evaluators still reach them.
 | 7 | Portfolio module | Curated featured grid (6-8 highlighted projects) — hand-picked via the CMS featured flag + order, editorial Tier-1 layout echoing the portfolio's asymmetric aspect-preset grid, closing with "Browse all work →". Layout validated in the wireframe. Maps to the Our Work menu. |
 | 8 | Reviews | Featured testimonials rendered from the on-site CMS (author, company, text, link to source — Clutch/GoodFirms/Google), not embedded platform widgets; link to `/about/testimonials`. Clustered with Portfolio as the combined proof block. |
 | 9 | Industries grid | Editorial layout — 2 featured industry cards (highest-demand verticals, e.g. Healthcare + Finance) plus a compact index of the remaining industries — not a uniform card grid, consistent with the homepage's Tier-1 editorial treatment. All industries are represented; each tile/row links to its Industry page. Maps to the Who We Serve menu (industry axis). |
-| 10 | Who we serve strip | Filter-chip row: "Built for [Early-stage / Scale-up / SMB / Mid-market / Enterprise]" — chip labels are display shorthand; the canonical stage nouns and slugs stay Small Business / Midsize Business (see Who We Serve). *(detail below.)* |
+| 10 | Who we serve strip | Filter-chip row: "Built for [Early-stage / Scale-up / SMB / Mid-market / Enterprise]" — chip labels are display shorthand. The canonical stage nouns and slugs are plural, adopted from the SEO sitemap (DL-25) — Small Businesses `/who-we-serve/small-businesses`, Midsize Businesses `/who-we-serve/midsize-businesses` (see Who We Serve). *(detail below.)* |
 | 11 | Process strip | 5-step horizontal visual (*Kickoff → Scoping → Execute → Launch → Iterate*) linking to the Process page. Describes how every engagement runs as a project — distinct from the Services stages above. Maps to the How We Work menu. Positioned to follow the menu narrative: it explains the working relationship once the visitor is interested, rather than pre-emptively. |
 | 12 | Engagement strip | Deliberately narrow / de-emphasized — sits immediately after Process to reflect their real-world connection (how an engagement runs ↔ how it's structured commercially). *(detail below.)* |
 | 13 | Solutions strip | Compact strip: "Products we build and run" — the solutions mini-portfolio (onemall · onesocial · quickoffer · plugins) linking to `/solutions`. Deliberately lighter than the portfolio module above. Sits late, after the engagement narrative, mirroring the nav: in its current form Solutions is deprioritised relative to the client-facing story (DL-24). Maps to the Solutions nav item. |
@@ -442,7 +442,7 @@ Applied to every sub-service page across the service categories (the stage lists
 | # | Block | Description |
 |---|---|---|
 | 1 | Hero | Headline: "Build AI into your product — with a clear idea of what you're actually getting." Sub-headline: "The promise around AI is still louder than the reality. *(detail below.)* |
-| 2 | What's included | Sub-service cards — each links to the corresponding sub-service page. Cards explicitly distinguish integration work (AI Integration, AI Prompt Engineering) from build work (Generative AI Development, ML Engineering) and data work (Data Analytics). |
+| 2 | What's included | Sub-service cards — each links to the corresponding sub-service page. Cards explicitly distinguish integration work (AI Integration, AI Prompt Engineering) from build work (Generative AI Development, Machine Learning Engineering) and data work (Data Analytics). |
 | 3 | Benefits | 3 founder-facing benefits mapping to the two positioning value props. (1) "Know what you're integrating before you commit" — we match the right tools and models to the specific problem, not the ones currently trending. *(detail below.)* |
 | 4 | Mini-process | Service-scoped 4-step process (Audit → Pilot → Integrate → Operate), link to full Process page. |
 | 5 | Tech stack | Relevant slice of the Technologies taxonomy: AI/ML stack, integration tools, data infrastructure. |
@@ -471,7 +471,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
   we've built something?" (components are modular so models can be swapped without rebuilding everything around them)
   · "We've heard AI can hallucinate or behave unpredictably — how do you handle that?" (failure modes are designed
   for: human review layers, fallback logic, confidence thresholds).
-**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: AI Integration · Generative AI Development · ML Engineering · Data Analytics · AI Prompt Engineering
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: AI Integration · Generative AI Development · Machine Learning Engineering · Data Analytics · AI Prompt Engineering
 
 ### Software Development · `/services/software-development` · **full**
 
@@ -493,7 +493,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Product Design (precedes build), AI Transformation (often integrated), Support & Maintenance (after build). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Web Development · Mobile App Development · Bot Development · Game Development · E-commerce Development · CRM Development · ERP Development · PWA Development · SPA Development · 3rd Party Integrations · Platform Migration Services
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Web Development · Mobile App Development · Bot Development · Game Development · Ecommerce Development · CRM Development · ERP Development · PWA Development · SPA Development · 3rd Party Integrations · Platform Migration
 
 ### Product Design · `/services/product-design` · **full**
 
@@ -515,7 +515,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | IT Consulting (validate the idea first), Software Development (then build), Marketing (then grow). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: UI Design · UX Design · Product Redesign · User Testing · Prototyping & Wireframing · Customer Journey Development
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: UI Design · UX Design · Product Redesign · User Testing · Prototyping and Wireframing · Customer Journey Development
 
 ### Marketing · `/services/marketing` · **full**
 
@@ -537,7 +537,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Software Development (build), IT Consulting (market analysis), Product Design (conversion-led design). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Marketing Strategy Development · Full Digital Marketing · SEO · GEO · ASO · Lead Generation · SMM · Graphic Design · PPC · Copywriting · Digital Branding
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Marketing Strategy · Full Digital Marketing · SEO · GEO · ASO · Lead Generation · Social Media Marketing · Graphic Design · PPC · Copywriting · Digital Branding
 
 ### IT Consulting · `/services/it-consulting` · **full**
 
@@ -559,7 +559,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Product Design (after validation), Software Development (after specification). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Market Analysis · Digital Transformation Strategy · Startup Ideation & Feasibility Analysis · Product Conceptualization · Financial Model Development · Technical Specification Development · Product Development Cost & Time Estimation
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Market Analysis · Digital Transformation Strategy · Startup Ideation and Feasibility Analysis · Product Conceptualization · Financial Model Development · Technical Specification Development · Product Development Cost Estimation
 
 ### Support & Maintenance · `/services/support-maintenance` · **full**
 
@@ -581,7 +581,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 | 10 | Related services | Software Development (the original build), Outsourcing & Outstaffing (extend the team). |
 | 11 | Sticky Estimator CTA | Persistent throughout scroll. |
 
-**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Technical Support & Maintenance · Audit and Troubleshooting · Security, Performance Enhancements and Updates · Hosting and Infrastructure Support
+**Sub-service pages** *(formal page names — H1 + URL slug; menu labels are shorter, see §"Services megamenu")*: Technical Support and Maintenance · Audit and Troubleshooting · Security, Performance and Updates · Hosting and Infrastructure Support
 
 ### Outsourcing & Outstaffing · `/services/outsourcing-outstaffing` · **full**
 
@@ -659,7 +659,7 @@ Dedicated page per solution, structurally similar to the case study template but
 | 6 | FAQ | "Do you only work with [stage]?" / "What if my industry isn't listed?" / "How do you adapt your process by stage?" |
 | 7 | Estimator + Schedule CTA | Dual CTA closing the page. |
 
-**Stage pages** *(one per stage · each follows the company stage template)*: Early-stage Startup `/who-we-serve/early-stage-startup` · Scale-up Startup `/who-we-serve/scale-up` · Small Business `/who-we-serve/small-business` · Midsize Business `/who-we-serve/midsize-business` · Enterprise `/who-we-serve/enterprise`
+**Stage pages** *(one per stage · each follows the company stage template)*: Early Stage Startups `/who-we-serve/early-stage-startups` · Scale Up Startups `/who-we-serve/scale-up-startups` · Small Businesses `/who-we-serve/small-businesses` · Midsize Businesses `/who-we-serve/midsize-businesses` · Enterprises `/who-we-serve/enterprises`
 
 ### Company stage page template · `/who-we-serve/[stage]` · **template**
 
@@ -694,12 +694,12 @@ Applied to every company stage page. Each page must speak to the specific anxiet
 | 4 | FAQ | "What if my industry isn't here?" / "Do you have compliance experience for [regulated vertical]?" |
 | 5 | Estimator CTA | Closing CTA. |
 
-**Industry pages** *(one per industry · each follows the industry template)*: Tech `/industries/tech` · Travel
+**Industry pages** *(one per industry · each follows the industry template)*: Technology `/industries/technology` · Travel
   `/industries/travel` · Hospitality `/industries/hospitality` · Finance `/industries/finance` · Healthcare
   `/industries/healthcare` · Manufacturing `/industries/manufacturing` · Retail `/industries/retail` · Education
-  `/industries/education` · Sport `/industries/sport` · Media & Entertainment `/industries/media-entertainment` ·
-  Professional Services `/industries/professional-services` · Non-Profit Organizations `/industries/non-profit` ·
-  Beauty & Wellness `/industries/beauty-wellness`
+  `/industries/education` · Sports `/industries/sports` · Media and Entertainment `/industries/media-entertainment` ·
+  Professional Services `/industries/professional-services` · Non-Profit Organizations `/industries/non-profit-organizations` ·
+  Beauty and Wellness `/industries/beauty-wellness`
 
 ### Industry page template · `/industries/[industry]` · **template**
 
