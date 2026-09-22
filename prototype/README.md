@@ -32,7 +32,7 @@ Because pages are static HTML with relative paths, the `../` prefix depth varies
 |---|---|---|---|
 | `prototype/` (root) | 0 | none | `href="tokens.css"` |
 | `prototype/services/` etc. | 1 | `../` | `href="../tokens.css"` |
-| `prototype/how-we-work/technologies/` etc. | 2 | `../../` | `href="../../tokens.css"` |
+| `prototype/technologies/` etc. | 2 | `../../` | `href="../../tokens.css"` |
 
 **Recommended alternative:** serve with any static server (`npx serve .` or similar) and use root-relative paths (`/tokens.css`, `/services/index.html`) to eliminate per-depth bookkeeping entirely.
 

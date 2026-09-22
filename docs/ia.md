@@ -24,7 +24,11 @@ to a class of pages), or **mention & placement** (named and located in the IA, s
 detailed). Additional badges: **New** = the page does not exist on the current live site — no URL
 to preserve; **Deferred** = parked in the Appendix, off all active surfaces — a pre-launch,
 docs/code-level convention for content not yet built, distinct from the operator-facing runtime
-page-hide capability that applies to any live page post-launch (decision DL-21, `be-arch` §7).
+page-hide capability that applies to any live page post-launch (decision DL-21, `be-arch` §7);
+**Proposed** = arrived from an external source (today: the SEO sitemap) and recorded in the Appendix
+pending approval — not adopted, not built, and absent from every taxonomy, nav surface and check
+until someone rules on it. A proposed entry is either promoted to a real one or deleted; it never
+just sits.
 
 ---
 
@@ -66,22 +70,22 @@ page-hide capability that applies to any live page post-launch (decision DL-21, 
 - [Site structure — Industries](#site-structure--industries)
   - [Industries hub · `/industries` · full](#industries-hub--industries--full)
   - [Industry page template · `/industries/[industry]` · template](#industry-page-template--industriesindustry--template)
-- [Site structure — Our Work / Portfolio](#site-structure--our-work--portfolio)
-  - [Our Work / Portfolio · `/our-work` · full](#our-work--portfolio--our-work--full)
+- [Site structure — Portfolio](#site-structure--portfolio)
+  - [Portfolio · `/portfolio` · full](#portfolio--portfolio--full)
   - [Case study page template · `/projects/[project-name]` · template](#case-study-page-template--projectsproject-name--template)
-  - [Facet landing page template · `/our-work/industry/[industry]` · `/our-work/service/[service]` · template · new](#facet-landing-page-template--our-workindustryindustry--our-workserviceservice--template--new)
+  - [Facet landing page template · `/portfolio/industry/[industry]` · `/portfolio/service/[service]` · template · new](#facet-landing-page-template--portfolioindustryindustry--portfolioserviceservice--template--new)
 - [Site structure — How We Work](#site-structure--how-we-work)
   - [How We Work hub · `/how-we-work` · full · new](#how-we-work-hub--how-we-work--full--new)
   - [Process page · `/how-we-work/process` · full · new](#process-page--how-we-workprocess--full--new)
   - [Engagement Models page · `/how-we-work/engagement-models` · full · new](#engagement-models-page--how-we-workengagement-models--full--new)
-  - [Technologies hub · `/how-we-work/technologies` · full](#technologies-hub--how-we-worktechnologies--full)
-  - [Technology page template · `/how-we-work/technologies/[tech-name]` · template](#technology-page-template--how-we-worktechnologiestech-name--template)
+  - [Technologies hub · `/technologies` · full](#technologies-hub--technologies--full)
+  - [Technology page template · `/technologies/[tech-name]` · template](#technology-page-template--technologiestech-name--template)
   - [Methodologies hub · `/how-we-work/methodologies` · full · new](#methodologies-hub--how-we-workmethodologies--full--new)
   - [Methodology page template · `/how-we-work/methodologies/[methodology]` · template](#methodology-page-template--how-we-workmethodologiesmethodology--template)
   - [Tools hub · `/how-we-work/tools` · full · new](#tools-hub--how-we-worktools--full--new)
   - [Tool page template · `/how-we-work/tools/[tool]` · template](#tool-page-template--how-we-worktoolstool--template)
 - [Site structure — Get an Estimate (standalone)](#site-structure--get-an-estimate-standalone)
-  - [Get an Estimate · `/get-an-estimate` · full · new](#get-an-estimate--get-an-estimate--full--new)
+  - [Get an Estimate · `/quote` · full · new](#get-an-estimate--quote--full--new)
 - [Site structure — Schedule a Call (standalone)](#site-structure--schedule-a-call-standalone)
   - [Schedule a Call · `/schedule-a-call` · full · new](#schedule-a-call--schedule-a-call--full--new)
 - [Site structure — Resources / Blog](#site-structure--resources--blog)
@@ -95,16 +99,17 @@ page-hide capability that applies to any live page post-launch (decision DL-21, 
   - [About hub · `/about` · full](#about-hub--about--full)
   - [Company · `/about/company` · full](#company--aboutcompany--full)
   - [Team · `/about/team` · full](#team--aboutteam--full)
-  - [Careers · `/about/careers` · full · new](#careers--aboutcareers--full--new)
-  - [Job posting template · `/about/careers/[job-slug]` · template · new](#job-posting-template--aboutcareersjob-slug--template--new)
-  - [Testimonials · `/about/testimonials` · full · new](#testimonials--abouttestimonials--full--new)
+  - [Careers · `/careers` · full · new](#careers--careers--full--new)
+  - [Job posting template · `/careers/[job-slug]` · template · new](#job-posting-template--careersjob-slug--template--new)
+  - [Testimonials · `/testimonials` · full · new](#testimonials--testimonials--full--new)
 - [Site structure — Contact (standalone)](#site-structure--contact-standalone)
-  - [Contact · `/contact` · full](#contact--contact--full)
+  - [Contact · `/contact-us` · full](#contact--contact-us--full)
 - [Mention & structural placement](#mention--structural-placement)
   - [Static / legal pages · mention](#static--legal-pages--mention)
   - [Country pages (Service Areas) · `/service-areas/[country]` · mention](#country-pages-service-areas--service-areascountry--mention)
   - [Year pages · `/[year]` · mention](#year-pages--year--mention)
 - [Appendix — deferred features](#appendix--deferred-features)
+  - [Proposed by the SEO sitemap — pending approval · proposed](#proposed-by-the-seo-sitemap--pending-approval--proposed)
   - [Why VECTO — parked, not deleted · deferred](#why-vecto--parked-not-deleted--deferred)
   - [AI estimation generator — deferred to a later release · deferred](#ai-estimation-generator--deferred-to-a-later-release--deferred)
   - [Security & Compliance — on hold, parked · deferred](#security--compliance--on-hold-parked--deferred)
@@ -135,7 +140,7 @@ page-hide capability that applies to any live page post-launch (decision DL-21, 
   writing Google's current guidance rewards. Binds every draft regardless of author — content/SEO, design, or
   contracted. Screening rules: `content-screen`; the published-guidance evidence behind them: `content-vocab`.
 - **Process visibility everywhere.** "How we work" is referenced from the homepage, every service page, every industry page, and every case study — addressing the #1 founder objection pre-emptively.
-- **Mid-funnel is the missing layer.** The Get an Estimate flow is the universal mid-funnel CTA, surfaced via sticky elements on service / industry / case study pages. Naming rule: everything reads **"Get an Estimate"** — the "Project Estimator" product/tool name returns only with the AI estimator (Appendix).
+- **Mid-funnel is the missing layer.** The Get an Estimate flow is the universal mid-funnel CTA, surfaced via sticky elements on service / industry / case study pages. Naming rule: everything reads **"Get an Estimate"** — the "Project Estimator" product/tool name returns only with the AI estimator (Appendix). **The label is not the URL:** the page lives at `/quote` (DL-25, from the SEO sitemap) while every surface that points at it still reads "Get an Estimate". Wherever this doc pairs the label with the route, that mismatch is deliberate.
 - **Non-destructive additions over restructures.** Every recommendation that can be additive is additive; restructures are reserved for problems that cannot be solved any other way.
 
 ## Localization
@@ -191,8 +196,9 @@ visually distinct: in the prototype, interactive heading text renders in the acc
 button/pill), non-interactive labels stay muted grey; the final treatment is a Figma/design-system task (a new
 component pair: nav heading-link vs nav label). Which headings are links today is deliberately not listed here —
 the built nav (`wireframe/prototype/_nav.html`) is the inventory. Related convention: **menu placement ≠
-hierarchy** — the About menu links standalone pages (Schedule a Call, Contact) as nav convenience; their URLs and
-breadcrumbs stay root-level.
+hierarchy** — the About menu links standalone pages (Schedule a Call, Contact, and since DL-25 also Testimonials
+and Careers) as nav convenience; their URLs and breadcrumbs stay root-level. The same independence runs the other
+way: Technologies sits in the How We Work megamenu while living at `/technologies`.
 
 ### Services megamenu — transformation-stage panel
 
@@ -245,7 +251,7 @@ A single panel with two distinct columns — answering both "are you in my indus
 
 ### Our Work — direct link (no megamenu)
 
-Our Work is a single top-level link straight to the portfolio hub (`/our-work`) — no dropdown, no megamenu. The portfolio hub already does the work a megamenu panel would attempt: filter chips, the featured section, and the full project grid live on the page itself. A dropdown would only duplicate that one click early, at the cost of nav weight and an extra hover surface.
+Our Work is a single top-level link straight to the portfolio hub (`/portfolio`) — no dropdown, no megamenu. The portfolio hub already does the work a megamenu panel would attempt: filter chips, the featured section, and the full project grid live on the page itself. A dropdown would only duplicate that one click early, at the cost of nav weight and an extra hover surface.
 
 > **Why no dropdown.** The discovery affordances a portfolio panel would offer (featured cases + browse-by-filter chips) belong on the portfolio hub, where they have room to breathe and stay in sync with the filter system.
 
@@ -307,15 +313,21 @@ The footer carries the deeper, less buyer-facing portion of the IA — long-tail
 | 1 | Services & Solutions | Top-level service categories (AI Transformation + the stage categories) + "All services →" · Solutions (own products) + the individual solution pages |
 | 2 | Industries & Stage | Every industry + every company stage — full lists, no truncation |
 | 3 | Service Areas | Country pages — footer-only. Pure SEO surface. |
-| 4 | Resources | Blog · Glossary · Get an Estimate · Engagement Models · Process · Technologies · Methodologies · Tools · Year pages (year-in-review / annual content) |
-| 5 | Company | About · Company · Team · Careers · Testimonials · Partners · Press · Contact |
+| 4 | Resources | Blog · Glossary · Get an Estimate (`/quote`) · Engagement Models · Process · Technologies **hub only** · Methodologies · Tools · Year pages (year-in-review / annual content) |
+| 5 | Company | About · Company · Team · Careers (`/careers`) · Testimonials (`/testimonials`) · Partners · Press · Contact (`/contact-us`) |
 | — | Utility row | Logo · Privacy · Terms · Cookies · Sitemap · Social links · Copyright |
 
 > **Footer carries the SEO long-tail surface.** Country and Year pages are footer-only — retaining their ranking
-surface without occupying buyer-facing primary nav. The same logic applies to the Technologies, Methodologies, and
-Tools reference hubs: living under How We Work rather than top-level nav, they still need crawlable links from every
-page, so they surface in the Resources footer column. The non-technical founder isn't hunting for them in the header;
-search crawlers and technical evaluators still reach them.
+surface without occupying buyer-facing primary nav. The same logic applies to the Technologies, Methodologies and
+Tools reference hubs: they sit in the How We Work megamenu rather than in the primary nav, so the footer gives them
+crawlable links from every page. (Technologies' *URL* is top-level, `/technologies` — that is independent of where it
+appears in the nav; see §"Top-level menu".) The non-technical founder isn't hunting for them in the header; search
+crawlers and technical evaluators still reach them.
+
+> **Deviation from the SEO sitemap — technology pages are NOT in the footer.** The sitemap marks every one of the ~31
+technology landing pages "Header and Footer". Only the **hub** is linked from the footer, by decision (DL-25): 31
+extra links would dominate a five-column footer and push the buyer-facing columns out of sight, and the hub already
+gives crawlers a path to every one of them. Revisit if those pages underperform on crawl depth.
 
 ---
 
@@ -344,13 +356,13 @@ search crawlers and technical evaluators still reach them.
 | 5 | AI positioning band | Single editorial band (not card/column-based) creating visual contrast against the surrounding grid-heavy sections, giving AI its own cross-cutting moment. *(detail below.)* |
 | 6 | Benefits section | 3-5 outcome-led benefits ("Ship faster" / "Avoid the wrong build" / "Scale without hiring" / etc.) with founder-recognisable language. Closes the "what we do" portion before the page turns to proof. |
 | 7 | Portfolio module | Curated featured grid (6-8 highlighted projects) — hand-picked via the CMS featured flag + order, editorial Tier-1 layout echoing the portfolio's asymmetric aspect-preset grid, closing with "Browse all work →". Layout validated in the wireframe. Maps to the Our Work menu. |
-| 8 | Reviews | Featured testimonials rendered from the on-site CMS (author, company, text, link to source — Clutch/GoodFirms/Google), not embedded platform widgets; link to `/about/testimonials`. Clustered with Portfolio as the combined proof block. |
+| 8 | Reviews | Featured testimonials rendered from the on-site CMS (author, company, text, link to source — Clutch/GoodFirms/Google), not embedded platform widgets; link to `/testimonials`. Clustered with Portfolio as the combined proof block. |
 | 9 | Industries grid | Editorial layout — 2 featured industry cards (highest-demand verticals, e.g. Healthcare + Finance) plus a compact index of the remaining industries — not a uniform card grid, consistent with the homepage's Tier-1 editorial treatment. All industries are represented; each tile/row links to its Industry page. Maps to the Who We Serve menu (industry axis). |
 | 10 | Who we serve strip | Filter-chip row: "Built for [Early-stage / Scale-up / SMB / Mid-market / Enterprise]" — chip labels are display shorthand. The canonical stage nouns and slugs are plural, adopted from the SEO sitemap (DL-25) — Small Businesses `/who-we-serve/small-businesses`, Midsize Businesses `/who-we-serve/midsize-businesses` (see Who We Serve). *(detail below.)* |
 | 11 | Process strip | 5-step horizontal visual (*Kickoff → Scoping → Execute → Launch → Iterate*) linking to the Process page. Describes how every engagement runs as a project — distinct from the Services stages above. Maps to the How We Work menu. Positioned to follow the menu narrative: it explains the working relationship once the visitor is interested, rather than pre-emptively. |
 | 12 | Engagement strip | Deliberately narrow / de-emphasized — sits immediately after Process to reflect their real-world connection (how an engagement runs ↔ how it's structured commercially). *(detail below.)* |
 | 13 | Solutions strip | Compact strip: "Products we build and run" — the solutions mini-portfolio (onemall · onesocial · quickoffer · plugins) linking to `/solutions`. Deliberately lighter than the portfolio module above. Sits late, after the engagement narrative, mirroring the nav: in its current form Solutions is deprioritised relative to the client-facing story (DL-24). Maps to the Solutions nav item. |
-| 14 | Estimate CTA block | "Tell us about your project — get a ballpark from the team." CTA to `/get-an-estimate`. Positioned late as a conversion on-ramp before the closing blocks; the sticky nav CTA carries it earlier in the scroll. (An embedded mini-estimator rides with the deferred AI estimator — Appendix.) |
+| 14 | Estimate CTA block | "Tell us about your project — get a ballpark from the team." CTA to `/quote`. Positioned late as a conversion on-ramp before the closing blocks; the sticky nav CTA carries it earlier in the scroll. (An embedded mini-estimator rides with the deferred AI estimator — Appendix.) |
 | 15 | Blog teaser | 3 latest posts with thumbnail, title, author, date. Maps to the Resources menu. |
 | 16 | FAQ | 5-7 founder-facing questions: "How long will it take?" / "What does it cost?" / "Who owns the IP?" / "Where are your engineers based?" / "What if we want to bring it in-house later?" |
 | 17 | Contact / CTA section | Dual CTA — Get an Estimate · Send a question (Contact form). Scheduling is offered inside the estimate flow's success state rather than as a third competing door (and stays directly bookable via the About menu). |
@@ -362,7 +374,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
   hard to read — genuine capability sits alongside hype, and telling them apart takes time most founders don't have.
   We've done that work. We use AI across every project we run to ship faster and cut costs, and we can help you
   integrate it into your product or business the right way." Two CTAs: *How we implement AI →*
-  (`/services/ai-transformation`) · *See it in practice →* (`/our-work/service/ai-transformation` — the AI facet
+  (`/services/ai-transformation`) · *See it in practice →* (`/portfolio/service/ai-transformation` — the AI facet
   landing).
 - **Row 8 · Who we serve strip:** Each chip links to the corresponding stage page or a pre-filtered case study view.
   Sits directly with the Industries grid so the two halves of "who we serve" (industry × company stage) are
@@ -457,7 +469,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 
 - **Row 1 · Hero:** We've worked through that gap: integrating models, building pipelines, and learning where AI earns
   its place in a product and where it doesn't. That's the experience we bring to every AI engagement." Dual CTA: *Get
-  an estimate →* · *See our AI work →* (`/our-work/service/ai-transformation` — the AI facet landing). Tone
+  an estimate →* · *See our AI work →* (`/portfolio/service/ai-transformation` — the AI facet landing). Tone
   deliberately less punchy than the homepage band — reassurance over hook.
 - **Row 3 · Benefits:** (2) "Ship AI features that hold up in production" — a working demo and a production-ready
   feature are different things; we've built both and know what it takes. (3) "Faster delivery, lower cost — by design"
@@ -615,7 +627,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
 
 **Description.** The mini-portfolio of VECTO's own small B2B/SaaS products — at launch: onemall, onesocial, quickoffer, plugins. Categorically distinct from Services (custom work) and Our Work (client proof): this is what VECTO builds and runs for itself and sells ready-made. Eighth top-level nav item, direct link, beside Services.
 
-**Design rationale.** Intro text does the concept-framing work ("we don't just build for clients — we ship our own products"), then a clean listing carries the visitor to the individual solution pages, which do the selling. Deliberately separate from the client-work portfolio — solutions never appear in the `/our-work` grid or its facets; the two surfaces cross-link instead.
+**Design rationale.** Intro text does the concept-framing work ("we don't just build for clients — we ship our own products"), then a clean listing carries the visitor to the individual solution pages, which do the selling. Deliberately separate from the client-work portfolio — solutions never appear in the `/portfolio` grid or its facets; the two surfaces cross-link instead.
 
 | # | Block | Description |
 |---|---|---|
@@ -718,9 +730,9 @@ Applied to every industry page. Critical: each page must be substantively differ
 | — | Sticky Estimator CTA | Persistent floating Estimator CTA throughout scroll — industry pages are Tier-2 conversion surfaces. Mirrors the sticky Estimator on Our Work and the service pages. |
 | 9 | Estimator + Schedule CTA | Dual CTA closing the page. |
 
-## Site structure — Our Work / Portfolio
+## Site structure — Portfolio
 
-### Our Work / Portfolio · `/our-work` · **full**
+### Portfolio · `/portfolio` · **full**
 
 **Description.** The single most important page after the homepage for the non-technical founder. Where doubt becomes confidence — or doesn't.
 
@@ -749,7 +761,7 @@ Row detail (moved out of the table for line length; same authority as the rows a
   Service/Sub-services and Industry dropdowns include a client-side keyword filter (combobox pattern) — with this many
   industries and sub-services, type-to-narrow beats scrolling.
 
-> **URL note.** Case study detail pages live under `/projects/`, preserved verbatim from the live site (see the case study template's URL contract). The hub and its facet/filter URLs share a consistent base of their own — the exact name (`/our-work` vs `/portfolio`) is a pre-launch naming call, not a structural one.
+> **URL note.** Case study detail pages live under `/projects/`, preserved verbatim from the live site (see the case study template's URL contract). The hub and its facet/filter URLs share a consistent base of their own: `/portfolio`, settled by DL-25 in favour of the SEO sitemap. Case studies deliberately did NOT move under it — their verbatim-preservation contract outranks tidiness of hierarchy.
 
 ### Case study page template · `/projects/[project-name]` · **template**
 
@@ -777,16 +789,16 @@ Row detail (moved out of the table for line length; same authority as the rows a
 > **URL contract — verbatim preservation.** Case study pages live at `/projects/[project-name]`. For every project
 that exists in the current live portfolio, the full URL is preserved verbatim (e.g. `/projects/sentigraph-ai/`) —
 these are ranking pages; zero redirects, zero slug changes. The portfolio hub and its facet/filter URLs follow their
-own consistent base (`/our-work` vs `/portfolio` — a naming call decidable any time before launch); only the
-case-study detail URLs demand exactness.
+own consistent base, `/portfolio` (DL-25); only the case-study detail URLs demand exactness, which is why the hub
+rename did not drag them with it.
 
-### Facet landing page template · `/our-work/industry/[industry]` · `/our-work/service/[service]` · **template · new**
+### Facet landing page template · `/portfolio/industry/[industry]` · `/portfolio/service/[service]` · **template · new**
 
 Promoted single-facet filter states of the portfolio, realized as real, prerendered, indexed landing pages (per
 `fe-arch` §2c). Launch set: the industries + the service categories + AI Transformation — but the set is CMS-driven,
 never hardcoded: creating a facet entry in the CMS creates its landing page at the next rebuild, with no code change.
-Facet types are namespaced in the URL (`/industry/` vs `/service/`) so slugs can never collide; the hub base itself
-(`/our-work` vs `/portfolio`) is a pre-launch naming call.
+Facet types are namespaced in the URL (`/industry/` vs `/service/`) so slugs can never collide; the hub base is
+`/portfolio` (DL-25).
 
 | # | Block | Description |
 |---|---|---|
@@ -872,7 +884,7 @@ facet canonicalize to its landing page. A visitor browsing from the homepage may
 | 8 | FAQ | "Can we change models mid-engagement?" / "What's included in the rate?" / "How do you handle scope creep on Fixed Price?" |
 | 9 | Estimator + Schedule CTA | Dual CTA closing the page. |
 
-### Technologies hub · `/how-we-work/technologies` · **full**
+### Technologies hub · `/technologies` · **full**
 
 **Description.** Reference hub primarily serving the secondary persona (Scale-up Product Lead) and SEO long-tail
   traffic. Functions as a credibility check — "do you know what we use?" — and as an entry point for technically-led
@@ -891,16 +903,17 @@ facet canonicalize to its landing page. A visitor browsing from the homepage may
 | 6 | FAQ | "What if our stack isn't here?" / "Do you specialise in any of these?" / "How do you choose what to use for a new project?" |
 | 7 | Estimator CTA | Closing CTA. |
 
-> **URL migration — flag for dev/SEO.** Every technology page URL changes from `/technologies/[tech]` to
-`/how-we-work/technologies/[tech]`, and the hub from `/technologies` to `/how-we-work/technologies`. These are
-existing ranking surfaces: **301 redirects from every old URL to its new path are required**, plus a sitemap update
-and internal-link sweep. The SEO hit is accepted knowingly (the technical long-tail is not the primary persona's entry
-path), but the redirects must be in place at launch to preserve what equity exists. Under the static-first
-architecture, redirects are configured at the hosting layer — there is no server of ours to write them into.
+> **URL migration — cancelled; the live URLs are retained.** An earlier plan moved every technology page from
+`/technologies/[tech]` to `/how-we-work/technologies/[tech]`, which would have required **301 redirects from every old
+URL**, a sitemap update and an internal-link sweep, at an SEO cost that was accepted knowingly. DL-25 reverses that:
+the SEO sitemap keeps the pages at `/technologies/[tech]` and the hub at `/technologies`, which is where the live site
+already has them. **No redirects are needed and no ranking surface is disturbed** — this is the one place where
+adopting the sheet costs nothing and saves roughly thirty existing ranking pages. Technologies still sits inside the
+How We Work megamenu; menu placement and URL depth are independent (see §"Top-level menu").
 
-**Cross-references that still point here.** Several other pages surface "a filtered slice of the Technologies taxonomy" — the Software Development tech stack, Industry page tech stacks, case study stack badges, the AI Transformation tech stack. All of those references resolve to `/how-we-work/technologies/[tech]`. No content change to those pages beyond the URL base.
+**Cross-references that still point here.** Several other pages surface "a filtered slice of the Technologies taxonomy" — the Software Development tech stack, Industry page tech stacks, case study stack badges, the AI Transformation tech stack. All of those references resolve to `/technologies/[tech]`. No content change to those pages.
 
-### Technology page template · `/how-we-work/technologies/[tech-name]` · **template**
+### Technology page template · `/technologies/[tech-name]` · **template**
 
 Applied to every technology page *(one per technology, across the 3 groups above)*. Dual audience: non-technical founders (skim for "do you know this?") and technical readers (verify depth). Plain-English explanation upfront, technical depth below the fold.
 
@@ -989,7 +1002,7 @@ Applied to every technology page *(one per technology, across the 3 groups above
 
 ## Site structure — Get an Estimate (standalone)
 
-### Get an Estimate · `/get-an-estimate` · **full · new**
+### Get an Estimate · `/quote` · **full · new**
 
 **Description.** The primary conversion page — the non-technical founder cannot scope their own project, so we scope
   it for them. Launch version: a simple estimate-request form. Flow: fill → submit → success state offers an optional
@@ -1097,7 +1110,7 @@ Single-term definition page targeting long-tail SEO. Plain-English definition fo
 | # | Block | Description |
 |---|---|---|
 | 1 | Hero | Short framing line — who VECTO is in two sentences. |
-| 2 | Section cards | Four entry cards: Company · Team · Careers · Testimonials. |
+| 2 | Section cards | Four entry cards: Company · Team · Careers · Testimonials. The last two link out of the About URL branch (`/careers`, `/testimonials`) — menu and card placement, not hierarchy. |
 | 3 | Contact strip | Schedule + Estimator dual CTA. |
 
 ### Company · `/about/company` · **full**
@@ -1123,10 +1136,10 @@ Single-term definition page targeting long-tail SEO. Plain-English definition fo
 | 1 | Hero | "The team behind every project we ship." |
 | 2 | Leadership grid | Named, photographed, role + bio. |
 | 3 | Specialists grid | Named, photographed, role. Author-page cross-links where they write. |
-| 4 | Careers callout | "Want to join them?" → `/about/careers`. |
+| 4 | Careers callout | "Want to join them?" → `/careers`. |
 | 5 | Contact / CTA | Schedule + Estimator dual CTA. |
 
-### Careers · `/about/careers` · **full · new**
+### Careers · `/careers` · **full · new**
 
 **Description.** Standalone job list page. Each listing is tagged per the Technologies taxonomy (the tags link to technology pages) and links to its own job posting page.
 
@@ -1136,7 +1149,7 @@ Single-term definition page targeting long-tail SEO. Plain-English definition fo
 | 2 | Open roles list | Job cards: title, team, location/remote, technology tags. Each links to its posting page. Empty state designed ("no open roles right now — leave your CV"). |
 | 3 | "Don't see your role?" | General application form (provider-backed, per the site-wide forms note). |
 
-### Job posting template · `/about/careers/[job-slug]` · **template · new**
+### Job posting template · `/careers/[job-slug]` · **template · new**
 
 Detail page per open role — shareable link for job boards and social, plus an SEO surface. Application form lives on the page (provider-backed, per-job).
 
@@ -1152,7 +1165,7 @@ Detail page per open role — shareable link for job boards and social, plus an 
 
 > **Content model.** Job entity: title, slug, team, location/type, description blocks, technology tags (relation), open/closed status. Publish/unpublish drives the list and the empty state.
 
-### Testimonials · `/about/testimonials` · **full · new**
+### Testimonials · `/testimonials` · **full · new**
 
 **Description.** The dedicated testimonials page. All testimonials and reviews live on-site in the CMS — fields: author, company, testimonial text, link to source (Google / Clutch / GoodFirms / etc.). No embedded third-party widgets.
 
@@ -1166,7 +1179,7 @@ Detail page per open role — shareable link for job boards and social, plus an 
 
 ## Site structure — Contact (standalone)
 
-### Contact · `/contact` · **full**
+### Contact · `/contact-us` · **full**
 
 **Description.** Two intent-clear paths. Scheduling is not a peer path — it's the optional step offered after an estimate submission; the Schedule a Call page itself remains (About menu, direct bookings) without billing as a co-equal entry.
 
@@ -1208,6 +1221,30 @@ Footer-only placement. Used for year-in-review or annual content; SEO-targeted l
 
 ## Appendix — deferred features
 
+### Proposed by the SEO sitemap — pending approval · **proposed**
+
+Four items appear in the SEO team's sitemap that this IA does not have. DL-25 adopted the sitemap's
+authority over **URLs and page names**, not over what the site contains, so these are recorded, not
+adopted. Nothing below is built; none of it appears in any taxonomy list, megamenu, footer or
+template; `tools/check-ia-sync.py` ignores the lot because the badge is not `full`. Each needs a
+yes or no, after which it is promoted to a real entry or deleted.
+
+- **Reviews** — `/reviews`. A landing page the sitemap treats as separate from Testimonials. This IA
+  currently has reviews as a homepage block plus the Testimonials page, with review-platform badges
+  in the trust strip; it has no separate `/reviews` surface. Deciding this means deciding whether
+  aggregated third-party ratings (Clutch/GoodFirms/G2) are their own ranking surface or a section of
+  Testimonials.
+- **Client testimonial** — `/testimonials/client-testimonial`, and **Video testimonial** —
+  `/testimonials/video-testimonial`. Two page *types* under Testimonials. The IA's Testimonials page
+  renders entries from the CMS rather than giving each one a URL, so adopting these means a content
+  model change: individual testimonials become addressable entries. Worth weighing against thin-content
+  risk — a single quote per URL is exactly the page Google's guidance treats as low value.
+- **Targeting** — a twelfth Marketing sub-service, `/services/marketing/targeted-advertising-services`.
+  Deliberately **not** added to either naming register: the megamenu taxonomy and the Sub-service pages
+  line must agree in count, and adding it to one without the built nav fails the sync check. Note the
+  sitemap's own entry is internally inconsistent — the display name is "Targeting" while the slug reads
+  `targeted-advertising-services`. Resolve the name before adopting it.
+
 ### Why VECTO — parked, not deleted · **deferred**
 
 The Why VECTO comparison page is not part of the active IA: absent from the How We Work hub, the How We Work megamenu,
@@ -1233,7 +1270,7 @@ Methodologies, and Tools. The outline below is the last approved version, retain
 
 ### AI estimation generator — deferred to a later release · **deferred**
 
-The AI-assisted on-site estimator (in-house development) is deferred; the launch `/get-an-estimate` page carries a
+The AI-assisted on-site estimator (in-house development) is deferred; the launch `/quote` page carries a
 simple provider-backed form instead. When it ships, it returns to the same URL as a client island backed by its own
 API — see the forward-slot note on the Get an Estimate page. Also parked with it: the "Project Estimator" tool naming
 and the Resources-menu Tools entry — both return when the AI estimator does. The parked interaction spec, verbatim:

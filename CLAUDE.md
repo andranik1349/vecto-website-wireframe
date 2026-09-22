@@ -59,7 +59,7 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   - (d) **No global `[hidden]` reset.** Components self-reset (`.megamenu[hidden]{display:none}` etc.). Any element
     you set an explicit `display` on (`.card`, `.facet__menu`, a flex/grid wrapper) will **ignore the `hidden`
     attribute** — so any JS that toggles `el.hidden` needs a matching `.yourclass[hidden]{display:none}` rule, or it
-    stays visible. Bit the Our Work filter 3× (cards, dropdown menus, badges). See memory
+    stays visible. Bit the portfolio filter 3× (cards, dropdown menus, badges). See memory
     `hidden-attr-needs-display-reset`.
   - (e) **Featured-card "void":** a `.card--with-image` lead made wide (grid span / 60%+) blows its `aspect-ratio:16/9` media into a huge empty box. For an enlarged lead, make it a **contained horizontal banner** (image *beside* text, `min-height` not aspect-ratio) — pattern in homepage `.portfolio-feature` and `our-work` `.og-item.is-featured`.
   - (f) When `.card` (which is `display:flex;flex-direction:column`) is reused in a custom flex/grid row, set `flex-direction:row` explicitly or it stacks (bit `it-consulting` `.eng-solo`).
@@ -78,7 +78,7 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   `[data-filter-section]` groups). Reuse these contracts rather than reinventing.
 - **Placeholder/template-link convention (apply to EVERY template + the pages linking to it).** Per §4.4 we build one
   representative example per family and point all siblings at it (sub-services → `web-development.html`; industries →
-  `industries/[industry]` template; company stages → `who-we-serve/[stage]`; cases → `our-work/[case]`;
+  `industries/[industry]` template; company stages → `who-we-serve/[stage]`; cases → `projects/[case]`;
   technologies/methodologies/tools → their `react`/`ci-cd`/`jira` templates; blog post + author; glossary entry).
   Whenever you build such a page, make the placeholder/template status explicit so a future design/dev pass can't
   mistake it for the final destination:
@@ -95,14 +95,21 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   Reference implementations: built template pages each carry the banner + comment — `services/web-development.html`
   (sub-service), `who-we-serve/early-stage-startup.html` (company stage), `industries/healthcare.html` (industry).
   Hubs that only *link* to templates carry just the comment (e.g. `who-we-serve/index.html`, `industries/index.html`,
-  `our-work/index.html`, the 8 `services/*.html`, `_nav.html`).
-- **Depth-2 partials (proven recipe).** For `how-we-work/<x>/` pages, transform a depth-1 how-we-work nav/footer:
+  `portfolio/index.html`, the 8 `services/*.html`, `_nav.html`).
+- **Depth-2 partials (proven recipe).** Still applies to the remaining depth-2 folders — `how-we-work/methodologies/`,
+  `how-we-work/tools/`, `blog/authors/`, `blog/category/`, `portfolio/industry/`, `portfolio/service/`. For
+  `how-we-work/<x>/` pages, transform a depth-1 how-we-work nav/footer:
   `perl -0pe 's{href="\.\./}{href="../../}g'` (root links → `../../`), then prefix the how-we-work-local links with
   one `../`:
-  `s{href="(index\.html|process\.html|engagement-models\.html|technologies/|methodologies/|tools/)}{href="../$1}g`.
-  **ONE identical depth-2 nav/footer works for every `how-we-work/X/` page** (`../technologies/index.html` resolves
-  correctly from any of them). Breadcrumb at depth 2: Home→`../../index.html`, How We Work→`../index.html`,
-  hub→`index.html`. `initActiveNav` flags the section at any depth — no manual class.
+  `s{href="(index\.html|process\.html|engagement-models\.html|methodologies/|tools/)}{href="../$1}g`.
+  **ONE identical depth-2 nav/footer works for every `how-we-work/X/` page.** Breadcrumb at depth 2:
+  Home→`../../index.html`, How We Work→`../index.html`, hub→`index.html`.
+  **`technologies/` and `careers/` are now DEPTH 1** (DL-25 moved them out of `how-we-work/` and `about/`), so they
+  take the depth-1 recipe above, and their breadcrumbs are `Home→../index.html` then the page — no parent segment,
+  because their URLs are root-level.
+  ⚠️ `initActiveNav` does NOT flag the section: the preview serves from the repo root, so the first path segment is
+  always `prototype` and its `SECTION_TO_PANEL` map never matches. Pre-existing, unrelated to any route move — don't
+  expect a highlighted nav item, and don't "fix" a page thinking it regressed.
 - **Lucide deprecated icon names render nothing** — the `<i data-lucide="…">` stays un-replaced (e.g. `trello` is dead
   → use `clipboard-list` / `square-kanban`; `kanban` etc.). **Always assert
   `document.querySelectorAll('i[data-lucide]').length === 0` after load** — any leftover > 0 means a bad icon name.

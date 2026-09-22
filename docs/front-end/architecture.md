@@ -63,8 +63,8 @@ the IA (`ia`).
 ### 2c. Portfolio / Work filters as addressable URLs (design decision)
 - ✅ **Filter state is URL-driven, not JS-only** — the URL is the source of truth for filter state (path or searchParams), so states are shareable, prerenderable, and framework-portable (rides the §2b.4 router abstraction).
 - ✅ **Promote a curated set of high-value single facets to real path routes** — the namespaced facet-landing routes
-  the IA defines: `/our-work/industry/[industry]`, `/our-work/service/[service]` (the hub base name, `/our-work` vs
-  `/portfolio`, is a pre-launch call — `ia` owns the URL structure). Each is a **designed landing state**: unique
+  the IA defines: `/portfolio/industry/[industry]`, `/portfolio/service/[service]` (the hub base name is settled as
+  `/portfolio` — DL-25; `ia` owns the URL structure). Each is a **designed landing state**: unique
   H1/header, editorial intro slot, filtered grid, breadcrumbs, empty/low-count state, own metadata
   (title/description/OG). These prerender + index = SEO landing pages "for free."
 - ✅ **Keep long-tail multi-facet combinations as query params** (`?industry=a&service=b`), client-filtered and **noindex / canonicalized** — avoids thin/duplicate content and crawl bloat.

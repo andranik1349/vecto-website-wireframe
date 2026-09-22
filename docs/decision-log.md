@@ -230,6 +230,38 @@ Solutions strip with Portfolio and Reviews as proof.
 
 ---
 
+## DL-25 · 2026-09-22 · SEO sitemap adopted as the authority on URLs and page names
+**Decision:** where the SEO team's sitemap spreadsheet and this corpus disagree about a **URL or a page
+name**, the sitemap wins. Six routes moved: `/our-work`→`/portfolio`, `/how-we-work/technologies`→
+`/technologies`, `/about/testimonials`→`/testimonials`, `/about/careers`→`/careers`, `/contact`→
+`/contact-us`, `/get-an-estimate`→`/quote`. Industry, company-stage and formal sub-service names follow the
+sheet. Four sheet-only items are recorded in the Appendix as **proposed**, not adopted. The sheet's authority
+stops at URLs and names: it does not decide what the site contains.
+**Why:** the front-end build starts against these URLs, and every week built against the wrong ones is
+rework. The decisive finding was that one move *reverses* a cost rather than paying one — the corpus had
+recorded moving technologies under How We Work as requiring "301 redirects from every old URL" at an SEO hit
+"accepted knowingly". `/technologies/[tech]` is what the live site already serves, so adopting the sheet
+cancels that redirect programme and keeps ~31 existing ranking pages where they are.
+**Scope limits, decided deliberately:** URLs changed, **visible labels did not** — the button still reads
+"Get an Estimate" over `/quote`, the menu still reads "Our Work" over `/portfolio`; the label rule in `ia`
+§"Guiding principles" gained an explicit label≠URL clause instead of being retired. Case studies stayed at
+`/projects/[project-name]`, because their verbatim-preservation contract ("zero redirects, zero slug
+changes") outranks hierarchy tidiness. The sheet's names replaced only the **formal page-name** register;
+the short megamenu labels stand, so "SMM" is still "SMM" in the menu while the page is "Social Media
+Marketing". Company-stage names took the sheet's words with capitalisation normalised, because the sheet is
+internally inconsistent there ("Early Stage Startups" beside "Scale up startups"). The ~31 technology pages
+are **not** added to the footer despite the sheet marking them "Header and Footer" — the hub alone is linked.
+**Supersedes:** the `/technologies` → `/how-we-work/technologies` migration and its accepted SEO hit; the
+rule pinning canonical company-stage nouns as singular; the three sentences calling `/our-work` vs
+`/portfolio` "a pre-launch naming call"; and the footer rationale that justified Technologies' footer slot by
+its nesting under How We Work.
+**Encoded in:** `ia` §"Top-level menu" · §"Footer navigation" (+ the deviation note) · §"Guiding principles"
+(label≠URL) · 10 route headings · the technologies URL-migration block, now inverted · the Appendix's new
+**proposed** badge and its four entries · `wireframe/CLAUDE.md` (depth recipes, template-banner references)
+· `fe-arch` §2c facet routes · the built wireframe, all 55 pages · `tools/check-links.py` (new).
+
+---
+
 ## Retired IDs
 
 Retired in the 2026-08-31 sweep (DL-22). **No decision here was reversed.** Ten of these were standing live
