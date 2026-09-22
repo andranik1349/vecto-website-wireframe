@@ -770,16 +770,32 @@ Applied to every individual case study — the conversion-critical asset of the 
 | # | Block | Description |
 |---|---|---|
 | 1 | Hero | Client name, industry tag, services tag, hero image / product visual. External product CTA where a live product exists — "Launch website / Try now / Download app" (optional CMS field pair `cta_label` + `cta_url`; hidden when absent — exercise the absent case in placeholder data). *(detail below.)* |
-| 2 | Client snapshot | Who they were at engagement start: stage, size, industry, technical maturity. Critical for founder-persona case studies. |
+| 2 | At a glance | The project's full property set — **year · industries · services · sub-services · technologies · platforms** — plus the client context it absorbed (stage at engagement, team size, technical maturity, engagement model). This is the ONE place the complete taxonomy appears; see the property contract below. Tags link out wherever a destination exists: industries, services, sub-services, technologies. |
 | 3 | Challenge | What the client was trying to solve, in their own language where possible. The fear, not just the brief. |
 | 4 | Approach | How VECTO framed the work. What was ruled in / out. Key decisions and their rationale. |
-| 5 | Tech stack used | Surfaces the Technologies taxonomy with badges linking to technology pages. |
-| 6 | Timeline & team composition | Engagement model, duration, FTE count, roles. |
-| 7 | Outcomes | Quantified, ideally with before/after framing. Multiple metrics where possible. |
+| 5 | Timeline & team composition | Engagement model, duration, FTE count, roles. |
+| 6 | Outcomes | Quantified, ideally with before/after framing. Multiple metrics where possible. |
+| 7 | Tech stack used | The deeper stack narrative — grouped by layer, badges linking to technology pages, with the reasoning behind the choices. Sits BELOW Outcomes: block 2 already gives the scannable technology list, so this block earns its place by explaining rather than listing. |
 | 8 | Testimonial | Named, with role and company. Specific to one outcome. |
 | 9 | What's next for this client | Optional: ongoing relationship, what they're building now. Signals long-term partnership. |
 | 10 | Related case studies | Pulled from same industry, service, technology, or company stage tags. |
 | 11 | CTA | "Run your numbers" (Estimator) + "Talk to the team that built this" (Schedule, with the actual delivery lead pre-selected) + the external product CTA repeated where present. |
+
+> **Portfolio entry property contract.** Every portfolio entry carries: **year**, **industries**,
+**services**, **sub-services**, **technologies**, **platforms**. Industries and services are plural —
+a project can sit in more than one. Sub-services are a level below their parent service and are shown
+nested, never as a flat peer list.
+>
+> **The case study page shows all of them** (block 2). **Project link cards elsewhere are capped at the
+top level — industries · services · platform — and never carry sub-services, technologies or year.**
+The cap exists because cards appear in related-project strips, service pages and industry pages where
+they must stay scannable; a card listing a dozen technologies stops being a card. It is a ceiling, not
+a quota — a compact teaser card may show fewer.
+>
+> In the wireframe these live as `data-year` / `data-industry` / `data-service` / `data-subservice` /
+`data-technology` / `data-platform` on each `[data-portfolio-item]`, which is also what the portfolio
+facet filter reads — so a card's visible tags and its filter behaviour cannot disagree. Values are
+lowercase slugs; the visible label is separate text.
 
 Row detail (moved out of the table for line length; same authority as the rows above):
 

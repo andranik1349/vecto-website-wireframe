@@ -147,6 +147,17 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   current — the TOC is GENERATED, never hand-edited: rename or add a heading, then run
   `python3 tools/gen-ia-toc.py`. Both are registered as instruments in `docs/project-outline.md`
   §"Verification instruments".
+- **Project properties (`.proj-props`, "At a glance").** A portfolio entry's full taxonomy — year ·
+  industries · services · sub-services · technologies · platforms — plus its client-context rows, in the
+  right column of the case study's opening split. Shared component in `components.css` (molecule 22);
+  don't redeclare it per page. Keys stack ABOVE their values because the panel is narrow and a
+  technologies row can hold a dozen tags. Sub-services use `.proj-props__row--sub` so they read as a
+  level below Services. Tags link out where a destination exists (industries / services / sub-services
+  / technologies); platforms and year are plain, no pages behind them.
+  **Project link CARDS are capped at industries · services · platform** — never sub-services,
+  technologies or year, so they stay scannable in related-project strips. On the portfolio pages the
+  card meta is generated from the card's own `data-*` attributes, so visible tags can't drift from
+  filter behaviour; keep it that way. Contract: `docs/ia.md` §"Case study page template".
 - **Link resolver.** `python3 tools/check-links.py` resolves all ~9,600 relative links (and their
   `#anchors`) across the prototype. Run it after ANY route/file move or path edit — a wrong `../`
   prefix 404s silently because the page still renders. `--baseline` snapshots, `--compare` fails

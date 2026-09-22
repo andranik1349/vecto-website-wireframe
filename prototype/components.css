@@ -1222,6 +1222,65 @@ a.megamenu__ai-band:focus-visible {
 
 
 /* ═══════════════════════════════════════════════════════════════════
+   (B) MOLECULES — 22. PROJECT PROPERTIES ("At a glance")
+   The structured taxonomy of a portfolio entry, rendered for humans: year,
+   industries, services, sub-services, technologies, platforms — plus the
+   narrative context rows (stage, team size, technical maturity, engagement).
+
+   This is the ONE place a case study lists its full taxonomy. Project link
+   CARDS elsewhere are capped at the top level (industries · services ·
+   platform) so they stay scannable — see `ia` §"Case study page template".
+
+   Keys stack ABOVE their values rather than sitting beside them: the panel
+   lives in the narrow column of a split, and a value row can hold a dozen
+   technology tags. A two-column key/value grid squeezes those into a sliver.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.proj-props {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-semi-transparent);
+  border-radius: var(--radius-m);
+  padding: var(--space-s) var(--space-l);
+}
+.proj-props__title {
+  font-size: var(--text-size-c3);
+  line-height: var(--text-lh-c3);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  padding-bottom: var(--space-3xs);
+}
+.proj-props__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xs);
+  padding-block: var(--space-xs);
+  border-top: 1px solid var(--border-semi-transparent);
+}
+.proj-props__key {
+  color: var(--text-muted);
+  font-size: var(--text-size-c1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+/* Tag rows wrap; prose rows read as body copy. */
+.proj-props__vals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4xs);
+  align-items: center;
+}
+.proj-props__val { color: var(--text-primary); }
+/* Sub-services are a level below their parent service — indented and quieter,
+   so the hierarchy is visible without a second heading. */
+.proj-props__row--sub { padding-top: 0; border-top: 0; }
+.proj-props__row--sub .proj-props__key { padding-left: var(--space-xs); }
+.proj-props__row--sub .proj-props__vals { padding-left: var(--space-xs); }
+
+/* ═══════════════════════════════════════════════════════════════════
    (B) MOLECULES — TEMPLATE NOTICE BANNER
    Visible counterpart to the ⚑ placeholder/template HTML comment. Used on
    the single built example of a template family (sub-service, company
