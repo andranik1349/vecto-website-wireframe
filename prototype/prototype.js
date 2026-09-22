@@ -140,7 +140,7 @@
     // First non-empty path segment, e.g. "/services/web-development.html" → "services".
     const segs = location.pathname.split('/').filter(Boolean);
     let section = segs[0] || '';
-    if (section.endsWith('.html')) section = ''; // a root-level page like index.html / contact.html
+    if (section.endsWith('.html')) section = ''; // a root-level page like index.html / contact-us.html
 
     // Map a URL section → the aria-controls id (megamenu) or href (direct link)
     // of the primary-nav element that represents it.
@@ -149,13 +149,13 @@
       'solutions':      null,             // direct link, matched by href below
       'who-we-serve':   'mm-who',
       'industries':     'mm-who',        // industries live under the Who We Serve axis
-      'our-work':       null,            // direct link, matched by href below
+      'portfolio':       null,            // direct link, matched by href below
       'how-we-work':    'mm-howwework',
       'blog':           'mm-resources',
       'glossary':       'mm-resources',
-      'get-an-estimate':'mm-resources',
+      'quote':'mm-resources',
       'about':          'mm-about',
-      'contact':        'mm-about',
+      'contact-us':        'mm-about',
       'schedule-a-call':'mm-about',
     };
 
@@ -302,7 +302,7 @@
 
 
   /* ════════════════════════════════════════════════════════════════════
-     5b. FACETED PORTFOLIO FILTER (our-work) — a row of multi-select
+     5b. FACETED PORTFOLIO FILTER (portfolio) — a row of multi-select
         dropdown facets (Industry / Technology / Service / Sub-services /
         Platform / Country / Company size). AND across facets, OR within a
         facet. Sub-services facet is revealed once a Service is chosen and
@@ -620,7 +620,7 @@
     if (!form) return;
 
     // The output card may be a SIBLING of the form (homepage mini-estimator)
-    // rather than a descendant (get-an-estimate.html). Scope lookups to the
+    // rather than a descendant (quote.html). Scope lookups to the
     // shared .estimator container so both structures work.
     const scope = form.closest('.estimator') || form;
     const output = $('[data-estimator-output]', scope);
@@ -660,7 +660,7 @@
 
 
   /* ════════════════════════════════════════════════════════════════════
-     7b. ESTIMATE SUCCESS STATE (get-an-estimate.html launch flow)
+     7b. ESTIMATE SUCCESS STATE (quote.html launch flow)
      Prototype-only display toggle — NOT a submission. The estimate form is
      static markup (provider-backed in production, C4); on submit we
      preventDefault() and reveal the designed post-submit success panel so
