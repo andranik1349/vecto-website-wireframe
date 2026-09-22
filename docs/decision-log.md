@@ -209,6 +209,27 @@ note + maintenance-artifact reservation + source-doc paths · `prototype/README.
 
 ---
 
+## DL-24 · 2026-09-22 · Solutions deprioritised; nav and homepage reordered around proof
+**Decision:** the primary nav order becomes **Services · Our Work · Who We Serve · How We Work · Solutions ·
+Resources · About · Estimate CTA**, and the homepage section order follows it. Two moves: Our Work (with
+the Reviews block that forms the proof cluster with it) rises from fourth to second, and Solutions falls
+from second to fifth, landing after the engagement narrative on the homepage. Solutions stays a direct
+link with no dropdown, and no Solutions page is retired — only its prominence changes.
+**Why:** Solutions *in its current form* competes for attention with the service narrative that carries the
+site's conversion load, and it is the part of the offering least settled. Proof is the fastest way to earn
+the rest of the scroll for a non-technical founder, so "what we did" now backs "what we do" immediately
+rather than sitting behind the audience and industry material. The nav sequence now tracks the questions a
+founder actually asks in order: what do you do → what have you done → is it for someone like me → how would
+we work together.
+**Supersedes:** the pairing rule in `ia` §"Top-level menu" that placed Solutions beside Services as "the
+second half of what we offer" (DL-era IA reconciliation), and the homepage block order that clustered the
+Solutions strip with Portfolio and Reviews as proof.
+**Encoded in:** `ia` §"Top-level menu" (order line + Solutions rationale) · `ia` §"Homepage" block table
+(reordered, renumbered 1–18; rows 6 and 13 rationale rewritten) · the built nav in all 53 pages ·
+`prototype/index.html` section order · `tools/check-ia-sync.py` (new nav-order assertion).
+
+---
+
 ## Retired IDs
 
 Retired in the 2026-08-31 sweep (DL-22). **No decision here was reversed.** Ten of these were standing live

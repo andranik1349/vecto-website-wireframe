@@ -110,6 +110,28 @@ else:
         record("FAIL", "top-level slots", f"ia.md says {m.group(1)} slots / {m.group(2)} menus; nav has {got}")
 
 # ─────────────────────────────────────────────────────────────────────────────
+# CHECK 1b — top-level nav ORDER matches the order ia.md states.
+# The sequence is a product decision (DL-24), not an accident of markup, so it gets asserted the
+# same way the taxonomy does. ia.md states it as a bolded ' · '-separated run ending in the CTA.
+# ─────────────────────────────────────────────────────────────────────────────
+om = re.search(r"Order \(left to right\):\s*\n?\*\*(?P<list>[^*]+)\*\*", iasrc)
+if not om:
+    record("WARN", "nav order", "ia.md has no parseable 'Order (left to right): **…**' line")
+else:
+    want_order = [x.strip() for x in om.group("list").split("·") if x.strip()]
+    want_order = [x for x in want_order if "CTA" not in x]  # the CTA button is not a nav__item
+    got_order = [
+        clean(t)
+        for t in re.findall(
+            r'<(?:a|button)[^>]*class="nav__link"[^>]*>(.*?)</(?:a|button)>', navsrc, re.S
+        )
+    ]
+    if want_order == got_order:
+        record("PASS", "nav order", " · ".join(got_order))
+    else:
+        record("FAIL", "nav order", f"ia.md says {want_order}; nav renders {got_order}")
+
+# ─────────────────────────────────────────────────────────────────────────────
 # CHECK 2 — taxonomy lists agree with the nav
 # ia.md is the contract; the nav is where the taxonomy is visible. These must not diverge.
 # Known, accepted difference: each Services stage column leads with a BOLD parent-category link

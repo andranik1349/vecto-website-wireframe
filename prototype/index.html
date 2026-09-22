@@ -149,10 +149,9 @@
         </a>
       </div>
 
-      <!-- Solutions (direct link, no dropdown — the "what we offer" pair with Services).
-           Target solutions/index.html is built later (E5 · P2); link is a forward placeholder. -->
+      <!-- Our Work (direct link, no dropdown) -->
       <div class="nav__item">
-        <a class="nav__link" href="solutions/index.html">Solutions</a>
+        <a class="nav__link" href="our-work/index.html">Our Work</a>
       </div>
 
       <!-- Who We Serve ▾ (megamenu) -->
@@ -162,16 +161,17 @@
         </a>
       </div>
 
-      <!-- Our Work (direct link, no dropdown) -->
-      <div class="nav__item">
-        <a class="nav__link" href="our-work/index.html">Our Work</a>
-      </div>
-
       <!-- How We Work ▾ (megamenu) -->
       <div class="nav__item">
         <a class="nav__link" href="how-we-work/index.html" aria-haspopup="true" aria-expanded="false" aria-controls="mm-howwework">
           How We Work <i data-lucide="chevron-down" aria-hidden="true"></i>
         </a>
+      </div>
+
+      <!-- Solutions (direct link, no dropdown — the "what we offer" pair with Services).
+           Target solutions/index.html is built later (E5 · P2); link is a forward placeholder. -->
+      <div class="nav__item">
+        <a class="nav__link" href="solutions/index.html">Solutions</a>
       </div>
 
       <!-- Resources ▾ (dropdown) -->
@@ -724,58 +724,6 @@
   <!-- ═══ 7 · INDUSTRIES (two featured + compact index) ═════════════════ -->
   <section class="band band--dark section">
     <div class="container">
-      <div class="section-head">
-        <p class="section-label">Who we serve</p>
-        <h2 class="t-h2">Depth in the industries we know best.</h2>
-      </div>
-      <div class="ind-grid">
-        <a class="ind-feature" href="industries/healthcare.html">
-          <i data-lucide="heart-pulse" aria-hidden="true"></i>
-          <h3 class="t-h4">Healthcare</h3>
-          <p class="t-p3 tc-secondary">HIPAA-aware platforms, patient apps, and clinical tooling built for regulated environments.</p>
-          <span class="btn btn--text btn--small" style="padding-left:0">Explore Healthcare <i data-lucide="arrow-right" aria-hidden="true"></i></span>
-        </a>
-        <a class="ind-feature" href="industries/healthcare.html">
-          <i data-lucide="landmark" aria-hidden="true"></i>
-          <h3 class="t-h4">Finance</h3>
-          <p class="t-p3 tc-secondary">FinTech products, payment flows, and data-heavy dashboards where trust and uptime are non-negotiable.</p>
-          <span class="btn btn--text btn--small" style="padding-left:0">Explore Finance <i data-lucide="arrow-right" aria-hidden="true"></i></span>
-        </a>
-        <div class="ind-index">
-          <a href="industries/healthcare.html"><i data-lucide="cpu" aria-hidden="true"></i> Tech</a>
-          <a href="industries/healthcare.html"><i data-lucide="plane" aria-hidden="true"></i> Travel</a>
-          <a href="industries/healthcare.html"><i data-lucide="concierge-bell" aria-hidden="true"></i> Hospitality</a>
-          <a href="industries/healthcare.html"><i data-lucide="shopping-cart" aria-hidden="true"></i> Retail</a>
-          <a href="industries/healthcare.html"><i data-lucide="graduation-cap" aria-hidden="true"></i> Education</a>
-          <a href="industries/healthcare.html"><i data-lucide="factory" aria-hidden="true"></i> Manufacturing</a>
-          <a href="industries/healthcare.html"><i data-lucide="clapperboard" aria-hidden="true"></i> Media &amp; Entertainment</a>
-          <a href="industries/healthcare.html"><i data-lucide="trophy" aria-hidden="true"></i> Sport</a>
-          <a href="industries/healthcare.html"><i data-lucide="briefcase" aria-hidden="true"></i> Professional Services</a>
-          <a href="industries/healthcare.html"><i data-lucide="hand-heart" aria-hidden="true"></i> Non-Profit</a>
-          <a href="industries/healthcare.html"><i data-lucide="sparkles" aria-hidden="true"></i> Beauty &amp; Wellness</a>
-        </div>
-      </div>
-
-      <!-- ═══ 8 · WHO-WE-SERVE STRIP (chip row) ═══ -->
-      <div class="divider"></div>
-      <div class="serve-chips">
-        <span class="t-c1 tc-muted nowrap">Built for</span>
-        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Early-stage Startup</a>
-        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Scale-up</a>
-        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Small Business</a>
-        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Midsize Business</a>
-        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Enterprise</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 9 · PORTFOLIO (curated featured grid — no outcome axis) ════════
-       6 CMS-flagged featured projects in an asymmetric aspect-preset grid
-       (echoes the Our Work masonry). Each card links to its /projects/[name]
-       case (P8). ⚑ Placeholder: the two built case pages stand in for all
-       featured slots — in production each resolves to its own /projects/[slug]. -->
-  <section class="section">
-    <div class="container">
       <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
         <div>
           <p class="section-label">Our work</p>
@@ -837,8 +785,12 @@
     </div>
   </section>
 
-  <!-- ═══ 10 · REVIEWS ═══════════════════════════════════════════════════ -->
-  <section class="band band--elevated section">
+  <!-- ═══ 9 · PORTFOLIO (curated featured grid — no outcome axis) ════════
+       6 CMS-flagged featured projects in an asymmetric aspect-preset grid
+       (echoes the Our Work masonry). Each card links to its /projects/[name]
+       case (P8). ⚑ Placeholder: the two built case pages stand in for all
+       featured slots — in production each resolves to its own /projects/[slug]. -->
+  <section class="section">
     <div class="container">
       <div class="split split--top">
         <div>
@@ -874,46 +826,59 @@
     </div>
   </section>
 
+  <!-- ═══ 10 · REVIEWS ═══════════════════════════════════════════════════ -->
+  <section class="band band--elevated section">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-label">Who we serve</p>
+        <h2 class="t-h2">Depth in the industries we know best.</h2>
+      </div>
+      <div class="ind-grid">
+        <a class="ind-feature" href="industries/healthcare.html">
+          <i data-lucide="heart-pulse" aria-hidden="true"></i>
+          <h3 class="t-h4">Healthcare</h3>
+          <p class="t-p3 tc-secondary">HIPAA-aware platforms, patient apps, and clinical tooling built for regulated environments.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Explore Healthcare <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+        <a class="ind-feature" href="industries/healthcare.html">
+          <i data-lucide="landmark" aria-hidden="true"></i>
+          <h3 class="t-h4">Finance</h3>
+          <p class="t-p3 tc-secondary">FinTech products, payment flows, and data-heavy dashboards where trust and uptime are non-negotiable.</p>
+          <span class="btn btn--text btn--small" style="padding-left:0">Explore Finance <i data-lucide="arrow-right" aria-hidden="true"></i></span>
+        </a>
+        <div class="ind-index">
+          <a href="industries/healthcare.html"><i data-lucide="cpu" aria-hidden="true"></i> Tech</a>
+          <a href="industries/healthcare.html"><i data-lucide="plane" aria-hidden="true"></i> Travel</a>
+          <a href="industries/healthcare.html"><i data-lucide="concierge-bell" aria-hidden="true"></i> Hospitality</a>
+          <a href="industries/healthcare.html"><i data-lucide="shopping-cart" aria-hidden="true"></i> Retail</a>
+          <a href="industries/healthcare.html"><i data-lucide="graduation-cap" aria-hidden="true"></i> Education</a>
+          <a href="industries/healthcare.html"><i data-lucide="factory" aria-hidden="true"></i> Manufacturing</a>
+          <a href="industries/healthcare.html"><i data-lucide="clapperboard" aria-hidden="true"></i> Media &amp; Entertainment</a>
+          <a href="industries/healthcare.html"><i data-lucide="trophy" aria-hidden="true"></i> Sport</a>
+          <a href="industries/healthcare.html"><i data-lucide="briefcase" aria-hidden="true"></i> Professional Services</a>
+          <a href="industries/healthcare.html"><i data-lucide="hand-heart" aria-hidden="true"></i> Non-Profit</a>
+          <a href="industries/healthcare.html"><i data-lucide="sparkles" aria-hidden="true"></i> Beauty &amp; Wellness</a>
+        </div>
+      </div>
+
+      <!-- ═══ 8 · WHO-WE-SERVE STRIP (chip row) ═══ -->
+      <div class="divider"></div>
+      <div class="serve-chips">
+        <span class="t-c1 tc-muted nowrap">Built for</span>
+        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Early-stage Startup</a>
+        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Scale-up</a>
+        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Small Business</a>
+        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Midsize Business</a>
+        <a class="tag tag--button" href="who-we-serve/early-stage-startup.html">Enterprise</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ 10a · SOLUTIONS STRIP (compact product mini-portfolio) ═════════
        Our own products are proof too — kept deliberately lighter than the
        portfolio above and distinct from it (solutions are never mixed with
        client work). Maps to the Solutions nav item. -->
   <section class="band band--dark section">
-    <div class="container">
-      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
-        <div>
-          <p class="section-label">Solutions</p>
-          <h2 class="t-h2">Products we build and run.</h2>
-        </div>
-        <a class="btn btn--ghost btn--medium" href="solutions/index.html">Explore solutions <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-      </div>
-      <div class="solutions-strip">
-        <a class="sol-tile" href="solutions/index.html">
-          <i data-lucide="shopping-bag" aria-hidden="true"></i>
-          <span class="sol-tile__name">onemall</span>
-          <span class="t-p3 tc-secondary">Multi-vendor marketplace platform.</span>
-        </a>
-        <a class="sol-tile" href="solutions/index.html">
-          <i data-lucide="users" aria-hidden="true"></i>
-          <span class="sol-tile__name">onesocial</span>
-          <span class="t-p3 tc-secondary">White-label community &amp; social layer.</span>
-        </a>
-        <a class="sol-tile" href="solutions/index.html">
-          <i data-lucide="tag" aria-hidden="true"></i>
-          <span class="sol-tile__name">quickoffer</span>
-          <span class="t-p3 tc-secondary">Offers and loyalty for retail apps.</span>
-        </a>
-        <a class="sol-tile" href="solutions/index.html">
-          <i data-lucide="puzzle" aria-hidden="true"></i>
-          <span class="sol-tile__name">plugins</span>
-          <span class="t-p3 tc-secondary">Drop-in modules that speed up a build.</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 11 · PROCESS STRIP (5-step timeline) ══════════════════════════ -->
-  <section class="section">
     <div class="container">
       <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
         <div>
@@ -956,6 +921,41 @@
       <div class="engage-strip">
         <p class="t-p1">Flexible ways to work together — <span class="engage-models">Fixed Price · Time &amp; Material · Dedicated Team · Outstaffing</span></p>
         <a class="btn btn--text btn--medium" href="how-we-work/engagement-models.html">Compare engagement models <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 11 · PROCESS STRIP (5-step timeline) ══════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">Solutions</p>
+          <h2 class="t-h2">Products we build and run.</h2>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="solutions/index.html">Explore solutions <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="solutions-strip">
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="shopping-bag" aria-hidden="true"></i>
+          <span class="sol-tile__name">onemall</span>
+          <span class="t-p3 tc-secondary">Multi-vendor marketplace platform.</span>
+        </a>
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="users" aria-hidden="true"></i>
+          <span class="sol-tile__name">onesocial</span>
+          <span class="t-p3 tc-secondary">White-label community &amp; social layer.</span>
+        </a>
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="tag" aria-hidden="true"></i>
+          <span class="sol-tile__name">quickoffer</span>
+          <span class="t-p3 tc-secondary">Offers and loyalty for retail apps.</span>
+        </a>
+        <a class="sol-tile" href="solutions/index.html">
+          <i data-lucide="puzzle" aria-hidden="true"></i>
+          <span class="sol-tile__name">plugins</span>
+          <span class="t-p3 tc-secondary">Drop-in modules that speed up a build.</span>
+        </a>
       </div>
     </div>
   </section>

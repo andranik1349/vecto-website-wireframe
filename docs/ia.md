@@ -163,12 +163,17 @@ The site is multilingual: English (default) at launch; Armenian and Russian at o
 
 ### Top-level menu
 
-Eight slots in the primary navigation: seven content menus + one primary CTA button. Order is left-to-right by
-buyer-journey priority for a non-technical founder: **What you do (Services · Solutions) → Who you do it for → Proof →
-How you work → Resources → About → Estimate CTA**. Solutions — VECTO's own B2B/SaaS products — is a direct link (no
-dropdown) beside Services, the second half of "what we offer." To accommodate the eighth slot the CTA button may
-render more compactly — acceptable because the sticky/floating estimate CTA on every page carries the mid-scroll
-conversion load regardless.
+Eight slots in the primary navigation: seven content menus + one primary CTA button. Order (left to right):
+**Services · Our Work · Who We Serve · How We Work · Solutions · Resources · About · Estimate CTA**. The sequence
+follows the questions a non-technical founder asks in the order they ask them: what do you do → what have you done →
+is it for someone like me → how would we work together. Proof sits second because it is the fastest way to earn the
+rest of the scroll — "what we did" backing "what we do" immediately.
+
+Solutions — VECTO's own B2B/SaaS products — sits fifth, after the four client-facing menus (DL-24). It remains a
+direct link with no dropdown, but it is no longer paired with Services as "the second half of what we offer": in its
+current form it competes for attention with the service narrative that carries the conversion load. To accommodate
+the eighth slot the CTA button may render more compactly — acceptable because the sticky/floating estimate CTA on
+every page carries the mid-scroll conversion load regardless.
 
 > **Mobile note.** At mobile widths the megamenu collapses to a hamburger drawer. Order remains identical. The "Get an Estimate" CTA stays visible in the mobile header bar even when the menu is closed — it does not collapse into the hamburger.
 
@@ -337,19 +342,19 @@ search crawlers and technical evaluators still reach them.
 | 3 | Small intro | 2-3 sentences framing what VECTO does, written for the non-technical founder ("we turn your idea into a product your users love"). |
 | 4 | Services overview | The six-stage transformation grid (Discover · Design · Build · Grow · Scale · Maintain). AI is not shown inside Build — consistent with the Services megamenu, it surfaces as the distinct cross-cutting AI band immediately below. Maps to the Services menu. |
 | 5 | AI positioning band | Single editorial band (not card/column-based) creating visual contrast against the surrounding grid-heavy sections, giving AI its own cross-cutting moment. *(detail below.)* |
-| 6 | Benefits section | 3-5 outcome-led benefits ("Ship faster" / "Avoid the wrong build" / "Scale without hiring" / etc.) with founder-recognisable language. Closes the "what we do" portion before the page turns to "who it's for." |
-| 7 | Industries grid | Editorial layout — 2 featured industry cards (highest-demand verticals, e.g. Healthcare + Finance) plus a compact index of the remaining industries — not a uniform card grid, consistent with the homepage's Tier-1 editorial treatment. All industries are represented; each tile/row links to its Industry page. Maps to the Who We Serve menu (industry axis). |
-| 8 | Who we serve strip | Filter-chip row: "Built for [Early-stage / Scale-up / SMB / Mid-market / Enterprise]" — chip labels are display shorthand; the canonical stage nouns and slugs stay Small Business / Midsize Business (see Who We Serve). *(detail below.)* |
-| 9 | Portfolio module | Curated featured grid (6-8 highlighted projects) — hand-picked via the CMS featured flag + order, editorial Tier-1 layout echoing the portfolio's asymmetric aspect-preset grid, closing with "Browse all work →". Layout validated in the wireframe. Maps to the Our Work menu. |
-| 10 | Reviews | Featured testimonials rendered from the on-site CMS (author, company, text, link to source — Clutch/GoodFirms/Google), not embedded platform widgets; link to `/about/testimonials`. Clustered with Portfolio as the combined proof block. |
-| 10a | Solutions strip | Compact strip: "Products we build and run" — the solutions mini-portfolio (onemall · onesocial · quickoffer · plugins) linking to `/solutions`. Deliberately lighter than the portfolio module above; sits with the proof cluster (own products are proof too). Maps to the Solutions nav item. |
+| 6 | Benefits section | 3-5 outcome-led benefits ("Ship faster" / "Avoid the wrong build" / "Scale without hiring" / etc.) with founder-recognisable language. Closes the "what we do" portion before the page turns to proof. |
+| 7 | Portfolio module | Curated featured grid (6-8 highlighted projects) — hand-picked via the CMS featured flag + order, editorial Tier-1 layout echoing the portfolio's asymmetric aspect-preset grid, closing with "Browse all work →". Layout validated in the wireframe. Maps to the Our Work menu. |
+| 8 | Reviews | Featured testimonials rendered from the on-site CMS (author, company, text, link to source — Clutch/GoodFirms/Google), not embedded platform widgets; link to `/about/testimonials`. Clustered with Portfolio as the combined proof block. |
+| 9 | Industries grid | Editorial layout — 2 featured industry cards (highest-demand verticals, e.g. Healthcare + Finance) plus a compact index of the remaining industries — not a uniform card grid, consistent with the homepage's Tier-1 editorial treatment. All industries are represented; each tile/row links to its Industry page. Maps to the Who We Serve menu (industry axis). |
+| 10 | Who we serve strip | Filter-chip row: "Built for [Early-stage / Scale-up / SMB / Mid-market / Enterprise]" — chip labels are display shorthand; the canonical stage nouns and slugs stay Small Business / Midsize Business (see Who We Serve). *(detail below.)* |
 | 11 | Process strip | 5-step horizontal visual (*Kickoff → Scoping → Execute → Launch → Iterate*) linking to the Process page. Describes how every engagement runs as a project — distinct from the Services stages above. Maps to the How We Work menu. Positioned to follow the menu narrative: it explains the working relationship once the visitor is interested, rather than pre-emptively. |
 | 12 | Engagement strip | Deliberately narrow / de-emphasized — sits immediately after Process to reflect their real-world connection (how an engagement runs ↔ how it's structured commercially). *(detail below.)* |
-| 13 | Estimate CTA block | "Tell us about your project — get a ballpark from the team." CTA to `/get-an-estimate`. Positioned late as a conversion on-ramp before the closing blocks; the sticky nav CTA carries it earlier in the scroll. (An embedded mini-estimator rides with the deferred AI estimator — Appendix.) |
-| 14 | Blog teaser | 3 latest posts with thumbnail, title, author, date. Maps to the Resources menu. |
-| 15 | FAQ | 5-7 founder-facing questions: "How long will it take?" / "What does it cost?" / "Who owns the IP?" / "Where are your engineers based?" / "What if we want to bring it in-house later?" |
-| 16 | Contact / CTA section | Dual CTA — Get an Estimate · Send a question (Contact form). Scheduling is offered inside the estimate flow's success state rather than as a third competing door (and stays directly bookable via the About menu). |
-| 17 | Footer | See Footer navigation above. |
+| 13 | Solutions strip | Compact strip: "Products we build and run" — the solutions mini-portfolio (onemall · onesocial · quickoffer · plugins) linking to `/solutions`. Deliberately lighter than the portfolio module above. Sits late, after the engagement narrative, mirroring the nav: in its current form Solutions is deprioritised relative to the client-facing story (DL-24). Maps to the Solutions nav item. |
+| 14 | Estimate CTA block | "Tell us about your project — get a ballpark from the team." CTA to `/get-an-estimate`. Positioned late as a conversion on-ramp before the closing blocks; the sticky nav CTA carries it earlier in the scroll. (An embedded mini-estimator rides with the deferred AI estimator — Appendix.) |
+| 15 | Blog teaser | 3 latest posts with thumbnail, title, author, date. Maps to the Resources menu. |
+| 16 | FAQ | 5-7 founder-facing questions: "How long will it take?" / "What does it cost?" / "Who owns the IP?" / "Where are your engineers based?" / "What if we want to bring it in-house later?" |
+| 17 | Contact / CTA section | Dual CTA — Get an Estimate · Send a question (Contact form). Scheduling is offered inside the estimate flow's success state rather than as a third competing door (and stays directly bookable via the About menu). |
+| 18 | Footer | See Footer navigation above. |
 
 Row detail (moved out of the table for line length; same authority as the rows above):
 
