@@ -140,6 +140,11 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
   current — the TOC is GENERATED, never hand-edited: rename or add a heading, then run
   `python3 tools/gen-ia-toc.py`. Both are registered as instruments in `docs/project-outline.md`
   §"Verification instruments".
+- **Link resolver.** `python3 tools/check-links.py` resolves all ~9,600 relative links (and their
+  `#anchors`) across the prototype. Run it after ANY route/file move or path edit — a wrong `../`
+  prefix 404s silently because the page still renders. `--baseline` snapshots, `--compare` fails
+  only on new breakage. HTML comments are ignored, so the path-depth tables and placeholder notes
+  don't register as links.
 - **Git rhythm:** commit only when asked, push only when asked — they are separate instructions.
 
 ## Interactive components — already wired in `prototype.js` (write markup only)
