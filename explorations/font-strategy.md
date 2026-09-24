@@ -73,5 +73,5 @@ width**. The weight axis *is* shared, so weights map consistently; but Flex's 1�
 Sans's 400–700 means hairline and heavy weights (200/800/900) clamp on non-Latin. shadcn's 400–700
 usage is safe. Google Sans has a true `ital` axis where Flex uses slant.
 
-**Separate but related:** a custom **fluid type ramp** built on Tailwind is planned (Andranik to
-supply an example); the Luma `problocks` heading tokens are discarded. See `fig-conv` §6 and `f2c`.
+**Separate but related:** the type ramp is a set of functional roles (title / body / caption) built
+on Luma's Tailwind logic; how it translates lives in `fig-map` §8. See `fig-conv` §6 and `f2c`.

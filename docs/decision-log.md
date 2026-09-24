@@ -264,6 +264,45 @@ its nesting under How We Work.
 
 ---
 
+## DL-26 · 2026-09-22 · Design moves to code; Figma demoted to sketchpad, read out once
+
+**Decision:** VECTO's design system is authored in code. Figma is a **sketchpad** for foundations — palette,
+type, radius character — read out into `globals.css` at the Phase 1 handoff; after it the file carries no
+authority, though it stays available for sketches. Code is the source of truth for styling, and `/styleguide` —
+the rendered token sheet plus component inventory — is the artifact designs are proofread against.
+Components and page layouts are built in code from the start. The content model's first expression becomes
+the component's TypeScript prop types rather than a Figma annotation.
+
+**Why:** the kit's September 2026 v3 refactor broke the near-isomorphism that made "point Claude Code at
+Figma and follow it" work. The file now carries ~1,158 per-component variables that produce no CSS, light
+and dark as *separate* variables where the CSS wants one token defined twice, and `custom/*` / `alpha/*`
+tokens that exist only because Figma cannot express Tailwind's alpha modifiers. An agent following the file
+faithfully emits wrong CSS, so keeping Figma authoritative would have meant a standing export contract plus
+a hand-maintained register of component-token deviations, permanently — parity bought on the one layer
+(component geometry) that contributes least to how the design looks. Independently, the features that
+distinguish this design — shader and video backgrounds, motion, optical sizing on a variable font, per-glyph
+multilingual fallback, dark-only with inverted scopes — are things Figma renders poorly or not at all. A
+comp was never going to be the design.
+
+**Options that lost:** *Keep Figma as maintained truth* — build the export contract and deviations register
+and carry both forever; rejected on permanent cost for the least valuable parity. *Drop Figma entirely* —
+rejected only because settling palette and type visually before a large site is genuinely useful, and a
+sketch costs nothing once it carries no authority. *Express brand by retargeting per-component tokens* —
+rejected because each retarget is a silent two-place edit with no tooling connecting a Figma variable to the
+matching `cva` class.
+
+**Supersedes:** `fig-conv` §1's "Figma is the source of truth for styling; code conforms to Figma"; its §6
+re-sync discipline, including stamping Figma variable IDs into CSS comments (there is no second sync for
+them to key off); the Figma-shaped framing of `outline` Phases 1–4; and `f2c` §4's Figma-component
+annotation step with its three tagging mechanisms.
+
+**Encoded in:** `fig-conv` header · §1 · §5 heading · §6 (rewritten as the read-out contract) · `f2c` header
+(standing-context note) · §4 · §5 · `outline` §"Phase spine" rows 0.5–3, row 4 merged into row 1 ·
+§"The two-layer standard" · `fe-arch` §Scope · `skills-routing` §"Design skills" · `README` ownership rows
+for `fig-conv`, `f2c` and `tokens`.
+
+---
+
 ## Retired IDs
 
 Retired in the 2026-08-31 sweep (DL-22). **No decision here was reversed.** Ten of these were standing live

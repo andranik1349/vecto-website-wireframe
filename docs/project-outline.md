@@ -56,10 +56,10 @@ into rework.
 ### The two-layer standard (both required from the scaffold commit)
 
 - **Code-architecture layer** — the `react-architecture-conventions` rules, bound in the repo's `CLAUDE.md` (`fe-arch` §4 carries the summary).
-- **Design layer** — the token stack as single source of truth (Figma-mirrored, `VariableID · path` anchor comments,
-  never auto-synced — `fig-conv` §6); customize in the order token → primitive → composition; single-source class
-  recipes in `shared/constants/`; a living `/styleguide` route rendering every shared component; and a generated
-  **build manifest** as the component list of record and name registry (`f2c` §5).
+- **Design layer** — the token stack in `globals.css` as single source of truth, read out of Figma at the
+  Phase 1 handoff (`fig-conv` §6); customize in the order token → primitive → composition; single-source class
+  recipes in `shared/constants/`; a living `/styleguide` route rendering the token sheet and every shared component;
+  and a generated **build manifest** as the component list of record and name registry (`f2c` §5).
 
 Doing one without the other recreates HES's gap in mirror image.
 
@@ -134,16 +134,16 @@ hreflang linking the set, per-language publish — full treatment in `ia`.
 
 ## The phase spine
 
-Design (Figma) → Front-end (Claude Code) → Backend (Next + Supabase), all in one repo. Each phase
-ends at a gate; the governing rules live in the doc each row points to.
+Design and front-end are one medium (Claude Code), then Backend (Next + Supabase), all in one repo —
+Figma settles foundations before the Phase 1 handoff and stays available for sketches; it is not a stage (DL-26). Each phase ends at a gate; the
+governing rules live in the doc each row points to.
 
 | Phase | What happens | Governed by |
 |---|---|---|
-| **0.5 · Structure map & name registry** | *Before any Figma component work:* derive the FSD feature map + name grammar from the validated wireframe — details below. | `f2c` §5 |
-| **1 · Brand shadcn at the variable level** | The token spine: `vecto_colors` (the "lit darkness" palette, `#ca1d00` accent), fluid type ramp, typeface, breakpoint modes — authored as Figma variables. Enumerate via the full Plugin API, never `get_variable_defs`. | `fig-conv`; `tokens` (when authored); `f2c` §3 (typeface) |
-| **2 · Custom components from shadcn primitives** | Compose the brand component set, bound to the Phase 1 variables. Content-model annotation starts here, at the smallest unit. | `f2c` §1, §4 |
-| **3 · Page layouts** | Full-fidelity responsive layouts per template family (one representative per family, as the wireframe established). Section-level content-model notes carry up; design the language switcher; check key layouts against HY/RU text expansion (Figma won't auto-fallback non-Latin — `f2c` §3). | `ia`; `f2c` |
-| **4 · Tokens → CSS** | First code step: Figma variables become CSS custom properties + Tailwind theme; shadcn configured against them so primitives come out on-brand. Establish the production `CLAUDE.md`. | `fig-conv` §6; `fe-arch` §4 |
+| **0.5 · Structure map & name registry** | *Before any component work:* derive the FSD feature map + name grammar from the validated wireframe — details below. | `f2c` §5 |
+| **1 · Token spine in code** | Settle palette, type and radius in the sketchpad; read out into `globals.css` + Tailwind theme, shadcn configured on-brand. Covers `vecto_colors` ("lit darkness", `#ca1d00` accent), the functional type roles, typeface, breakpoints, production `CLAUDE.md`. | `fig-conv` §6; `tokens` (when authored); `f2c` §3 (typeface); `fe-arch` §4 |
+| **2 · `/styleguide` stood up** | The token sheet rendered — every colour, type step and radius as a swatch with its name and resolved value — plus the shadcn primitives installed and confirmed on-brand. This is the artifact every later design decision is judged against, so it exists before there is anything to judge. | `f2c` §5 |
+| **3 · Brand component set defined** | Decide the component inventory and its variant matrix against the 0.5 registry; prop types carry the content model from the smallest unit up. Sketch in Figma only where a picture settles an argument faster. Dark/light parity, invert scopes, HY/RU expansion and optical sizing all checked in the browser — the gate before build. | `f2c` §1, §2a, §4 |
 | **5 · React components, proactive CMS wiring** | The heart of the build: presentational, typed, fed from one placeholder module; motion & effects fold in. Per-component verification loop. | `fe-arch` §5 |
 | **6 · Page templates** | Assemble verified components into the family templates; routes × language from day one. | `fe-arch` §5; `ia` |
 | **7 · Repo, Vercel & Supabase** | One repo (front-end + admin + migrations), Vercel from the repo, dedicated Supabase. Build renders on Vercel before any content wiring. | `be-arch` §2 |
@@ -152,11 +152,14 @@ ends at a gate; the governing rules live in the doc each row points to.
 | **9 · SEO & rendering verification** | Confirm the static build outcome with real tools: view-source shows content, link previews unfurl, Search Console URL Inspection, social validators. Per-page metadata, sitemap/robots/structured data at build time. A green build is not evidence. | `fe-arch` §2; verification instruments above |
 | **10 · QA & launch** | Cross-device QA, Core Web Vitals (bundle + hydration + shader budgets on real devices), content population, **editorial dry-run** (a non-technical editor publishes end to end), **second-language dry-run** (one HY page: translate → publish → route + hreflang + switcher), DNS cutover + pre-launch security pass. | `be-arch` §5 (security gate) |
 
+The spine has no Phase 4: deciding the tokens and landing them in code are one phase (DL-26). Later
+numbers are unchanged so existing citations still resolve.
+
 Phase 0.5 detail (FSD = "feature-sliced design", organising the front-end by feature rather
 than by file type): feature slices, shared-tier candidates, a group→location table, the naming
-card. The Figma library is organized per the map; code later mirrors the names verbatim.
-Accuracy expectation + start-local/promote rule: `f2c` §5. Deliverable: a one-pager every later
-brief cites. Check Figma Code Connect availability (Dev-seat-gated as of June 2026).
+card. The registry is the naming authority and the code mirrors it verbatim; `/styleguide` is its
+visual counterpart. Accuracy expectation + start-local/promote rule: `f2c` §5. Deliverable: a
+one-pager every later brief cites.
 
 Phase 8 detail: the shadcn admin ships full RBAC (code-owned roles, runtime user management +
 manual credential provisioning, DL-11/DL-12) and the nav/page-visibility/section-placement controls

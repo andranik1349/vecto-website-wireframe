@@ -1,5 +1,5 @@
 ---
-name: shadcn-design-figma
+name: "shadcn-design-figma"
 description: Design screens, pages, flows, and UI sections in a Figma file built on the shadcn/ui kit for Figma (shadcndesign.com). Use whenever the user asks to design, mock up, or build any UI in a kit file, even if they don't mention the kit. Identify the kit by its Tailwind, Style, Mode, and Typeset variable collections, not by mode names; customers rename or delete modes.
 ---
 

@@ -361,7 +361,7 @@ gives crawlers a path to every one of them. Revisit if those pages underperform 
 | 10 | Who we serve strip | Filter-chip row: "Built for [Early-stage / Scale-up / SMB / Mid-market / Enterprise]" — chip labels are display shorthand. The canonical stage nouns and slugs are plural, adopted from the SEO sitemap (DL-25) — Small Businesses `/who-we-serve/small-businesses`, Midsize Businesses `/who-we-serve/midsize-businesses` (see Who We Serve). *(detail below.)* |
 | 11 | Process strip | 5-step horizontal visual (*Kickoff → Scoping → Execute → Launch → Iterate*) linking to the Process page. Describes how every engagement runs as a project — distinct from the Services stages above. Maps to the How We Work menu. Positioned to follow the menu narrative: it explains the working relationship once the visitor is interested, rather than pre-emptively. |
 | 12 | Engagement strip | Deliberately narrow / de-emphasized — sits immediately after Process to reflect their real-world connection (how an engagement runs ↔ how it's structured commercially). *(detail below.)* |
-| 13 | Solutions strip | Compact strip: "Products we build and run" — the solutions mini-portfolio (onemall · onesocial · quickoffer · plugins) linking to `/solutions`. Deliberately lighter than the portfolio module above. Sits late, after the engagement narrative, mirroring the nav: in its current form Solutions is deprioritised relative to the client-facing story (DL-24). Maps to the Solutions nav item. |
+| 13 | Solutions strip | Compact strip: "Products we build and run" — the solutions mini-portfolio linking to `/solutions`. Deliberately light, and placed late. Maps to the Solutions nav item. *(detail below.)* |
 | 14 | Estimate CTA block | "Tell us about your project — get a ballpark from the team." CTA to `/quote`. Positioned late as a conversion on-ramp before the closing blocks; the sticky nav CTA carries it earlier in the scroll. (An embedded mini-estimator rides with the deferred AI estimator — Appendix.) |
 | 15 | Blog teaser | 3 latest posts with thumbnail, title, author, date. Maps to the Resources menu. |
 | 16 | FAQ | 5-7 founder-facing questions: "How long will it take?" / "What does it cost?" / "Who owns the IP?" / "Where are your engineers based?" / "What if we want to bring it in-house later?" |
@@ -369,6 +369,10 @@ gives crawlers a path to every one of them. Revisit if those pages underperform 
 | 18 | Footer | See Footer navigation above. |
 
 Row detail (moved out of the table for line length; same authority as the rows above):
+
+- **Row 13 · Solutions strip:** the mini-portfolio is onemall · onesocial · quickoffer · plugins. It sits
+  after the engagement narrative rather than with the proof cluster, mirroring the nav: in its current form
+  Solutions is deprioritised relative to the client-facing story (DL-24).
 
 - **Row 5 · AI positioning band:** Headline: "AI expertise, earned in practice." Body: "The AI landscape is loud and
   hard to read — genuine capability sits alongside hype, and telling them apart takes time most founders don't have.
@@ -770,7 +774,7 @@ Applied to every individual case study — the conversion-critical asset of the 
 | # | Block | Description |
 |---|---|---|
 | 1 | Hero | Client name, industry tag, services tag, hero image / product visual. External product CTA where a live product exists — "Launch website / Try now / Download app" (optional CMS field pair `cta_label` + `cta_url`; hidden when absent — exercise the absent case in placeholder data). *(detail below.)* |
-| 2 | At a glance | The project's full property set — **year · industries · services · sub-services · technologies · platforms** — plus the client context it absorbed (stage at engagement, team size, technical maturity, engagement model). This is the ONE place the complete taxonomy appears; see the property contract below. Tags link out wherever a destination exists: industries, services, sub-services, technologies. |
+| 2 | At a glance | The project's full property set, plus the client context it absorbed. The ONE place the complete taxonomy appears. *(detail below.)* |
 | 3 | Challenge | What the client was trying to solve, in their own language where possible. The fear, not just the brief. |
 | 4 | Approach | How VECTO framed the work. What was ruled in / out. Key decisions and their rationale. |
 | 5 | Timeline & team composition | Engagement model, duration, FTE count, roles. |
@@ -798,6 +802,11 @@ facet filter reads — so a card's visible tags and its filter behaviour cannot 
 lowercase slugs; the visible label is separate text.
 
 Row detail (moved out of the table for line length; same authority as the rows above):
+
+- **Row 2 · At a glance:** carries **year · industries · services · sub-services · technologies ·
+  platforms**, then the absorbed client-context rows (stage at engagement, team size, technical maturity,
+  engagement model). Tags link out wherever a destination exists — industries, services, sub-services,
+  technologies; platforms and year have no pages behind them. Property contract below.
 
 - **Row 1 · Hero:** No headline outcome metric in the hero (parked feature); the quantified results live in the
   Outcomes block (7).

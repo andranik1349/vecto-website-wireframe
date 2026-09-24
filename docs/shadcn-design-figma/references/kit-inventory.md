@@ -7,7 +7,7 @@ Verified against the August 2026 kit file (kit 2.2); the September 2026 kit 3.0 
 | Collection | ID | Modes |
 |---|---|---|
 | Tailwind | `VariableCollectionId:1:2` | Value |
-| Style | `VariableCollectionId:1:412` | Nova, Vega, Mira, Luma, Sera, Maia, Rhea, Lyra |
+| Style | `VariableCollectionId:1:412` | per copy — the stock kit ships eight named styles, but a customer file may rename or prune them (VECTO's does: `fig-conv` §2). Enumerate, never assume. |
 | Mode | `VariableCollectionId:1:444` | Light (`1:7`), Dark (`28:0`) |
 | Typeset | `VariableCollectionId:27824:1341` | 14px, 15px, 16px, 18px |
 
@@ -53,7 +53,7 @@ Text styles are named `text-<size>/<leading-normal|leading-none|leading-relaxed|
 
 ## IconPlaceholder
 
-Component `21003:91178`. One nested icon instance per library; visibility bound to `icon-library/*` booleans. Swap props:
+Component `21003:91178`. One nested icon instance per library; visibility bound to `icon-library/*` booleans. The table below is the stock kit's full set — a customer copy may carry fewer (VECTO's keeps Lucide and Tabler only). Read the `icon-library/*` booleans in `Style` to find which library is live before swapping. Swap props:
 
 | Library | Swap property key | Library page ID |
 |---|---|---|

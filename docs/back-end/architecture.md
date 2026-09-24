@@ -4,7 +4,7 @@
 lifecycle, and editor-created template pages. **Doc-key: `be-arch` · Species: living reference.**
 
 **Scope.** Backend/CMS rules only. The phase sequence and cross-cutting contracts live in
-`outline`; front-end build rules in `fe-arch`; the content-model annotation scheme in `f2c` §4;
+`outline`; front-end build rules in `fe-arch`; the content model's prop-type expression in `f2c` §4;
 decision rationale in the decision log, cited by ID. Corpus map: `docs/README.md`.
 **Companion instrument:** before building the system and before each admin screen, run
 `cms-checklist` (`back-end/cms-pre-build-question-checklist.md`) — it interrogates what this doc

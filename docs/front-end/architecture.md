@@ -4,9 +4,9 @@
 the repo enforces, and the structural primitive lessons re-applied from HES. **Doc-key: `fe-arch`
 · Species: living reference.**
 
-**Scope.** Build rules only. Figma authoring lives in `fig-conv`; Figma→code translation in
-`f2c`; the workflow/phases/contracts in `outline`; backend/CMS in `be-arch`; decision rationale
-in the decision log, cited by ID. Corpus map: `docs/README.md`.
+**Scope.** Build rules only. The Figma sketchpad and its handoff read-out live in `fig-conv`;
+translation and naming rules in `f2c`; the workflow/phases/contracts in `outline`; backend/CMS in
+`be-arch`; decision rationale in the decision log, cited by ID. Corpus map: `docs/README.md`.
 
 **Status legend.** ✅ established · 🔧 decided in principle, spec pending · 📎 reference/context.
 
@@ -77,7 +77,7 @@ the IA (`ia`).
 
 VECTO installs shadcn primitives **clean** — not copied from HES, whose kit customizations are brand-coupled leftovers to avoid. But a handful of HES's fixes were *structural*, not brand: real code gotchas worth re-applying on the fresh install. None of these carry HES's look; they just prevent known breakages.
 
-- ✅ **`extendTailwindMerge` for custom `text-*` utility groups.** tailwind-merge silently drops utility classes it doesn't recognise; once we add our own `text-*` (fluid type) utilities, register them via `extendTailwindMerge` or they vanish when class lists are merged.
+- ✅ **`extendTailwindMerge` for custom `text-*` utility groups.** tailwind-merge silently drops utility classes it doesn't recognise; once we add our own `text-*` (type-role) utilities, register them via `extendTailwindMerge` or they vanish when class lists are merged.
 - ✅ **Export CVAs from `*.variants.ts`.** Keeping class recipes (cva) in their own exported module keeps React Fast Refresh working — a non-exported cva sitting in a component file breaks hot reload.
 - ✅ **Input-group textarea auto-detect.** The input-group primitive must detect a textarea child to size correctly — re-apply the auto-detect fix.
 - ✅ **The `@layer base` button `cursor: pointer` rule.** Tailwind v4 dropped v3's default pointer cursor on buttons; add it back in `@layer base` or buttons feel dead to the click.
@@ -89,13 +89,35 @@ VECTO installs shadcn primitives **clean** — not copied from HES, whose kit cu
 
 - This is a **Next.js/shadcn front-end built for static generation**, following the §2 portability provisions.
 - The **`react-architecture-conventions` skill binds every code task** (the admin included) — FSD placement, kebab-case filenames, arrow-const components, `type` props, `@/` imports, CVA in `*.variants.ts`, zod at data boundaries, ~250-line component ceiling, one config per tool. shadcn's own `ui/*` primitives and vendored engines are exempt from the file conventions.
-- The **content-model tagging scheme** and what the tags mean (`f2c` §4); how placeholder content is structured (§5 below); the static-vs-dynamic rule.
+- The **content model's prop-type expression** and what the field types mean (`f2c` §4); how placeholder content is structured (§5 below); the static-vs-dynamic rule.
 - The **doc-hygiene skill** binds every long-lived doc in the repo; the docs corpus moves into the repo at build start (decision DL-08).
 - ✅ **The skills-routing map is written into `CLAUDE.md` at scaffold time** (HES added its filter late and paid in
   drift). The map itself — session ritual, Cowork + Code routing tables, the subject-matter override, the design-skill
-  suppressions — lives in **`skills` (`docs/skills-routing.md`)** — the one home; the repo `CLAUDE.md`
+  routing — lives in **`skills` (`docs/skills-routing.md`)** — the one home; the repo `CLAUDE.md`
   gets the compact Code-side routing table plus a pointer at `skills` for the ritual and rationale, never a verbatim
   copy (a copy ages at its own rate — doc-hygiene skill rule 1).
+
+## 4a. Impeccable's context files (generated, not authored)
+
+Impeccable is the sanctioned design skill (`skills` §"Design skills"). It keeps two Markdown records at the repo
+root, and both need a governing rule or they become second homes for facts the corpus already owns.
+
+- ✅ **`DESIGN.md` is generated, never hand-edited.** `/impeccable document` derives it from what ships — colours,
+  type, radii, components — so it is a cache of `globals.css` and the component layer, exactly as `/styleguide` is
+  their rendered counterpart. When it and the code disagree, the code is right and the fix is to regenerate. Editing
+  it by hand creates the second aging home the token spec (`tokens`, when authored) is meant to be the only one of.
+- ✅ **`PRODUCT.md` stays thin and points.** It carries audience, platform and constraints so design passes aren't
+  flying blind, but it **points at `ia` for structure and entity nouns and at `content-screen` for the positioning
+  and its acceptance criteria** rather than restating either. It is read before every design pass, so a drifted copy
+  of the brand claim would have agents designing against a stale positioning — the one drift this project can least
+  afford.
+- ✅ **`.impeccable/config.json` is committed**, including detector ignores and their `--reason` text; per-developer
+  exceptions go in `config.local.json`, which stays out of git.
+- 🔧 **Per-surface context follows the DL-26 split.** The marketing site is dark-only, the admin carries a light/dark
+  switch, and Impeccable resolves `DESIGN.md` per project root — so declare the boundary rather than averaging two
+  design systems into one record.
+- 🔧 **The detector runs in CI on UI changes**, using its exit codes as a gate. Design-system checks require a current
+  `DESIGN.md`; without one they are silently skipped and only the generic checks fire.
 
 ## 5. Component & template build conventions (the proactive CMS wiring)
 

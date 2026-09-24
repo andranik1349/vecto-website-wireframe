@@ -69,18 +69,30 @@ kickoff" reading left HES's planning gaps sitting open while the skill that catc
 unused. Same qualification for the architecture skills: benched for settled architecture,
 legitimate for shaping genuinely unspecced stages.
 
-## Design skills: two suppressed, one conditional
+## Design skills: Impeccable is the sanctioned one; the rest stay suppressed
 
-- **`frontend-design` and `high-end-visual-design` are suppressed for all DS-conforming build
+- ✅ **Impeccable (`/impeccable …`) is the design skill for all DS-conforming work** — page builds,
+  production components, refinement passes. It is sanctioned where the others are not because it is
+  pointed at *our* system rather than carrying its own: `/impeccable document` derives `DESIGN.md`
+  from what ships, and the detector's `design-system-font` / `-color` / `-radius` / `-font-size`
+  rules then flag literal values falling outside our palette, type scale and radii. That makes it a
+  mechanical guard on `f2c` §2a's semantic-tokens-only rule, which is what a repeatedly-violated
+  prose rule is supposed to become.
+  - ⚠️ **Those four rules are silent without a current `DESIGN.md`** — design-system checks are
+    skipped when it is absent or lacks the values. Running `document` is therefore part of adopting
+    the skill, not an optional extra; without it only the generic slop checks fire.
+  - ✅ **A check that contradicts a deliberate decision gets an ignore with a `--reason`, recorded in
+    the committed `.impeccable/config.json`** — never an argument, and never a silent workaround.
+    The designer outranks the detector; the reason is what makes that reviewable.
+- **`frontend-design` and `high-end-visual-design` remain suppressed for all DS-conforming build
   work** (wireframe maintenance, production components, page builds). They are greenfield
   "roll-the-dice, never repeat" skills: each injects its own aesthetic system — card
-  architectures, nav-pattern bans, font choices — which contradicts a project where **Figma is
-  the source of truth for styling** (`fig-conv` §1) and the token system exists specifically to
-  converge on one language and kill drift. *(VECTO scoping note: exploratory concept work in the
+  architectures, nav-pattern bans, font choices — which contradicts a project where **the token
+  stack is the source of truth for styling** (`fig-conv` §1) and exists specifically to converge
+  on one language and kill drift. *(VECTO scoping note: exploratory concept work in the
   project-root `explorations/` folder — pre-DS by definition — was and remains a legitimate use;
   the suppression binds anything meant to conform to the design system.)*
-- **`design-taste-frontend` is conditional** — genuinely better (audit-first, has a
-  preserve-the-existing-system mode) but it can't detect a bespoke internal component layer and
-  needs explicit setup pointing it at ours. Once the `page-building-guide` exists, following that
-  directly beats invoking this skill. Until then: allowed only with the DS/token layer explicitly
-  declared as off-limits.
+- **`design-taste-frontend` is superseded by Impeccable.** Its one advantage was an audit-first,
+  preserve-the-existing-system mode; its disqualifying gap was that it cannot detect a bespoke
+  internal component layer and needs setup pointing it at ours. Impeccable has the first and closes
+  the second, so there is no case left for running both.
