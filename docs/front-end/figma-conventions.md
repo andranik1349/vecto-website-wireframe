@@ -63,14 +63,17 @@ semantic tier's names are shadcn's CSS variables 1:1:
 
 - ✅ Style-layer token paths take the shape `color/light/primary` — a flat `light`/`dark` split, with `custom/*` and
   `alpha/*` subgroups sitting beside the base tokens. Paths move between kit versions; enumerate before citing one.
-- ✅ **`Mode` is set per frame, not only per page.** A section frame can carry an explicit `Mode` override and render
-  opposite the page around it — the Figma half of the inverted-section contract (`f2c` §2a). Figma has no "opposite
-  of the parent" concept, so an inverted section on a surface that ships both themes is drawn in both comps with the
-  override set explicitly in each. Keep inversions rare: it is the loudest contrast move the system has, and nothing
-  downstream enforces restraint.
-- ✅ **Mode verification runs from the file's own base mode.** The pinned skill's `dark-check.js` duplicates a
-  finished *light* frame to Dark; marketing comps here are dark-based, so the check runs the other way. The tell is
-  the same in either direction: anything that doesn't move was hand-painted instead of bound to a variable.
+- ✅ **`Mode` is set per frame, not only per page** — the Figma half of the section theme relationships (`f2c` §2a).
+  Figma has no "opposite of the parent" concept, and an invert and a pin are both just an explicit `Mode` override,
+  so **the frame's name carries the intent**: append `[theme: invert]`, `[theme: dark]` or `[theme: light]`
+  (e.g. `content [theme: dark]`). A frame with an override and no tag is an unrecorded intent — ask, don't guess.
+  Every page is drawn in both themes; an inverted frame has its override set explicitly in each comp, a pinned
+  frame carries the same override in both. Keep inversions rare: it is the loudest contrast move the system has,
+  and nothing downstream enforces restraint.
+- ✅ **Mode verification runs both ways.** The pinned skill's `dark-check.js` duplicates a finished *light* frame to
+  Dark; comps here exist in both themes, so check each against the other. The tell is the same in either
+  direction: anything that doesn't move was hand-painted instead of bound to a variable — except a tagged pin,
+  which must not move.
 - ✅ **Tints follow their base token automatically.** Under kit 3.0 most `custom/*` and `alpha/*` entries are
   aliases-with-opacity (an alias plus a percentage — not Figma variable expressions) pointing at a base token rather
   than stored colors, so hovers, washes, tints and focus rings restyle when their base changes. **Never flatten one to
@@ -127,8 +130,11 @@ Run at the start of the token phase, when authority passes from Figma to code (�
   - our `VECTO Responsive` collection → responsive utility recipes for spacing, layout and the type roles, plus a
     CSS variable only where `tokens` decides one is needed. Its Desktop · Desktop-wide · Mobile modes are read as
     samples at Tailwind breakpoints, not as breakpoints of their own (`fig-map` §8).
+  - the `shadow/<size>/*` scale (`2xs`–`2xl`) → Tailwind's own `--shadow-<size>` theme values, overridden in
+    `@theme`, one per size, composed from that size's layers in `Luma-VECTO`. Only the base scale: the
+    per-component `shadow/<component>/*` aliases emit nothing.
 - ✅ **Emit no CSS variable for anything else:** `component/*`, `custom/*`, `alpha/*`, `text/*`,
-  `font-weight/*`, `container/*`, `breakpoint/*`, `shadow/*`, `inset-shadow/*`, `drop-shadow/*`, `blur/*`,
+  `font-weight/*`, `container/*`, `breakpoint/*`, `shadow/<component>/*`, `inset-shadow/*`, `drop-shadow/*`, `blur/*`,
   `focus-ring/*`, `pro-blocks/*`, `icon-library/*`, `meta/*`, and the whole `Typeset` collection. This list
   is the scope fence — a read-out pointed at the file without it emits tokens no component will consume.
   **Not emitting a group is not skipping it:** our own variables alias into several of these groups, so the

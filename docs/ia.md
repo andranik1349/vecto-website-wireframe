@@ -157,7 +157,8 @@ The site is multilingual: English (default) at launch; Armenian and Russian at o
 - **Language switcher — visible only when it has a job.** Header utility area. Rendered only when more than one
   language is published: an English-only site shows no switcher at all (the HES rule). On a page whose translation
   doesn't exist, the switcher links to the nearest translated ancestor — usually the locale homepage — never a 404.
-  Mobile: the switcher lives in the drawer; the Get an Estimate CTA keeps its persistent header spot.
+  Mobile: with the menu closed, the Get an Estimate CTA keeps its persistent header spot; with it open, the
+  switcher sits in the drawer's top bar beside the close button and the CTA moves to the drawer's foot, full width.
 - **Build consequence.** The route list multiplies per published language at build time; the site remains fully static. Adding a language is a publish action, not an engineering project.
 
 ## Primary navigation architecture
@@ -184,6 +185,8 @@ every page carries the mid-scroll conversion load regardless.
 
 > **Language switcher.** Lives in the header utility area, but only exists once a second language is published — see Localization. English-only launch renders no switcher.
 
+> **Theme switch.** Header utility area, beside the language switcher, always present: the site opens in dark and visitors switch to light there (DL-27). *(Added 2026-09-29 in the Figma stage; not yet in the wireframe.)*
+
 > **Menu-heading convention — label by default, link only where the link adds a destination.** Dropdown/megamenu
 column headings are **non-interactive labels by default**. A heading becomes a link only when **both** tests pass:
 a real destination page exists for it, **and** that page is not already reachable from inside the same column or
@@ -209,10 +212,15 @@ as a distinct, cross-cutting block: it is not a milestone in the journey but a c
 stage. Each stage column is headed by its parent service-category as a clickable link to that category's hub page, and
 every megamenu panel (Services, Who We Serve, How We Work) closes with a CTA strip — e.g. "Browse all case studies" or
 "Get an Estimate" — as a conversion on-ramp.
+*(Figma design, 2026-09-24: the strips keep their link but drop the Get an Estimate button on purpose —
+the navbar's persistent Get an Estimate sits on screen whenever a panel is open.)*
 
 Layout note: with AI broken out, the panel doesn't fit a clean six-column grid. Exact arrangement (e.g. six stages + a visually distinct AI band, or a 3×2 stage block beside an AI panel) is a UI design problem — the IA's job is to fix the *relationship*: six sequential stages, one cross-cutting competency.
 
 Panel headline: **"From idea to live product — every stage covered."**
+*(Removed on purpose in the Figma design, 2026-09-24: the panel read as crowded, and the six stage labels
+already carry the sequence. Kept here and in the wireframe as the IA record; `brand` §5 holds the
+current panel design.)*
 
 > **The stage lists below are NAV LABELS, not page names.** They are the short forms as they appear in
 the menu, and they match the built nav exactly. Each sub-service's formal page name — the H1 and the URL

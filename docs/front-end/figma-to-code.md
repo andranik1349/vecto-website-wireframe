@@ -44,31 +44,43 @@ become CSS custom properties, and a theme class on an ancestor redefines them fo
 about a component changes between themes. That is why **every colour in the system comes from a semantic token**: a
 hand-written colour, or a Tailwind `dark:` utility, is invisible to this mechanism and survives into the wrong theme.
 
-✅ **The marketing site ships dark only** — background media, video and shader effects don't adapt cleanly across
-themes, and the brand is dark-first. **The admin and any hosted tools carry a real light/dark switch** on the same
-kit, so both themes are live in the codebase even though site visitors only ever see one.
+✅ **Every surface ships both themes** (DL-27). The marketing site starts in **dark** and the visitor switches with
+the navbar's Theme Switch — no OS-preference detection — and the choice persists across visits; the admin and any
+hosted tools carry the same switch. Loading must not flash the other theme before the stored choice applies.
 
-✅ **Inverted sections are relative, not pinned.** An element needing outstanding emphasis takes the opposite theme
-of whatever surrounds it — a light band on the dark site, a dark band if the surrounding admin page is light. It
-expresses a contrast *relationship*, not a fixed colour:
+✅ **A section takes one of three theme relationships** to whatever surrounds it. Choose by intent, and name the
+intent, never the resulting colour:
+
+| Relationship | Use it for | Code |
+|---|---|---|
+| **Inherit** (default) | everything | nothing — the nearest theme class above it applies |
+| **Invert** | outstanding emphasis: a light band on a dark page, a dark band on a light one | `.theme-invert` |
+| **Pin** | a section whose content only works in one theme — shader, video or photo backdrops made for dark | `.dark` or `.light` on the section, marked `data-theme-pin` |
 
 ```css
 .dark  .theme-invert { /* the light values */ }
 .light .theme-invert { /* the dark values  */ }
 ```
 
-✅ **Name the class for the relationship (`theme-invert`), never for the resulting colour.** `class="light"` records
-an outcome and loses the intent, leaving the next reader unable to tell a brand-fixed light band from an inverted
-one — and unable to change either safely.
+✅ **Invert and pin are different intents that can render identically** — an inverted band on a light page and a
+section pinned dark look the same until the visitor switches. So neither is ever written as the other: a pin is a
+statement about the content ("this only works dark"), an invert about contrast ("this must stand out"), and the
+next reader needs to know which to change either safely. In Figma both are an explicit `Mode` override; the frame
+name carries the intent (`fig-conv` §3).
 
-Three conditions this mechanism depends on, each of which fails *silently* when broken:
+Conditions this mechanism depends on, each of which fails *silently* when broken:
 
 - ✅ **The theme class is always explicit** — `.light` or `.dark` stamped on `<html>`. Never "no class means light":
   an implicit light theme gives `.light .theme-invert` nothing to match, and the inversion simply doesn't happen.
-- ✅ **Invert scopes never nest.** A nested `.theme-invert` matches its outer ancestor's theme class rather than its
-  own scope, so it renders identically to its parent with no error.
-- ✅ **No `dark:` colour utilities anywhere.** Inside an inverted section the page ancestor still carries `.dark`, so
-  the utility fires against the inversion.
+- ✅ **Invert scopes never nest**, in each other or inside a pin. A nested `.theme-invert` matches its outermost
+  theme class as readily as its nearest, so it renders identically to its parent, or flips the wrong way, with no
+  error. If the invert rules are rewritten with CSS `@scope` so the nearest theme wins, an invert may sit inside a
+  pin — but only after checking `@scope` support against the site's browser targets.
+- ✅ **No `dark:` colour utilities anywhere.** Inside an inverted or pinned section an ancestor still carries the
+  page's theme class, so the utility fires against the section. Where stock shadcn components ship `dark:`
+  colour utilities, they are re-expressed as tokens.
+- ✅ **Every section is reviewed in both themes**, pinned ones included — a pinned section still sits between
+  sections that change.
 
 ✅ **`color-scheme` follows the scope** — set at the root and re-set on every inverted section, so browser-rendered
 chrome (scrollbars, form controls, autofill) matches the section it sits in rather than the page around it.

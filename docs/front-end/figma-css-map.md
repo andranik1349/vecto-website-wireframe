@@ -133,7 +133,7 @@ re-pointed at that base's own target with the opacities multiplied (ours: `brand
 them by scanning `custom/*` and `alpha/*` for aliases whose target is a `colors/*` step — the amber
 `warning-*` set does this deliberately (Class C) and stays. What we re-pointed: `brand` §2.
 
-⚠️ A flat literal can carry its own alpha (dark `destructive-ring` is 40%). That is a different thing
+⚠️ A flat literal can carry its own alpha (the stock kit's dark `destructive-ring` is 40%). That is a different thing
 from an alias-with-opacity and resolves differently: the alpha is baked into the stored colour and
 follows nothing.
 
@@ -232,12 +232,27 @@ variables. A variant we add follows the same rule: Button's `cta` (its `componen
 bindings, label padding and icon pods) describes one new `cta` entry in the `cva` variants, limited to
 the sizes `brand` §5 names, plus a `ButtonIcon` part for the pods. Card's `Surface=glass` likewise
 describes a `surface` variant on Card (`solid` the default), with the footer's own background dropped
-in the glass case. The Dialog/Sheet close swap (`brand` §5) needs no code change at all: shadcn's style
+in the glass case. Card's `State=Hover` is not a variant in code but the hover classes of a clickable
+card (the whole card one `<a>`, as the megamenu's AI band is): `hover:bg-popover hover:border-foreground/20
+hover:shadow-lg`, and for glass `hover:bg-popover/80` with the white or `foreground/20` rim; the
+`vecto/card_*_hover` tokens are these recipes, not new CSS variables. The Dialog/Sheet close swap (`brand` §5) needs no code change at all: shadcn's style
 bases already render that close as `<Button variant="ghost" size="icon-sm">`; only the older
 `new-york-v4` registry has the ad-hoc version, and the kit's `component/dialog|sheet/close-*` variables
 it leaves behind are unbound and emit nothing. `Navbar` and `Theme Switch` are compositions, not tokens:
 in code they are components assembled from NavigationMenu and Button, with the navbar's surface taken
-from the `vecto/card_glass*` tokens. NavigationMenu's added states are the ones shadcn already styles:
+from the `vecto/card_glass*` tokens. The navbar's desktop/mobile switch is an `xl:` prefix, not the
+`lg:` the Desktop mode otherwise stands for (why: `brand` §5). The Tabs pill's re-pointed
+`component/tabs/trigger-active-bg` is the trigger's `data-[state=active]:bg-popover` in place of stock's
+`bg-background` — and replaces any dark-only active fill the style base adds (e.g. `bg-input/30`), so
+check the base's trigger classes when building it. The megamenu panels are compositions too:
+`NavigationMenu / Column Header` `Type=Label` is a plain `<span>` (`text-xs font-semibold uppercase
+tracking-widest text-muted-foreground`, the `component/navigation-menu-label` style); `Type=Link` is a
+`NavigationMenuLink` with the same text classes in `text-foreground`, a trailing arrow icon and the
+menu-link hover. Menu Link's added parts are classes on the one link: `Emphasized` is `font-semibold`,
+`Active` is `aria-current="page"` / `data-active` styled with the `vecto/accent_strong` background, and
+`Show Arrow` is a trailing icon. Compact rows are `py-1.5` (`py-2` with a description); panel columns
+are CSS grid (`grid-cols-[1fr_2fr]` for Who We Serve), as Figma's grid layout already expresses; the
+panel surface is the navbar's glass. NavigationMenu's added states are the ones shadcn already styles:
 Open is `data-[state=open]`, Active is `aria-current` / `data-active`.
 
 ⚠️ **`Typeset` is Class D by our decision, not by nature.** It mirrors shadcn's own `typeset.css`, which
@@ -255,9 +270,9 @@ never a step-by-step transcription.
   tints as `{type:'VARIABLE_EXPRESSION', expressionFunction:'COMPOSE_COLOR', …}`. This file contains no
   variable expressions at all; tints are `{ color: <alias>, opacity: <percent> }`. Any script written
   against the expression shape will fail to recognise a tint and misclassify it as a literal.
-- **"Shadow colours are literal black at an opacity."** Most are literals, but a meaningful minority are
-  aliases. Classify them, don't assume — though it matters only if shadows are ever adopted as tokens;
-  today `shadow/*` is on `fig-conv` §6's no-emit list.
+- **"Shadow colours are literal black at an opacity."** True of the stock kit only. In `Luma-VECTO` the
+  base scale's colours are `neutral/950` at a percentage (`brand` §2), and the per-component shadows
+  alias the scale. Read each layer's colour through its alias; don't assume black.
 - **The vendor's per-token recipe table documents Nova.** Four Luma values contradict it (§5).
 - **`helpers.js` hardcodes Lucide.** The pinned script's `setIcon` targets the `Lucide Icon#…` swap
   property, but this file runs **Tabler**. Calling it swaps a hidden instance and changes nothing

@@ -301,6 +301,32 @@ annotation step with its three tagging mechanisms.
 §"The two-layer standard" · `fe-arch` §Scope · `skills-routing` §"Design skills" · `README` ownership rows
 for `fig-conv`, `f2c` and `tokens`.
 
+## DL-27 · 2026-09-29 · The marketing site ships light and dark; media-led sections pin a theme
+
+**Decision:** the marketing site offers both themes. Visitors start in dark and switch with the navbar's
+Theme Switch (no OS-preference detection); the choice persists. Any section can take one of three theme
+relationships to its surroundings — **inherit** (the default), **invert** (the opposite of whatever
+surrounds it) or **pin** (always dark or always light) — so sections whose media only works one way keep
+it in either theme.
+
+**Why:** dark-only existed because background media, video and shader effects don't adapt across themes.
+Pinning solves that at the section instead of the site: the shader- and video-led sections stay dark, and
+everything else follows the visitor's choice. The Draft board's two home comps (2026-09-29) showed it
+working — the process section is pinned dark in both. The codebase already carried both themes for the
+admin, so the cost is the pin mechanism and dual-theme review of each section, not a second design system.
+
+**Options that lost:** *Keep dark-only* — rejected once pinning removed its reason. *Follow the OS setting*
+(with or without a switch) — rejected in favour of a dark default, the brand being dark-first; a visitor
+opts into light rather than landing in it.
+
+**Supersedes:** `f2c` §2a's "the marketing site ships dark only"; `fe-arch` §4a's dark-only marketing
+surface; the navbar's Theme Switch being hidden on the main site; `fig-conv` §3's "marketing comps here are
+dark-based".
+
+**Encoded in:** `f2c` §2a · `fig-conv` §3 · `fe-arch` §4a · `brand` §2 (surface ladder intro), §5 (Navbar,
+Theme Switch) · `ia` §"Primary navigation architecture" (theme switch note) · Figma: Navbar `Show Theme
+Switch` defaults on.
+
 ---
 
 ## Retired IDs

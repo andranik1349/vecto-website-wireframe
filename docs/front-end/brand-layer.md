@@ -31,8 +31,8 @@ briefs (DL-20). Corpus map: `docs/README.md`.
   the `#ca1d00` accent; cyan is the focus colour. Some steps are anchors from the old VECTO file, the rest
   generated in OKLCH and still open to tuning by eye. Translation: `fig-map` §8, §6.
 - ✅ **shadcn's semantic slots re-pointed at those ramps** — `background`, `primary`, `ring` and the rest
-  keep shadcn's names and roles; only their targets changed. The site is dark-based, so the dark column
-  is the primary design surface. Translation: `fig-map` §3.
+  keep shadcn's names and roles; only their targets changed. The site ships both themes and opens in dark
+  (`f2c` §2a), so both columns are design surfaces, dark first. Translation: `fig-map` §3.
 - ✅ **Dark `ring` is a solid cyan**, and the kit tints that skipped it (focus rings, one muted wash) now
   follow their base token. Why and how to spot the pattern: `fig-map` §5.
 - ✅ **Muted is alpha-based** — `muted-foreground` is `foreground` at 64% and `muted` is `foreground` at a
@@ -50,9 +50,13 @@ briefs (DL-20). Corpus map: `docs/README.md`.
   states (hover, focus, open) and our `vecto/accent_strong` for lasting ones (selected, on). Both alias
   `red/500` directly in both themes, with slightly higher opacities in dark; deeper reds turned brown at
   low opacity over the dark neutrals, which contrast maths does not catch, so these were set by eye in the
-  comp. Text on them stays the plain foreground. `sidebar-accent` uses the same recipe (dark currently at
-  16% against `accent`'s 14% — open: align or keep). Translation:
-  `fig-map` §3, §8.
+  comp. Text on them stays the plain foreground. `sidebar-accent` equals `accent` in both themes, as in
+  stock shadcn. The calendar follows the same split: the "today" marker is
+  a passive marker, so `muted`; the band between two selected dates is a lasting selection, so
+  `vecto/accent_strong` (stock uses `accent` for both). Accent is only ever a background: the kit's collapsed-sidebar tooltips borrowed the
+  `sidebar-accent` pair inverted (text in `sidebar-accent`), which only worked while that was an opaque
+  grey; they now use the Tooltip's own pair (`foreground` fill, `background` text), as shadcn's collapsed
+  sidebar renders the standard Tooltip. Translation: `fig-map` §3, §8.
 - ✅ **Secondary is inverted and carries the brand red** — `secondary` takes the palette step
   `foreground` uses (white in dark, near-black in light) and its text is VECTO red, a shade lighter in
   light mode, so buttons read as black, red and white whichever way round — the high-contrast alternative
@@ -65,10 +69,31 @@ briefs (DL-20). Corpus map: `docs/README.md`.
   card and popover instead of vanishing on one and shouting on another. `input` works the same way (15% in
   both themes). The kit tints built on either were re-pointed to keep rendering correctly (`fig-map` §5).
   Translation: `fig-map` §3.
+- ✅ **No colour is a hand-typed value** — the kit's last stored colours (dark `custom/destructive-ring`,
+  dark `custom/tinted`, both `custom/tinted-hover`) now follow a base like every other tint: the ring is
+  `destructive` at 40% (as light already was), dark `tinted` aliases `border` (as light already did), and
+  `tinted-hover` is the border's palette step a notch stronger (18% light, 15% dark). Shadow colours follow
+  `neutral/950` too (next entry). How to check none remain: `fig-map` §5.
 - ✅ **Fields have a visible resting outline** — Luma draws inputs, textareas, selects and combobox
   triggers borderless; ours use shadcn's standard `border-input`, the way six of the kit's eight styles
   and Luma's own OTP input already do, so a form reads as fillable before anyone focuses it. Focus still
   swaps in the ring. Translation: `fig-map` §9.
+- 🔧 **`vecto/scrim` — dims whatever is underneath** — untinted black (`colors/black`) at 16% in light and
+  24% in dark. The kit's `alpha/*` steps are built on `background`, so they turn white in light mode and
+  lighten rather than dim; the scrim darkens in both themes. Modal backdrops (sheets, drawers, dialogs)
+  keep the kit's own `custom/overlay`, black at 30% in both themes; it is unchanged except that we scoped it
+  to fills so it shows in pickers — the kit hides every `custom/*` token. Open: strengths by eye. Translation:
+  `bg-black/16 dark:bg-black/24`, a utility pair rather than a CSS variable (`fig-map` §8).
+- 🔧 **Softer, cool-tinted shadows** — the stock scale (Tailwind's `shadow-*`) drops a fairly dark,
+  short shadow that reads as a grey lip under the edge. Ours keeps the scale's names and two-layer shape
+  but re-values every size (`2xs`–`2xl`): a tight, faint contact shadow plus a wide, soft ambient one with
+  a strong negative spread, so a raised layer reads as lifted rather than outlined — the approach Vercel's
+  Geist and Radix Themes take, with the border doing the edge-definition. Colours are `neutral/950` (the
+  cool near-black) at 5–20% instead of pure black, so shadows share the palette's hue. Every component
+  shadow (surface, popover, overlay, the glass) aliases this scale and follows it; the stock chart
+  tooltip's own literal values now alias the popover recipe. In dark mode shadows barely register, by
+  design: there depth comes from the surface ladder and borders. Open: strengths by eye. Translation:
+  `fig-conv` §6, `fig-map` §10.
 - ✅ **Shadows never show through translucent areas** — Figma's "show behind transparent areas" is off
   on every shadow in the file (the kit ships it on), so glass and translucent surfaces render as a
   browser will. Why: `fig-map` §4.
@@ -115,27 +140,59 @@ briefs (DL-20). Corpus map: `docs/README.md`.
   Open: glow strength, and the magnetic hover, which exists only in code. Translation: `fig-map` §8, §9.
 - 🔧 **`Navbar` — the site's top navigation** — a new component, since shadcn ships dashboard headers but
   no site navigation. Desktop `hero` (clear, over the hero) and `scrolled` (glass); mobile `closed`
-  (logo, CTA, menu button — the CTA stays in the header per `ia`) and `open` (a glass drawer). Built only
+  (logo, CTA, menu button) and `open` (a glass drawer: logo, utility controls and close in the top bar, the
+  menu list, then the CTA full width at the foot). CTA placement per `ia` §Localization. Built only
   from kit parts: the menus are `NavigationMenu / Button`, the CTA is Button `cta`, the menu button a
   ghost icon Button. Menu order and dropdown-vs-link follow `ia` §"Primary navigation architecture".
-  `Show Language` (off until a second language publishes) and `Show Theme Switch` (off on the main site)
-  hide the utility controls. Height and side padding come from `VECTO Responsive`. Ported from the HES
-  navigation. Open: at Tailwind's `lg` width (1024px) the seven menus do not fit one row.
-  Translation: `fig-map` §9.
+  `Show Language` (off until a second language publishes) and `Show Theme Switch` (on: the site ships both
+  themes) toggle the utility controls, leaving no gap. Height and side padding come from `VECTO Responsive`. Ported
+  from the HES navigation. **The desktop bar starts at Tailwind's `xl` (1280px)**; below that the mobile
+  bar and drawer are used, because logo, seven menus and CTA need about 1,150px and `lg` (1024px) leaves
+  about 900. Open: the Resources and About dropdowns, and the language dropdown list, are not drawn
+  yet. Translation: `fig-map` §9.
+- 🔧 **Menus are built from two parts: a column header and a menu link.** Every megamenu and dropdown in
+  the prototype (`_nav.html`) reduces to these two, so there is no per-panel component vocabulary.
+  - **`NavigationMenu / Column Header`** (new) — `Type=Label` is a grouping label with no page behind it
+    (a service stage, "By company stage", "Reference"); `Type=Link` is a header that is itself a
+    destination ("By industry", "Our Process"), with `State=Default | Hover`. Both types share one look —
+    small uppercase, the new `component/navigation-menu-label` text style — so a row of headers stays
+    level; a link header is set apart by foreground text (labels are muted), a trailing arrow, and the
+    accent wash on hover. The prototype marks it with accent-red text instead; our red measures 2.8:1 on
+    the dark card, under the 4.5:1 small text needs, and colour alone should not be what marks a link.
+    `Show Description` adds the tagline some headers carry. Which type a header gets follows the heading
+    convention in `ia` §"Primary navigation architecture".
+  - **The kit's `NavigationMenu / Menu Link` gains three things**: `Type=Emphasized` (semibold, for the
+    parent service leading its group — the same row as its siblings, as the prototype's bold first link
+    is), `State=Active` for the current page (`vecto/accent_strong`, like `NavigationMenu / Button`'s
+    Active), and `Show Arrow`, a trailing arrow for links to an index page. Translation: `fig-map` §9.
+- 🔧 **The megamenu panels** — `Navbar / Megamenu · Services`, `· Who We Serve` and `· How We Work`, full
+  width under the scrolled navbar on the same glass, each following its prototype panel. Shared calls:
+  every column is header, separator, then its links in their own group, so a column reads as a labelled
+  block; link rows are compact (32px single-line, the kit's menu link with its vertical padding at `spacing/1-5`,
+  or `spacing/2` for title-plus-description rows) so panels fit under the navbar on a laptop; each ends
+  in an optional footer link (`Show Footer`), with the prototype's duplicate Get an Estimate buttons
+  dropped because the navbar CTA is always visible. Services adds three more: the AI Transformation band
+  is a quiet banner (a foreground wash with a border, a red-rimmed sparkles pod, the inverted `secondary`
+  Button as its affordance) rather than a red block, so the navbar CTA stays the only red-filled action;
+  Scale and Maintain share one column, giving five columns wide enough to read at 1280px; and it is the
+  one panel tall enough to test fit — it clears a 1280×720 viewport (a 1280×800 laptop minus browser
+  chrome) with the footer on. Column proportions and the industries grid use Figma's grid layout, matching
+  the prototype's CSS grid. Open: weights and banner tint by eye. Translation: `fig-map` §9.
 - ✅ **`NavigationMenu / Button` gains Open and Active** — the kit drew "hover" as the open menu; ours
   separates them the way shadcn's code does: Hover is the highlight only, Open adds the panel and flips
   the chevron, and Link gets Active for the current page (`vecto/accent_strong`). Translation: `fig-map`
   §9.
 - ✅ **`Theme Switch`** — a light/dark toggle wrapping a Button (outline, icon-sm) with a sun or moon.
-  Kit-level; the main site is dark-only and hides it. Translation: `fig-map` §9.
+  Shown in the navbar: the site opens in dark and this is how a visitor picks light (`f2c` §2a). Translation: `fig-map` §9.
 - ✅ **The logo follows the theme** — its dark parts bind to `foreground` (they sat on
   `accent-foreground`), its red mark to `primary`.
 - 🔧 **Tabs get a `Size` axis** — `default` is the stock compact control (admin density); `lg` is sized
   to sell: a 48px active pill (the default Button's height), base text, 20px icons, in a 56px track whose
   radius stays concentric. On both the track (`Tabs`) and its segments (`Tabs / Trigger`), every
   variant and orientation, built on `component/tabs/size-lg/*` in the kit's own size-variable pattern.
-  Open: the active pill fills with `background`, which sits below `card` on the surface ladder, so on a
-  card the selected pill reads sunken rather than lifted. Translation: `fig-map` §9.
+  The active pill fills with `popover`, the top of the surface ladder, so it reads lifted on the page, on
+  a card and on glass (stock fills it with `background`, which on our ladder sits below `card` and looked
+  pressed in). Translation: `fig-map` §9.
 - ✅ **Dialog and Sheet close with a real Button** — the corner ✕ is an icon-only Button (`ghost`,
   `icon-sm`), not the kit's separate close-icon component with its own size and radius, so it can no longer
   drift from Button. This matches shadcn's current style bases (the older `new-york-v4` registry still
@@ -147,3 +204,12 @@ briefs (DL-20). Corpus map: `docs/README.md`.
   `vecto/glass` effect style. The kit's footer strip paints an opaque card fill of its own, so on glass
   that fill is cleared and only its divider line stays. Open: blur strength and tint by eye. Translation:
   `fig-map` §8, §9.
+- 🔧 **Card `State=Hover` — for a card that is one clickable surface** (shadcn ships none). Hover lifts the
+  card one step on every axis we already have, rather than washing it in accent, which would tint a whole
+  surface of content red: the fill steps up the surface ladder (`card` → `popover`; glass: the popover
+  colour at 80%, `vecto/card_glass_hover`), the border strengthens (`foreground` at 20%,
+  `vecto/card_border_hover`; the glass rim goes full white in light, `vecto/card_glass_border_hover`), and
+  the shadow steps from the surface shadow to the popover one (`vecto/glass_hover` for glass). The footer's
+  own fill is cleared in the hover variants so the lifted surface shows through, as on glass. A red rim
+  (`custom/primary-border`) is drawn beside it on the Draft board as an alternative. Open: the focus state,
+  and the choice of rim. Translation: `fig-map` §9.

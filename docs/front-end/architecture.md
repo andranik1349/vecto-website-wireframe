@@ -113,8 +113,8 @@ root, and both need a governing rule or they become second homes for facts the c
   afford.
 - ✅ **`.impeccable/config.json` is committed**, including detector ignores and their `--reason` text; per-developer
   exceptions go in `config.local.json`, which stays out of git.
-- 🔧 **Per-surface context follows the DL-26 split.** The marketing site is dark-only, the admin carries a light/dark
-  switch, and Impeccable resolves `DESIGN.md` per project root — so declare the boundary rather than averaging two
+- 🔧 **Per-surface context follows the DL-26 split.** Both surfaces ship light and dark (`f2c` §2a), with the
+  marketing site defaulting to dark and pinning some sections; Impeccable resolves `DESIGN.md` per project root — so declare the boundary rather than averaging two
   design systems into one record.
 - 🔧 **The detector runs in CI on UI changes**, using its exit codes as a gate. Design-system checks require a current
   `DESIGN.md`; without one they are silently skipped and only the generic checks fire.
