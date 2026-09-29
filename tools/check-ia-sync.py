@@ -20,7 +20,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-IA = ROOT / "docs" / "ia.md"
+# docs/ moved to the sibling vecto-website-build repo; both repos must sit side by side.
+IA = ROOT.parent / "vecto-website-build" / "docs" / "ia.md"
 NAV = ROOT / "prototype" / "_nav.html"
 PROTO = ROOT / "prototype"
 

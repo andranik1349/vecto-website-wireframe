@@ -4,15 +4,18 @@ Auto-loaded every session. Read this first, then read the relevant section of th
 
 **Repo layout note:** this repo is a small demo hub. The prototype itself lives in `prototype/` (not the repo
   root) — every relative-path recipe below is relative to `prototype/` unless stated otherwise. The repo root also
-  holds this file, the landing `index.html`, the GitHub Pages `404.html`, `docs/` (the production-build corpus, moved
-  in-repo by DL-23), and `explorations/` — early design artifacts, two of which `docs/README.md` cites as the `tokens`
+  holds this file, the landing `index.html`, the GitHub Pages `404.html`, and `explorations/` — early design artifacts, two of which `docs/README.md` cites as the `tokens`
   seeds (`token-variant-spec-draft.md`, `font-strategy.md`). Copies of those two also sit in the project folder
-  outside the repo; the in-repo copies are the ones the corpus resolves to.
+  outside the repo.
+
+**`docs/` has moved out of this repo.** The production-build corpus now lives in the sibling repo
+  `../vecto-website-build/docs/` (its history before the move stays here, up to commit `b1b92b8`). Every
+  `docs/…` path in this file means `../vecto-website-build/docs/…`; the two repos must sit side by side.
 
 ## What this is
 A **desktop-only, static, clickable prototype** (no framework, no build step) to validate IA, block & CTA placement, and copy with stakeholders. Fidelity bar = the HES wireframe. NOT a production site.
 
-## Source-of-truth docs (in the sibling `docs/` folder — request read access if needed)
+## Source-of-truth docs (in `../vecto-website-build/docs/` — request read access if needed)
 - **`docs/ia.md`** — canonical content & block structure for every page. The authority on *what* each page
   contains. Reuse its hero headlines, FAQ questions, and CTA labels verbatim; mine its per-block prose for believable
   placeholder copy elsewhere. (Fact split per `docs/ia.md` header §"Fact split": the IA owns structure +
@@ -24,7 +27,7 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
 - **`docs/legacy/figma-tokens-reference.md`** — the design tokens (use the **Desktop** column / resolved colors; the wireframe flattens the full system).
 - **`docs/legacy/claude-code-prompts.md`** — the ordered build prompts (run 0 → 19; consumed — historical reference).
 
-**New wireframe-maintenance artifacts** (plans, prompt sets, ledgers) go in `notes/` at the repo root (create at first need) — never in `docs/`, which is the production-build corpus and migrates to the front-end repo without them (decisions DL-08, DL-23).
+**New wireframe-maintenance artifacts** (plans, prompt sets, ledgers) go in `notes/` at the repo root (create at first need) — never in `docs/`, which is the production-build corpus and now lives in the front-end repo without them (decisions DL-08, DL-23).
 
 **Before each task, open the doc section it references and read it** — don't build from memory.
 
