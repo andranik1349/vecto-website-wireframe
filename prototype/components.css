@@ -832,8 +832,10 @@ a.megamenu__ai-band:focus-visible {
 }
 .dropdown[hidden] { display: none; }
 .dropdown__cols {
+  /* One equal track per column present — Resources has 2, About has 3. */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: var(--space-l);
 }
 .dropdown__col { display: flex; flex-direction: column; gap: var(--space-3xs); }
