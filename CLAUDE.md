@@ -18,8 +18,9 @@ A **desktop-only, static, clickable prototype** (no framework, no build step) to
 ## Source-of-truth docs (in `../vecto-website-build/docs/` — request read access if needed)
 - **`docs/ia.md`** — canonical content & block structure for every page. The authority on *what* each page
   contains. Reuse its hero headlines, FAQ questions, and CTA labels verbatim; mine its per-block prose for believable
-  placeholder copy elsewhere. (Fact split per `docs/ia.md` header §"Fact split": this wireframe is authoritative on
-  IA structure and each page's general content shape — never on UI, layout or final copy.)
+  placeholder copy elsewhere. (Fact split per `docs/ia.md` header §"Fact split": this wireframe is the blueprint —
+  authoritative on IA structure, content shape, user flows, journeys and navigation patterns; too coarse for UI,
+  layout or control detail; never final copy.)
 - **`docs/legacy/wireframe-build-plan.md`** — architecture, file tree (§4.1), pathing (§4.3), layout principles
   (§4a), component inventory (§5), per-page specs (§8). (Archived location — still the operative reference for
   wireframe maintenance: DL-08 deliberately left the already-archived wireframe docs in `legacy/` with this file
