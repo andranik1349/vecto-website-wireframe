@@ -79,7 +79,7 @@
     /* ── 6 · Cases — reliability framing, 3-up ── */
     .case3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
 
-    /* ── 7 · Engagement — two models, retainer featured ── */
+    /* ── 7 · Engagement — one model (T&M), two rhythms; the retainer featured ── */
     .eng2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap); align-items: start; }
     .eng-card__when { color: var(--text-accent); font-weight: var(--font-weight-medium); }
     .eng-card--featured { border-color: var(--accent); }
@@ -724,24 +724,27 @@
     </div>
   </section>
 
-  <!-- ═══ 7 · ENGAGEMENT MODELS — retainer + T&M ═════════════════════════ -->
+  <!-- ═══ 7 · ENGAGEMENT MODELS — T&M: support retainer (featured) or ad-hoc ═ -->
   <section class="band band--dark section">
     <div class="container">
       <div class="section-head">
         <p class="section-label">How we'd staff it</p>
         <h2 class="t-h2">Ongoing, or only when you need us.</h2>
+        <p class="t-p1 tc-secondary mt-3xs" style="max-width: 60ch">Both run on Time &amp; Material — you pay for the work actually done. The only difference is the rhythm.</p>
       </div>
       <div class="eng2">
         <div class="card eng-card--featured">
           <span class="eng-badge t-c2 fw-medium">Most common</span>
-          <h3 class="t-h4">Retainer</h3>
+          <p class="t-p3 tc-secondary fw-medium">As a monthly support retainer</p>
+          <h3 class="t-h4">Time &amp; Material</h3>
           <p class="t-p3 eng-card__when mt-4xs">Best for ongoing peace of mind.</p>
-          <p class="t-p2 tc-secondary mt-4xs">A flat monthly engagement covering monitoring, support, and an agreed scope of work — the default for maintenance, and the reason you stop thinking about it.</p>
+          <p class="t-p2 tc-secondary mt-4xs">A set monthly allowance of hours covering monitoring, support, and an agreed scope of work — the default for maintenance, and the reason you stop thinking about it.</p>
           <a class="btn btn--text btn--small mt-3xs" style="padding-left:0" href="../how-we-work/engagement-models.html">How it works <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
         <div class="card">
+          <p class="t-p3 tc-secondary fw-medium">As ad-hoc work</p>
           <h3 class="t-h4">Time &amp; Material</h3>
-          <p class="t-p3 eng-card__when mt-4xs">Best for ad-hoc work.</p>
+          <p class="t-p3 eng-card__when mt-4xs">Best for the occasional job.</p>
           <p class="t-p2 tc-secondary mt-4xs">One-off fixes, a single audit, or an upgrade — billed for the hours it takes, with no ongoing commitment.</p>
           <a class="btn btn--text btn--small mt-3xs" style="padding-left:0" href="../how-we-work/engagement-models.html">How it works <i data-lucide="arrow-right" aria-hidden="true"></i></a>
         </div>
