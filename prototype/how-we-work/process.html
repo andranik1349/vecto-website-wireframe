@@ -19,27 +19,7 @@
     .section-head .section-label { margin-bottom: var(--space-3xs); }
     .hero__ctas { display: flex; gap: var(--space-3xs); margin-top: var(--space-l); flex-wrap: wrap; }
 
-    /* ── 2 · Process visualisation — interactive expandable strip ── */
-    .viz-hint { color: var(--text-tertiary); font-size: var(--text-size-c1); margin-top: var(--space-3xs); display: inline-flex; align-items: center; gap: var(--space-4xs); }
-    .viz-hint svg { width: 14px; height: 14px; }
-    .process-step__toggle {
-      display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4xs);
-      width: 100%; padding: 0; text-align: left;
-      background: none; border: 0; color: inherit; font: inherit; cursor: pointer;
-    }
-    .process-step__more {
-      display: inline-flex; align-items: center; gap: var(--space-min);
-      color: var(--text-accent); font-size: var(--text-size-c1); font-weight: var(--font-weight-medium);
-      margin-top: var(--space-min);
-    }
-    .process-step__more svg { width: 14px; height: 14px; transition: transform .18s ease; }
-    .process-step.is-expanded .process-step__more svg { transform: rotate(180deg); }
-    .process-step__detail {
-      margin-top: var(--space-3xs); padding-top: var(--space-3xs);
-      border-top: 1px solid var(--border-semi-transparent);
-    }
-
-    /* ── 4–8 · Stage anatomy ── */
+    /* ── 2–6 · Stage anatomy ── */
     .stage-num { font-size: var(--text-size-h1); line-height: 1; color: var(--text-accent); font-weight: var(--font-weight-bold); }
     .stage-dur {
       display: inline-flex; align-items: center; gap: var(--space-min);
@@ -58,7 +38,7 @@
     .anatomy__label { color: var(--text-muted); font-size: var(--text-size-c1); text-transform: uppercase; letter-spacing: 0.08em; }
     .anatomy__val { color: var(--text-secondary); }
 
-    /* ── 9 · Sample first 30 days ── */
+    /* ── 7 · Sample first 30 days ── */
     .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); }
     .tl-week {
       display: flex; flex-direction: column; gap: var(--space-4xs);
@@ -70,7 +50,7 @@
     .ph-figure__cap { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-tertiary); font-size: var(--text-size-c1); }
     .ph-figure__cap i { width: 14px; height: 14px; flex: 0 0 auto; }
 
-    /* ── 10 · Communication cadence ── */
+    /* ── 8 · Communication cadence ── */
     .cadence { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--grid-gap); }
     .cadence__icon {
       width: var(--space-xl); height: var(--space-xl); flex: 0 0 auto;
@@ -79,10 +59,10 @@
       margin-bottom: var(--space-4xs);
     }
 
-    /* ── 11 · Tools ── */
+    /* ── 9 · Tools ── */
     .tools-tags { display: flex; flex-wrap: wrap; gap: var(--space-4xs); }
 
-    /* ── 12 · Closing dual CTA ── */
+    /* ── 11 · Closing dual CTA ── */
     .cta-band { text-align: center; }
     .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
   </style>
@@ -507,76 +487,7 @@
     </div>
   </div>
 
-  <!-- ═══ 2 · PROCESS VISUALISATION (interactive, expandable) ═════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <p class="section-label">The journey at a glance</p>
-        <h2 class="t-h2">Five steps, one connected journey.</h2>
-        <p class="viz-hint"><i data-lucide="mouse-pointer-click" aria-hidden="true"></i> Click any step to see what it involves.</p>
-      </div>
-
-      <div class="process-strip">
-        <div class="process-step">
-          <button class="process-step__toggle" type="button">
-            <span class="process-step__num">1</span>
-            <span class="process-step__title">Kickoff</span>
-            <span class="process-step__desc">Align on goals, users, and what success looks like.</span>
-            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
-          </button>
-          <div class="process-step__detail">
-            <p class="t-p3 tc-secondary">~1 week. We leave with a shared definition of done and a one-page charter.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <button class="process-step__toggle" type="button">
-            <span class="process-step__num">2</span>
-            <span class="process-step__title">Scoping</span>
-            <span class="process-step__desc">Turn the idea into a costed, sequenced plan.</span>
-            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
-          </button>
-          <div class="process-step__detail">
-            <p class="t-p3 tc-secondary">~1–2 weeks. You get a scoped backlog, an estimate, and a recommended model.</p>
-          </div>
-        </div>
-        <div class="process-step process-step--active">
-          <button class="process-step__toggle" type="button">
-            <span class="process-step__num">3</span>
-            <span class="process-step__title">Execute</span>
-            <span class="process-step__desc">Design and build in tight iterations you can see.</span>
-            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
-          </button>
-          <div class="process-step__detail">
-            <p class="t-p3 tc-secondary">The bulk of the work. A working demo every two weeks — never a black box.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <button class="process-step__toggle" type="button">
-            <span class="process-step__num">4</span>
-            <span class="process-step__title">Launch</span>
-            <span class="process-step__desc">Ship to production with the safeguards in place.</span>
-            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
-          </button>
-          <div class="process-step__detail">
-            <p class="t-p3 tc-secondary">~1 week. Monitoring, rollback, and a go/no-go you sign off on.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <button class="process-step__toggle" type="button">
-            <span class="process-step__num">5</span>
-            <span class="process-step__title">Iterate</span>
-            <span class="process-step__desc">Measure, improve, and keep the product evolving.</span>
-            <span class="process-step__more">Details <i data-lucide="chevron-down" aria-hidden="true"></i></span>
-          </button>
-          <div class="process-step__detail">
-            <p class="t-p3 tc-secondary">Ongoing. Rolls into Support &amp; Maintenance for a longer-term partner.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 3 · STAGE 1 — KICKOFF ══════════════════════════════════════════ -->
+  <!-- ═══ 2 · STAGE 1 — KICKOFF ══════════════════════════════════════════ -->
   <section class="band band--dark section" id="kickoff">
     <div class="container">
       <div class="split split--top">
@@ -608,7 +519,7 @@
     </div>
   </section>
 
-  <!-- ═══ 4 · STAGE 2 — SCOPING ══════════════════════════════════════════ -->
+  <!-- ═══ 3 · STAGE 2 — SCOPING ══════════════════════════════════════════ -->
   <section class="section" id="scoping">
     <div class="container">
       <div class="split split--reverse split--top">
@@ -640,7 +551,7 @@
     </div>
   </section>
 
-  <!-- ═══ 5 · STAGE 3 — EXECUTE (most detail — founder anxiety highest) ═══ -->
+  <!-- ═══ 4 · STAGE 3 — EXECUTE (most detail — founder anxiety highest) ═══ -->
   <section class="band band--elevated section" id="execute">
     <div class="container">
       <div class="split split--top">
@@ -673,7 +584,7 @@
     </div>
   </section>
 
-  <!-- ═══ 6 · STAGE 4 — LAUNCH ═══════════════════════════════════════════ -->
+  <!-- ═══ 5 · STAGE 4 — LAUNCH ═══════════════════════════════════════════ -->
   <section class="section" id="launch">
     <div class="container">
       <div class="split split--reverse split--top">
@@ -705,7 +616,7 @@
     </div>
   </section>
 
-  <!-- ═══ 7 · STAGE 5 — ITERATE ══════════════════════════════════════════ -->
+  <!-- ═══ 6 · STAGE 5 — ITERATE ══════════════════════════════════════════ -->
   <section class="band band--dark section" id="iterate">
     <div class="container">
       <div class="split split--top">
@@ -737,7 +648,7 @@
     </div>
   </section>
 
-  <!-- ═══ 8 · SAMPLE FIRST 30 DAYS ═══════════════════════════════════════ -->
+  <!-- ═══ 7 · SAMPLE FIRST 30 DAYS ═══════════════════════════════════════ -->
   <section class="section">
     <div class="container">
       <div class="section-head">
@@ -775,7 +686,7 @@
     </div>
   </section>
 
-  <!-- ═══ 9 · COMMUNICATION CADENCE ══════════════════════════════════════ -->
+  <!-- ═══ 8 · COMMUNICATION CADENCE ══════════════════════════════════════ -->
   <section class="band band--dark section">
     <div class="container">
       <div class="section-head">
@@ -807,7 +718,7 @@
     </div>
   </section>
 
-  <!-- ═══ 10 · TOOLS WE USE ══════════════════════════════════════════════ -->
+  <!-- ═══ 9 · TOOLS WE USE ══════════════════════════════════════════════ -->
   <section class="section">
     <div class="container">
       <div class="split split--60 split--top">
@@ -829,7 +740,7 @@
     </div>
   </section>
 
-  <!-- ═══ 11 · PROCESS FAQ ═══════════════════════════════════════════════ -->
+  <!-- ═══ 10 · PROCESS FAQ ═══════════════════════════════════════════════ -->
   <section class="band band--elevated section">
     <div class="container container-medium">
       <div class="section-head text-center">
@@ -873,7 +784,7 @@
     </div>
   </section>
 
-  <!-- ═══ 12 · ESTIMATOR + SCHEDULE DUAL CTA ═════════════════════════════ -->
+  <!-- ═══ 11 · ESTIMATOR + SCHEDULE DUAL CTA ═════════════════════════════ -->
   <section class="band band--popout section">
     <div class="container cta-band">
       <p class="section-label">Now you know the shape of it</p>
