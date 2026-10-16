@@ -23,10 +23,10 @@
     .ph-figure__cap { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-muted); font-size: var(--text-size-c1); }
     .ph-figure__cap i { width: 14px; height: 14px; flex: 0 0 auto; }
 
-    /* ── 3 · What it is / who it's for — split ── */
+    /* ── 4 · What it is / who it's for — split ── */
     .wio { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
 
-    /* ── 4 · Features & screens ── */
+    /* ── 5 · Features — the features without a screen, listed after the slide row ── */
     .features { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-l) var(--grid-gap); }
     .feature { display: grid; grid-template-columns: auto 1fr; gap: var(--space-s); align-items: start; }
     .feature__icon {
@@ -34,9 +34,14 @@
       display: inline-flex; align-items: center; justify-content: center;
       border-radius: var(--radius-pill); background: var(--surface-accent); color: var(--text-primary);
     }
-    .screens { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); margin-top: var(--space-xl); }
 
-    /* ── 6 · Pricing / plans ── */
+    /* ── 7 · Client quote — copied from projects/sentigraph-ai.html ── */
+    .quote { display: grid; grid-template-columns: auto 1fr; gap: var(--space-xl); align-items: center; }
+    .quote__portrait { width: var(--space-4xl); height: var(--space-4xl); flex: 0 0 auto; }
+    .quote__mark svg { width: var(--space-l); height: var(--space-l); color: var(--text-accent); }
+    .quote__who { display: flex; align-items: center; gap: var(--space-3xs); margin-top: var(--space-s); }
+
+    /* ── 8 · Pricing / plans ── */
     .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
     .plan {
       display: flex; flex-direction: column; gap: var(--space-3xs);
@@ -50,10 +55,6 @@
     .plan__feat { display: flex; align-items: center; gap: var(--space-4xs); color: var(--text-secondary-strong); }
     .plan__feat i { width: 16px; height: 16px; color: var(--text-accent); flex: 0 0 auto; }
 
-    /* ── 7 · Related ── */
-    .related { display: grid; grid-template-columns: 1fr 1fr; gap: var(--grid-gap); }
-    .related-col { display: flex; flex-direction: column; gap: var(--space-3xs); }
-    .related-links { display: flex; flex-direction: column; gap: var(--space-min); }
     .cta-band { text-align: center; }
     .cta-band__ctas { display: flex; gap: var(--space-3xs); justify-content: center; flex-wrap: wrap; margin-top: var(--space-l); }
   </style>
@@ -499,7 +500,38 @@
     </div>
   </section>
 
-  <!-- ═══ Block 3 · What it is / who it's for ═══ -->
+  <!-- ═══ Block 3 · At a glance ═══ -->
+  <!-- The case study's ledger: category, status, the services it draws on (links to their pages).
+       From here to the client quote, an editor may add a run of the blog's blocks (headings, prose,
+       lists, images, carousels, video, quotes) after any section — none shown in this wireframe. -->
+  <section class="section">
+    <div class="container">
+      <div class="proj-props">
+        <p class="proj-props__title">At a glance</p>
+
+        <div class="proj-props__row">
+          <span class="proj-props__key">Category</span>
+          <span class="proj-props__vals">
+          <span class="tag tag--secondary">Retail</span>
+          <span class="tag tag--secondary">Mall management</span>
+          </span>
+        </div>
+        <div class="proj-props__row">
+          <span class="proj-props__key">Status</span>
+          <span class="proj-props__vals"><span class="tag tag--secondary">Live</span></span>
+        </div>
+        <div class="proj-props__row">
+          <span class="proj-props__key">Services</span>
+          <span class="proj-props__vals">
+          <a class="tag tag--secondary" href="../services/software-development.html">Software Development</a>
+          <a class="tag tag--secondary" href="../services/product-design.html">Product Design</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Block 4 · What it is / who it's for ═══ -->
   <section class="section">
     <div class="container">
       <div class="wio">
@@ -521,7 +553,9 @@
     </div>
   </section>
 
-  <!-- ═══ Block 4 · Features & screens ═══ -->
+  <!-- ═══ Block 5 · Features ═══ -->
+  <!-- The feature tour: each feature with a product screen is a large slide in a row to swipe,
+       its name and line under it; the features without a screen are listed after. -->
   <section class="band band--dark section">
     <div class="container">
       <div class="section-head">
@@ -529,21 +563,25 @@
         <h2 class="t-h2">Everything a marketplace needs, on day one.</h2>
       </div>
 
-      <div class="features">
-        <div class="feature">
-          <span class="feature__icon"><i data-lucide="store" aria-hidden="true"></i></span>
-          <div>
-            <h3 class="t-h4">Multi-vendor storefront</h3>
-            <p class="t-p2 tc-secondary">Seller-branded shops under one marketplace, with a shared catalogue, search and checkout.</p>
-          </div>
+      <div class="rail">
+        <div class="ph-figure rail-item--wide">
+          <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="store"></i></span>
+          <h3 class="t-h4">Multi-vendor storefront</h3>
+          <p class="t-p2 tc-secondary">Seller-branded shops under one marketplace, with a shared catalogue, search and checkout.</p>
         </div>
-        <div class="feature">
-          <span class="feature__icon"><i data-lucide="credit-card" aria-hidden="true"></i></span>
-          <div>
-            <h3 class="t-h4">Split payments &amp; payouts</h3>
-            <p class="t-p2 tc-secondary">Take one payment, split it across sellers automatically, and schedule payouts with commission handling.</p>
-          </div>
+        <div class="ph-figure rail-item--wide">
+          <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="credit-card"></i></span>
+          <h3 class="t-h4">Split payments &amp; payouts</h3>
+          <p class="t-p2 tc-secondary">Take one payment, split it across sellers automatically, and schedule payouts with commission handling.</p>
         </div>
+        <div class="ph-figure rail-item--wide">
+          <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span>
+          <h3 class="t-h4">Seller dashboard</h3>
+          <p class="t-p2 tc-secondary">One place for each seller's orders, stock and payouts, with the queue sorted by what needs doing next.</p>
+        </div>
+      </div>
+
+      <div class="features mt-xl">
         <div class="feature">
           <span class="feature__icon"><i data-lucide="truck" aria-hidden="true"></i></span>
           <div>
@@ -559,25 +597,10 @@
           </div>
         </div>
       </div>
-
-      <div class="screens">
-        <div class="ph-figure">
-          <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="layout-dashboard"></i></span>
-          <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> Screen — seller dashboard &amp; order queue.</span>
-        </div>
-        <div class="ph-figure">
-          <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="shopping-cart"></i></span>
-          <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> Screen — buyer storefront &amp; checkout.</span>
-        </div>
-        <div class="ph-figure">
-          <span class="media-ph ratio-3-2" aria-hidden="true"><i data-lucide="wallet"></i></span>
-          <span class="ph-figure__cap"><i data-lucide="image" aria-hidden="true"></i> Screen — payouts &amp; commission report.</span>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- ═══ Block 5 · Tech stack ═══ -->
+  <!-- ═══ Block 6 · Tech stack ═══ -->
   <section class="section">
     <div class="container">
       <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
@@ -617,7 +640,29 @@
     </div>
   </section>
 
-  <!-- ═══ Block 6 · Pricing / plans (optional per product) ═══ -->
+  <!-- ═══ Block 7 · Client quote (optional) ═══ -->
+  <!-- The testimonial is OPTIONAL in the Solution content model (a relation), hidden when
+       absent — shown here to exercise the block; the words are a placeholder. -->
+  <section class="section">
+    <div class="container">
+      <div class="quote">
+        <!-- Client portrait -->
+        <span class="media-ph media-ph--circle quote__portrait" aria-hidden="true"><i data-lucide="user"></i></span>
+        <div>
+          <span class="quote__mark"><i data-lucide="quote" aria-hidden="true"></i></span>
+          <p class="t-h4 mt-3xs" style="max-width: 40ch">"We had sellers asking to join before we had a marketplace to put them on. onemall let us open in weeks, and the payouts simply work — our team spends its time on the sellers, not the plumbing."</p>
+          <div class="quote__who">
+            <div>
+              <p class="t-p1 tc-primary">Placeholder Name</p>
+              <p class="t-p3 tc-muted">Head of Marketplace, Placeholder Retail Group</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Block 8 · Pricing / plans (optional per product) ═══ -->
   <!-- Pricing is OPTIONAL in the Solution content model — shown here to exercise
        the block; figures are illustrative placeholders. -->
   <section class="band band--elevated section" id="pricing">
@@ -662,37 +707,49 @@
     </div>
   </section>
 
-  <!-- ═══ Block 7 · Related case studies & services ═══ -->
-  <!-- Cross-links ONLY — solutions never render into the /portfolio grid or its facets. -->
+  <!-- ═══ Block 9 · Related case studies ═══ -->
+  <!-- The client work behind the product, as case study cards. Cross-links ONLY — solutions
+       never render into the /portfolio grid or its facets. The services moved into At a glance.
+       (Placeholder: links go to the two built /projects/ examples.) -->
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <p class="section-label">Related work</p>
-        <h2 class="t-h2">See it in the wild — and who builds it.</h2>
+      <div class="section-head flex flex-between flex-wrap gap-s flex-bottom">
+        <div>
+          <p class="section-label">Related work</p>
+          <h2 class="t-h2">See it in the wild.</h2>
+        </div>
+        <a class="btn btn--ghost btn--medium" href="../portfolio/index.html">All case studies <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
-      <div class="related">
-        <div class="related-col">
-          <h3 class="t-h4">Related case studies</h3>
-          <p class="t-p2 tc-secondary">Client marketplaces and commerce builds from the same team.</p>
-          <div class="related-links">
-            <a class="megamenu__link" href="../projects/sentigraph-ai.html">Tessera — a payments platform two non-engineers got to market <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-            <a class="megamenu__link" href="../portfolio/index.html">Browse all case studies <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      <div class="grid-3">
+        <a class="card card--with-image" href="../projects/sentigraph-ai.html">
+          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <p class="section-label">Tessera</p>
+            <h3 class="t-h5">A payments platform two non-engineers got to market</h3>
+            <p class="t-p3 tc-secondary">The split-payment engine onemall's payouts grew from.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">FinTech</span>
+              <span class="tag tag--secondary">Software Development</span>
+            </div>
           </div>
-        </div>
-        <div class="related-col">
-          <h3 class="t-h4">Related services</h3>
-          <p class="t-p2 tc-secondary">Want a custom build instead of the ready-made product?</p>
-          <div class="related-links">
-            <a class="megamenu__link" href="../services/software-development.html">Software Development <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-            <a class="megamenu__link" href="../services/product-design.html">Product Design <i data-lucide="arrow-right" aria-hidden="true"></i></a>
-            <a class="megamenu__link" href="../services/support-maintenance.html">Support &amp; Maintenance <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+        </a>
+        <a class="card card--with-image" href="../projects/northwind-markets.html">
+          <span class="card__media media-ph" aria-hidden="true"><i data-lucide="image"></i></span>
+          <div class="card__body">
+            <p class="section-label">Northwind Markets</p>
+            <h3 class="t-h5">Re-platformed checkout for a retailer scaling fast</h3>
+            <p class="t-p3 tc-secondary">Built ahead of the growth curve, not behind it.</p>
+            <div class="card__meta mt-4xs">
+              <span class="tag tag--secondary">Retail</span>
+              <span class="tag tag--secondary">E-commerce</span>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ Block 8 · Closing CTA — external product CTA repeated + Contact ═══ -->
+  <!-- ═══ Block 10 · Closing CTA — external product CTA repeated + Contact ═══ -->
   <section class="band band--popout section">
     <div class="container cta-band">
       <p class="section-label">Ready to open your marketplace?</p>
